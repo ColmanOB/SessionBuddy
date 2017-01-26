@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  * Makes a call to the API at thesession.org to get a list of tunes matching a given set of search terms.
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  */
 public class TuneSearch
 	{
-	private int pageCount;
+	private int pageCount = 0;
 	
 	/**
 	 * Launches a search for tunes matching a given set of search terms and returns the results as an ArrayList of TunesSearchReult objects
@@ -47,10 +48,11 @@ public class TuneSearch
 		for(int i = 0; i < (parsedResults.tunes.length)-1; i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
+			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
 			String tuneID = parsedResults.tunes[i].id;
-			String title = parsedResults.tunes[i].name;
+			String title = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name);
 			String type = parsedResults.tunes[i].type;
-			String submitter = parsedResults.tunes[i].member.name;
+			String submitter = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name);
 			String date = parsedResults.tunes[i].date;
 			
 			// Instantiate a TunesSearchResult object & populate it
@@ -97,9 +99,9 @@ public class TuneSearch
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			String tuneID = parsedResults.tunes[i].id;
-			String title = parsedResults.tunes[i].name;
+			String title = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name);
 			String type = parsedResults.tunes[i].type;
-			String submitter = parsedResults.tunes[i].member.name;
+			String submitter = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name);
 			String date = parsedResults.tunes[i].date;
 		
 			// Instantiate a TunesSearchResult object & populate it
@@ -119,9 +121,15 @@ public class TuneSearch
 	 * This can be useful for looping through multiple pages of results.
 	 * 
 	 * @return The number of pages of results in the response
+	 * @throws IllegalStateException Thrown if the pageCount variable has not been set
 	 */
-	public int getPageCount()
+	public int getPageCount() throws IllegalStateException
 		{
-		return pageCount;
+		if (pageCount == 0)
+			{
+			throw new IllegalStateException("Page counter has not been initialised");
+			}
+		else 
+			return pageCount;
 		}
 }

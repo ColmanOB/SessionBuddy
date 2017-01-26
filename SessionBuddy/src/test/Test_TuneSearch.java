@@ -1,6 +1,9 @@
-package main;
+package test;
 
 import java.util.ArrayList;
+
+import main.TuneSearch;
+import main.TunesSearchResult;
 
 public class Test_TuneSearch
 //Purpose: Search the session.org API for a set of search terms, and store the results
