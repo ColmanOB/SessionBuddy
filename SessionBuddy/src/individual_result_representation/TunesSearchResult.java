@@ -1,4 +1,4 @@
-package main;
+package individual_result_representation;
 
 /**
  * A structure to hold an individual tune from a set of search results from thesession.org API
@@ -9,12 +9,18 @@ package main;
  */
 public class TunesSearchResult 
 	{
-	// TODO: Add support for all elements in the response
+	// Attributes of the tune itself
 	public String tuneID;
 	public String tuneTitle;
 	public String tuneType;
-	public String submittedBy;
+	public String tuneURL;
 	public String submittedDate;
+	
+	// Attributes of the user who submitted the tune to https://thesession.org
+	public String submitterID;
+	public String submitterUserName;
+	public String submtterUserURL;
+
 	
 	// TODO: Add a new constructor to accept all elements as arguments
 
@@ -32,7 +38,7 @@ public class TunesSearchResult
 		tuneID = id;
 		tuneTitle = title;
 		tuneType = type;
-		submittedBy = submitter;
+		submitterID = submitter;
 		submittedDate = date;
 		}
 	}

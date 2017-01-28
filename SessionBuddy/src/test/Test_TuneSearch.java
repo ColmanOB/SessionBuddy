@@ -2,8 +2,8 @@ package test;
 
 import java.util.ArrayList;
 
+import individual_result_representation.TunesSearchResult;
 import main.TuneSearch;
-import main.TunesSearchResult;
 
 public class Test_TuneSearch
 //Purpose: Search the session.org API for a set of search terms, and store the results
@@ -26,7 +26,7 @@ public static void main(String[] args)
 		System.out.println(resultSet.get(i).tuneTitle);
 		System.out.println(resultSet.get(i).tuneID);
 		System.out.println(resultSet.get(i).tuneType);
-		System.out.println(resultSet.get(i).submittedBy);
+		System.out.println(resultSet.get(i).submitterUserName);
 		System.out.println(resultSet.get(i).submittedDate);
 		System.out.println("\n");
 		}

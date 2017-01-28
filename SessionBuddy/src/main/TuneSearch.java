@@ -3,6 +3,9 @@ package main;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import individual_result_representation.TunesSearchResult;
+import result_set_wrappers.TunesSearchResultWrapper;
+
 /**
  * Makes a call to the API at thesession.org to get a list of tunes matching a given set of search terms.
  * The number of results-per-page in the response can be specified, up to a maximum of 50.
@@ -31,8 +34,8 @@ public class TuneSearch
 			}
 		
 		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
-		TunesSearchApiCaller searcher = new TunesSearchApiCaller();
-		String apiQueryResults = searcher.searchForTune(searchTerms, resultsPerPage);
+		HttpRequestor searcher = new HttpRequestor();
+		String apiQueryResults = searcher.submitSearchRequest(searchTerms, resultsPerPage,"tunes");
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		TunesSearchParser jsonParser = new TunesSearchParser();
@@ -84,8 +87,8 @@ public class TuneSearch
 			}
 		
 		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
-		TunesSearchApiCaller searcher = new TunesSearchApiCaller();
-		String apiQueryResults = searcher.searchForTune(searchTerms, resultsPerPage);
+		HttpRequestor searcher = new HttpRequestor();
+		String apiQueryResults = searcher.submitRequest(searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		TunesSearchParser jsonParser = new TunesSearchParser();

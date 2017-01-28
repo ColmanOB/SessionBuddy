@@ -8,29 +8,34 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Searches the https://thesession.org API for a particular tune by matching search terms to tune titles.
+ * Submits a HTTP(S) request to the https://thesession.org API
  * The API allows the caller to specify the reponse format as JSON, XML or RSS.
  * Here we choose to get the response as JSON.
  * For further information about using this API, see https://thesession.org/API
  * 
  * @author Colman O'B
- * @since 2017-01-26
+ * @since 2017-01-27
  */
-public class TunesSearchApiCaller
+public class HttpRequestor
 	{	
-	private String dataFormat = "json"; 
-	private String baseURL = "https://thesession.org/tunes/search?q="; 
+	private String dataFormat = "json"; // Support may be added for XML and/or RSS in a future release
+	private static final String baseURL = "https://thesession.org/"; 
+	private static final String searchOperator = "search?q=";
 	private String retrievedTuneList;
-		
+	
+	//TODO: add sumbitListRequest() and submitLocationRequest methods, both with an alternative format allowing page number to be specified
+			
 	/**
-	 * Builds and submits an API query to https://thesession.org, attempting to find a tune matching the user's search terms
+	 * Used for performing a keyword-based search against a specific category of information on thesession.org
+	 * Builds and submits an API query to https://thesession.org, attempting to match the user's search terms
 	 * 
-	 * @param searchTermsInput The user-input search terms used to match against tune titles in thesession.org database
+	 * @param searchTermsInput The user-input search terms used to match against the chosen category in thesession.org database
 	 * @param resultsPerPage Specify how many results should be returned per page in the response from the API
+	 * @param baseCategory The root category of information at thesession.org to be queried, i.e. tunes, discussions etc.
 	 * @return The JSON returned from the API as one big String
 	 * @throws RuntimeException If a HTTP error is encountered when making the API request
 	 */
-	public String searchForTune(String searchTermsInput, int resultsPerPage) throws RuntimeException
+	public String submitSearchRequest(String searchTermsInput, int resultsPerPage, String baseCategory) throws RuntimeException
 		{		
 		try 
 			{
@@ -38,7 +43,7 @@ public class TunesSearchApiCaller
 			String searchTermsFormatted = searchTermsInput.replace(" ","+"); 
 			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL tuneSearchURL = new URL(baseURL + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
 			// Make the HTTP(S) connection to thesession.org
 			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
@@ -92,7 +97,7 @@ public class TunesSearchApiCaller
 	 * @return The JSON returned from the API as one big String
 	 * @throws RuntimeException If a HTTP error is encountered when making the API request
 	 */
-	public String searchForTune(String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
+	public String submitRequest(String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
 		{
 		try 
 			{
@@ -144,4 +149,5 @@ public class TunesSearchApiCaller
 		// Return the API response as one long string of JSON data
 		return retrievedTuneList;
 		}
+	
 	}

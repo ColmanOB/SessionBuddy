@@ -3,6 +3,8 @@ package main;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import result_set_wrappers.TunesSearchResultWrapper;
+
 /**
  * Uses GSON to parse a set of search results from thesession.org API into a Java "TheSessionAPISearchResultsWrapper" object
  * 

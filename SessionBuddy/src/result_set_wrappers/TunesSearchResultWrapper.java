@@ -1,4 +1,4 @@
-package main;
+package result_set_wrappers;
 
 /**
  * A wrapper class for the response returned from the API at https://thesession.org
