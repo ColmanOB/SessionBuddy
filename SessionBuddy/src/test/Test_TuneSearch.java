@@ -26,8 +26,13 @@ public static void main(String[] args)
 		System.out.println(resultSet.get(i).tuneTitle);
 		System.out.println(resultSet.get(i).tuneID);
 		System.out.println(resultSet.get(i).tuneType);
-		System.out.println(resultSet.get(i).submitterUserName);
 		System.out.println(resultSet.get(i).submittedDate);
+		System.out.println(resultSet.get(i).tuneURL);
+		
+		System.out.println(resultSet.get(i).submitterID);
+		System.out.println(resultSet.get(i).submitterUserName);
+		System.out.println(resultSet.get(i).submitterUserURL);
+		
 		System.out.println("\n");
 		}
    	}

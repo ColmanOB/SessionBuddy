@@ -19,10 +19,32 @@ public class TunesSearchResult
 	// Attributes of the user who submitted the tune to https://thesession.org
 	public String submitterID;
 	public String submitterUserName;
-	public String submtterUserURL;
+	public String submitterUserURL;
 
+	/**
+	 * Constructor used to populate all fields at once.
+	 * 
+	 * @param id The tune's unique ID number in thesession.org database
+	 * @param title The tune's title in thesession.org database
+	 * @param type The type of tune (jig, reel, hornpipe etc.)
+	 * @param pageURL The URL for this tune's page on thesession.org/tunes
+	 * @param date The date on which the tune was originally submitted to thesession.org
+	 * @param userID The unique numeric identifier of thesession.org user who originally submitted the tune
+	 * @param userName The user name of the session.org user who originally submitted the tune
+	 * @param userURL The URL of the user's profile page on thesession.org
+	 */
+	public TunesSearchResult(String id, String title, String type, String pageURL, String date, String userID, String userName, String userURL)
+	{
+	tuneID = id;
+	tuneTitle = title;
+	tuneType = type;
+	tuneURL = pageURL;
+	submittedDate = date;
 	
-	// TODO: Add a new constructor to accept all elements as arguments
+	submitterID = userID;
+	submitterUserName = userName;
+	submitterUserURL = userURL;
+	}
 
 	/**
 	 * Constructor used to populate the structure with the following parameters:
@@ -31,7 +53,7 @@ public class TunesSearchResult
 	 * @param title The tune's title in thesession.org database
 	 * @param type The type of tune (jig, reel, hornpipe etc.)
 	 * @param submitter The username of the session.org user who originally submitted the tune to the database
-	 * @param date The date one which the tune was originally submitted to thesession.org
+	 * @param date The date on which the tune was originally submitted to thesession.org
 	 */
 	public TunesSearchResult(String id, String title, String type, String submitter, String date)
 		{

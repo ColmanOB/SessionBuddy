@@ -35,7 +35,7 @@ public class HttpRequestor
 	 * @return The JSON returned from the API as one big String
 	 * @throws RuntimeException If a HTTP error is encountered when making the API request
 	 */
-	public String submitSearchRequest(String searchTermsInput, int resultsPerPage, String baseCategory) throws RuntimeException
+	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage) throws RuntimeException
 		{		
 		try 
 			{
@@ -97,7 +97,7 @@ public class HttpRequestor
 	 * @return The JSON returned from the API as one big String
 	 * @throws RuntimeException If a HTTP error is encountered when making the API request
 	 */
-	public String submitRequest(String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
+	public String submitRequest(String baseCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
 		{
 		try 
 			{
@@ -105,7 +105,7 @@ public class HttpRequestor
 			String searchTermsFormatted = searchTermsInput.replace(" ","+"); 
 		
 			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
-			URL tuneSearchURL = new URL(baseURL + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
 		
 			// Make the HTTP(S) connection to thesession.org
 			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();

@@ -35,7 +35,7 @@ public class TuneSearch
 		
 		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest(searchTerms, resultsPerPage,"tunes");
+		String apiQueryResults = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		TunesSearchParser jsonParser = new TunesSearchParser();
@@ -55,11 +55,16 @@ public class TuneSearch
 			String tuneID = parsedResults.tunes[i].id;
 			String title = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name);
 			String type = parsedResults.tunes[i].type;
-			String submitter = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name);
+			String url = parsedResults.tunes[i].url;
 			String date = parsedResults.tunes[i].date;
 			
+			String submitterID = Integer.toString(parsedResults.tunes[i].member.id);
+			String submitterName = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name);
+			String submitterProfile = parsedResults.tunes[i].member.url;
+			
+			
 			// Instantiate a TunesSearchResult object & populate it
-			TunesSearchResult currentResult = new TunesSearchResult(tuneID,title,type,submitter,date);
+			TunesSearchResult currentResult = new TunesSearchResult(tuneID,title,type,url,date,submitterID,submitterName,submitterProfile);
 			
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -88,7 +93,7 @@ public class TuneSearch
 		
 		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitRequest(searchTerms, resultsPerPage,pageNumber);
+		String apiQueryResults = searcher.submitRequest("tunes",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		TunesSearchParser jsonParser = new TunesSearchParser();
