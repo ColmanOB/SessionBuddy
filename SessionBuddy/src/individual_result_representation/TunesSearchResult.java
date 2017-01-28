@@ -4,7 +4,7 @@ package individual_result_representation;
  * A structure to hold an individual tune from a set of search results from thesession.org API
  * 
  * @author Colman O'B
- * @since 2017-01-26
+ * @since 2017-01-28
  *
  */
 public class TunesSearchResult 
@@ -33,34 +33,17 @@ public class TunesSearchResult
 	 * @param userName The user name of the session.org user who originally submitted the tune
 	 * @param userURL The URL of the user's profile page on thesession.org
 	 */
-	public TunesSearchResult(String id, String title, String type, String pageURL, String date, String userID, String userName, String userURL)
-	{
-	tuneID = id;
-	tuneTitle = title;
-	tuneType = type;
-	tuneURL = pageURL;
-	submittedDate = date;
-	
-	submitterID = userID;
-	submitterUserName = userName;
-	submitterUserURL = userURL;
-	}
-
-	/**
-	 * Constructor used to populate the structure with the following parameters:
-	 * 
-	 * @param id The tune's unique ID number in thesession.org database
-	 * @param title The tune's title in thesession.org database
-	 * @param type The type of tune (jig, reel, hornpipe etc.)
-	 * @param submitter The username of the session.org user who originally submitted the tune to the database
-	 * @param date The date on which the tune was originally submitted to thesession.org
-	 */
-	public TunesSearchResult(String id, String title, String type, String submitter, String date)
+	public TunesSearchResult(String tuneID, String tuneTitle, String tuneType, String tuneURL, String submittedDate, String submitterID, String submitterUserName, String submitterUserURL)
 		{
-		tuneID = id;
-		tuneTitle = title;
-		tuneType = type;
-		submitterID = submitter;
-		submittedDate = date;
+		this.tuneID = tuneID;
+		this.tuneTitle = tuneTitle;
+		this.tuneType = tuneType;
+		this.tuneURL = tuneURL;
+		this.submittedDate = submittedDate;
+		
+		this.submitterID = submitterID;
+		this.submitterUserName = submitterUserName;
+		this.submitterUserURL = submitterUserURL;
 		}
+
 	}
