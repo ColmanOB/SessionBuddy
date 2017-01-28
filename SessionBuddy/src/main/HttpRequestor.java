@@ -14,17 +14,134 @@ import java.net.URL;
  * For further information about using this API, see https://thesession.org/API
  * 
  * @author Colman O'B
- * @since 2017-01-27
+ * @since 2017-01-28
  */
 public class HttpRequestor
 	{	
-	private String dataFormat = "json"; // Support may be added for XML and/or RSS in a future release
+	private static final String dataFormat = "json"; // Support may be added for XML and/or RSS in a future release
 	private static final String baseURL = "https://thesession.org/"; 
 	private static final String searchOperator = "search?q=";
-	private String retrievedTuneList;
+	private String apiResponse;
 	
-	//TODO: add sumbitListRequest() and submitLocationRequest methods, both with an alternative format allowing page number to be specified
+	/**
+	 * Used to retrieve a list of items from thesession.org, such as recordings, sessions etc.
+	 * 
+	 * @param baseCategory The category we are interested in, e.g. tunes, sessions, recordings etc.
+	 * @param itemIdentifier If requesting an individual item, this is its ID number. Otherwise it will be a keyword passed in the URL
+	 * @param resultsPerPage The number of results per page to be returned
+	 * @return a String containing the JSON returned from the API
+	 * @throws RuntimeException If a HTTP error is encountered
+	 */
+	public String submitListRequest(String baseCategory, String itemIdentifier, int resultsPerPage) throws RuntimeException
+		{
+		try 
+			{			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + itemIdentifier + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
+			// Make the HTTP(S) connection to thesession.org
+			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
+			connectionToURL.setRequestMethod("GET");
+			connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
+	
+			//Assuming anything other than 200 is a problem to be notified to the user
+			if (connectionToURL.getResponseCode() != 200) 
+				{	
+				throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
+				}
+	
+			//Read the data returned from the API into a BufferedReader
+			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream())));
+			
+			//Use a StringBuilder to build a string from the data in the BufferedReader
+			String searchResults;
+			StringBuilder builder = new StringBuilder();
+			
+			while ((searchResults = inputReader.readLine()) != null) 
+				{ 
+				builder.append(searchResults);	
+				}
+	
+			apiResponse = builder.toString();
+			
+			// We have our search results.  Close the connection to https://thesession.org
+			connectionToURL.disconnect();		
+			} 
+		
+		catch (MalformedURLException e) 
+			{
+			e.printStackTrace();
+			} 
+	
+		catch (IOException e) 
+			{
+			e.printStackTrace();
+			}
+		
+		// Return the API response as one long string of JSON data
+		return apiResponse;
+		}
+	
+	/**
+	 * Used to retrieve a list of items from thesession.org, such as recordings, sessions etc.
+	 * 
+	 * @param baseCategory The category we are interested in, e.g. tunes, sessions, recordings etc.
+	 * @param itemIdentifier If requesting an individual item, this is its ID number. Otherwise it will be a keyword passed in the URL
+	 * @param resultsPerPage The number of results per page to be returned
+	 * @param pageNumber Specifies a particular page within the response from the API
+	 * @return a String containing the JSON returned from the API
+	 * @throws RuntimeException If a HTTP error is encountered
+	 */
+	public String submitListRequest(String baseCategory, String itemIdentifier, int resultsPerPage, int pageNumber) throws RuntimeException
+		{
+		try 
+			{
+			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
+			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + itemIdentifier + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+		
+			// Make the HTTP(S) connection to thesession.org
+			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
+			connectionToURL.setRequestMethod("GET");
+			connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
+	
+			//Assuming anything other than 200 is a problem to be notified to the user
+			if (connectionToURL.getResponseCode() != 200) 
+				{	
+				throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
+				}
+	
+			//Read the data returned from the API into a BufferedReader
+			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream())));
+		
+			//Use a StringBuilder to build a string from the data in the BufferedReader
+			String searchResults;
+			StringBuilder builder = new StringBuilder();
+		
+			while ((searchResults = inputReader.readLine()) != null) 
+				{ 
+				builder.append(searchResults);	
+				}
+	
+			apiResponse = builder.toString();
+		
+			// We have our search results.  Close the connection to https://thesession.org
+			connectionToURL.disconnect();		
+			} 
+	
+		catch (MalformedURLException e) 
+			{
+			e.printStackTrace();
+			} 
+	
+		catch (IOException e) 
+			{
+			e.printStackTrace();
+			}
+	
+		// Return the API response as one long string of JSON data
+		return apiResponse;
+		}
+	
 	/**
 	 * Used for performing a keyword-based search against a specific category of information on thesession.org
 	 * Builds and submits an API query to https://thesession.org, attempting to match the user's search terms
@@ -68,7 +185,7 @@ public class HttpRequestor
 				builder.append(searchResults);	
 				}
 	
-			retrievedTuneList = builder.toString();
+			apiResponse = builder.toString();
 			
 			// We have our search results.  Close the connection to https://thesession.org
 			connectionToURL.disconnect();		
@@ -85,7 +202,7 @@ public class HttpRequestor
 			}
 		
 		// Return the API response as one long string of JSON data
-		return retrievedTuneList;
+		return apiResponse;
 		}
 		
 	/**
@@ -130,7 +247,7 @@ public class HttpRequestor
 				builder.append(searchResults);	
 				}
 	
-			retrievedTuneList = builder.toString();
+			apiResponse = builder.toString();
 		
 			// We have our search results.  Close the connection to https://thesession.org
 			connectionToURL.disconnect();		
@@ -147,7 +264,18 @@ public class HttpRequestor
 			}
 	
 		// Return the API response as one long string of JSON data
-		return retrievedTuneList;
+		return apiResponse;
 		}
 	
+	/*
+	//TODO: Complete the submitLocationRequest methods
+	public String submitLocationRequest(String baseCategory, String subCategory, String searchTermsInput, int resultsPerPage) throws RuntimeException
+		{
+	
+		}
+
+	public String submitLocationRequest(String baseCategory, String subCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
+		{
+
+		} */
 	}
