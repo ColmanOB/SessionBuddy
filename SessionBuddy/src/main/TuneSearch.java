@@ -109,12 +109,17 @@ public class TuneSearch
 			String tuneID = parsedResults.tunes[i].id;
 			String title = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name);
 			String type = parsedResults.tunes[i].type;
-			String submitter = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name);
+			String url = parsedResults.tunes[i].url;
 			String date = parsedResults.tunes[i].date;
-		
-			// Instantiate a TunesSearchResult object & populate it
-			TunesSearchResult currentResult = new TunesSearchResult(tuneID,title,type,submitter,date);
 			
+			String submitterID = Integer.toString(parsedResults.tunes[i].member.id);
+			String submitterName = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name);
+			String submitterProfile = parsedResults.tunes[i].member.url;
+			
+			
+			// Instantiate a TunesSearchResult object & populate it
+			TunesSearchResult currentResult = new TunesSearchResult(tuneID,title,type,url,date,submitterID,submitterName,submitterProfile);
+						
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
 			}
