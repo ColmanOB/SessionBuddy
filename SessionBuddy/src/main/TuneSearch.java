@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import individual_result_representation.TunesSearchResult;
+import response_parsers.TunesSearchParser;
 import result_set_wrappers.TunesSearchResultWrapper;
 
 /**

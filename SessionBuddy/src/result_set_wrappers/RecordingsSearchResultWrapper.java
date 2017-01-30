@@ -3,7 +3,7 @@ package result_set_wrappers;
 /**
  * A wrapper class for the response returned from the API at https://thesession.org
  * This is a utility class used by RecordingsSearchParser to facilitate access to any individual field within a set of JSON search results
- * The fields and nested structure follow the format of the JSON structure of the tune search results from the API
+ * The fields and nested structure follow the format of the JSON structure of the recordings search results from the API
  * * 
  * @author Colman O'B
  * @since 2017-01-28
@@ -40,8 +40,8 @@ public class RecordingsSearchResultWrapper
 		 */
 		public class SubmitterDetails 
 			{
-			public int id;		// A unique ID for the member of thesession.org who submitted the tune
-			public String name;	// The user name of the member of thesession.org who submitted the tune
+			public int id;		// A unique ID for the member of thesession.org who submitted the recording
+			public String name;	// The user name of the member of thesession.org who submitted the recording
 			public String url;	// The URL of the member's personal page on thesession.org website
 			}
 		

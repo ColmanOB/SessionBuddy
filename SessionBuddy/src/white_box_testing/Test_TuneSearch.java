@@ -1,4 +1,4 @@
-package test;
+package white_box_testing;
 
 import java.util.ArrayList;
 

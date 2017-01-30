@@ -1,4 +1,4 @@
-package main;
+package response_parsers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
