@@ -12,57 +12,26 @@ public class SessionsSearchResult
 	public String sessionURL;
 	public String submittedDate;
 	
-	public String latitude;
-	public String longitude;
-	
-	public String submitterID;
-	public String submitterUserName;
-	public String submitterPageURL;
-	
-	public String venueID;
-	public String venueName;
-	public String venuePhone;
-	public String venueEmail;
-	public String venueWebsite;
-
-	public String townID;
-	public String townName;
-
-	public String areaID;
-	public String areaName;
-
-	public String countryID;
-	public String countryName;
+	public Coordinates coordinates;
+	public User user;
+	public Venue venue;
+	public Town town;
+	public Area area;
+	public Country country;
 
 	
 	// TODO: Generate JavaDoc comment
-	public SessionsSearchResult(String sessionID, String sessionURL, String submittedDate, String latitude, String longitude, String submitterID, String submitterUserName, String submitterPageURL, String artistID, String artistName, String artistPageURL)
+	public SessionsSearchResult(String sessionID, String sessionURL, String submittedDate, Coordinates coordinates, User user, Venue venue, Town town, Area area, Country country, String artistName, String artistPageURL)
 		{
 		this.sessionID = sessionID;
 		this.sessionURL = sessionURL;
 		this.submittedDate = submittedDate;
 		
-		this.latitude = latitude;
-		this.longitude = longitude;
-		
-		this.submitterID = submitterID;
-		this.submitterUserName = submitterUserName;
-		this.submitterPageURL = submitterPageURL;
-		
-		// TODO: make whole new classes for venue, user, etc.
-		this.venueID = venueID;
-		this.venueName = venueName;
-		this.venuePhone = venuePhone;
-		this.venueEmail = venueEmail;
-		this.venueWebsite = venueWebsite;
-
-		this.townID = townID;
-		this.townName = townName;
-
-		this.areaID = areaID;
-		this.areaName = areaName;
-
-		this.countryID = countryID;
-		this.countryName = countryName;
+		this.coordinates = coordinates;	
+		this.user = user;
+		this.venue = venue;
+		this.town = town;
+		this.area = area;
+		this.country = country;
 		}
 	}
