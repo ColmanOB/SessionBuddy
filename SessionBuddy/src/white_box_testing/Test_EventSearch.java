@@ -11,7 +11,7 @@ public class Test_EventSearch
 public static void main(String[] args)
    {
 	// Set the search parameters
-	String searchTerms = "Whitby";
+	String searchTerms = "London";
 	int resultsPerPage = 50;
 	
 	// Instantiate a TheSessionAPISearcher object
