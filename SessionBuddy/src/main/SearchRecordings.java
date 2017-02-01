@@ -3,7 +3,10 @@ package main;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import individual_result_representation.Artist;
+import individual_result_representation.RecordingDetails;
 import individual_result_representation.RecordingsSearchResult;
+import individual_result_representation.User;
 import response_parsers.RecordingsSearchParser;
 import result_set_wrappers.RecordingsSearchResultWrapper;
 
@@ -15,7 +18,7 @@ import result_set_wrappers.RecordingsSearchResultWrapper;
  * @author Colman O'B
  * @since 2017-01-26
  */
-public class RecordingsSearch
+public class SearchRecordings
 	{
 	private int pageCount = 0;
 	
@@ -51,23 +54,14 @@ public class RecordingsSearch
 		// Loop as many times as the count of recordings in the result set:
 		for(int i = 0; i < (parsedResults.recordings.length)-1; i++)
 			{
-			// Extract the required elements from each individual search result in the JSON response
-			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-			String recordingID = parsedResults.recordings[i].id;
-			String title = StringEscapeUtils.unescapeXml(parsedResults.recordings[i].name);
-			String url = parsedResults.recordings[i].url;
-			String date = parsedResults.recordings[i].date;
-	
-			String submitterID = Integer.toString(parsedResults.recordings[i].member.id);
-			String submitterName = StringEscapeUtils.unescapeXml(parsedResults.recordings[i].member.name);
-			String submitterProfile = parsedResults.recordings[i].member.url;
-			
-			String artistID = Integer.toString(parsedResults.recordings[i].artist.id);
-			String artistName = StringEscapeUtils.unescapeXml(parsedResults.recordings[i].artist.name);
-			String artistPageURL = parsedResults.recordings[i].artist.url;
+			// Extract the elements from each individual search result in the JSON response
+			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
+			RecordingDetails details = new RecordingDetails(parsedResults.recordings[i].id, StringEscapeUtils.unescapeXml(parsedResults.recordings[i].name), parsedResults.recordings[i].url, parsedResults.recordings[i].date);
+			User user = new User(Integer.toString(parsedResults.recordings[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].member.name), parsedResults.recordings[i].member.url);
+			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].artist.url);
 			
 			// Instantiate a RecordingsSearchResult object & populate it
-			RecordingsSearchResult currentResult = new RecordingsSearchResult(recordingID,title,url,date,submitterID,submitterName,submitterProfile,artistID,artistName,artistPageURL);
+			RecordingsSearchResult currentResult = new RecordingsSearchResult(details, user, artist);
 			
 			// Add the RecordingsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -109,23 +103,12 @@ public class RecordingsSearch
 		for(int i = 0; i < (parsedResults.recordings.length)-1; i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
-			String recordingID = parsedResults.recordings[i].id;
-			String title = StringEscapeUtils.unescapeXml(parsedResults.recordings[i].name);
-			String url = parsedResults.recordings[i].url;
-			String date = parsedResults.recordings[i].date;
-	
-			String submitterID = Integer.toString(parsedResults.recordings[i].member.id);
-			String submitterName = StringEscapeUtils.unescapeXml(parsedResults.recordings[i].member.name);
-			String submitterProfile = parsedResults.recordings[i].member.url;
-			
-			String artistID = Integer.toString(parsedResults.recordings[i].artist.id);
-			String artistName = StringEscapeUtils.unescapeXml(parsedResults.recordings[i].artist.name);
-			String artistPageURL = parsedResults.recordings[i].artist.url;
-			
+			RecordingDetails details = new RecordingDetails(parsedResults.recordings[i].id, StringEscapeUtils.unescapeXml(parsedResults.recordings[i].name), parsedResults.recordings[i].url, parsedResults.recordings[i].date);
+			User user = new User(Integer.toString(parsedResults.recordings[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].member.name), parsedResults.recordings[i].member.url);
+			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].artist.url);
 			
 			// Instantiate a RecordingsSearchResult object & populate it
-			RecordingsSearchResult currentResult = new RecordingsSearchResult(recordingID,title,url,date,submitterID,submitterName,submitterProfile,artistID,artistName,artistPageURL);
-						
+			RecordingsSearchResult currentResult = new RecordingsSearchResult(details, user, artist);		
 			// Add the RecordingsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
 			}

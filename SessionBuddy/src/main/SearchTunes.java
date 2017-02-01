@@ -3,7 +3,9 @@ package main;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import individual_result_representation.TuneDetails;
 import individual_result_representation.TunesSearchResult;
+import individual_result_representation.User;
 import response_parsers.TunesSearchParser;
 import result_set_wrappers.TunesSearchResultWrapper;
 
@@ -15,7 +17,7 @@ import result_set_wrappers.TunesSearchResultWrapper;
  * @author Colman O'B
  * @since 2017-01-26
  */
-public class TuneSearch
+public class SearchTunes
 	{
 	private int pageCount = 0;
 	
@@ -53,19 +55,11 @@ public class TuneSearch
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-			String tuneID = parsedResults.tunes[i].id;
-			String title = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name);
-			String type = parsedResults.tunes[i].type;
-			String url = parsedResults.tunes[i].url;
-			String date = parsedResults.tunes[i].date;
-			
-			String submitterID = Integer.toString(parsedResults.tunes[i].member.id);
-			String submitterName = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name);
-			String submitterProfile = parsedResults.tunes[i].member.url;
-			
-			
+			TuneDetails details = new TuneDetails(parsedResults.tunes[i].id, StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
+			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
+						
 			// Instantiate a TunesSearchResult object & populate it
-			TunesSearchResult currentResult = new TunesSearchResult(tuneID,title,type,url,date,submitterID,submitterName,submitterProfile);
+			TunesSearchResult currentResult = new TunesSearchResult(details, submitter);
 			
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -107,20 +101,11 @@ public class TuneSearch
 		for(int i = 0; i < (parsedResults.tunes.length)-1; i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
-			String tuneID = parsedResults.tunes[i].id;
-			String title = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name);
-			String type = parsedResults.tunes[i].type;
-			String url = parsedResults.tunes[i].url;
-			String date = parsedResults.tunes[i].date;
-			
-			String submitterID = Integer.toString(parsedResults.tunes[i].member.id);
-			String submitterName = StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name);
-			String submitterProfile = parsedResults.tunes[i].member.url;
-			
-			
-			// Instantiate a TunesSearchResult object & populate it
-			TunesSearchResult currentResult = new TunesSearchResult(tuneID,title,type,url,date,submitterID,submitterName,submitterProfile);
+			TuneDetails details = new TuneDetails(parsedResults.tunes[i].id, StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
+			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
 						
+			// Instantiate a TunesSearchResult object & populate it
+			TunesSearchResult currentResult = new TunesSearchResult(details, submitter);
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
 			}
