@@ -51,7 +51,7 @@ public class HttpRequestor
 				}
 	
 			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream())));
+			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
 			
 			//Use a StringBuilder to build a string from the data in the BufferedReader
 			String searchResults;
@@ -111,7 +111,7 @@ public class HttpRequestor
 				}
 	
 			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream())));
+			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
 		
 			//Use a StringBuilder to build a string from the data in the BufferedReader
 			String searchResults;
@@ -174,7 +174,7 @@ public class HttpRequestor
 				}
 	
 			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream())));
+			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
 			
 			//Use a StringBuilder to build a string from the data in the BufferedReader
 			String searchResults;
@@ -236,7 +236,7 @@ public class HttpRequestor
 				}
 	
 			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream())));
+			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
 		
 			//Use a StringBuilder to build a string from the data in the BufferedReader
 			String searchResults;

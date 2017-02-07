@@ -2,7 +2,7 @@ package white_box_testing;
 
 import java.util.ArrayList;
 
-import individual_result_representation.EventsSearchResult;
+import json_object_wrappers.EventsSearchResult;
 import main.SearchEvents;
 
 public class Test_EventSearch

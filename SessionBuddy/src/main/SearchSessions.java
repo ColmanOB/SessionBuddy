@@ -3,14 +3,14 @@ package main;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import individual_result_representation.Area;
-import individual_result_representation.Coordinates;
-import individual_result_representation.Country;
-import individual_result_representation.SessionDetails;
-import individual_result_representation.SessionsSearchResult;
-import individual_result_representation.Town;
-import individual_result_representation.User;
-import individual_result_representation.Venue;
+import json_object_wrappers.Area;
+import json_object_wrappers.Coordinates;
+import json_object_wrappers.Country;
+import json_object_wrappers.SessionDetails;
+import json_object_wrappers.SessionsSearchResult;
+import json_object_wrappers.Town;
+import json_object_wrappers.User;
+import json_object_wrappers.Venue;
 import response_parsers.SessionsSearchParser;
 import result_set_wrappers.SessionsSearchResultWrapper;
 
@@ -118,12 +118,10 @@ public class SearchSessions
 			Venue venue = new Venue(Integer.toString(parsedResults.sessions[i].venue.id), parsedResults.sessions[i].venue.name, parsedResults.sessions[i].venue.telephone, parsedResults.sessions[i].venue.email, parsedResults.sessions[i].venue.web );
 			Town town = new Town(Integer.toString(parsedResults.sessions[i].town.id), parsedResults.sessions[i].town.name);
 			Area area = new Area(Integer.toString(parsedResults.sessions[i].area.id), parsedResults.sessions[i].area.name);
-			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), parsedResults.sessions[i].country.name);
-			
+			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), parsedResults.sessions[i].country.name);		
 			
 			// Instantiate a SessionsSearchResult object & populate it
-			SessionsSearchResult currentResult = new SessionsSearchResult(details, coordinates, user, venue, town, area, country);
-			
+			SessionsSearchResult currentResult = new SessionsSearchResult(details, coordinates, user, venue, town, area, country);			
 			
 			// Add the SessionsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);

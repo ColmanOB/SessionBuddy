@@ -1,4 +1,4 @@
-package individual_result_representation;
+package json_object_wrappers;
 
 /**
  * Represents an individual recording artist from thesession.org website

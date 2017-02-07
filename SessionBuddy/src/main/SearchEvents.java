@@ -3,15 +3,15 @@ package main;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import individual_result_representation.Area;
-import individual_result_representation.Coordinates;
-import individual_result_representation.Country;
-import individual_result_representation.EventDetails;
-import individual_result_representation.EventSchedule;
-import individual_result_representation.EventsSearchResult;
-import individual_result_representation.Town;
-import individual_result_representation.User;
-import individual_result_representation.Venue;
+import json_object_wrappers.Area;
+import json_object_wrappers.Coordinates;
+import json_object_wrappers.Country;
+import json_object_wrappers.EventDetails;
+import json_object_wrappers.EventSchedule;
+import json_object_wrappers.EventsSearchResult;
+import json_object_wrappers.Town;
+import json_object_wrappers.User;
+import json_object_wrappers.Venue;
 import response_parsers.EventsSearchParser;
 import result_set_wrappers.EventsSearchResultWrapper;
 
@@ -61,7 +61,7 @@ public class SearchEvents
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-			EventDetails details = new EventDetails(parsedResults.events[i].id, parsedResults.events[i].name, parsedResults.events[i].url, parsedResults.events[i].date);
+			EventDetails details = new EventDetails(parsedResults.events[i].id, StringEscapeUtils.unescapeXml(parsedResults.events[i].name), parsedResults.events[i].url, parsedResults.events[i].date);
 			User user = new User(Integer.toString(parsedResults.events[i].member.id),StringEscapeUtils.unescapeXml(parsedResults.events[i].member.name),parsedResults.events[i].member.url);
 			EventSchedule schedule = new EventSchedule(parsedResults.events[i].dtstart, parsedResults.events[i].dtend);
 			Coordinates coordinates = new Coordinates(parsedResults.events[i].latitude, parsedResults.events[i].longitude);

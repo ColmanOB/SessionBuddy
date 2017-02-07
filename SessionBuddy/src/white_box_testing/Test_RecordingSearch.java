@@ -2,7 +2,7 @@ package white_box_testing;
 
 import java.util.ArrayList;
 
-import individual_result_representation.RecordingsSearchResult;
+import json_object_wrappers.RecordingsSearchResult;
 import main.SearchRecordings;
 
 public class Test_RecordingSearch

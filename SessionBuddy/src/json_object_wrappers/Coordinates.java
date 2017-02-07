@@ -1,4 +1,4 @@
-package individual_result_representation;
+package json_object_wrappers;
 
 /**
  * Represents a set of geographic co-ordinates from thesession.org website

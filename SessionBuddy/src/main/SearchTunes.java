@@ -3,9 +3,9 @@ package main;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import individual_result_representation.TuneDetails;
-import individual_result_representation.TunesSearchResult;
-import individual_result_representation.User;
+import json_object_wrappers.TuneDetails;
+import json_object_wrappers.TunesSearchResult;
+import json_object_wrappers.User;
 import response_parsers.TunesSearchParser;
 import result_set_wrappers.TunesSearchResultWrapper;
 

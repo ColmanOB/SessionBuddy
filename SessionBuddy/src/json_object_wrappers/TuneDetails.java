@@ -1,4 +1,4 @@
-package individual_result_representation;
+package json_object_wrappers;
 
 /**
  * Represents the set of metadata associated with a tune from thesession.org database

@@ -1,4 +1,4 @@
-package individual_result_representation;
+package json_object_wrappers;
 
 /**
  * A structure to hold an individual tune from a set of search results from thesession.org API

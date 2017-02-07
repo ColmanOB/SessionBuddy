@@ -2,7 +2,7 @@ package white_box_testing;
 
 import java.util.ArrayList;
 
-import individual_result_representation.TunesSearchResult;
+import json_object_wrappers.TunesSearchResult;
 import main.SearchTunes;
 
 public class Test_TuneSearch

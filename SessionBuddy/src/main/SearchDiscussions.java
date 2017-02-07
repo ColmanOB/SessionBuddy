@@ -3,22 +3,21 @@ package main;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import json_object_wrappers.Artist;
-import json_object_wrappers.RecordingDetails;
-import json_object_wrappers.RecordingsSearchResult;
+import json_object_wrappers.DiscussionDetails;
+import json_object_wrappers.DiscussionsSearchResult;
 import json_object_wrappers.User;
-import response_parsers.RecordingsSearchParser;
-import result_set_wrappers.RecordingsSearchResultWrapper;
+import response_parsers.DiscussionsSearchParser;
+import result_set_wrappers.DiscussionsSearchResultWrapper;
 
 /**
- * Makes a call to the API at thesession.org to get a list of recordings matching a given set of search terms.
+ * Makes a call to the API at thesession.org to get a list of discussions matching a given set of search terms.
  * The number of results-per-page in the response can be specified, up to a maximum of 50.
  * An ArrayList of RecordingsSearchResults is returned in response to the executeSearch methods.
  * 
  * @author Colman O'B
  * @since 2017-01-26
  */
-public class SearchRecordings
+public class SearchDiscussions
 	{
 	private int pageCount = 0;
 	
@@ -27,10 +26,10 @@ public class SearchRecordings
 	 * 
 	 * @param searchTerms Search terms are matched against recordings in thesession.org database
 	 * @param resultsPerPage It is possible to specify up to 50 recording results per page in the API response
-	 * @return An ArrayList of RecordingsSearchResult objects
+	 * @return An ArrayList of DiscussionsSearchResult objects
 	 * @throws IllegalArgumentException The API at thesession.org can return a maximum of 50 results per page
 	 */
-	public ArrayList<RecordingsSearchResult> executeSearch(String searchTerms, int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<DiscussionsSearchResult> executeSearch(String searchTerms, int resultsPerPage) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -39,31 +38,30 @@ public class SearchRecordings
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("recordings", searchTerms, resultsPerPage);
+		String apiQueryResults = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		RecordingsSearchParser jsonParser = new RecordingsSearchParser();
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
+		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
 			
 		// This will hold each individual search result entry
-		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
+		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.recordings.length)-1; i++)
+		for(int i = 0; i < (parsedResults.discussions.length)-1; i++)
 			{
 			// Extract the elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
-			RecordingDetails details = new RecordingDetails(parsedResults.recordings[i].id, StringEscapeUtils.unescapeXml(parsedResults.recordings[i].name), parsedResults.recordings[i].url, parsedResults.recordings[i].date);
-			User user = new User(Integer.toString(parsedResults.recordings[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].member.name), parsedResults.recordings[i].member.url);
-			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].artist.url);
+			DiscussionDetails details = new DiscussionDetails(parsedResults.discussions[i].id, StringEscapeUtils.unescapeXml(parsedResults.discussions[i].name), parsedResults.discussions[i].url, parsedResults.discussions[i].date, parsedResults.discussions[i].comments);
+			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
 			
-			// Instantiate a RecordingsSearchResult object & populate it
-			RecordingsSearchResult currentResult = new RecordingsSearchResult(details, user, artist);
+			// Instantiate a DiscussionsSearchResult object & populate it
+			DiscussionsSearchResult currentResult = new DiscussionsSearchResult(details, user);
 			
-			// Add the RecordingsSearchResult object to the ArrayList to be returned to the caller
+			// Add the DiscussionsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
 			}
 		
@@ -78,10 +76,10 @@ public class SearchRecordings
 	 * @param searchTerms Search terms are matched against recordings in thesession.org database
 	 * @param resultsPerPage It is possible to specify up to 50 recording results per page in the API response
 	 * @param pageNumber Specifies an individual page number within the current set of results
-	 * @return An ArrayList of RecordingsSearchResult objects
+	 * @return An ArrayList of DiscussionsSearchResult objects
 	 * @throws IllegalArgumentException The API at thesession.org can return a maximum of 50 results per page
 	 */
-	public ArrayList<RecordingsSearchResult> executeSearch(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<DiscussionsSearchResult> executeSearch(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -90,26 +88,25 @@ public class SearchRecordings
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitRequest("recordings",searchTerms, resultsPerPage,pageNumber);
+		String apiQueryResults = searcher.submitRequest("discussions",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		RecordingsSearchParser jsonParser = new RecordingsSearchParser();
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
+		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
 		
 		// This will hold each individual search result
-		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
+		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
 			
 		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.recordings.length)-1; i++)
+		for(int i = 0; i < (parsedResults.discussions.length)-1; i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
-			RecordingDetails details = new RecordingDetails(parsedResults.recordings[i].id, StringEscapeUtils.unescapeXml(parsedResults.recordings[i].name), parsedResults.recordings[i].url, parsedResults.recordings[i].date);
-			User user = new User(Integer.toString(parsedResults.recordings[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].member.name), parsedResults.recordings[i].member.url);
-			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].artist.url);
+			DiscussionDetails details = new DiscussionDetails(parsedResults.discussions[i].id, StringEscapeUtils.unescapeXml(parsedResults.discussions[i].name), parsedResults.discussions[i].url, parsedResults.discussions[i].date, parsedResults.discussions[i].comments);
+			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
 			
-			// Instantiate a RecordingsSearchResult object & populate it
-			RecordingsSearchResult currentResult = new RecordingsSearchResult(details, user, artist);		
-			// Add the RecordingsSearchResult object to the ArrayList to be returned to the caller
+			// Instantiate a DiscussionsSearchResult object & populate it
+			DiscussionsSearchResult currentResult = new DiscussionsSearchResult(details, user);		
+			// Add the DiscussionsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
 			}
 	
