@@ -18,7 +18,7 @@ import result_set_wrappers.RecordingsSearchResultWrapper;
  * @author Colman O'B
  * @since 2017-01-26
  */
-public class SearchRecordings
+public class SearchRecordings implements KeywordSearch <ArrayList<RecordingsSearchResult>>
 	{
 	private int pageCount = 0;
 	

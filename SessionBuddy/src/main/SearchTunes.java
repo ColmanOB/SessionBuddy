@@ -17,7 +17,7 @@ import result_set_wrappers.TunesSearchResultWrapper;
  * @author Colman O'B
  * @since 2017-01-26
  */
-public class SearchTunes
+public class SearchTunes implements KeywordSearch <ArrayList<TunesSearchResult>>
 	{
 	private int pageCount = 0;
 	

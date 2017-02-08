@@ -17,7 +17,7 @@ import result_set_wrappers.DiscussionsSearchResultWrapper;
  * @author Colman O'B
  * @since 2017-01-26
  */
-public class SearchDiscussions
+public class SearchDiscussions implements KeywordSearch <ArrayList<DiscussionsSearchResult>>
 	{
 	private int pageCount = 0;
 	

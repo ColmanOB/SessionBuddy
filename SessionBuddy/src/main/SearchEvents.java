@@ -23,7 +23,7 @@ import result_set_wrappers.EventsSearchResultWrapper;
  * @author Colman O'B
  * @since 2017-02-01
  */
-public class SearchEvents
+public class SearchEvents implements KeywordSearch <ArrayList<EventsSearchResult>>
 	{
 	private int pageCount = 0;
 	

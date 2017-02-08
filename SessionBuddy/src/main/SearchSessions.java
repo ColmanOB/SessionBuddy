@@ -22,7 +22,7 @@ import result_set_wrappers.SessionsSearchResultWrapper;
  * @author Colman O'B
  * @since 2017-02-01
  */
-public class SearchSessions
+public class SearchSessions implements KeywordSearch<ArrayList<SessionsSearchResult>>
 	{
 	private int pageCount = 0;
 	
@@ -34,6 +34,8 @@ public class SearchSessions
 	 * @return An ArrayList of SessionsSearchResult objects
 	 * @throws IllegalArgumentException The API at thesession.org can return a maximum of 50 results per page
 	 */
+	
+	@Override
 	public ArrayList<SessionsSearchResult> executeSearch(String searchTerms, int resultsPerPage) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -90,6 +92,7 @@ public class SearchSessions
 	 * @return An ArrayList of SessionsSearchResult objects
 	 * @throws IllegalArgumentException The API at thesession.org can return a maximum of 50 results per page
 	 */
+	@Override
 	public ArrayList<SessionsSearchResult> executeSearch(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
