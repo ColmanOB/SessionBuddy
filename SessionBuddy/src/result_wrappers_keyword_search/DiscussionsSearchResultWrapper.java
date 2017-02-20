@@ -1,4 +1,4 @@
-package result_set_wrappers;
+package result_wrappers_keyword_search;
 // TODO: Fix up the comments here, add JavaDoc comments, edit comments so they relate to Events, not Recordings
 /**
  * A wrapper class for the response returned from the API at https://thesession.org

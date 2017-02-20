@@ -18,26 +18,28 @@ import json_object_wrappers.RecordingsSearchResult;
 import json_object_wrappers.SessionDetails;
 import json_object_wrappers.SessionsSearchResult;
 import json_object_wrappers.Town;
-import json_object_wrappers.TuneDetails;
-import json_object_wrappers.TunesSearchResult;
+import json_object_wrappers.TuneDetailsBasic;
+import json_object_wrappers.SettingDetails;
+import json_object_wrappers.NewTunesResult;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
 import response_parsers_keyword_search.DiscussionsSearchParser;
 import response_parsers_keyword_search.EventsSearchParser;
 import response_parsers_keyword_search.RecordingsSearchParser;
 import response_parsers_keyword_search.SessionsSearchParser;
-import response_parsers_keyword_search.TunesSearchParser;
+import response_parsers_new_listings.NewTunesParser;
 import result_wrappers_keyword_search.DiscussionsSearchResultWrapper;
 import result_wrappers_keyword_search.EventsSearchResultWrapper;
 import result_wrappers_keyword_search.RecordingsSearchResultWrapper;
 import result_wrappers_keyword_search.SessionsSearchResultWrapper;
 import result_wrappers_keyword_search.TunesSearchResultWrapper;
+import result_wrappers_new_listings.NewTunesResultWrapper;
 
-public class KeywordSearch 
+public class NewListings 
 	{
 	private int pageCount = 0;
 	
-	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<NewTunesResult> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -46,28 +48,28 @@ public class KeywordSearch
 	
 		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage);
+		String apiQueryResults = searcher.submitListRequest("tunes", "new", resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		TunesSearchParser jsonParser = new TunesSearchParser();
-		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		NewTunesParser jsonParser = new NewTunesParser();
+		NewTunesResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
 			
 		// This will hold each individual search result entry
-		ArrayList<TunesSearchResult> resultSet = new ArrayList <TunesSearchResult>();
+		ArrayList<NewTunesResult> resultSet = new ArrayList <NewTunesResult>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of tunes in the result set:
-		for(int i = 0; i < (parsedResults.tunes.length)-1; i++)
+		for(int i = 0; i < (parsedResults.settings.length)-1; i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-			TuneDetails details = new TuneDetails(parsedResults.tunes[i].id, StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
-			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
-						
-			// Instantiate a TunesSearchResult object & populate it
-			TunesSearchResult currentResult = new TunesSearchResult(details, submitter);
+			SettingDetails details = new SettingDetails(parsedResults.settings[i].id, StringEscapeUtils.unescapeXml(parsedResults.settings[i].name), parsedResults.settings[i].url, parsedResults.settings[i].date);
+			User submitter = new User(Integer.toString(parsedResults.settings[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.settings[i].member.name), parsedResults.settings[i].member.url);
+			TuneDetailsBasic tuneDetails = new TuneDetailsBasic(Integer.toString(parsedResults.settings[i].tune.id), parsedResults.settings[i].tune.name, parsedResults.settings[i].tune.url );		
+			// Instantiate a NewTunesResult object & populate it
+			NewTunesResult currentResult = new NewTunesResult(details, submitter, tuneDetails);
 			
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -77,7 +79,7 @@ public class KeywordSearch
 		return resultSet;
 		}
 	
-	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<NewTunesResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -89,21 +91,21 @@ public class KeywordSearch
 		String apiQueryResults = searcher.submitRequest("tunes",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		TunesSearchParser jsonParser = new TunesSearchParser();
+		NewTunesParser jsonParser = new NewTunesParser();
 		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
 		
 		// This will hold each individual search result
-		ArrayList<TunesSearchResult> resultSet = new ArrayList <TunesSearchResult>();
+		ArrayList<NewTunesResult> resultSet = new ArrayList <NewTunesResult>();
 			
 		// Loop as many times as the count of tunes in the result set:
 		for(int i = 0; i < (parsedResults.tunes.length)-1; i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
-			TuneDetails details = new TuneDetails(parsedResults.tunes[i].id, StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
+			SettingDetails details = new SettingDetails(parsedResults.tunes[i].id, StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
 			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
 						
-			// Instantiate a TunesSearchResult object & populate it
-			TunesSearchResult currentResult = new TunesSearchResult(details, submitter);
+			// Instantiate a NewTunesResult object & populate it
+			NewTunesResult currentResult = new NewTunesResult(details, submitter);
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
 			}
@@ -121,7 +123,7 @@ public class KeywordSearch
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage);
+		String apiQueryResults = searcher.submitListRequest("discussions", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
@@ -196,7 +198,7 @@ public class KeywordSearch
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("events", searchTerms, resultsPerPage);
+		String apiQueryResults = searcher.submitListRequest("events", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		EventsSearchParser jsonParser = new EventsSearchParser();
@@ -286,7 +288,7 @@ public class KeywordSearch
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("recordings", searchTerms, resultsPerPage);
+		String apiQueryResults = searcher.submitListRequest("recordings", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		RecordingsSearchParser jsonParser = new RecordingsSearchParser();
@@ -363,7 +365,7 @@ public class KeywordSearch
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("sessions", searchTerms, resultsPerPage);
+		String apiQueryResults = searcher.submitListRequest("sessions", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		SessionsSearchParser jsonParser = new SessionsSearchParser();

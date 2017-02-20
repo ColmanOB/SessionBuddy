@@ -1,4 +1,4 @@
-package result_set_wrappers;
+package result_wrappers_keyword_search;
 
 /**
  * A wrapper class for the response returned from the API at https://thesession.org
