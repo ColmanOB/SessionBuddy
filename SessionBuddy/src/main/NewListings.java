@@ -39,7 +39,7 @@ public class NewListings
 	{
 	private int pageCount = 0;
 	
-	public ArrayList<NewTunesResult> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<NewTunesResult> searchTunes(String baseCategory, String itemIdentifier, int resultsPerPage) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -48,7 +48,7 @@ public class NewListings
 	
 		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitListRequest("tunes", "new", resultsPerPage);
+		String apiQueryResults = searcher.submitListRequest(baseCategory, itemIdentifier, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		NewTunesParser jsonParser = new NewTunesParser();

@@ -19,7 +19,7 @@ public static void main(String[] args)
 	NewListings search = new NewListings();
 	
 	// Pass in the search parameters
-	ArrayList<NewTunesResult> resultSet = search.searchTunes("tunes", resultsPerPage);
+	ArrayList<NewTunesResult> resultSet = search.searchTunes("tunes", "new", resultsPerPage);
 	
 	// Loop through the results and print each attribute of each individual result in the set
 	for (int i = 0; i < resultSet.size(); i++)
