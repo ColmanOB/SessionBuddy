@@ -3,7 +3,7 @@ package white_box_testing;
 import java.util.ArrayList;
 
 import json_object_wrappers.EventsSearchResult;
-import main.SearchEvents;
+import main.KeywordSearch;
 
 public class Test_EventSearch
 //Purpose: Search the session.org API for a set of search terms, and store the results
@@ -15,10 +15,10 @@ public static void main(String[] args)
 	int resultsPerPage = 50;
 	
 	// Instantiate a TheSessionAPISearcher object
-	SearchEvents search = new SearchEvents();
+	KeywordSearch search = new KeywordSearch();
 	
 	// Pass in the search parameters
-	ArrayList<EventsSearchResult> resultSet = search.executeSearch(searchTerms, resultsPerPage);
+	ArrayList<EventsSearchResult> resultSet = search.searchEvents(searchTerms, resultsPerPage);
 	
 	// Loop through the results and print each attribute of each individual result in the set
 	for (int i = 0; i < resultSet.size(); i++)
