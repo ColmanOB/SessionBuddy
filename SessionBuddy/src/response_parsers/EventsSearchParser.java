@@ -1,16 +1,15 @@
-package response_parsers_keyword_search;
+package response_parsers;
 
 // TODO: Fix up comments here
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import result_wrappers_keyword_search.DiscussionsSearchResultWrapper;
-
+import result_set_wrappers.EventsSearchResultWrapper;
 
 // TODO: correct the field names below
 /**
- * Uses GSON to parse a set of discussion search results from thesession.org API
+ * Uses GSON to parse a set of recordings search results from thesession.org API
  * 
  * You can access the following fields of the RecordingsSearchResultsWrapper.listOfResults object:
  * 
@@ -43,23 +42,23 @@ import result_wrappers_keyword_search.DiscussionsSearchResultWrapper;
  * @author Colman O'B
  * @since 2017-02-01
  */
-public class DiscussionsSearchParser 
+public class EventsSearchParser 
 	{
 	// Instantiate a wrapper object with fields that exactly match those in the search results JSON string
-	private DiscussionsSearchResultWrapper listOfResults;	
+	private EventsSearchResultWrapper listOfResults;	
 	
 	/**
 	 * Uses Gson to parse the JSON into a EventsSearchResultWrapper object
 	 * 
 	 * @param searchResultsString Pass in a string containing the JSON returned from a search of thesession.org API
-	 * @return a DiscussionsSearchResultWrapper object allowing access to any individual element of the response
+	 * @return an EventsSearchResultWrapper object allowing access to any individual element of the response
 	 */
-	public DiscussionsSearchResultWrapper parseResponse(String searchResultsString) 
+	public EventsSearchResultWrapper parseResponse(String searchResultsString) 
 		{
 		// TODO: Add exception handling	
 		Gson gson = new GsonBuilder().create();
 		
-		listOfResults = gson.fromJson(searchResultsString, DiscussionsSearchResultWrapper.class);
+		listOfResults = gson.fromJson(searchResultsString, EventsSearchResultWrapper.class);
 		
 		// Return the TuneSearchResultWrapper object
 		return listOfResults;

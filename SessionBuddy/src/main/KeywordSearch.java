@@ -22,16 +22,16 @@ import json_object_wrappers.TuneDetails;
 import json_object_wrappers.TunesSearchResult;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
-import response_parsers_keyword_search.DiscussionsSearchParser;
-import response_parsers_keyword_search.EventsSearchParser;
-import response_parsers_keyword_search.RecordingsSearchParser;
-import response_parsers_keyword_search.SessionsSearchParser;
-import response_parsers_keyword_search.TunesSearchParser;
-import result_wrappers_keyword_search.DiscussionsSearchResultWrapper;
-import result_wrappers_keyword_search.EventsSearchResultWrapper;
-import result_wrappers_keyword_search.RecordingsSearchResultWrapper;
-import result_wrappers_keyword_search.SessionsSearchResultWrapper;
-import result_wrappers_keyword_search.TunesSearchResultWrapper;
+import response_parsers.DiscussionsSearchParser;
+import response_parsers.EventsSearchParser;
+import response_parsers.RecordingsSearchParser;
+import response_parsers.SessionsSearchParser;
+import response_parsers.TunesSearchParser;
+import result_set_wrappers.DiscussionsSearchResultWrapper;
+import result_set_wrappers.EventsSearchResultWrapper;
+import result_set_wrappers.RecordingsSearchResultWrapper;
+import result_set_wrappers.SessionsSearchResultWrapper;
+import result_set_wrappers.TunesSearchResultWrapper;
 
 public class KeywordSearch 
 	{

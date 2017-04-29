@@ -1,9 +1,9 @@
-package response_parsers_keyword_search;
+package response_parsers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import result_wrappers_keyword_search.SessionsSearchResultWrapper;
+import result_set_wrappers.SessionsSearchResultWrapper;
 
 // TODO: correct the field names below
 /**

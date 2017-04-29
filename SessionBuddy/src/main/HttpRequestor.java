@@ -37,7 +37,7 @@ public class HttpRequestor
 		try 
 			{			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + itemIdentifier + "?" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + itemIdentifier + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
 			// Make the HTTP(S) connection to thesession.org
 			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
