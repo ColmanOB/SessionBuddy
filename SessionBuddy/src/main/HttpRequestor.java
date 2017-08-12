@@ -18,7 +18,7 @@ import java.net.URL;
  */
 public class HttpRequestor
 	{	
-	private static final String dataFormat = "json"; // Support may be added for XML and/or RSS in a future release
+	private static final String dataFormat = "json";
 	private static final String baseURL = "https://thesession.org/"; 
 	private static final String searchOperator = "search?q=";
 	private String apiResponse;

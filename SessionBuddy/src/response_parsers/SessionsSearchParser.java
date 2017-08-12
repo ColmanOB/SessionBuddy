@@ -7,7 +7,7 @@ import result_set_wrappers.SessionsSearchResultWrapper;
 
 // TODO: correct the field names below
 /**
- * Uses GSON to parse a set of recordings search results from thesession.org API
+ * Uses GSON to parse a set of session search results from thesession.org API
  * 
  * You can access the following fields of the RecordingsSearchResultsWrapper.listOfResults object:
  * 

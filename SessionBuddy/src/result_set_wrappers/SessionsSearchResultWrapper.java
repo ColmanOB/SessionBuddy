@@ -40,7 +40,7 @@ public class SessionsSearchResultWrapper
 		public CountryDetails country;	// Details of the country in which the session is located
 
 		/**
-		 * A wrapper for the details of the "member" within each "recording" in the result set
+		 * A wrapper for the details of the "member" within each "session" in the result set
 		 * 
 		 * @author Colman O'B
 		 * @since 2017-02-01
