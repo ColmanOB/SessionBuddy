@@ -37,6 +37,14 @@ public class KeywordSearch
 	{
 	private int pageCount = 0;
 	
+	/**
+	 * Search the API for a list of tunes matching a specific set of search terms, specify the number of results that should be returned per page
+	 * 
+	 * @param searchTerms A string containing the search terms entered by the user
+	 * @param resultsPerPage A number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
+	 * @return An ArrayList of TunesSearchResult objects
+	 * @throws IllegalArgumentException Thrown if either an invalid number of results per page is provided, or if the data returned by the API is not JSON with the expected structure
+	 */
 	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -53,7 +61,19 @@ public class KeywordSearch
 		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
 			
 		// This will hold each individual search result entry
-		ArrayList<TunesSearchResult> resultSet = new ArrayList <TunesSearchResult>();
+		ArrayList<TunesSearchResult> resultSet;
+		
+		try
+			// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
+			{
+			resultSet = new ArrayList <TunesSearchResult>();
+			}
+		
+		catch (IllegalArgumentException e)
+			// Catch any problem with Gson parsing the JSON input
+			{
+			throw new IllegalArgumentException(e.getMessage());
+			}
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -77,6 +97,16 @@ public class KeywordSearch
 		return resultSet;
 		}
 	
+	
+	/**
+	 * Search the API for a list of tunes matching a specific set of search terms, specify the number of results that should be returned per page, and specify the page number in the JSON search results 
+	 * 
+	 * @param searchTerms A string containing the search terms entered by the user
+	 * @param resultsPerPage A number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
+	 * @param pageNumber Specify a particular page number within the JSON search results
+	 * @return An ArrayList of TunesSearchResult objects
+	 * @throws IllegalArgumentException Thrown if either an invalid number of results per page is provided, or if the data returned by the API is not JSON with the expected structure
+	 */
 	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -93,7 +123,19 @@ public class KeywordSearch
 		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
 		
 		// This will hold each individual search result
-		ArrayList<TunesSearchResult> resultSet = new ArrayList <TunesSearchResult>();
+		ArrayList<TunesSearchResult> resultSet;
+		
+		try
+			// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
+			{
+			resultSet = new ArrayList <TunesSearchResult>();
+			}
+		
+		catch (IllegalArgumentException e)
+			// Catch any problem with Gson parsing the JSON input
+			{
+			throw new IllegalArgumentException(e.getMessage());
+			}
 			
 		// Loop as many times as the count of tunes in the result set:
 		for(int i = 0; i < (parsedResults.tunes.length)-1; i++)

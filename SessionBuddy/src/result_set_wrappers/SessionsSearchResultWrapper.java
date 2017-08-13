@@ -6,7 +6,7 @@ package result_set_wrappers;
  * The fields and nested structure follow the format of the JSON structure of the session search results from the API
  * * 
  * @author Colman O'B
- * @since 2017-01-28
+ * @since 2017-08-13
  */
 public class SessionsSearchResultWrapper
 	{

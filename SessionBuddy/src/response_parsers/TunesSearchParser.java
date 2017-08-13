@@ -2,36 +2,36 @@ package response_parsers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+import com.google.gson.JsonSyntaxException;
 import result_set_wrappers.TunesSearchResultWrapper;
 
 /**
  * Uses GSON to parse a set of search results from thesession.org API into a Java "TheSessionAPISearchResultsWrapper" object
  * 
- * You can access the following fields of the TheSessionAPISearchResultsWrapper.listOfResults object:
+ * You can access the following fields of the TunesSearchParser.listOfResults object:
  * 
- * listOfResults.q		(the search terms used)
- * listOfResults.pages	(number of pages of results)
- * listOfResults.page	(current page within the results)
- * listOfResults.tunes 	(the array of tunes returned within the results)
+ * q		(the search terms used)
+ * pages	(number of pages of results)
+ * page		(current page within the results)
+ * tunes 	(the array of tunes returned within the results)
  *
  * The following fields are accessible for each individual tune within the array of tunes:
  * 
- * listOfResults.tunes[].id		(unique ID for the tune within thesession.org database)
- * listOfResults.tunes[].name	(the tune name within thesession.org database)
- * listOfResults.tunes[].url	(the individual tune's unique URL on thesession.org website)
- * listOfResults.tunes[].date	(the date the tune was submitted to thesession.org)
- * listOfResults.tunes[].type	(the type of tune, e.g. jig, reel etc.)
- * listOfResults.tunes[].member	(details of thesession.org member who submitted the tune)
+ * tunes[].id		(unique ID for the tune within thesession.org database)
+ * tunes[].name		(the tune name within thesession.org database)
+ * tunes[].url		(the individual tune's unique URL on thesession.org)
+ * tunes[].date		(the date the tune was submitted)
+ * tunes[].type		(the type of tune, e.g. jig, reel etc.)
+ * tunes[].member	(details of thesession.org member who submitted the tune)
  *
  * The following fields are accessible for each member (i.e. tune submitter):
  * 
- * listOfResults.member.id		(the user's unique ID in thesession.org database)
- * listOfResults.member.name	(the user's username for thesession.org)
- * listOfResults.member.url		(the URL of the user's personal page on thesession.org)	
+ * member.id	(Numeric ID of the user in thesession.org database)
+ * member.name	(the user's username for thesession.org)
+ * member.url	(the URL of the user's profile page on thesession.org)	
  * 
  * @author Colman O'B
- * @since 2017-01-26
+ * @since 2017-08-13
  */
 public class TunesSearchParser 
 	{
@@ -46,10 +46,19 @@ public class TunesSearchParser
 	 */
 	public TunesSearchResultWrapper parseResponse(String searchResultsString) 
 		{
-		// TODO: Add exception handling	
 		Gson gson = new GsonBuilder().create();
 		
-		listOfResults = gson.fromJson(searchResultsString, TunesSearchResultWrapper.class);
+		try
+		// Populate the Gson object using the string of JSON returned from the API
+			{
+			listOfResults = gson.fromJson(searchResultsString, TunesSearchResultWrapper.class);
+			}
+		
+		catch (JsonSyntaxException e)
+		// Catch a case where the API returns something that is not valid JSON that matches the structure of a TunesSearchResultWrapper
+			{		
+			throw new IllegalArgumentException(e.getMessage());
+			}
 		
 		// Return the TuneSearchResultWrapper object
 		return listOfResults;
