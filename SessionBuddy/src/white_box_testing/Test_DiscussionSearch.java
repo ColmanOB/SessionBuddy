@@ -5,37 +5,53 @@ import java.util.ArrayList;
 import json_object_wrappers.DiscussionsSearchResult;
 import main.KeywordSearch;
 
+/**
+ * Example usage of the searchDiscussions method of KeywordSearch class to search thesession.org API for a discussion based on a set of search terms, and store the results
+ * 
+ * @author Colman
+ * @since 2017-08-13
+ */
 
 public class Test_DiscussionSearch
-//Purpose: Search thesession.org API for a set of search terms, and store the results
+
 {
 public static void main(String[] args)
    {
 	// Set the search parameters
 	String searchTerms = "London";
-	int resultsPerPage = 50;
+	int resultsPerPage = 51;
+	ArrayList<DiscussionsSearchResult> resultSet;
 	
-	// Instantiate a TheSessionAPISearcher object
+	// Instantiate a KeywordSearch object
 	KeywordSearch search = new KeywordSearch();
 	
-	// Pass in the search parameters
-	ArrayList<DiscussionsSearchResult> resultSet = search.searchDiscussions(searchTerms, resultsPerPage);
-	
-	// Loop through the results and print each attribute of each individual result in the set
-	for (int i = 0; i < resultSet.size(); i++)
+	try
 		{
-		System.out.println(resultSet.get(i).details.discussionID);
-		System.out.println(resultSet.get(i).details.discussionName);
-		System.out.println(resultSet.get(i).details.submittedDate);
-		System.out.println(resultSet.get(i).details.discussionURL);	
-		System.out.println(resultSet.get(i).details.numberOfComments);	
-				
-		System.out.println(resultSet.get(i).user.userID);
-		System.out.println(resultSet.get(i).user.userName);
-		System.out.println(resultSet.get(i).user.userURL);
+		// Pass in the search parameters
+		resultSet = search.searchDiscussions(searchTerms, resultsPerPage);
 		
-		System.out.println("\n");
+		// Loop through the results and print each attribute of each individual result in the set
+		for (int i = 0; i < resultSet.size(); i++)
+			{
+			System.out.println(resultSet.get(i).details.discussionID);
+			System.out.println(resultSet.get(i).details.discussionName);
+			System.out.println(resultSet.get(i).details.submittedDate);
+			System.out.println(resultSet.get(i).details.discussionURL);	
+			System.out.println(resultSet.get(i).details.numberOfComments);	
+					
+			System.out.println(resultSet.get(i).user.userID);
+			System.out.println(resultSet.get(i).user.userName);
+			System.out.println(resultSet.get(i).user.userURL);
+			
+			System.out.println("\n");
+			}
 		}
-   	}
+	
+	catch (IllegalArgumentException e)
+		// Catch any cases where an invalid number of results per page has been specified
+		{
+		System.out.println(e.getMessage());
+		}	
 
+   	}
 }
