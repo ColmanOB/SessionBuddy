@@ -112,6 +112,14 @@ public class KeywordSearch
 		return resultSet;
 		}
 
+	/**
+	 * Search the API for a list of discussions matching a specific set of search terms, and specify the number of results that should be returned per page.
+	 * 
+	 * @param searchTerms A string containing the search terms entered by the user
+	 * @param resultsPerPage A number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
+	 * @return An ArrayList of DiscussionsSearchResult objects
+	 * @throws IllegalArgumentException Thrown if either an invalid number of results per page is provided, or if the data returned by the API is not JSON with the expected structure
+	 */
 	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -123,14 +131,26 @@ public class KeywordSearch
 		HttpRequestor searcher = new HttpRequestor();
 		String apiQueryResults = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage);
 			
-		// Parse the returned JSON into a wrapper class to allow access to all elements
+		// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
 		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
-			
+		DiscussionsSearchResultWrapper parsedResults;
+		
+		try
+			// Use a DiscussionSearchParser to parse the raw JSON into a usable structure using Gson
+			{
+			parsedResults = jsonParser.parseResponse(apiQueryResults);
+			}
+		
+		catch (IllegalArgumentException e)
+			// Catch any problem with Gson parsing the JSON input
+			{
+			throw new IllegalArgumentException(e.getMessage());
+			}
+		
 		// This will hold each individual search result entry
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
 		
-		//Find out how many pages are in the response, to facilitate looping through multiple pages
+		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of recordings in the result set:
@@ -152,6 +172,17 @@ public class KeywordSearch
 		return resultSet;
 		}
 	
+	
+	/**
+	 * Search the API for a list of discussions matching a specific set of search terms, and specify the number of results that should be returned per page.
+	 * This method also allows the caller to specify the particular page in the result set that should be returned.
+	 * 
+	 * @param searchTerms The search terms provided by the user
+	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
+	 * @param pageNumber Specify a particular page within the search results
+	 * @return An ArrayList of DiscussionsSearchResult objects
+	 * @throws IllegalArgumentException Thrown if either an invalid number of results per page is provided, or if the data returned by the API is not JSON with the expected structure
+	 */
 	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -159,18 +190,30 @@ public class KeywordSearch
 			throw new IllegalArgumentException("Number of results per page must be 50 or less");
 			}
 		
-		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
+		// Launch a search for a list of matching discussions, specifying the page number in the result set, and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
 		String apiQueryResults = searcher.submitRequest("discussions",searchTerms, resultsPerPage,pageNumber);
 		
-		// Parse the returned JSON into a wrapper class to allow access to all elements
+		// Prepare the classes needed to parse the the JSON
 		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		DiscussionsSearchResultWrapper parsedResults;
+		
+		try
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			{
+			parsedResults = jsonParser.parseResponse(apiQueryResults);
+			}
+		
+		catch (IllegalArgumentException e)
+			// Catch any problem with Gson parsing the JSON input
+			{
+			throw new IllegalArgumentException(e.getMessage());
+			}
 		
 		// This will hold each individual search result
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
 			
-		// Loop as many times as the count of recordings in the result set:
+		// Loop as many times as the count of discussions in the result set:
 		for(int i = 0; i < (parsedResults.discussions.length)-1; i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
