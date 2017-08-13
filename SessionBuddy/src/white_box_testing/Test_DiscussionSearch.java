@@ -6,7 +6,9 @@ import json_object_wrappers.DiscussionsSearchResult;
 import main.KeywordSearch;
 
 /**
- * Example usage of the searchDiscussions method of KeywordSearch class to search thesession.org API for a discussion based on a set of search terms, and store the results
+ * Example usage of the searchDiscussions method of KeywordSearch class to search thesession.org API for a discussion based on a set of search terms, and store the results.
+ * 
+ * This class does not test the iteration through multiple pages of JSON search results
  * 
  * @author Colman
  * @since 2017-08-13

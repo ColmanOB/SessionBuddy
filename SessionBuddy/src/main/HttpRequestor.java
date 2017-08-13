@@ -70,12 +70,12 @@ public class HttpRequestor
 		
 		catch (MalformedURLException e) 
 			{
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 			} 
 	
 		catch (IOException e) 
 			{
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 			}
 		
 		// Return the API response as one long string of JSON data
@@ -193,12 +193,12 @@ public class HttpRequestor
 		
 		catch (MalformedURLException e) 
 			{
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 			} 
 	
 		catch (IOException e) 
 			{
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 			}
 		
 		// Return the API response as one long string of JSON data
@@ -214,7 +214,7 @@ public class HttpRequestor
 	 * @return The JSON returned from the API as one big String
 	 * @throws RuntimeException If a HTTP error is encountered when making the API request
 	 */
-	public String submitRequest(String baseCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
+	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
 		{
 		try 
 			{

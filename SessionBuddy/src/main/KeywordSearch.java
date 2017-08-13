@@ -86,7 +86,7 @@ public class KeywordSearch
 		
 		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitRequest("tunes",searchTerms, resultsPerPage,pageNumber);
+		String apiQueryResults = searcher.submitSearchRequest("tunes",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		TunesSearchParser jsonParser = new TunesSearchParser();
@@ -192,7 +192,7 @@ public class KeywordSearch
 		
 		// Launch a search for a list of matching discussions, specifying the page number in the result set, and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitRequest("discussions",searchTerms, resultsPerPage,pageNumber);
+		String apiQueryResults = searcher.submitSearchRequest("discussions",searchTerms, resultsPerPage,pageNumber);
 		
 		// Prepare the classes needed to parse the the JSON
 		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
@@ -286,7 +286,7 @@ public class KeywordSearch
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitRequest("events",searchTerms, resultsPerPage,pageNumber);
+		String apiQueryResults = searcher.submitSearchRequest("events",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		EventsSearchParser jsonParser = new EventsSearchParser();
@@ -370,7 +370,7 @@ public class KeywordSearch
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitRequest("recordings",searchTerms, resultsPerPage,pageNumber);
+		String apiQueryResults = searcher.submitSearchRequest("recordings",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		RecordingsSearchParser jsonParser = new RecordingsSearchParser();
@@ -452,7 +452,7 @@ public class KeywordSearch
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitRequest("tunes",searchTerms, resultsPerPage,pageNumber);
+		String apiQueryResults = searcher.submitSearchRequest("tunes",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		SessionsSearchParser jsonParser = new SessionsSearchParser();
