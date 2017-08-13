@@ -33,6 +33,15 @@ import result_set_wrappers.RecordingsSearchResultWrapper;
 import result_set_wrappers.SessionsSearchResultWrapper;
 import result_set_wrappers.TunesSearchResultWrapper;
 
+/**
+ * Used to query the API at thesession.org with search terms, and parse the response into an easily usable structure.
+ * 
+ * First instantiate a KeywordSearch object, then call one of its methods to perform the actual search.
+ * 
+ * @author Colman
+ * @since 2017-08-13
+ *
+ */
 public class KeywordSearch 
 	{
 	private int pageCount = 0;
