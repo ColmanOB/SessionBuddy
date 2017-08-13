@@ -1,8 +1,9 @@
 package result_set_wrappers;
-// TODO: Fix up the comments here, add JavaDoc comments
 /**
  * A wrapper class for the JSON response returned from the API at https://thesession.org when searching for discussions.
+ * 
  * This is a utility class used by DiscussionsSearchParser to facilitate access to any individual field within a set of JSON search results
+ * 
  * The fields and nested structure follow the format of the JSON structure of the recordings search results from the API
  * * 
  * @author Colman O'B
@@ -25,10 +26,10 @@ public class DiscussionsSearchResultWrapper
 	public class DiscussionsList
 		{
 		public String id;	// A unique ID for the discussion within thesession.org
-		public String name;	// The username who submitted the discussion
+		public String name;	// The discussion's title
 		public String url;	// The URL of the discussion
 		
-		public SubmitterDetails member; // Details of thesession.org user who submitted the tune
+		public SubmitterDetails member; // Details of thesession.org user who submitted the discussion
 		
 		public String date;	// Date the discussion was submitted
 		public String comments; // Number of comments in the discussion
@@ -41,7 +42,7 @@ public class DiscussionsSearchResultWrapper
 		 */
 		public class SubmitterDetails 
 			{
-			public int id;		// Numeric ID no. of the submitter
+			public int id;		// Numeric ID of the submitter
 			public String name;	// Username of the submitter
 			public String url;	// URL of the member's profile page on thesession.org
 			}

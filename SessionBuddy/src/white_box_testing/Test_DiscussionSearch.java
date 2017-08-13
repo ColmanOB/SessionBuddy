@@ -19,7 +19,7 @@ public static void main(String[] args)
    {
 	// Set the search parameters
 	String searchTerms = "London";
-	int resultsPerPage = 51;
+	int resultsPerPage = 50;
 	ArrayList<DiscussionsSearchResult> resultSet;
 	
 	// Instantiate a KeywordSearch object

@@ -1,47 +1,39 @@
 package response_parsers;
 
-// TODO: Fix up comments here
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import result_set_wrappers.DiscussionsSearchResultWrapper;
 
-
-// TODO: correct the field names below
 /**
- * Uses GSON to parse a set of discussion search results from thesession.org API
+ * Uses GSON to parse a set of discussion search results from thesession.org API into a usable structure
  * 
- * You can access the following fields of the RecordingsSearchResultsWrapper.listOfResults object:
+ * You can access the following fields of the DiscussionsSearchResultsWrapper object:
  * 
- * listOfResults.q		(the search terms used)
- * listOfResults.pages	(number of pages of results)
- * listOfResults.page	(current page within the results)
- * listOfResults.recordings 	(the array of recordings returned within the results)
+ * q		(the search terms used)
+ * pages	(number of pages of results)
+ * page		(current page within the results)
+ * discussions 	(the array of discussions returned within the results)
  *
- * The following fields are accessible for each individual recording within the array of tunes:
+ * The following fields are accessible for each individual discussion within the array of tunes:
  * 
- * listOfResults.recordings[].id		(unique ID for the tune within thesession.org database)
- * listOfResults.tunes[].name	(the tune name within thesession.org database)
- * listOfResults.tunes[].url	(the individual tune's unique URL on thesession.org website)
- * listOfResults.tunes[].date	(the date the tune was submitted to thesession.org)
- * listOfResults.tunes[].type	(the type of tune, e.g. jig, reel etc.)
- * listOfResults.tunes[].member	(details of thesession.org member who submitted the tune)
+ * discussions[].id		(unique ID for the tune within thesession.org database)
+ * discussions[].name	(the discussion's title)
+ * discussions[].url	(the individual tune's unique URL on thesession.org)
+ * 
+ * discussions[].date		(date the discussion was submitted to thesession.org)
+ * discussions[].comments	(the number of comments in the thread)
+ * discussions[].member		(details of thesession.org member who submitted the tune)
  *
- * The following fields are accessible for each member (i.e. tune submitter):
+ * The following fields are accessible for each member (i.e. discussion submitter):
  * 
- * listOfResults.member.id		(the user's unique ID in thesession.org database)
- * listOfResults.member.name	(the user's username for thesession.org)
- * listOfResults.member.url		(the URL of the user's personal page on thesession.org)	
- * 
- * The following fields are accessible for each artist:
- * 
- * listOfResults.member.id		(the user's unique ID in thesession.org database)
- * listOfResults.member.name	(the user's username for thesession.org)
- * listOfResults.member.url		(the URL of the user's personal page on thesession.org)	
+ * discussions[].member.id		(the user's unique ID in thesession.org database)
+ * discussions[].member.name	(the user's username for thesession.org)
+ * discussions[].member.url		(the URL of the user's profile page on thesession.org)	
  * 
  * @author Colman O'B
- * @since 2017-02-01
+ * @since 2017-08-13
  */
 public class DiscussionsSearchParser 
 	{
@@ -49,17 +41,27 @@ public class DiscussionsSearchParser
 	private DiscussionsSearchResultWrapper listOfResults;	
 	
 	/**
-	 * Uses Gson to parse the JSON into a EventsSearchResultWrapper object
+	 * Uses Gson to parse the JSON into a DiscussionsSearchResultWrapper object
 	 * 
 	 * @param searchResultsString Pass in a string containing the JSON returned from a search of thesession.org API
 	 * @return a DiscussionsSearchResultWrapper object allowing access to any individual element of the response
+	 * @exception IllegalArgumentException if the data retrieved from the API is not valid JSON matching the structure of a DiscussionsSearchResultWrapper
 	 */
-	public DiscussionsSearchResultWrapper parseResponse(String searchResultsString) 
-		{
-		// TODO: Add exception handling	
+	public DiscussionsSearchResultWrapper parseResponse(String searchResultsString) throws IllegalArgumentException
+		{	
 		Gson gson = new GsonBuilder().create();
 		
-		listOfResults = gson.fromJson(searchResultsString, DiscussionsSearchResultWrapper.class);
+		try
+		// Populate the Gson object using the string of JSON returned from the API
+			{
+			listOfResults = gson.fromJson(searchResultsString, DiscussionsSearchResultWrapper.class);
+			}
+		
+		catch (JsonSyntaxException e)
+		// Catch a case where the API returns something that is not valid JSON that matches the structure of a DiscussionsSearchResultWrapper
+			{		
+			throw new IllegalArgumentException(e.getMessage());
+			}
 		
 		// Return the TuneSearchResultWrapper object
 		return listOfResults;

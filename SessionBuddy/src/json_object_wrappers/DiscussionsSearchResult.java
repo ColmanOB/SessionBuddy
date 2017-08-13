@@ -12,6 +12,8 @@ public class DiscussionsSearchResult
 	public User user;
 	
 	/**
+	 * Constructor that takes a DiscussionDetails and User object as arguments
+	 * 
 	 * @param details
 	 * @param user
 	 * 
