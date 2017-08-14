@@ -14,7 +14,7 @@ public class TuneByIDWrapper
 	public int tunebooks;	// The number of user's personal tunebooks on thesession.org to which the tune has been added
 	public int recordings;	// The number of recordings in theession.org database with a tune of this name
 	public String[]	aliases;	// Known alternative names for the tune
-	public TuneSetting[] settings; // An array of different settings of the particular tune
+	public json_object_wrappers.TuneSetting[] settings; // An array of different settings of the particular tune
 
 		public class TuneSetting
 		//Purpose: A wrapper for the individual settings of the particular tune

@@ -26,9 +26,11 @@ public class Test_TuneByID
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
 			{
-			System.out.println(resultSet.get(i).id);
-			System.out.println(resultSet.get(i).key);
-			System.out.println(resultSet.get(i).abc);
+			
+			System.out.println(resultSet.get(i).url);
+			System.out.println(resultSet.get(i).type);
+			System.out.println(resultSet.get(i).settings.length);
+			System.out.println(resultSet.get(i).settings[i].abc);
 			
 			System.out.println("\n");
 			}

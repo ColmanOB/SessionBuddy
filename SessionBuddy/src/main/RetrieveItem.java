@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import json_object_wrappers.TuneByIDResult;
-import json_object_wrappers.TuneDetails;
-import json_object_wrappers.TunesSearchResult;
-import json_object_wrappers.User;
+import json_object_wrappers.TuneSetting;
 import response_parsers.TuneByIDParser;
-import response_parsers.TunesSearchParser;
 import result_set_wrappers.TuneByIDWrapper;
-import result_set_wrappers.TunesSearchResultWrapper;
+
 
 public class RetrieveItem 
 {
@@ -52,13 +49,14 @@ private int pageCount = 0;
 		{
 		// Extract the required elements from each individual search result in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-		String id = (parsedResults.settings[i].id); 
-		String url = (parsedResults.settings[i].url);
-		String key = (parsedResults.settings[i].key);
+		String id = (parsedResults.id); 
+		String url = (parsedResults.url);
+		String type = (parsedResults.type);
 		String abc = (parsedResults.settings[i].abc);
+		TuneSetting[] settings = (parsedResults.settings);
 		
 		// Instantiate a TunesSearchResult object & populate it
-		TuneByIDResult currentResult = new TuneByIDResult(id, url, key, abc);
+		TuneByIDResult currentResult = new TuneByIDResult(id, url, type, settings);
 		
 		// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 		resultSet.add(currentResult);
