@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import json_object_wrappers.TuneByIDResult;
 import json_object_wrappers.TuneSetting;
+import json_object_wrappers.User;
 import response_parsers.TuneByIDParser;
 import result_set_wrappers.TuneByIDWrapper;
 
@@ -28,7 +29,7 @@ private int pageCount = 0;
 	// Parse the returned JSON into a wrapper class to allow access to all elements
 	TuneByIDParser jsonParser = new TuneByIDParser();
 	TuneByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
-		
+
 	// This will hold each individual search result entry
 	ArrayList<TuneByIDResult> resultSet;
 	
@@ -47,16 +48,24 @@ private int pageCount = 0;
 	// Loop as many times as the count of tunes in the result set:
 	for(int i = 0; i < (parsedResults.settings.length)-1; i++)
 		{
-		// Extract the required elements from each individual search result in the JSON response
+		// Extract each element from the list of seetings in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
 		String id = (parsedResults.id); 
+		String name = (parsedResults.name);
 		String url = (parsedResults.url);
+		
+		User member = (parsedResults.member);
+		
+		String date = (parsedResults.date);
 		String type = (parsedResults.type);
-		String abc = (parsedResults.settings[i].abc);
+		String tunebooks = (parsedResults.tunebooks);
+		String recordings = (parsedResults.recordings);
+		String[] aliases = (parsedResults.aliases);
+		
 		TuneSetting[] settings = (parsedResults.settings);
 		
-		// Instantiate a TunesSearchResult object & populate it
-		TuneByIDResult currentResult = new TuneByIDResult(id, url, type, settings);
+		// Instantiate a TuneByIDResult object & populate it with the details captured above
+		TuneByIDResult currentResult = new TuneByIDResult(id, name, url, member, date, type, tunebooks, recordings, aliases, settings);
 		
 		// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 		resultSet.add(currentResult);
