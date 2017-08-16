@@ -9,6 +9,7 @@ import result_set_wrappers.TuneByIDWrapper;
 
 public class TuneByIDParser 
 {
+	//TODO: Fix up these comments
 	/**
 	 * Uses GSON to parse a set of search results from thesession.org API into a Java "TheSessionAPISearchResultsWrapper" object
 	 * 
@@ -41,28 +42,28 @@ public class TuneByIDParser
 		private TuneByIDWrapper listOfResults;	
 		
 		/**
-		 * Uses Gson to parse the JSON into a TunesSearchResultWrapper object
+		 * Uses Gson to parse the JSON into a TuneByIDWrapper object
 		 * 
-		 * @param searchResultsString Pass in a string containing the JSON returned from a search of thesession.org API
-		 * @return a TuneSearchResultWrapper object allowing access to any individual element of the response
+		 * @param tuneDetailsString Pass in a string containing the JSON returned from thesession.org API
+		 * @return a TuneByIDWrapper object allowing access to any individual element of the response
 		 */
-		public TuneByIDWrapper parseResponse(String searchResultsString) 
+		public TuneByIDWrapper parseResponse(String tuneDetailsString) 
 			{
 			Gson gson = new GsonBuilder().create();
 			
 			try
 			// Populate the Gson object using the string of JSON returned from the API
 				{
-				listOfResults = gson.fromJson(searchResultsString, TuneByIDWrapper.class);
+				listOfResults = gson.fromJson(tuneDetailsString, TuneByIDWrapper.class);
 				}
 			
 			catch (JsonSyntaxException e)
-			// Catch a case where the API returns something that is not valid JSON that matches the structure of a TunesSearchResultWrapper
+			// Catch a case where the API returns something that is not valid JSON that matches the structure of a TuneByIDWrapper
 				{		
 				throw new IllegalArgumentException(e.getMessage());
 				}
 			
-			// Return the TuneSearchResultWrapper object
+			// Return the TuneByIDWrapper object
 			return listOfResults;
 			}
 		}

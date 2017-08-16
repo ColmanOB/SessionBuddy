@@ -1,29 +1,32 @@
 package json_object_wrappers;
 
+import java.util.ArrayList;
 
 /**
  * @author Colman
- *
+ * @since 2017-08-17
  */
 public class TuneByIDResult 
 	{
-	public String id;		// The identifier for the particular setting in thesession.org database
+	// Variables to hold data relating to the tune as a whole
+	public String id;	
 	public String name;
-	public String url;	// The URL of the particular setting of the tune
+	public String url;
 	
 	public User member;
 	
 	public String date;
-	public String type;	// The key of the particular setting of the tune
+	public String type;
 	public String tunebooks;
 	public String recordings;
 	
-	public String[] aliases;
+	public ArrayList<String> aliases;
 	
-	public TuneSetting[] settings; // An array of different settings of the particular tune
-
+	public ArrayList<TuneSetting> settings; // An array of different settings of the particular tune
 
 	/**
+	 * Constructor method
+	 * 
 	 * @param id
 	 * @param name
 	 * @param url
@@ -35,7 +38,7 @@ public class TuneByIDResult
 	 * @param aliases
 	 * @param settings
 	 */
-	public TuneByIDResult(String id, String name, String url, User member, String date, String type, String tunebooks, String recordings, String[] aliases, TuneSetting[] settings)
+	public TuneByIDResult(String id, String name, String url, User member, String date, String type, String tunebooks, String recordings, ArrayList<String> aliases, ArrayList<TuneSetting> settings)
 		{
 		this.id = id;
 		this.name = name;

@@ -1,7 +1,5 @@
 package white_box_testing;
 
-import java.util.ArrayList;
-
 import json_object_wrappers.TuneByIDResult;
 
 import main.RetrieveItem;
@@ -16,20 +14,40 @@ public class Test_TuneByID
 		int resultsPerPage = 50;
 		
 		
-		// Instantiate a TheSessionAPISearcher object
+		// Instantiate a RetrieveItem object
 		RetrieveItem search = new RetrieveItem();
 		
-		// Pass in the search parameters
-		ArrayList<TuneByIDResult> resultSet = search.getTuneByID(searchTerms, tuneID, resultsPerPage);
+		// Pass in the parameters for the tune we want to retrieve
+		TuneByIDResult resultSet = search.getTuneByID(searchTerms, tuneID, resultsPerPage);
 		
-		// Loop through the results and print each attribute of each individual result in the set
-		for (int i = 0; i < resultSet.size(); i++)
+		System.out.println(resultSet.id);
+		System.out.println(resultSet.name);
+		System.out.println(resultSet.url);
+		
+		System.out.println(resultSet.member.userID);
+		System.out.println(resultSet.member.userName);
+		System.out.println(resultSet.member.userURL);
+		
+		System.out.println(resultSet.date);
+		System.out.println(resultSet.type);
+		System.out.println(resultSet.tunebooks);
+		System.out.println(resultSet.recordings);
+		
+		System.out.println(resultSet.aliases.toString());
+		
+
+		// Loop through each individual setting of the tune and print the details
+		for (int i = 0; i < resultSet.settings.size(); i++)
 			{
+			System.out.println(resultSet.settings.get(i).id);
+			System.out.println(resultSet.settings.get(i).url);
+			System.out.println(resultSet.settings.get(i).date);
+			System.out.println(resultSet.settings.get(i).key);
+			System.out.println(resultSet.settings.get(i).abc);
 			
-			System.out.println(resultSet.get(i).url);
-			System.out.println(resultSet.get(i).type);
-			System.out.println(resultSet.get(i).settings.length);
-			System.out.println(resultSet.get(i).settings[i].abc);
+			System.out.println(resultSet.settings.get(i).member.userID);
+			System.out.println(resultSet.settings.get(i).member.userName);
+			System.out.println(resultSet.settings.get(i).member.userURL);
 			
 			System.out.println("\n");
 			}

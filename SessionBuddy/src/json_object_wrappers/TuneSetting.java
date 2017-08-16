@@ -9,5 +9,15 @@ public class TuneSetting
 	public String abc;	// The abc notation of the setting of the tune (i.e. the main body of the tune)
 	public User member;	// The user who submitted the particular setting of the tune
 	public String date;	// The date on which the particular setting was submitted to thesession.org
+	
+	public TuneSetting(int id, String url, String key, String abc, User member, String date)
+		{
+		this.id = id;
+		this.url = url;
+		this.key = key;
+		this.abc = abc;
+		this.member = member;
+		this.date = date;
+		}
 	}
 
