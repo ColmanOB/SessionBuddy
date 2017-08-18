@@ -4,14 +4,20 @@ import java.util.ArrayList;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import json_object_wrappers.Artist;
 import json_object_wrappers.DiscussionByIDResult;
 import json_object_wrappers.DiscussionComment;
+import json_object_wrappers.RecordingByIDResult;
+import json_object_wrappers.TrackListing;
 import json_object_wrappers.TuneByIDResult;
+import json_object_wrappers.TuneRecord;
 import json_object_wrappers.TuneSetting;
 import json_object_wrappers.User;
 import response_parsers.DiscussionByIDParser;
+import response_parsers.RecordingByIDParser;
 import response_parsers.TuneByIDParser;
 import result_set_wrappers.DiscussionByIDWrapper;
+import result_set_wrappers.RecordingByIDWrapper;
 import result_set_wrappers.TuneByIDWrapper;
 
 
@@ -20,6 +26,72 @@ public class RetrieveItem
 private int pageCount = 0;
 
 // TODO: Fix up comments throughout this method
+	public RecordingByIDResult getRecordingByID(String itemCategory, String recordingID, int resultsPerPage) throws IllegalArgumentException
+		{
+		if (resultsPerPage > 50)
+			{
+			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			}
+		
+		// Make the API call using the the discussion ID and store the JSON that is returned as a String
+		HttpRequestor searcher = new HttpRequestor();
+		String apiQueryResults = searcher.submitListRequest("recordings", recordingID, resultsPerPage);
+			
+		// Parse the returned JSON into a wrapper class to allow access to all elements
+		RecordingByIDParser jsonParser = new RecordingByIDParser();
+		RecordingByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		
+		// Extract each element from the tune entry in the JSON response
+		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
+		String id = (parsedResults.id); 
+		String url = (parsedResults.url);
+		String name = (parsedResults.name);
+		
+		// Get the details of the member who originally submitted the discussion
+		User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
+			
+		String date = (parsedResults.date);
+		
+		Artist artist = new Artist(parsedResults.artist.id, parsedResults.artist.name, parsedResults.artist.url);
+		
+		ArrayList<TrackListing> tracks = new ArrayList<TrackListing>();
+		
+		for(int i = 0; i < (parsedResults.tracks.length)-1; i++)
+			{			
+			ArrayList<TuneRecord> tunesOnTrack = new ArrayList<TuneRecord>();
+			
+			for (int j = 0; j < (parsedResults.tracks[i].tunes.length)-1; j++)
+				{		
+				TuneRecord currentTune = new TuneRecord(parsedResults.tracks[i].tunes[j].name, parsedResults.tracks[i].tunes[j].id ,parsedResults.tracks[i].tunes[j].url);
+				tunesOnTrack.add(currentTune);
+				}
+			
+			TrackListing currentTrack = new TrackListing(tunesOnTrack);
+			tracks.add(currentTrack);
+			}
+		
+		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the dicussion
+		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
+			
+		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
+		for(int i = 0; i < (parsedResults.comments.length)-1; i++)
+			{
+			// Populate the User object representing the person who submitted the comment
+			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
+			
+			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
+			DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			
+			comments.add(currentComment);				
+			}
+			
+		// Instantiate a DiscussionByIDResult object & populate it with the details captured above
+		RecordingByIDResult finalResult = new RecordingByIDResult(id, name, url, member, date, artist, tracks, comments);
+			
+		// Return the set of results that has been collected
+		return finalResult;
+		}
+
 
 	/**
 	 * @param itemCategory
