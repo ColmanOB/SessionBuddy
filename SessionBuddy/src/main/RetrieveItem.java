@@ -22,20 +22,20 @@ private int pageCount = 0;
 // TODO: Fix up comments throughout this method
 
 	/**
-	 * @param searchTerms
+	 * @param itemCategory
 	 * @param tuneID
 	 * @param resultsPerPage
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	public DiscussionByIDResult getDiscussionByID(String searchTerms, String discussionID, int resultsPerPage) throws IllegalArgumentException
+	public DiscussionByIDResult getDiscussionByID(String itemCategory, String discussionID, int resultsPerPage) throws IllegalArgumentException
 	{
 	if (resultsPerPage > 50)
 		{
 		throw new IllegalArgumentException("Number of results per page must be 50 or less");
 		}
 
-	// Make the API call using the tune ID and store the JSON that is returned as a String
+	// Make the API call using the the discussion ID and store the JSON that is returned as a String
 	HttpRequestor searcher = new HttpRequestor();
 	String apiQueryResults = searcher.submitListRequest("discussions", discussionID, resultsPerPage);
 		
@@ -49,27 +49,27 @@ private int pageCount = 0;
 	String name = (parsedResults.name);
 	String url = (parsedResults.url);
 	
-	// Get the details of the member who originally submitted the tune
+	// Get the details of the member who originally submitted the discussion
 	User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
 		
 	String date = (parsedResults.date);
 	
-	// Initalise an ArrayList of TuneSetting objects to hold each individual setting of the tune
+	// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the dicussion
 	ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
 		
-	// Populate the ArrayList of TuneSetting objects by iterating through each setting in the JSON response
+	// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
 	for(int i = 0; i < (parsedResults.comments.length)-1; i++)
 		{
-		// Populate the User object representing the person who submitted the particular setting
+		// Populate the User object representing the person who submitted the comment
 		User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
 		
-		// Populate the TuneSetting object representing information related to a specific setting, including the user set up above
-		DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, parsedResults.comments[i].subject, parsedResults.comments[i].content, commentSubmitter, parsedResults.comments[i].date);
+		// Populate the DiscussionComment object with all information related to the comment, including the user set up above
+		DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 		
 		comments.add(currentComment);				
 		}
 		
-	// Instantiate a TuneByIDResult object & populate it with the details captured above
+	// Instantiate a DiscussionByIDResult object & populate it with the details captured above
 	DiscussionByIDResult finalResult = new DiscussionByIDResult(id, name, url, member, date, comments);
 		
 	// Return the set of results that has been collected
@@ -77,7 +77,7 @@ private int pageCount = 0;
 	}
 
 	
-	public TuneByIDResult getTuneByID(String searchTerms, String tuneID, int resultsPerPage) throws IllegalArgumentException
+	public TuneByIDResult getTuneByID(String itemCategory, String tuneID, int resultsPerPage) throws IllegalArgumentException
 	{
 	if (resultsPerPage > 50)
 		{
