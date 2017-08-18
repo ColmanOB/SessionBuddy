@@ -41,36 +41,42 @@ private int pageCount = 0;
 		RecordingByIDParser jsonParser = new RecordingByIDParser();
 		RecordingByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
 		
-		// Extract each element from the tune entry in the JSON response
+		// Extract each element from the recording entry in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
 		String id = (parsedResults.id); 
 		String url = (parsedResults.url);
 		String name = StringEscapeUtils.unescapeXml(parsedResults.name);
 		
-		// Get the details of the member who originally submitted the discussion
+		// Get the details of the member who originally submitted the recording
 		User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
 			
 		String date = (parsedResults.date);
 		
+		// Get the details of the recording artist(s)
 		Artist artist = new Artist(parsedResults.artist.id, StringEscapeUtils.unescapeXml(parsedResults.artist.name), parsedResults.artist.url);
 		
+		// Set up the structure needed to hold the track listing
 		ArrayList<TrackListing> tracks = new ArrayList<TrackListing>();
 		
+		// Populate the track listing
 		for(int i = 0; i < (parsedResults.tracks.length)-1; i++)
-			{			
+			{
+			// For each individual track, create an ArrayList of TuneRecord objects
 			ArrayList<TuneRecord> tunesOnTrack = new ArrayList<TuneRecord>();
 			
+			// Populate the ArrayList of TuneRecord objects
 			for (int j = 0; j < (parsedResults.tracks[i].tunes.length)-1; j++)
 				{		
 				TuneRecord currentTune = new TuneRecord(StringEscapeUtils.unescapeXml(parsedResults.tracks[i].tunes[j].name), parsedResults.tracks[i].tunes[j].id ,parsedResults.tracks[i].tunes[j].url);
 				tunesOnTrack.add(currentTune);
 				}
 			
+			// Add the current track to the track listing
 			TrackListing currentTrack = new TrackListing(tunesOnTrack);
 			tracks.add(currentTrack);
 			}
 		
-		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the dicussion
+		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment on the recording
 		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
 			
 		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
@@ -85,7 +91,7 @@ private int pageCount = 0;
 			comments.add(currentComment);				
 			}
 			
-		// Instantiate a DiscussionByIDResult object & populate it with the details captured above
+		// Instantiate a RecordingByIDResult object & populate it with the details captured above
 		RecordingByIDResult finalResult = new RecordingByIDResult(id, name, url, member, date, artist, tracks, comments);
 			
 		// Return the set of results that has been collected
