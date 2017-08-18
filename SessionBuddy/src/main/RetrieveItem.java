@@ -45,14 +45,14 @@ private int pageCount = 0;
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
 		String id = (parsedResults.id); 
 		String url = (parsedResults.url);
-		String name = (parsedResults.name);
+		String name = StringEscapeUtils.unescapeXml(parsedResults.name);
 		
 		// Get the details of the member who originally submitted the discussion
 		User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
 			
 		String date = (parsedResults.date);
 		
-		Artist artist = new Artist(parsedResults.artist.id, parsedResults.artist.name, parsedResults.artist.url);
+		Artist artist = new Artist(parsedResults.artist.id, StringEscapeUtils.unescapeXml(parsedResults.artist.name), parsedResults.artist.url);
 		
 		ArrayList<TrackListing> tracks = new ArrayList<TrackListing>();
 		
@@ -62,7 +62,7 @@ private int pageCount = 0;
 			
 			for (int j = 0; j < (parsedResults.tracks[i].tunes.length)-1; j++)
 				{		
-				TuneRecord currentTune = new TuneRecord(parsedResults.tracks[i].tunes[j].name, parsedResults.tracks[i].tunes[j].id ,parsedResults.tracks[i].tunes[j].url);
+				TuneRecord currentTune = new TuneRecord(StringEscapeUtils.unescapeXml(parsedResults.tracks[i].tunes[j].name), parsedResults.tracks[i].tunes[j].id ,parsedResults.tracks[i].tunes[j].url);
 				tunesOnTrack.add(currentTune);
 				}
 			

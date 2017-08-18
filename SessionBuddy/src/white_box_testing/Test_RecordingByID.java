@@ -36,6 +36,7 @@ public class Test_RecordingByID
 		
 		System.out.println("Artist Name:" + resultSet.artist.artistName);
 		
+		// Print out the track listing
 		for (int i = 0; i < (resultSet.tracks.size()-1); i++)
 			{
 			System.out.println("Track: " + i);
@@ -49,7 +50,7 @@ public class Test_RecordingByID
 				}
 			}
 		
-		// Loop through each individual comment in the Recording and print the details
+		// Loop through each individual comment on the Recording and print the details
 		for (int i = 0; i < resultSet.comments.size(); i++)
 			{
 			System.out.println("Comment ID: " + resultSet.comments.get(i).id);

@@ -8,34 +8,32 @@ import java.util.ArrayList;
  */
 public class RecordingByIDResult 
 	{
-	// Variables to hold data relating to the discussion as a whole
+	// Variables to hold data relating to the recording as a whole
 	public String id;	
 	public String url;
 	public String name;
 
-	public User member;
+	public User member; // The member who submitted the recording
 	
-	public String date;
+	public String date; // The date the recording was submitted to thesession.org
 	
-	public Artist artist;
+	public Artist artist; // The recording artist
 	
-	public ArrayList<TrackListing> tracks;
+	public ArrayList<TrackListing> tracks; // The list of tracks on the recording
 		
-	public ArrayList<DiscussionComment> comments; // An array of comments in the discussion
+	public ArrayList<DiscussionComment> comments; // The comments on the recording
 
 	/**
 	 * Constructor method
-	 * 
+	 *
 	 * @param id
 	 * @param name
 	 * @param url
 	 * @param member
 	 * @param date
-	 * @param type
-	 * @param tunebooks
-	 * @param recordings
-	 * @param aliases
-	 * @param settings
+	 * @param artist
+	 * @param tracks
+	 * @param comments
 	 */
 	public RecordingByIDResult(String id, String name, String url, User member, String date, Artist artist, ArrayList<TrackListing> tracks, ArrayList<DiscussionComment> comments)
 		{

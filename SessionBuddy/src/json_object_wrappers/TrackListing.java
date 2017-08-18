@@ -22,8 +22,4 @@ public class TrackListing
 		this.tunes = tunes;
 		}
 
-	public TrackListing() 
-		{
-		// Default no-argument constructor
-		}
 	}
