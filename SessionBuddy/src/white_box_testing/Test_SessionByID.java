@@ -4,7 +4,7 @@ import json_object_wrappers.SessionByIDResult;
 
 import main.RetrieveItem;
 
-public class Test_TuneByID 
+public class Test_SessionByID 
 {
 	public static void main(String[] args)
 		{
@@ -41,9 +41,9 @@ public class Test_TuneByID
 			System.out.println(resultSet.comments.get(i).member.userID);
 			System.out.println(resultSet.comments.get(i).member.userName);
 			System.out.println(resultSet.comments.get(i).member.userURL);
+			System.out.println(resultSet.comments.get(i).content);
 			
 			System.out.println("\n");
 			}
 		}
-
 }
