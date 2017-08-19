@@ -20,10 +20,10 @@ public class Test_RecordingByID
 		RecordingByIDResult resultSet = search.getRecordingByID(itemCategory, recordingID, resultsPerPage);
 		
 		// Print out attributes of the Recording as a whole:
-		System.out.println("Recording ID: " + resultSet.id);
-		System.out.println("Recording Title: " + resultSet.name);
-		System.out.println("Recording URL: " + resultSet.url);
-		System.out.println("Date: " + resultSet.date);
+		System.out.println("Recording ID: " + resultSet.recordingDetails.recordingID);
+		System.out.println("Recording Title: " + resultSet.recordingDetails.recordingName);
+		System.out.println("Recording URL: " + resultSet.recordingDetails.recordingURL);
+		System.out.println("Date: " + resultSet.recordingDetails.recordingDate);
 		System.out.println("\n");
 		
 		// Print out attributes of the user who submitted the Recording

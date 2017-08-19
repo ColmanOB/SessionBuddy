@@ -8,17 +8,17 @@ public class Test_SessionByID
 {
 	public static void main(String[] args)
 		{
-		// Set the search parameters
-		String searchTerms = "sessions";
-		String tuneID = "2379";
+		// Set the parameters
+		String category = "sessions";
+		String sessionID = "2379";
 		int resultsPerPage = 50;
 		
 		
 		// Instantiate a RetrieveItem object
 		RetrieveItem search = new RetrieveItem();
 		
-		// Pass in the parameters for the tune we want to retrieve
-		SessionByIDResult resultSet = search.getSessionByID(searchTerms, tuneID, resultsPerPage);
+		// Pass in the parameters for the session we want to retrieve
+		SessionByIDResult resultSet = search.getSessionByID(category, sessionID, resultsPerPage);
 		
 		System.out.println(resultSet.sessionDetails.sessionID);
 		System.out.println(resultSet.sessionDetails.sessionURL);
@@ -31,7 +31,7 @@ public class Test_SessionByID
 		System.out.println(resultSet.schedule.toString());
 		
 
-		// Loop through each individual setting of the tune and print the details
+		// Loop through each comment on the session and print the details
 		for (int i = 0; i < resultSet.comments.size(); i++)
 			{
 			System.out.println(resultSet.comments.get(i).id);

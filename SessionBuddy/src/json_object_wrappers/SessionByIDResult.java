@@ -24,16 +24,13 @@ public class SessionByIDResult
 	/**
 	 * Constructor method
 	 * 
-	 * @param id
-	 * @param name
-	 * @param url
+	 * @param sessionDetails
+	 * @param coordinates
 	 * @param member
-	 * @param latitude
 	 * @param venue
 	 * @param town
 	 * @param area
 	 * @param country
-	 * @param longitude
 	 * @param schedule
 	 * @param comments
 	 */

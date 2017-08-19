@@ -10,12 +10,15 @@ import json_object_wrappers.Coordinates;
 import json_object_wrappers.Country;
 import json_object_wrappers.DiscussionByIDResult;
 import json_object_wrappers.DiscussionComment;
+import json_object_wrappers.DiscussionDetails;
 import json_object_wrappers.RecordingByIDResult;
+import json_object_wrappers.RecordingDetails;
 import json_object_wrappers.SessionByIDResult;
 import json_object_wrappers.SessionDetails;
 import json_object_wrappers.Town;
 import json_object_wrappers.TrackListing;
 import json_object_wrappers.TuneByIDResult;
+import json_object_wrappers.TuneDetails;
 import json_object_wrappers.TuneRecord;
 import json_object_wrappers.TuneSetting;
 import json_object_wrappers.User;
@@ -34,7 +37,6 @@ public class RetrieveItem
 {
 private int pageCount = 0;
 
-// TODO: Fix up comments throughout this method
 	public RecordingByIDResult getRecordingByID(String itemCategory, String recordingID, int resultsPerPage) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -42,7 +44,7 @@ private int pageCount = 0;
 			throw new IllegalArgumentException("Number of results per page must be 50 or less");
 			}
 		
-		// Make the API call using the the discussion ID and store the JSON that is returned as a String
+		// Make the API call using the the recording ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
 		String apiQueryResults = searcher.submitListRequest("recordings", recordingID, resultsPerPage);
 			
@@ -52,14 +54,10 @@ private int pageCount = 0;
 		
 		// Extract each element from the recording entry in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-		String id = (parsedResults.id); 
-		String url = (parsedResults.url);
-		String name = StringEscapeUtils.unescapeXml(parsedResults.name);
+		RecordingDetails recordingDetails = new RecordingDetails(parsedResults.id, parsedResults.url, StringEscapeUtils.unescapeXml(parsedResults.name) , parsedResults.date);
 		
 		// Get the details of the member who originally submitted the recording
 		User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
-			
-		String date = (parsedResults.date);
 		
 		// Get the details of the recording artist(s)
 		Artist artist = new Artist(parsedResults.artist.id, StringEscapeUtils.unescapeXml(parsedResults.artist.name), parsedResults.artist.url);
@@ -101,7 +99,7 @@ private int pageCount = 0;
 			}
 			
 		// Instantiate a RecordingByIDResult object & populate it with the details captured above
-		RecordingByIDResult finalResult = new RecordingByIDResult(id, name, url, member, date, artist, tracks, comments);
+		RecordingByIDResult finalResult = new RecordingByIDResult(recordingDetails, member, artist, tracks, comments);
 			
 		// Return the set of results that has been collected
 		return finalResult;
@@ -132,14 +130,10 @@ private int pageCount = 0;
 
 	// Extract each element from the tune entry in the JSON response
 	// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-	String id = (parsedResults.id); 
-	String name = (parsedResults.name);
-	String url = (parsedResults.url);
+	DiscussionDetails discussionDetails = new DiscussionDetails(parsedResults.id, parsedResults.name, parsedResults.url, parsedResults.date);
 	
 	// Get the details of the member who originally submitted the discussion
 	User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
-		
-	String date = (parsedResults.date);
 	
 	// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the dicussion
 	ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
@@ -157,7 +151,7 @@ private int pageCount = 0;
 		}
 		
 	// Instantiate a DiscussionByIDResult object & populate it with the details captured above
-	DiscussionByIDResult finalResult = new DiscussionByIDResult(id, name, url, member, date, comments);
+	DiscussionByIDResult finalResult = new DiscussionByIDResult(discussionDetails, member, comments);
 		
 	// Return the set of results that has been collected
 	return finalResult;
@@ -181,15 +175,11 @@ private int pageCount = 0;
 
 	// Extract each element from the tune entry in the JSON response
 	// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-	String id = (parsedResults.id); 
-	String name = (parsedResults.name);
-	String url = (parsedResults.url);
-	
+	TuneDetails tuneDetails = new TuneDetails(parsedResults.id, StringEscapeUtils.unescapeXml(parsedResults.name), parsedResults.type, parsedResults.url, parsedResults.date);
+
 	// Get the details of the member who originally submitted the tune
 	User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
-		
-	String date = (parsedResults.date);
-	String type = (parsedResults.type);
+	
 	String tunebooks = (parsedResults.tunebooks);
 	String recordings = (parsedResults.recordings);
 	
@@ -218,7 +208,7 @@ private int pageCount = 0;
 		}
 		
 	// Instantiate a TuneByIDResult object & populate it with the details captured above
-	TuneByIDResult finalResult = new TuneByIDResult(id, name, url, member, date, type, tunebooks, recordings, aliases, settings);
+	TuneByIDResult finalResult = new TuneByIDResult(tuneDetails, member, tunebooks, recordings, aliases, settings);
 		
 	// Return the set of results that has been collected
 	return finalResult;
