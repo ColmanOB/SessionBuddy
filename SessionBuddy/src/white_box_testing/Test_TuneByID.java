@@ -42,6 +42,8 @@ public class Test_TuneByID
 			System.out.println(resultSet.comments.get(i).member.userName);
 			System.out.println(resultSet.comments.get(i).member.userURL);
 			
+			System.out.println(resultSet.comments.get(i).content);
+			
 			System.out.println("\n");
 			}
 		}

@@ -92,7 +92,7 @@ private int pageCount = 0;
 		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
 			
 		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
-		for(int i = 0; i < (parsedResults.comments.length)-1; i++)
+		for(int i = 0; i < (parsedResults.comments.length); i++)
 			{
 			// Populate the User object representing the person who submitted the comment
 			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
@@ -144,7 +144,7 @@ private int pageCount = 0;
 	ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
 		
 	// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
-	for(int i = 0; i < (parsedResults.comments.length)-1; i++)
+	for(int i = 0; i < (parsedResults.comments.length); i++)
 		{
 		// Populate the User object representing the person who submitted the comment
 		User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
@@ -201,7 +201,7 @@ private int pageCount = 0;
 	ArrayList<TuneSetting> settings = new ArrayList<TuneSetting>();
 		
 	// Populate the ArrayList of TuneSetting objects by iterating through each setting in the JSON response
-	for(int i = 0; i < (parsedResults.settings.length)-1; i++)
+	for(int i = 0; i < (parsedResults.settings.length); i++)
 		{
 		// Populate the User object representing the person who submitted the particular setting
 		User settingSubmitter = new User(Integer.toString(parsedResults.settings[i].member.id), parsedResults.settings[i].member.name, parsedResults.settings[i].member.url);
@@ -259,7 +259,7 @@ private int pageCount = 0;
 		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
 			
 		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
-		for(int i = 0; i < (parsedResults.comments.length)-1; i++)
+		for(int i = 0; i < (parsedResults.comments.length); i++)
 			{
 			// Populate the User object representing the person who submitted the comment
 			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
@@ -307,7 +307,7 @@ private int pageCount = 0;
 		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
 			
 		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
-		for(int i = 0; i < (parsedResults.comments.length)-1; i++)
+		for(int i = 0; i < (parsedResults.comments.length); i++)
 			{
 			// Populate the User object representing the person who submitted the comment
 			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
