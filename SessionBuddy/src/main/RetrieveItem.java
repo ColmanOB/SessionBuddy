@@ -11,6 +11,9 @@ import json_object_wrappers.Country;
 import json_object_wrappers.DiscussionByIDResult;
 import json_object_wrappers.DiscussionComment;
 import json_object_wrappers.DiscussionDetails;
+import json_object_wrappers.EventByIDResult;
+import json_object_wrappers.EventDetails;
+import json_object_wrappers.EventSchedule;
 import json_object_wrappers.RecordingByIDResult;
 import json_object_wrappers.RecordingDetails;
 import json_object_wrappers.SessionByIDResult;
@@ -24,10 +27,12 @@ import json_object_wrappers.TuneSetting;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
 import response_parsers.DiscussionByIDParser;
+import response_parsers.EventByIDParser;
 import response_parsers.RecordingByIDParser;
 import response_parsers.SessionByIDParser;
 import response_parsers.TuneByIDParser;
 import result_set_wrappers.DiscussionByIDWrapper;
+import result_set_wrappers.EventByIDWrapper;
 import result_set_wrappers.RecordingByIDWrapper;
 import result_set_wrappers.SessionByIDWrapper;
 import result_set_wrappers.TuneByIDWrapper;
@@ -271,6 +276,55 @@ private int pageCount = 0;
 		// Return the set of results that has been collected
 		return finalResult;
 		}
+
+	public EventByIDResult getEventByID(String itemCategory, String eventID, int resultsPerPage) throws IllegalArgumentException
+		{
+		if (resultsPerPage > 50)
+			{
+			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			}
+
+		// Make the API call using the the event ID and store the JSON that is returned as a String
+		HttpRequestor searcher = new HttpRequestor();
+		String apiQueryResults = searcher.submitListRequest("events", eventID, resultsPerPage);
+			
+		// Parse the returned JSON into a wrapper class to allow access to all elements
+		EventByIDParser jsonParser = new EventByIDParser();
+		EventByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+	
+		// Extract each element from the tune entry in the JSON response
+		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
+		EventDetails eventDetails = new EventDetails(parsedResults.id, StringEscapeUtils.unescapeXml(parsedResults.name), parsedResults.url, parsedResults.date);
+		User member = new User(Integer.toString(parsedResults.member.id),StringEscapeUtils.unescapeXml(parsedResults.member.name),parsedResults.member.url);	
+		EventSchedule schedule = new EventSchedule(parsedResults.dtstart, parsedResults.dtend);
+		Coordinates coordinates = new Coordinates(parsedResults.latitude, parsedResults.longitude);
+		Venue venue = new Venue(Integer.toString(parsedResults.venue.id), StringEscapeUtils.unescapeXml(parsedResults.venue.name), parsedResults.venue.telephone, parsedResults.venue.email, parsedResults.venue.web);	
+		Town town = new Town(Integer.toString(parsedResults.town.id), StringEscapeUtils.unescapeXml(parsedResults.town.name));
+		Area area = new Area(Integer.toString(parsedResults.area.id), StringEscapeUtils.unescapeXml(parsedResults.area.name));
+		Country country = new Country(Integer.toString(parsedResults.country.id), StringEscapeUtils.unescapeXml(parsedResults.country.name));		
+		
+		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the event
+		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
+			
+		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
+		for(int i = 0; i < (parsedResults.comments.length)-1; i++)
+			{
+			// Populate the User object representing the person who submitted the comment
+			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
+			
+			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
+			DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			
+			comments.add(currentComment);				
+			}
+			
+		// Instantiate a DiscussionByIDResult object & populate it with the details captured above
+		EventByIDResult finalResult = new EventByIDResult(eventDetails, member, schedule, coordinates, venue, town, area, country, comments);
+			
+		// Return the set of results that has been collected
+		return finalResult;
+		}
+	
 	
 	
 	public int getPageCount() throws IllegalStateException
