@@ -2,7 +2,7 @@ package white_box_testing;
 
 import java.util.ArrayList;
 
-import json_object_wrappers.DiscussionsSearchResult;
+import json_object_wrappers.SessionsSearchResult;
 import main.RetrieveLatest;
 
 /**
@@ -14,14 +14,14 @@ import main.RetrieveLatest;
  * @since 2017-08-13
  */
 
-class Test_LatestDiscussions
+class Test_LatestSessions
 
 {
 public static void main(String[] args)
    {
 	// Set the search parameters
 	int resultsPerPage = 50;
-	ArrayList<DiscussionsSearchResult> resultSet;
+	ArrayList<SessionsSearchResult> resultSet;
 	
 	// Instantiate a RetrieveLatest object
 	RetrieveLatest search = new RetrieveLatest();
@@ -29,20 +29,26 @@ public static void main(String[] args)
 	try
 		{
 		// Pass in the search parameters
-		resultSet = search.getLatestDiscussions(resultsPerPage);
+		resultSet = search.getLatestSessions(resultsPerPage);
 		
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
 			{
-			System.out.println(resultSet.get(i).details.discussionID);
-			System.out.println(resultSet.get(i).details.discussionName);
+			System.out.println(resultSet.get(i).details.sessionID);
+			System.out.println(resultSet.get(i).details.sessionURL);
 			System.out.println(resultSet.get(i).details.submittedDate);
-			System.out.println(resultSet.get(i).details.discussionURL);	
-			System.out.println(resultSet.get(i).details.numberOfComments);	
 					
 			System.out.println(resultSet.get(i).user.userID);
 			System.out.println(resultSet.get(i).user.userName);
 			System.out.println(resultSet.get(i).user.userURL);
+			
+			System.out.println(resultSet.get(i).coordinates.latitude);
+			System.out.println(resultSet.get(i).coordinates.longitude);
+			
+			System.out.println(resultSet.get(i).venue.venueName);
+			System.out.println(resultSet.get(i).venue.venueEmail);
+			System.out.println(resultSet.get(i).venue.venuePhone);
+			System.out.println(resultSet.get(i).venue.venueWebsite);
 			
 			System.out.println("\n");
 			}

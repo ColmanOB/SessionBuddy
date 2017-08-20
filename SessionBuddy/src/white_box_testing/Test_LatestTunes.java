@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import json_object_wrappers.TunesSearchResult;
 import main.RetrieveLatest;
 
-public class Test_LatestTunes
+class Test_LatestTunes
 //Purpose: Search the session.org API for a set of search terms, and store the results
 {
 public static void main(String[] args)
