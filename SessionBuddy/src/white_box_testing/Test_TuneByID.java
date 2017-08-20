@@ -2,7 +2,7 @@ package white_box_testing;
 
 import json_object_wrappers.SessionByIDResult;
 
-import main.RetrieveItem;
+import main.RetrieveItemByID;
 
 public class Test_TuneByID 
 {
@@ -15,7 +15,7 @@ public class Test_TuneByID
 		
 		
 		// Instantiate a RetrieveItem object
-		RetrieveItem search = new RetrieveItem();
+		RetrieveItemByID search = new RetrieveItemByID();
 		
 		// Pass in the parameters for the tune we want to retrieve
 		SessionByIDResult resultSet = search.getSessionByID(searchTerms, tuneID, resultsPerPage);

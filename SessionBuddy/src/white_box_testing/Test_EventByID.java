@@ -2,7 +2,7 @@ package white_box_testing;
 
 import json_object_wrappers.EventByIDResult;
 
-import main.RetrieveItem;
+import main.RetrieveItemByID;
 
 public class Test_EventByID 
 {
@@ -14,7 +14,7 @@ public class Test_EventByID
 		int resultsPerPage = 50;
 		
 		// Instantiate a RetrieveItem object
-		RetrieveItem search = new RetrieveItem();
+		RetrieveItemByID search = new RetrieveItemByID();
 		
 		// Pass in the parameters for the session we want to retrieve
 		EventByIDResult resultSet = search.getEventByID(category, eventID, resultsPerPage);

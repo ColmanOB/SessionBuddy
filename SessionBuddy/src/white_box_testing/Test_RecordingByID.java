@@ -1,7 +1,7 @@
 package white_box_testing;
 
 import json_object_wrappers.RecordingByIDResult;
-import main.RetrieveItem;
+import main.RetrieveItemByID;
 
 public class Test_RecordingByID 
 {
@@ -14,7 +14,7 @@ public class Test_RecordingByID
 		
 		
 		// Instantiate a RetrieveItem object
-		RetrieveItem search = new RetrieveItem();
+		RetrieveItemByID search = new RetrieveItemByID();
 		
 		// Pass in the parameters for the Recording we want to retrieve
 		RecordingByIDResult resultSet = search.getRecordingByID(itemCategory, recordingID, resultsPerPage);

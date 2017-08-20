@@ -38,7 +38,7 @@ import result_set_wrappers.SessionByIDWrapper;
 import result_set_wrappers.TuneByIDWrapper;
 
 
-public class RetrieveItem 
+public class RetrieveItemByID 
 {
 private int pageCount = 0;
 

@@ -2,7 +2,7 @@ package white_box_testing;
 
 import json_object_wrappers.DiscussionByIDResult;
 
-import main.RetrieveItem;
+import main.RetrieveItemByID;
 
 public class Test_DiscussionByID 
 {
@@ -15,7 +15,7 @@ public class Test_DiscussionByID
 		
 		
 		// Instantiate a RetrieveItem object
-		RetrieveItem search = new RetrieveItem();
+		RetrieveItemByID search = new RetrieveItemByID();
 		
 		// Pass in the parameters for the discussion we want to retrieve
 		DiscussionByIDResult resultSet = search.getDiscussionByID(itemCategory, discussionID, resultsPerPage);
