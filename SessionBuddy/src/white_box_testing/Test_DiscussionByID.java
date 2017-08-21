@@ -9,16 +9,13 @@ public class Test_DiscussionByID
 	public static void main(String[] args)
 		{
 		// Set the search parameters
-		String itemCategory = "discussions";
 		String discussionID = "666";
-		int resultsPerPage = 50;
-		
 		
 		// Instantiate a RetrieveItem object
 		RetrieveItemByID search = new RetrieveItemByID();
 		
 		// Pass in the parameters for the discussion we want to retrieve
-		DiscussionByIDResult resultSet = search.getDiscussionByID(itemCategory, discussionID, resultsPerPage);
+		DiscussionByIDResult resultSet = search.getDiscussionByID(discussionID);
 		
 		// Print out attributes of the discussion as a whole:
 		System.out.println("Discussion ID: " + resultSet.discussionDetails.discussionID);

@@ -9,16 +9,13 @@ public class Test_SessionByID
 	public static void main(String[] args)
 		{
 		// Set the parameters
-		String category = "sessions";
 		String sessionID = "2379";
-		int resultsPerPage = 50;
-		
-		
+
 		// Instantiate a RetrieveItem object
 		RetrieveItemByID search = new RetrieveItemByID();
 		
 		// Pass in the parameters for the session we want to retrieve
-		SessionByIDResult resultSet = search.getSessionByID(category, sessionID, resultsPerPage);
+		SessionByIDResult resultSet = search.getSessionByID(sessionID);
 		
 		System.out.println(resultSet.sessionDetails.sessionID);
 		System.out.println(resultSet.sessionDetails.sessionURL);

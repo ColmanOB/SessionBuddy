@@ -8,16 +8,15 @@ public class Test_RecordingByID
 	public static void main(String[] args)
 		{
 		// Set the search parameters
-		String itemCategory = "recordings";
+
 		String recordingID = "666";
-		int resultsPerPage = 50;
 		
 		
 		// Instantiate a RetrieveItem object
 		RetrieveItemByID search = new RetrieveItemByID();
 		
 		// Pass in the parameters for the Recording we want to retrieve
-		RecordingByIDResult resultSet = search.getRecordingByID(itemCategory, recordingID, resultsPerPage);
+		RecordingByIDResult resultSet = search.getRecordingByID(recordingID);
 		
 		// Print out attributes of the Recording as a whole:
 		System.out.println("Recording ID: " + resultSet.recordingDetails.recordingID);

@@ -38,20 +38,21 @@ import result_set_wrappers.SessionByIDWrapper;
 import result_set_wrappers.TuneByIDWrapper;
 
 
+/**
+ * @author Colman
+ * @since 2017-08-21
+ */
 public class RetrieveItemByID 
 {
-private int pageCount = 0;
-
-	public RecordingByIDResult getRecordingByID(String itemCategory, String recordingID, int resultsPerPage) throws IllegalArgumentException
+	/**
+	 * @param recordingID
+	 * @return
+	 */
+	public RecordingByIDResult getRecordingByID(String recordingID)
 		{
-		if (resultsPerPage > 50)
-			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
-			}
-		
 		// Make the API call using the the recording ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitListRequest("recordings", recordingID, resultsPerPage);
+		String apiQueryResults = searcher.submitListRequest("recordings", recordingID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		RecordingByIDParser jsonParser = new RecordingByIDParser();
@@ -110,126 +111,117 @@ private int pageCount = 0;
 		return finalResult;
 		}
 
-
+	
 	/**
-	 * @param itemCategory
-	 * @param tuneID
-	 * @param resultsPerPage
+	 * 
+	 * @param discussionID
 	 * @return
-	 * @throws IllegalArgumentException
 	 */
-	public DiscussionByIDResult getDiscussionByID(String itemCategory, String discussionID, int resultsPerPage) throws IllegalArgumentException
-	{
-	if (resultsPerPage > 50)
+	public DiscussionByIDResult getDiscussionByID(String discussionID)
 		{
-		throw new IllegalArgumentException("Number of results per page must be 50 or less");
-		}
-
-	// Make the API call using the the discussion ID and store the JSON that is returned as a String
-	HttpRequestor searcher = new HttpRequestor();
-	String apiQueryResults = searcher.submitListRequest("discussions", discussionID, resultsPerPage);
-		
-	// Parse the returned JSON into a wrapper class to allow access to all elements
-	DiscussionByIDParser jsonParser = new DiscussionByIDParser();
-	DiscussionByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
-
-	// Extract each element from the tune entry in the JSON response
-	// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-	DiscussionDetails discussionDetails = new DiscussionDetails(parsedResults.id, parsedResults.name, parsedResults.url, parsedResults.date);
-	
-	// Get the details of the member who originally submitted the discussion
-	User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
-	
-	// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the dicussion
-	ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
-		
-	// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
-	for(int i = 0; i < (parsedResults.comments.length); i++)
-		{
-		// Populate the User object representing the person who submitted the comment
-		User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
-		
-		// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-		DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
-		
-		comments.add(currentComment);				
-		}
-		
-	// Instantiate a DiscussionByIDResult object & populate it with the details captured above
-	DiscussionByIDResult finalResult = new DiscussionByIDResult(discussionDetails, member, comments);
-		
-	// Return the set of results that has been collected
-	return finalResult;
-	}
-
-	
-	public TuneByIDResult getTuneByID(String itemCategory, String tuneID, int resultsPerPage) throws IllegalArgumentException
-	{
-	if (resultsPerPage > 50)
-		{
-		throw new IllegalArgumentException("Number of results per page must be 50 or less");
-		}
-
-	// Make the API call using the tune ID and store the JSON that is returned as a String
-	HttpRequestor searcher = new HttpRequestor();
-	String apiQueryResults = searcher.submitListRequest("tunes", tuneID, resultsPerPage);
-		
-	// Parse the returned JSON into a wrapper class to allow access to all elements
-	TuneByIDParser jsonParser = new TuneByIDParser();
-	TuneByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
-
-	// Extract each element from the tune entry in the JSON response
-	// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-	TuneDetails tuneDetails = new TuneDetails(parsedResults.id, StringEscapeUtils.unescapeXml(parsedResults.name), parsedResults.type, parsedResults.url, parsedResults.date);
-
-	// Get the details of the member who originally submitted the tune
-	User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
-	
-	String tunebooks = (parsedResults.tunebooks);
-	String recordings = (parsedResults.recordings);
-	
-	// Initialize an ArrayList of Strings to store the list of alternative titles for the tune
-	ArrayList<String> aliases = new ArrayList<String>();
-	
-	// Iterate through each of the alternative titles in the JSON and use them to populate the ArrayList
-	for (int i = 0; i < parsedResults.aliases.length; i++)
-		{
-		aliases.add(parsedResults.aliases[i]);
-		}
-		
-	// Initalise an ArrayList of TuneSetting objects to hold each individual setting of the tune
-	ArrayList<TuneSetting> settings = new ArrayList<TuneSetting>();
-		
-	// Populate the ArrayList of TuneSetting objects by iterating through each setting in the JSON response
-	for(int i = 0; i < (parsedResults.settings.length); i++)
-		{
-		// Populate the User object representing the person who submitted the particular setting
-		User settingSubmitter = new User(Integer.toString(parsedResults.settings[i].member.id), parsedResults.settings[i].member.name, parsedResults.settings[i].member.url);
-		
-		// Populate the TuneSetting object representing information related to a specific setting, including the user set up above
-		TuneSetting currentSetting = new TuneSetting(Integer.parseInt(parsedResults.settings[i].id), parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].abc, settingSubmitter, parsedResults.settings[i].date);
-		
-		settings.add(currentSetting);				
-		}
-		
-	// Instantiate a TuneByIDResult object & populate it with the details captured above
-	TuneByIDResult finalResult = new TuneByIDResult(tuneDetails, member, tunebooks, recordings, aliases, settings);
-		
-	// Return the set of results that has been collected
-	return finalResult;
-	}
-	
-	
-	public SessionByIDResult getSessionByID(String itemCategory, String sessionID, int resultsPerPage) throws IllegalArgumentException
-		{
-		if (resultsPerPage > 50)
-			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
-			}
-
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitListRequest("sessions", sessionID, resultsPerPage);
+		String apiQueryResults = searcher.submitListRequest("discussions", discussionID);
+			
+		// Parse the returned JSON into a wrapper class to allow access to all elements
+		DiscussionByIDParser jsonParser = new DiscussionByIDParser();
+		DiscussionByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+	
+		// Extract each element from the tune entry in the JSON response
+		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
+		DiscussionDetails discussionDetails = new DiscussionDetails(parsedResults.id, parsedResults.name, parsedResults.url, parsedResults.date);
+		
+		// Get the details of the member who originally submitted the discussion
+		User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
+		
+		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the dicussion
+		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
+			
+		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
+		for(int i = 0; i < (parsedResults.comments.length); i++)
+			{
+			// Populate the User object representing the person who submitted the comment
+			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
+			
+			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
+			DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			
+			comments.add(currentComment);				
+			}
+			
+		// Instantiate a DiscussionByIDResult object & populate it with the details captured above
+		DiscussionByIDResult finalResult = new DiscussionByIDResult(discussionDetails, member, comments);
+			
+		// Return the set of results that has been collected
+		return finalResult;
+		}
+
+	
+	/**
+	 * @param tuneID
+	 * @return
+	 */
+	public TuneByIDResult getTuneByID(String tuneID)
+		{
+		// Make the API call using the tune ID and store the JSON that is returned as a String
+		HttpRequestor searcher = new HttpRequestor();
+		String apiQueryResults = searcher.submitListRequest("tunes", tuneID);
+			
+		// Parse the returned JSON into a wrapper class to allow access to all elements
+		TuneByIDParser jsonParser = new TuneByIDParser();
+		TuneByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+	
+		// Extract each element from the tune entry in the JSON response
+		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
+		TuneDetails tuneDetails = new TuneDetails(parsedResults.id, StringEscapeUtils.unescapeXml(parsedResults.name), parsedResults.type, parsedResults.url, parsedResults.date);
+	
+		// Get the details of the member who originally submitted the tune
+		User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
+		
+		String tunebooks = (parsedResults.tunebooks);
+		String recordings = (parsedResults.recordings);
+		
+		// Initialize an ArrayList of Strings to store the list of alternative titles for the tune
+		ArrayList<String> aliases = new ArrayList<String>();
+		
+		// Iterate through each of the alternative titles in the JSON and use them to populate the ArrayList
+		for (int i = 0; i < parsedResults.aliases.length; i++)
+			{
+			aliases.add(parsedResults.aliases[i]);
+			}
+			
+		// Initalise an ArrayList of TuneSetting objects to hold each individual setting of the tune
+		ArrayList<TuneSetting> settings = new ArrayList<TuneSetting>();
+			
+		// Populate the ArrayList of TuneSetting objects by iterating through each setting in the JSON response
+		for(int i = 0; i < (parsedResults.settings.length); i++)
+			{
+			// Populate the User object representing the person who submitted the particular setting
+			User settingSubmitter = new User(Integer.toString(parsedResults.settings[i].member.id), parsedResults.settings[i].member.name, parsedResults.settings[i].member.url);
+			
+			// Populate the TuneSetting object representing information related to a specific setting, including the user set up above
+			TuneSetting currentSetting = new TuneSetting(Integer.parseInt(parsedResults.settings[i].id), parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].abc, settingSubmitter, parsedResults.settings[i].date);
+			
+			settings.add(currentSetting);				
+			}
+			
+		// Instantiate a TuneByIDResult object & populate it with the details captured above
+		TuneByIDResult finalResult = new TuneByIDResult(tuneDetails, member, tunebooks, recordings, aliases, settings);
+			
+		// Return the set of results that has been collected
+		return finalResult;
+		}
+	
+	
+	/**
+	 * @param sessionID
+	 * @return
+	 */
+	public SessionByIDResult getSessionByID(String sessionID)
+		{
+		// Make the API call using the the discussion ID and store the JSON that is returned as a String
+		HttpRequestor searcher = new HttpRequestor();
+		String apiQueryResults = searcher.submitListRequest("sessions", sessionID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		SessionByIDParser jsonParser = new SessionByIDParser();
@@ -276,17 +268,17 @@ private int pageCount = 0;
 		// Return the set of results that has been collected
 		return finalResult;
 		}
-
-	public EventByIDResult getEventByID(String itemCategory, String eventID, int resultsPerPage) throws IllegalArgumentException
+	
+	
+	/**
+	 * @param eventID
+	 * @return
+	 */
+	public EventByIDResult getEventByID(String eventID)
 		{
-		if (resultsPerPage > 50)
-			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
-			}
-
 		// Make the API call using the the event ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitListRequest("events", eventID, resultsPerPage);
+		String apiQueryResults = searcher.submitListRequest("events", eventID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		EventByIDParser jsonParser = new EventByIDParser();
@@ -324,18 +316,4 @@ private int pageCount = 0;
 		// Return the set of results that has been collected
 		return finalResult;
 		}
-	
-	
-	
-	public int getPageCount() throws IllegalStateException
-		{
-		if (pageCount == 0)
-			{
-			throw new IllegalStateException("Page counter has not been initialised");
-			}
-		else 
-			return pageCount;
-		}
-	
-
 }

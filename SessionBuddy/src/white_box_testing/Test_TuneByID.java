@@ -9,16 +9,13 @@ public class Test_TuneByID
 	public static void main(String[] args)
 		{
 		// Set the search parameters
-		String searchTerms = "sessions";
-		String tuneID = "2379";
-		int resultsPerPage = 50;
-		
+		String tuneID = "2379";		
 		
 		// Instantiate a RetrieveItem object
 		RetrieveItemByID search = new RetrieveItemByID();
 		
 		// Pass in the parameters for the tune we want to retrieve
-		SessionByIDResult resultSet = search.getSessionByID(searchTerms, tuneID, resultsPerPage);
+		SessionByIDResult resultSet = search.getSessionByID(tuneID);
 		
 		System.out.println(resultSet.sessionDetails.sessionID);
 		System.out.println(resultSet.sessionDetails.sessionURL);

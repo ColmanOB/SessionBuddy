@@ -9,15 +9,13 @@ public class Test_EventByID
 	public static void main(String[] args)
 		{
 		// Set the parameters
-		String category = "events";
 		String eventID = "2";
-		int resultsPerPage = 50;
 		
 		// Instantiate a RetrieveItem object
 		RetrieveItemByID search = new RetrieveItemByID();
 		
 		// Pass in the parameters for the session we want to retrieve
-		EventByIDResult resultSet = search.getEventByID(category, eventID, resultsPerPage);
+		EventByIDResult resultSet = search.getEventByID(eventID);
 		
 		System.out.println(resultSet.eventDetails.eventID);
 		System.out.println(resultSet.eventDetails.eventName);
