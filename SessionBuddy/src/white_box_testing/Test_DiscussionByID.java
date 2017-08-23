@@ -2,29 +2,26 @@ package white_box_testing;
 
 import json_object_wrappers.DiscussionByIDResult;
 
-import main.RetrieveItem;
+import main.RetrieveItemByID;
 
 public class Test_DiscussionByID 
 {
 	public static void main(String[] args)
 		{
 		// Set the search parameters
-		String itemCategory = "discussions";
 		String discussionID = "666";
-		int resultsPerPage = 50;
-		
 		
 		// Instantiate a RetrieveItem object
-		RetrieveItem search = new RetrieveItem();
+		RetrieveItemByID search = new RetrieveItemByID();
 		
 		// Pass in the parameters for the discussion we want to retrieve
-		DiscussionByIDResult resultSet = search.getDiscussionByID(itemCategory, discussionID, resultsPerPage);
+		DiscussionByIDResult resultSet = search.getDiscussionByID(discussionID);
 		
 		// Print out attributes of the discussion as a whole:
-		System.out.println("Discussion ID: " + resultSet.id);
-		System.out.println("Discussion Title: " + resultSet.name);
-		System.out.println("Discussion URL: " + resultSet.url);
-		System.out.println("Date: " + resultSet.date);
+		System.out.println("Discussion ID: " + resultSet.discussionDetails.discussionID);
+		System.out.println("Discussion Title: " + resultSet.discussionDetails.discussionName);
+		System.out.println("Discussion URL: " + resultSet.discussionDetails.discussionURL);
+		System.out.println("Date: " + resultSet.discussionDetails.submittedDate);
 		System.out.println("\n");
 		
 		// Print out attributes of the user who submitted the discussion

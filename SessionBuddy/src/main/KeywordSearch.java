@@ -281,6 +281,13 @@ public class KeywordSearch
 		return resultSet;
 		}
 	
+	
+	/**
+	 * @param searchTerms
+	 * @param resultsPerPage
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -328,6 +335,14 @@ public class KeywordSearch
 		return resultSet;
 		}
 	
+	
+	/**
+	 * @param searchTerms
+	 * @param resultsPerPage
+	 * @param pageNumber
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -371,6 +386,13 @@ public class KeywordSearch
 		return resultSet;
 		}
 	
+	
+	/**
+	 * @param searchTerms
+	 * @param resultsPerPage
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -412,6 +434,14 @@ public class KeywordSearch
 		return resultSet;
 		}
 	
+	
+	/**
+	 * @param searchTerms
+	 * @param resultsPerPage
+	 * @param pageNumber
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -448,6 +478,13 @@ public class KeywordSearch
 		return resultSet;
 		}
 	
+	
+	/**
+	 * @param searchTerms
+	 * @param resultsPerPage
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -494,6 +531,14 @@ public class KeywordSearch
 		return resultSet;
 		}
 	
+	
+	/**
+	 * @param searchTerms
+	 * @param resultsPerPage
+	 * @param pageNumber
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
@@ -535,6 +580,11 @@ public class KeywordSearch
 		return resultSet;
 		}
 	
+	
+	/**
+	 * @return
+	 * @throws IllegalStateException
+	 */
 	public int getPageCount() throws IllegalStateException
 		{
 		if (pageCount == 0)
