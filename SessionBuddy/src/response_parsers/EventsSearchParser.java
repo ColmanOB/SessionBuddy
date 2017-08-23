@@ -1,13 +1,43 @@
 package response_parsers;
 
+// TODO: Fix up comments here
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import result_set_wrappers.EventsSearchResultWrapper;
 
+// TODO: correct the field names below
 /**
  * Uses GSON to parse a set of recordings search results from thesession.org API
+ * 
+ * You can access the following fields of the RecordingsSearchResultsWrapper.listOfResults object:
+ * 
+ * listOfResults.q		(the search terms used)
+ * listOfResults.pages	(number of pages of results)
+ * listOfResults.page	(current page within the results)
+ * listOfResults.recordings 	(the array of recordings returned within the results)
+ *
+ * The following fields are accessible for each individual recording within the array of tunes:
+ * 
+ * listOfResults.recordings[].id		(unique ID for the tune within thesession.org database)
+ * listOfResults.tunes[].name	(the tune name within thesession.org database)
+ * listOfResults.tunes[].url	(the individual tune's unique URL on thesession.org website)
+ * listOfResults.tunes[].date	(the date the tune was submitted to thesession.org)
+ * listOfResults.tunes[].type	(the type of tune, e.g. jig, reel etc.)
+ * listOfResults.tunes[].member	(details of thesession.org member who submitted the tune)
+ *
+ * The following fields are accessible for each member (i.e. tune submitter):
+ * 
+ * listOfResults.member.id		(the user's unique ID in thesession.org database)
+ * listOfResults.member.name	(the user's username for thesession.org)
+ * listOfResults.member.url		(the URL of the user's personal page on thesession.org)	
+ * 
+ * The following fields are accessible for each artist:
+ * 
+ * listOfResults.member.id		(the user's unique ID in thesession.org database)
+ * listOfResults.member.name	(the user's username for thesession.org)
+ * listOfResults.member.url		(the URL of the user's personal page on thesession.org)	
  * 
  * @author Colman O'B
  * @since 2017-02-01

@@ -9,8 +9,31 @@ import result_set_wrappers.TuneByIDWrapper;
 
 public class TuneByIDParser 
 {
+	//TODO: Fix up these comments
 	/**
 	 * Uses GSON to parse a set of search results from thesession.org API into a Java "TheSessionAPISearchResultsWrapper" object
+	 * 
+	 * You can access the following fields of the TunesSearchParser.listOfResults object:
+	 * 
+	 * q		(the search terms used)
+	 * pages	(number of pages of results)
+	 * page		(current page within the results)
+	 * tunes 	(the array of tunes returned within the results)
+	 *
+	 * The following fields are accessible for each individual tune within the array of tunes:
+	 * 
+	 * tunes[].id		(unique ID for the tune within thesession.org database)
+	 * tunes[].name		(the tune name within thesession.org database)
+	 * tunes[].url		(the individual tune's unique URL on thesession.org)
+	 * tunes[].date		(the date the tune was submitted)
+	 * tunes[].type		(the type of tune, e.g. jig, reel etc.)
+	 * tunes[].member	(details of thesession.org member who submitted the tune)
+	 *
+	 * The following fields are accessible for each member (i.e. tune submitter):
+	 * 
+	 * member.id	(Numeric ID of the user in thesession.org database)
+	 * member.name	(the user's username for thesession.org)
+	 * member.url	(the URL of the user's profile page on thesession.org)	
 	 * 
 	 * @author Colman O'B
 	 * @since 2017-08-13

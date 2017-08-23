@@ -144,66 +144,6 @@ public class HttpRequestor
 		return apiResponse;
 		}
 	
-	
-	/**
-	 * Used to retrieve an individual item by ID from thesession.org, such as a recording, session etc.
-	 * 
-	 * @param baseCategory The category we are interested in, e.g. tunes, sessions, recordings etc.
-	 * @param itemIdentifier If requesting an individual item, this is its ID number. Otherwise it will be a keyword passed in the URL
-	 * @return a String containing the JSON returned from the API
-	 * @throws RuntimeException If a HTTP error is encountered
-	 */
-	public String submitListRequest(String baseCategory, String itemIdentifier) throws RuntimeException
-		{
-		try 
-			{
-			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
-			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + itemIdentifier + "?" + "format=" + dataFormat);
-		
-			// Make the HTTP(S) connection to thesession.org
-			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
-			connectionToURL.setRequestMethod("GET");
-			connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
-	
-			//Assuming anything other than 200 is a problem to be notified to the user
-			if (connectionToURL.getResponseCode() != 200) 
-				{	
-				throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
-				}
-	
-			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
-		
-			//Use a StringBuilder to build a string from the data in the BufferedReader
-			String searchResults;
-			StringBuilder builder = new StringBuilder();
-		
-			while ((searchResults = inputReader.readLine()) != null) 
-				{ 
-				builder.append(searchResults);	
-				}
-	
-			apiResponse = builder.toString();
-		
-			// We have our search results.  Close the connection to https://thesession.org
-			connectionToURL.disconnect();		
-			} 
-	
-		catch (MalformedURLException e) 
-			{
-			e.printStackTrace();
-			} 
-	
-		catch (IOException e) 
-			{
-			e.printStackTrace();
-			}
-	
-		// Return the API response as one long string of JSON data
-		return apiResponse;
-		}
-		
-
 	/**
 	 * Used for performing a keyword-based search against a specific category of information on thesession.org
 	 * Builds and submits an API query to https://thesession.org, attempting to match the user's search terms
@@ -329,62 +269,14 @@ public class HttpRequestor
 		return apiResponse;
 		}
 	
-	
+	/*
 	//TODO: Complete the submitLocationRequest methods
-	public String submitLocationRequest(String baseCategory, String searchTermsInput, int resultsPerPage) throws RuntimeException
-		{		
-		try 
-			{
-			// The session.org API requires the + character between search terms in the URL
-			String searchTermsFormatted = searchTermsInput.replace(" ","+"); 
-			
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
-			
-			// Make the HTTP(S) connection to thesession.org
-			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
-			connectionToURL.setRequestMethod("GET");
-			connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
+	public String submitLocationRequest(String baseCategory, String subCategory, String searchTermsInput, int resultsPerPage) throws RuntimeException
+		{
 	
-			//Assuming anything other than 200 is a problem to be notified to the user
-			if (connectionToURL.getResponseCode() != 200) 
-				{	
-				throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
-				}
-	
-			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
-			
-			//Use a StringBuilder to build a string from the data in the BufferedReader
-			String searchResults;
-			StringBuilder builder = new StringBuilder();
-			
-			while ((searchResults = inputReader.readLine()) != null) 
-				{ 
-				builder.append(searchResults);	
-				}
-	
-			apiResponse = builder.toString();
-			
-			// We have our search results.  Close the connection to https://thesession.org
-			connectionToURL.disconnect();		
-			} 
-		
-		catch (MalformedURLException e) 
-			{
-			throw new RuntimeException(e.getMessage());
-			} 
-	
-		catch (IOException e) 
-			{
-			throw new RuntimeException(e.getMessage());
-			}
-		
-		// Return the API response as one long string of JSON data
-		return apiResponse;
 		}
 
-	/*public String submitLocationRequest(String baseCategory, String subCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
+	public String submitLocationRequest(String baseCategory, String subCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
 		{
 
 		} */

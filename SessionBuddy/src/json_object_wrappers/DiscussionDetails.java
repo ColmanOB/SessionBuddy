@@ -30,21 +30,4 @@ public class DiscussionDetails
 		this.submittedDate = submittedDate;
 		this.numberOfComments = numberOfComments;
 		}
-	
-	/**
-	 * Constructor method to use when the number of comments is unknown, e.g. when retrieving a discussion by ID
-	 * 
-	 * @param discussionID
-	 * @param discussionName
-	 * @param discussionURL
-	 * @param submittedDate
-	 */
-	public DiscussionDetails(String discussionID, String discussionName, String discussionURL, String submittedDate)
-		{
-		this.discussionID = discussionID;
-		this.discussionName = discussionName;
-		this.discussionURL = discussionURL;
-		this.submittedDate = submittedDate;
-		}
-
 	}

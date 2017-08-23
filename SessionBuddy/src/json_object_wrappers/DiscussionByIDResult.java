@@ -4,29 +4,42 @@ import java.util.ArrayList;
 
 /**
  * @author Colman
- * @since 2017-08-18
+ * @since 2017-08-17
  */
 public class DiscussionByIDResult 
 	{
 	// Variables to hold data relating to the discussion as a whole
-	public DiscussionDetails discussionDetails;
+	public String id;	
+	public String name;
+	public String url;
+	
 	public User member;
+	
+	public String date;
 		
-	// An array of comments in the discussion
-	public ArrayList<DiscussionComment> comments; 
-
+	public ArrayList<DiscussionComment> comments; // An array of comments in the discussion
 
 	/**
 	 * Constructor method
 	 * 
-	 * @param discussionDetails
+	 * @param id
+	 * @param name
+	 * @param url
 	 * @param member
-	 * @param comments
+	 * @param date
+	 * @param type
+	 * @param tunebooks
+	 * @param recordings
+	 * @param aliases
+	 * @param settings
 	 */
-	public DiscussionByIDResult(DiscussionDetails discussionDetails, User member,ArrayList<DiscussionComment> comments)
+	public DiscussionByIDResult(String id, String name, String url, User member, String date, ArrayList<DiscussionComment> comments)
 		{
-		this.discussionDetails = discussionDetails;
+		this.id = id;
+		this.name = name;
+		this.url = url;	
 		this.member = member;
+		this.date = date;
 		this.comments = comments;
 		}
 }
