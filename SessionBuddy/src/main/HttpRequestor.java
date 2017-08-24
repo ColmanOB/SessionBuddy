@@ -3,6 +3,7 @@ package main;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -39,32 +40,11 @@ public class HttpRequestor
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
 			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + itemIdentifier + "?" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
-			System.out.println(tuneSearchURL);
+			// Use the buildConnection method to create the HTTPS connection
+			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
 			
-			// Make the HTTP(S) connection to thesession.org
-			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
-			connectionToURL.setRequestMethod("GET");
-			connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
-	
-			//Assuming anything other than 200 is a problem to be notified to the user
-			if (connectionToURL.getResponseCode() != 200) 
-				{	
-				throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
-				}
-	
-			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
-			
-			//Use a StringBuilder to build a string from the data in the BufferedReader
-			String searchResults;
-			StringBuilder builder = new StringBuilder();
-			
-			while ((searchResults = inputReader.readLine()) != null) 
-				{ 
-				builder.append(searchResults);	
-				}
-	
-			apiResponse = builder.toString();
+			// Store the response from the API
+			apiResponse = captureResponse(connectionToURL);
 			
 			// We have our search results.  Close the connection to https://thesession.org
 			connectionToURL.disconnect();		
@@ -100,31 +80,12 @@ public class HttpRequestor
 			{
 			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
 			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + itemIdentifier + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
-		
-			// Make the HTTP(S) connection to thesession.org
-			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
-			connectionToURL.setRequestMethod("GET");
-			connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
-	
-			//Assuming anything other than 200 is a problem to be notified to the user
-			if (connectionToURL.getResponseCode() != 200) 
-				{	
-				throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
-				}
-	
-			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
-		
-			//Use a StringBuilder to build a string from the data in the BufferedReader
-			String searchResults;
-			StringBuilder builder = new StringBuilder();
-		
-			while ((searchResults = inputReader.readLine()) != null) 
-				{ 
-				builder.append(searchResults);	
-				}
-	
-			apiResponse = builder.toString();
+			
+			// Use the buildConnection method to create the HTTPS connection
+			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
+			
+			// Store the response from the API
+			apiResponse = captureResponse(connectionToURL);
 		
 			// We have our search results.  Close the connection to https://thesession.org
 			connectionToURL.disconnect();		
@@ -160,30 +121,11 @@ public class HttpRequestor
 			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
 			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + itemIdentifier + "?" + "format=" + dataFormat);
 		
-			// Make the HTTP(S) connection to thesession.org
-			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
-			connectionToURL.setRequestMethod("GET");
-			connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
-	
-			//Assuming anything other than 200 is a problem to be notified to the user
-			if (connectionToURL.getResponseCode() != 200) 
-				{	
-				throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
-				}
-	
-			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
-		
-			//Use a StringBuilder to build a string from the data in the BufferedReader
-			String searchResults;
-			StringBuilder builder = new StringBuilder();
-		
-			while ((searchResults = inputReader.readLine()) != null) 
-				{ 
-				builder.append(searchResults);	
-				}
-	
-			apiResponse = builder.toString();
+			// Use the buildConnection method to create the HTTPS connection
+			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
+			
+			// Store the response from the API
+			apiResponse = captureResponse(connectionToURL);
 		
 			// We have our search results.  Close the connection to https://thesession.org
 			connectionToURL.disconnect();		
@@ -224,30 +166,11 @@ public class HttpRequestor
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
 			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
-			// Make the HTTP(S) connection to thesession.org
-			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
-			connectionToURL.setRequestMethod("GET");
-			connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
+			// Use the buildConnection method to create the HTTPS connection
+			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
 	
-			//Assuming anything other than 200 is a problem to be notified to the user
-			if (connectionToURL.getResponseCode() != 200) 
-				{	
-				throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
-				}
-	
-			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
-			
-			//Use a StringBuilder to build a string from the data in the BufferedReader
-			String searchResults;
-			StringBuilder builder = new StringBuilder();
-			
-			while ((searchResults = inputReader.readLine()) != null) 
-				{ 
-				builder.append(searchResults);	
-				}
-	
-			apiResponse = builder.toString();
+			// Store the response from the API
+			apiResponse = captureResponse(connectionToURL);
 			
 			// We have our search results.  Close the connection to https://thesession.org
 			connectionToURL.disconnect();		
@@ -286,30 +209,11 @@ public class HttpRequestor
 			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
 			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
 		
-			// Make the HTTP(S) connection to thesession.org
-			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
-			connectionToURL.setRequestMethod("GET");
-			connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
-	
-			//Assuming anything other than 200 is a problem to be notified to the user
-			if (connectionToURL.getResponseCode() != 200) 
-				{	
-				throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
-				}
-	
-			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
-		
-			//Use a StringBuilder to build a string from the data in the BufferedReader
-			String searchResults;
-			StringBuilder builder = new StringBuilder();
-		
-			while ((searchResults = inputReader.readLine()) != null) 
-				{ 
-				builder.append(searchResults);	
-				}
-	
-			apiResponse = builder.toString();
+			// Use the buildConnection method to create the HTTPS connection
+			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
+			
+			// Store the response from the API
+			apiResponse = captureResponse(connectionToURL);
 		
 			// We have our search results.  Close the connection to https://thesession.org
 			connectionToURL.disconnect();		
@@ -341,30 +245,11 @@ public class HttpRequestor
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
 			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
-			// Make the HTTP(S) connection to thesession.org
-			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
-			connectionToURL.setRequestMethod("GET");
-			connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
-	
-			//Assuming anything other than 200 is a problem to be notified to the user
-			if (connectionToURL.getResponseCode() != 200) 
-				{	
-				throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
-				}
-	
-			//Read the data returned from the API into a BufferedReader
-			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
+			// Use the buildConnection method to create the HTTPS connection
+			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
 			
-			//Use a StringBuilder to build a string from the data in the BufferedReader
-			String searchResults;
-			StringBuilder builder = new StringBuilder();
-			
-			while ((searchResults = inputReader.readLine()) != null) 
-				{ 
-				builder.append(searchResults);	
-				}
-	
-			apiResponse = builder.toString();
+			// Store the response from the API
+			apiResponse = captureResponse(connectionToURL);
 			
 			// We have our search results.  Close the connection to https://thesession.org
 			connectionToURL.disconnect();		
@@ -388,4 +273,67 @@ public class HttpRequestor
 		{
 
 		} */
+	
+	
+	/**
+	 * A helper method used by all the other core methods in this class to build a HTTPS connection
+	 * 
+	 * @param tuneSearchURL
+	 * @return
+	 * @throws IOException
+	 * @throws RuntimeException
+	 */
+	private HttpURLConnection buildConnection(URL tuneSearchURL) throws IOException, RuntimeException
+		{
+		HttpURLConnection connectionToURL;
+		
+		try 
+			{
+			// Make the HTTP(S) connection to thesession.org
+			connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
+			} 
+		
+		catch (IOException e) 
+			{
+			throw new IOException(e.getMessage());
+			}
+		
+		// Set parameters for the HTTPS connection
+		connectionToURL.setRequestMethod("GET");
+		connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
+	
+		//Assuming anything other than 200 is a problem to be notified to the user
+		if (connectionToURL.getResponseCode() != 200) 
+			{	
+			throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
+			}
+		
+		return connectionToURL;
+		}
+	
+	
+	/**
+	 * A helper method used to retrieve the response from the API and return it as a string
+	 * 
+	 * @param connectionToURL
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 * @throws IOException
+	 */
+	String captureResponse(HttpURLConnection connectionToURL) throws UnsupportedEncodingException, IOException
+		{
+		BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
+		
+		//Use a StringBuilder to build a string from the data in the BufferedReader
+		String searchResults;
+		StringBuilder builder = new StringBuilder();
+		
+		while ((searchResults = inputReader.readLine()) != null) 
+			{ 
+			builder.append(searchResults);	
+			}
+	
+		return builder.toString();
+		}
+	
 	}
