@@ -288,6 +288,7 @@ public class HttpRequestor
 	 */
 	public String submitLocationRequest(String baseCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
 		{		
+		// TODO: Fix up the part where the URL is put together
 		try 
 			{
 			// The session.org API requires the + character between search terms in the URL
