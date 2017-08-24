@@ -93,12 +93,12 @@ public class HttpRequestor
 	
 		catch (MalformedURLException e) 
 			{
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 			} 
 	
 		catch (IOException e) 
 			{
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 			}
 	
 		// Return the API response as one long string of JSON data
@@ -133,12 +133,12 @@ public class HttpRequestor
 	
 		catch (MalformedURLException e) 
 			{
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 			} 
 	
 		catch (IOException e) 
 			{
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 			}
 	
 		// Return the API response as one long string of JSON data
@@ -221,12 +221,12 @@ public class HttpRequestor
 	
 		catch (MalformedURLException e) 
 			{
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 			} 
 	
 		catch (IOException e) 
 			{
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 			}
 	
 		// Return the API response as one long string of JSON data
@@ -234,7 +234,13 @@ public class HttpRequestor
 		}
 	
 	
-	//TODO: Complete the submitLocationRequest methods
+	/**
+	 * @param baseCategory
+	 * @param searchTermsInput
+	 * @param resultsPerPage
+	 * @return
+	 * @throws RuntimeException
+	 */
 	public String submitLocationRequest(String baseCategory, String searchTermsInput, int resultsPerPage) throws RuntimeException
 		{		
 		try 
@@ -269,11 +275,49 @@ public class HttpRequestor
 		return apiResponse;
 		}
 
-	/*public String submitLocationRequest(String baseCategory, String subCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
-		{
-
-		} */
 	
+	/**
+	 * @param baseCategory
+	 * @param searchTermsInput
+	 * @param resultsPerPage
+	 * @param pageNumber
+	 * @return
+	 * @throws RuntimeException
+	 */
+	public String submitLocationRequest(String baseCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
+		{		
+		try 
+			{
+			// The session.org API requires the + character between search terms in the URL
+			String searchTermsFormatted = searchTermsInput.replace(" ","+"); 
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			
+			// Use the buildConnection method to create the HTTPS connection
+			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
+			
+			// Store the response from the API
+			apiResponse = captureResponse(connectionToURL);
+			
+			// We have our search results.  Close the connection to https://thesession.org
+			connectionToURL.disconnect();		
+			} 
+		
+		catch (MalformedURLException e) 
+			{
+			throw new RuntimeException(e.getMessage());
+			} 
+	
+		catch (IOException e) 
+			{
+			throw new RuntimeException(e.getMessage());
+			}
+		
+		// Return the API response as one long string of JSON data
+		return apiResponse;
+		}
+
 	
 	/**
 	 * A helper method used by all the other core methods in this class to build a HTTPS connection
