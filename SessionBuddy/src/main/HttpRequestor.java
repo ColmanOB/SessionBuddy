@@ -9,19 +9,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Submits a HTTP(S) request to the https://thesession.org API
- * The API allows the caller to specify the reponse format as JSON, XML or RSS.
- * Here we choose to get the response as JSON.
+ * Submits a HTTPS request to the API at https://thesession.org
+ * The API allows the caller to specify the response format as JSON, XML or RSS.
+ * This library only supports retrieving the response as JSON.
  * For further information about using this API, see https://thesession.org/API
  * 
  * @author Colman O'B
- * @since 2017-01-28
+ * @since 2017-08-24
  */
 public class HttpRequestor
 	{	
 	private static final String dataFormat = "json";
 	private static final String baseURL = "https://thesession.org/"; 
 	private static final String searchOperator = "search?q=";
+	private static final String latLonOperator = "nearby?latlon=";
+	private static final String radiusOperator = "&radius=";
 	private String apiResponse;
 	
 	/**
@@ -241,15 +243,15 @@ public class HttpRequestor
 	 * @return
 	 * @throws RuntimeException
 	 */
-	public String submitLocationRequest(String baseCategory, String searchTermsInput, int resultsPerPage) throws RuntimeException
+	public String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage) throws RuntimeException
 		{		
 		try 
 			{
 			// The session.org API requires the + character between search terms in the URL
-			String searchTermsFormatted = searchTermsInput.replace(" ","+"); 
+			//String searchTermsFormatted = searchTermsInput.replace(" ","+"); 
 			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + latLonOperator + latitude + "," + longitude + radiusOperator + radius + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
 			// Use the buildConnection method to create the HTTPS connection
 			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
@@ -364,7 +366,7 @@ public class HttpRequestor
 	 * @throws UnsupportedEncodingException
 	 * @throws IOException
 	 */
-	String captureResponse(HttpURLConnection connectionToURL) throws UnsupportedEncodingException, IOException
+	private String captureResponse(HttpURLConnection connectionToURL) throws UnsupportedEncodingException, IOException
 		{
 		BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
 		

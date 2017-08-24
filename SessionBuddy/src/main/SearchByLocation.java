@@ -32,7 +32,7 @@ public class SearchByLocation
 	
 	// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 	HttpRequestor searcher = new HttpRequestor();
-	String apiQueryResults = searcher.submitLocationRequest("sessions", "nearby?latlon=53.3498,6.2603&radius=75", resultsPerPage);
+	String apiQueryResults = searcher.submitLocationRequest("sessions", "53.3498", "6.2603", "75", resultsPerPage);
 		
 	// Parse the returned JSON into a wrapper class to allow access to all elements
 	SessionsByLocationParser jsonParser = new SessionsByLocationParser();
