@@ -1,5 +1,6 @@
 package main;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -40,15 +41,17 @@ import result_set_wrappers.TuneByIDWrapper;
 
 /**
  * @author Colman
- * @since 2017-08-21
+ * @since 2017-08-25
  */
 public class RetrieveItemByID 
 {
 	/**
 	 * @param recordingID
 	 * @return
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public RecordingByIDResult getRecordingByID(String recordingID)
+	public RecordingByIDResult getRecordingByID(String recordingID) throws MalformedURLException, RuntimeException
 		{
 		// Make the API call using the the recording ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -116,8 +119,10 @@ public class RetrieveItemByID
 	 * 
 	 * @param discussionID
 	 * @return
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public DiscussionByIDResult getDiscussionByID(String discussionID)
+	public DiscussionByIDResult getDiscussionByID(String discussionID) throws MalformedURLException, RuntimeException
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -160,8 +165,10 @@ public class RetrieveItemByID
 	/**
 	 * @param tuneID
 	 * @return
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public TuneByIDResult getTuneByID(String tuneID)
+	public TuneByIDResult getTuneByID(String tuneID) throws MalformedURLException, RuntimeException
 		{
 		// Make the API call using the tune ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -216,8 +223,10 @@ public class RetrieveItemByID
 	/**
 	 * @param sessionID
 	 * @return
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public SessionByIDResult getSessionByID(String sessionID)
+	public SessionByIDResult getSessionByID(String sessionID) throws MalformedURLException, RuntimeException
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -273,8 +282,10 @@ public class RetrieveItemByID
 	/**
 	 * @param eventID
 	 * @return
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public EventByIDResult getEventByID(String eventID)
+	public EventByIDResult getEventByID(String eventID) throws MalformedURLException, RuntimeException
 		{
 		// Make the API call using the the event ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();

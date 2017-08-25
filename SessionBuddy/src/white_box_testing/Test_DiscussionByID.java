@@ -1,12 +1,14 @@
 package white_box_testing;
 
+import java.net.MalformedURLException;
+
 import json_object_wrappers.DiscussionByIDResult;
 
 import main.RetrieveItemByID;
 
 public class Test_DiscussionByID 
 {
-	public static void main(String[] args)
+	public static void main(String[] args) throws MalformedURLException, RuntimeException
 		{
 		// Set the search parameters
 		String discussionID = "666";
