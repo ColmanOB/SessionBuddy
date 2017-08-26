@@ -1,24 +1,24 @@
-package white_box_testing;
+package example_usage;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.TunesSearchResult;
-import main.RetrieveLatest;
+import main.KeywordSearch;
 
-class Test_LatestTunes
-//Purpose: Search the session.org API for a set of search terms, and store the results
+public class Test_KeywordSearch_Tune
 {
 public static void main(String[] args) throws MalformedURLException, RuntimeException
    {
 	// Set the search parameters
+	String searchTerms = "Kesh";
 	int resultsPerPage = 50;
 	
 	// Instantiate a TheSessionAPISearcher object
-	RetrieveLatest search = new RetrieveLatest();
+	KeywordSearch search = new KeywordSearch();
 	
 	// Pass in the search parameters
-	ArrayList<TunesSearchResult> resultSet = search.getLatestTunes(resultsPerPage);
+	ArrayList<TunesSearchResult> resultSet = search.searchTunes(searchTerms, resultsPerPage);
 	
 	// Loop through the results and print each attribute of each individual result in the set
 	for (int i = 0; i < resultSet.size(); i++)

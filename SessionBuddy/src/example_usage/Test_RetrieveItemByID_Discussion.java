@@ -1,4 +1,4 @@
-package white_box_testing;
+package example_usage;
 
 import java.net.MalformedURLException;
 
@@ -6,7 +6,7 @@ import json_object_wrappers.DiscussionByIDResult;
 
 import main.RetrieveItemByID;
 
-public class Test_DiscussionByID 
+public class Test_RetrieveItemByID_Discussion 
 {
 	public static void main(String[] args) throws MalformedURLException, RuntimeException
 		{

@@ -1,13 +1,13 @@
-package white_box_testing;
+package example_usage;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.DiscussionsSearchResult;
-import main.KeywordSearch;
+import main.RetrieveLatest;
 
 /**
- * Example usage of the searchDiscussions method of KeywordSearch class to search thesession.org API for a discussion based on a set of search terms, and store the results.
+ * Example usage of the searchDiscussions method of RetrieveLatest class to search thesession.org API for a discussion based on a set of search terms, and store the results.
  * 
  * This class does not test the iteration through multiple pages of JSON search results
  * 
@@ -15,23 +15,22 @@ import main.KeywordSearch;
  * @since 2017-08-13
  */
 
-public class Test_DiscussionSearch
+class Test_RetrieveLatest_Discussions
 
 {
 public static void main(String[] args) throws MalformedURLException, RuntimeException
    {
 	// Set the search parameters
-	String searchTerms = "London";
 	int resultsPerPage = 50;
 	ArrayList<DiscussionsSearchResult> resultSet;
 	
-	// Instantiate a KeywordSearch object
-	KeywordSearch search = new KeywordSearch();
+	// Instantiate a RetrieveLatest object
+	RetrieveLatest search = new RetrieveLatest();
 	
 	try
 		{
 		// Pass in the search parameters
-		resultSet = search.searchDiscussions(searchTerms, resultsPerPage);
+		resultSet = search.getLatestDiscussions(resultsPerPage);
 		
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)

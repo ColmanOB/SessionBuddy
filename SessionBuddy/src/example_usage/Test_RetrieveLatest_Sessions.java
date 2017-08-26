@@ -1,28 +1,28 @@
-package white_box_testing;
+package example_usage;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-import json_object_wrappers.EventsSearchResult;
+import json_object_wrappers.SessionsSearchResult;
 import main.RetrieveLatest;
 
 /**
- * Example usage of the getLatestEvents method of RetrieveLatest class to search thesession.org API for the latest events and store the results.
+ * Example usage of the searchDiscussions method of RetrieveLatest class to search thesession.org API for a discussion based on a set of search terms, and store the results.
  * 
  * This class does not test the iteration through multiple pages of JSON search results
  * 
  * @author Colman
- * @since 2017-08-21
+ * @since 2017-08-13
  */
 
-class Test_LatestEvents
+class Test_RetrieveLatest_Sessions
 
 {
 public static void main(String[] args) throws MalformedURLException, RuntimeException
    {
 	// Set the search parameters
 	int resultsPerPage = 50;
-	ArrayList<EventsSearchResult> resultSet;
+	ArrayList<SessionsSearchResult> resultSet;
 	
 	// Instantiate a RetrieveLatest object
 	RetrieveLatest search = new RetrieveLatest();
@@ -30,18 +30,14 @@ public static void main(String[] args) throws MalformedURLException, RuntimeExce
 	try
 		{
 		// Pass in the search parameters
-		resultSet = search.getLatestEvents(resultsPerPage);
+		resultSet = search.getLatestSessions(resultsPerPage);
 		
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
 			{
-			System.out.println(resultSet.get(i).details.eventID);
-			System.out.println(resultSet.get(i).details.eventName);
-			System.out.println(resultSet.get(i).details.eventURL);
+			System.out.println(resultSet.get(i).details.sessionID);
+			System.out.println(resultSet.get(i).details.sessionURL);
 			System.out.println(resultSet.get(i).details.submittedDate);
-
-			System.out.println(resultSet.get(i).schedule.startDate);
-			System.out.println(resultSet.get(i).schedule.endDate);
 					
 			System.out.println(resultSet.get(i).user.userID);
 			System.out.println(resultSet.get(i).user.userName);

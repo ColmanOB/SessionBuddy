@@ -1,4 +1,4 @@
-package white_box_testing;
+package example_usage;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import main.RetrieveLatest;
  * @since 2017-08-13
  */
 
-class Test_LatestRecordings
+class Test_RetrieveLatest_Recordings
 
 {
 public static void main(String[] args) throws MalformedURLException, RuntimeException

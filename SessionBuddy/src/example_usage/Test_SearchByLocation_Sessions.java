@@ -1,4 +1,4 @@
-package white_box_testing;
+package example_usage;
 
 import java.util.ArrayList;
 
@@ -6,8 +6,7 @@ import json_object_wrappers.SessionsByLocationResult;
 import main.SearchByLocation;
 
 
-public class Test_SessionByLocation
-//Purpose: Search thesession.org API for a set of search terms, and store the results
+public class Test_SearchByLocation_Sessions
 {
 public static void main(String[] args)
    {
