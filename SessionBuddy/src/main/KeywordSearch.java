@@ -35,12 +35,11 @@ import result_set_wrappers.SessionsSearchResultWrapper;
 import result_set_wrappers.TunesSearchResultWrapper;
 
 /**
- * Used to query the API at thesession.org with search terms, and parse the response into an easily usable structure.
+ * Queries the API at thesession.org with search terms, and parses the response into an easily usable structure. 
+ * To use this feature, first create a new KeywordSearch object, then call one of its methods to perform the actual search.
  * 
- * First instantiate a KeywordSearch object, then call one of its methods to perform the actual search.
- * 
- * @author Colman
- * @since 2017-08-13
+ * @author Colman O'B
+ * @since 2017-08-26
  *
  */
 public class KeywordSearch 
@@ -48,15 +47,16 @@ public class KeywordSearch
 	private int pageCount = 0;
 	
 	/**
-	 * Search the API for a list of tunes matching a specific set of search terms, specify the number of results that should be returned per page
+	 * Searches the API for a list of tunes matching a specific set of search terms
 	 * 
 	 * @param searchTerms A string containing the search terms entered by the user
 	 * @param resultsPerPage A number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
 	 * @return An ArrayList of TunesSearchResult objects
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 */
-	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException, IllegalArgumentException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -70,53 +70,25 @@ public class KeywordSearch
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		TunesSearchParser jsonParser = new TunesSearchParser();
 		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
-			
-		// This will hold each individual search result entry
-		ArrayList<TunesSearchResult> resultSet;
 		
-		try
-			// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
-			{
-			resultSet = new ArrayList <TunesSearchResult>();
-			}
+		// Set up the structure that will hold the parsed response from the API
+		ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
 		
-		catch (IllegalArgumentException e)
-			// Catch any problem with Gson parsing the JSON input
-			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
+		// Use a private helper method to populate the ArrayList of TunesSearchResult objects
+		resultSet = populateTunesSearchResult(parsedResults);
 		
-		//Find out how many pages are in the response, to facilitate looping through multiple pages
-		pageCount = Integer.parseInt(parsedResults.pages);
-			
-		// Loop as many times as the count of tunes in the result set:
-		for(int i = 0; i < (parsedResults.tunes.length)-1; i++)
-			{
-			// Extract the required elements from each individual search result in the JSON response
-			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-			TuneDetails details = new TuneDetails(parsedResults.tunes[i].id, StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
-			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
-						
-			// Instantiate a TunesSearchResult object & populate it
-			TunesSearchResult currentResult = new TunesSearchResult(details, submitter);
-			
-			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
-			resultSet.add(currentResult);
-			}
-		
-		// Return the set of results that has been collected
 		return resultSet;
 		}
 	
 	
 	/**
-	 * Search the API for a list of tunes matching a specific set of search terms, specify the number of results that should be returned per page, and specify the page number in the JSON search results 
+	 * An alternative version of searchTunes(String searchTerms, int resultsPerPage) allowing the caller to specify an individual page number within a paginated JSON response.
 	 * 
 	 * @param searchTerms A string containing the search terms entered by the user
-	 * @param resultsPerPage A number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
-	 * @param pageNumber Specify a particular page number within the JSON search results
+	 * @param resultsPerPage a number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
+	 * @param pageNumber a particular page number within the JSON search results
 	 * @return An ArrayList of TunesSearchResult objects
-	 * @throws IllegalArgumentException Thrown if either an invalid number of results per page is provided, or if the data returned by the API is not JSON with the expected structure
+	 * @throws IllegalArgumentException if either an invalid number of results per page was provided, or if the data returned by the API was not JSON with the expected structure
 	 */
 	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
 		{
@@ -133,40 +105,17 @@ public class KeywordSearch
 		TunesSearchParser jsonParser = new TunesSearchParser();
 		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
 		
-		// This will hold each individual search result
-		ArrayList<TunesSearchResult> resultSet;
+		// Set up the structure that will hold the parsed response from the API
+		ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
 		
-		try
-			// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
-			{
-			resultSet = new ArrayList <TunesSearchResult>();
-			}
+		// Use a private helper method to populate the ArrayList of TunesSearchResult objects
+		resultSet = populateTunesSearchResult(parsedResults);
 		
-		catch (IllegalArgumentException e)
-			// Catch any problem with Gson parsing the JSON input
-			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-			
-		// Loop as many times as the count of tunes in the result set:
-		for(int i = 0; i < (parsedResults.tunes.length)-1; i++)
-			{
-			// Extract the required elements from each individual search result in the JSON response
-			TuneDetails details = new TuneDetails(parsedResults.tunes[i].id, StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
-			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
-						
-			// Instantiate a TunesSearchResult object & populate it
-			TunesSearchResult currentResult = new TunesSearchResult(details, submitter);
-			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
-			resultSet.add(currentResult);
-			}
-
-		// Return the set of results that has been collected
 		return resultSet;
 		}
 
 	/**
-	 * Search the API for a list of discussions matching a specific set of search terms, and specify the number of results that should be returned per page.
+	 * Queries the API for a list of discussions matching a specific set of search terms
 	 * 
 	 * @param searchTerms A string containing the search terms entered by the user
 	 * @param resultsPerPage A number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
@@ -181,48 +130,20 @@ public class KeywordSearch
 			throw new IllegalArgumentException("Number of results per page must be 50 or less");
 			}
 		
-		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
+		// Launch a search for a list of matching dicussions and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
 		String apiQueryResults = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage);
 			
-		// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
+		// Create a DiscussionSearchParser and DiscussionSearchResultWrapper to parse the raw JSON
 		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
-		DiscussionsSearchResultWrapper parsedResults;
-		
-		try
-			// Use a DiscussionSearchParser to parse the raw JSON into a usable structure using Gson
-			{
-			parsedResults = jsonParser.parseResponse(apiQueryResults);
-			}
-		
-		catch (IllegalArgumentException e)
-			// Catch any problem with Gson parsing the JSON input
-			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
+		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
 		
 		// This will hold each individual search result entry
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
 		
-		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
-		pageCount = Integer.parseInt(parsedResults.pages);
-			
-		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.discussions.length)-1; i++)
-			{
-			// Extract the elements from each individual search result in the JSON response
-			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
-			DiscussionDetails details = new DiscussionDetails(parsedResults.discussions[i].id, StringEscapeUtils.unescapeXml(parsedResults.discussions[i].name), parsedResults.discussions[i].url, parsedResults.discussions[i].date, parsedResults.discussions[i].comments);
-			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
-			
-			// Instantiate a DiscussionsSearchResult object & populate it
-			DiscussionsSearchResult currentResult = new DiscussionsSearchResult(details, user);
-			
-			// Add the DiscussionsSearchResult object to the ArrayList to be returned to the caller
-			resultSet.add(currentResult);
-			}
+		// Use a private helper method to populate the ArrayList of DiscussionsSearchResult objects
+		resultSet = populateDiscussionsSearchResult(parsedResults);
 		
-		// Return the set of results that has been collected
 		return resultSet;
 		}
 	
@@ -250,37 +171,14 @@ public class KeywordSearch
 		
 		// Prepare the classes needed to parse the the JSON
 		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
-		DiscussionsSearchResultWrapper parsedResults;
+		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
 		
-		try
-			// Parse the returned JSON into a wrapper class to allow access to all elements
-			{
-			parsedResults = jsonParser.parseResponse(apiQueryResults);
-			}
-		
-		catch (IllegalArgumentException e)
-			// Catch any problem with Gson parsing the JSON input
-			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		// This will hold each individual search result
+		// This will hold each individual search result entry
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
-			
-		// Loop as many times as the count of discussions in the result set:
-		for(int i = 0; i < (parsedResults.discussions.length)-1; i++)
-			{
-			// Extract the required elements from each individual search result in the JSON response
-			DiscussionDetails details = new DiscussionDetails(parsedResults.discussions[i].id, StringEscapeUtils.unescapeXml(parsedResults.discussions[i].name), parsedResults.discussions[i].url, parsedResults.discussions[i].date, parsedResults.discussions[i].comments);
-			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
-			
-			// Instantiate a DiscussionsSearchResult object & populate it
-			DiscussionsSearchResult currentResult = new DiscussionsSearchResult(details, user);		
-			// Add the DiscussionsSearchResult object to the ArrayList to be returned to the caller
-			resultSet.add(currentResult);
-			}
-	
-		// Return the set of results that has been collected
+		
+		// Use a private helper method to populate the ArrayList of TunesSearchResult objects
+		resultSet = populateDiscussionsSearchResult(parsedResults);
+		
 		return resultSet;
 		}
 	
@@ -588,7 +486,9 @@ public class KeywordSearch
 	
 	
 	/**
-	 * @return
+	 * Helper method to keep track of how many pages are in a particular JSON response
+	 * 
+	 * @return the number of pages in the JSON response
 	 * @throws IllegalStateException
 	 */
 	public int getPageCount() throws IllegalStateException
@@ -599,6 +499,73 @@ public class KeywordSearch
 			}
 		else 
 			return pageCount;
+		}
+	
+	
+	/**
+	 * Helper method to gather and parse the response to a keyword search for a tune
+	 * 
+	 * @param parsedResults
+	 * @return
+	 */
+	private ArrayList<TunesSearchResult> populateTunesSearchResult(TunesSearchResultWrapper parsedResults)
+		{
+		ArrayList <TunesSearchResult> resultSet = new ArrayList <TunesSearchResult>();
+		
+		//Find out how many pages are in the response, to facilitate looping through multiple pages
+		pageCount = Integer.parseInt(parsedResults.pages);
+			
+		// Loop as many times as the count of tunes in the result set:
+		for(int i = 0; i < (parsedResults.tunes.length)-1; i++)
+			{
+			// Extract the required elements from each individual search result in the JSON response
+			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
+			TuneDetails details = new TuneDetails(parsedResults.tunes[i].id, StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
+			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
+						
+			// Instantiate a TunesSearchResult object & populate it
+			TunesSearchResult currentResult = new TunesSearchResult(details, submitter);
+			
+			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
+			resultSet.add(currentResult);
+			}
+		
+		// Return the fully populated ArrayList
+		return resultSet;
+		}
+	
+	
+	/**
+	 * Helper method to gather and parse the response to a keyword search for a discussion
+	 * 
+	 * @param parsedResults
+	 * @return
+	 */
+	ArrayList<DiscussionsSearchResult> populateDiscussionsSearchResult(DiscussionsSearchResultWrapper parsedResults)
+		{
+		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
+		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
+		
+		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
+		pageCount = Integer.parseInt(parsedResults.pages);
+			
+		// Loop as many times as the count of recordings in the result set:
+		for(int i = 0; i < (parsedResults.discussions.length)-1; i++)
+			{
+			// Extract the elements from each individual search result in the JSON response
+			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
+			DiscussionDetails details = new DiscussionDetails(parsedResults.discussions[i].id, StringEscapeUtils.unescapeXml(parsedResults.discussions[i].name), parsedResults.discussions[i].url, parsedResults.discussions[i].date, parsedResults.discussions[i].comments);
+			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
+			
+			// Instantiate a DiscussionsSearchResult object & populate it
+			DiscussionsSearchResult currentResult = new DiscussionsSearchResult(details, user);
+			
+			// Add the DiscussionsSearchResult object to the ArrayList to be returned to the caller
+			resultSet.add(currentResult);
+			}
+		
+		// Return the set of results that has been collected
+		return resultSet;
 		}
 	
 	}
