@@ -252,9 +252,11 @@ public class KeywordSearch
 	
 	
 	/**
-	 * @param searchTerms
-	 * @param resultsPerPage
-	 * @return
+	 * Queries the API for a list of recordings matching a specific set of search terms
+	 * 
+	 * @param searchTerms The search terms provided by the user
+	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
+	 * @return an ArrayList of RecordingsSearchResult objects
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
@@ -276,35 +278,20 @@ public class KeywordSearch
 		// This will hold each individual search result entry
 		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
 		
-		//Find out how many pages are in the response, to facilitate looping through multiple pages
-		pageCount = Integer.parseInt(parsedResults.pages);
-			
-		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.recordings.length)-1; i++)
-			{
-			// Extract the elements from each individual search result in the JSON response
-			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
-			RecordingDetails details = new RecordingDetails(parsedResults.recordings[i].id, StringEscapeUtils.unescapeXml(parsedResults.recordings[i].name), parsedResults.recordings[i].url, parsedResults.recordings[i].date);
-			User user = new User(Integer.toString(parsedResults.recordings[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].member.name), parsedResults.recordings[i].member.url);
-			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].artist.url);
-			
-			// Instantiate a RecordingsSearchResult object & populate it
-			RecordingsSearchResult currentResult = new RecordingsSearchResult(details, user, artist);
-			
-			// Add the RecordingsSearchResult object to the ArrayList to be returned to the caller
-			resultSet.add(currentResult);
-			}
+		// Use a private helper method to populate the ArrayList of RecordingsSearchResult objects
+		resultSet = populateRecordingsSearchResult(parsedResults);
 		
-		// Return the set of results that has been collected
 		return resultSet;
 		}
 	
 	
 	/**
-	 * @param searchTerms
-	 * @param resultsPerPage
-	 * @param pageNumber
-	 * @return
+	 * Alternative version of searchRecordings(String searchTerms, int resultsPerPage), allowing the caller to specify an idividual page within a paginated JSON response
+	 * 
+	 * @param searchTerms The search terms provided by the user
+	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
+	 * @param pageNumber a specific page within a paginated JSON response
+	 * @return an ArrayList of RecordingsSearchResult objects
 	 * @throws IllegalArgumentException
 	 */
 	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
@@ -321,33 +308,23 @@ public class KeywordSearch
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		RecordingsSearchParser jsonParser = new RecordingsSearchParser();
 		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
-		
-		// This will hold each individual search result
+			
+		// This will hold each individual search result entry
 		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
-			
-		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.recordings.length)-1; i++)
-			{
-			// Extract the required elements from each individual search result in the JSON response
-			RecordingDetails details = new RecordingDetails(parsedResults.recordings[i].id, StringEscapeUtils.unescapeXml(parsedResults.recordings[i].name), parsedResults.recordings[i].url, parsedResults.recordings[i].date);
-			User user = new User(Integer.toString(parsedResults.recordings[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].member.name), parsedResults.recordings[i].member.url);
-			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].artist.url);
-			
-			// Instantiate a RecordingsSearchResult object & populate it
-			RecordingsSearchResult currentResult = new RecordingsSearchResult(details, user, artist);		
-			// Add the RecordingsSearchResult object to the ArrayList to be returned to the caller
-			resultSet.add(currentResult);
-			}
-	
-		// Return the set of results that has been collected
+		
+		// Use a private helper method to populate the ArrayList of RecordingsSearchResult objects
+		resultSet = populateRecordingsSearchResult(parsedResults);
+		
 		return resultSet;
 		}
 	
 	
 	/**
-	 * @param searchTerms
-	 * @param resultsPerPage
-	 * @return
+	 * Queries the API for a list of sessions matching a specific set of search terms
+	 * 
+	 * @param searchTerms The search terms provided by the user
+	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
+	 * @return an ArrayList of SessionsSearchResult objects
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
@@ -358,51 +335,32 @@ public class KeywordSearch
 			throw new IllegalArgumentException("Number of results per page must be 50 or less");
 			}
 		
-		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
+		// Launch a search for a list of matching sessions and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
 		String apiQueryResults = searcher.submitSearchRequest("sessions", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		SessionsSearchParser jsonParser = new SessionsSearchParser();
 		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
-			
+		
 		// This will hold each individual search result entry
 		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
-		
-		//Find out how many pages are in the response, to facilitate looping through multiple pages
-		pageCount = Integer.parseInt(parsedResults.pages);
-			
-		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.sessions.length)-1; i++)
-			{
-			// Extract the required elements from each individual search result in the JSON response
-			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-			SessionDetails details = new SessionDetails(parsedResults.sessions[i].id, parsedResults.sessions[i].url, parsedResults.sessions[i].date);
-			Coordinates coordinates = new Coordinates(parsedResults.sessions[i].latitude, parsedResults.sessions[i].longitude);
-			User user = new User(Integer.toString(parsedResults.sessions[i].member.id),StringEscapeUtils.unescapeXml(parsedResults.sessions[i].member.name),parsedResults.sessions[i].member.url);
-			Venue venue = new Venue(Integer.toString(parsedResults.sessions[i].venue.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].venue.name), parsedResults.sessions[i].venue.telephone, parsedResults.sessions[i].venue.email, parsedResults.sessions[i].venue.web );
-			Town town = new Town(Integer.toString(parsedResults.sessions[i].town.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].town.name));
-			Area area = new Area(Integer.toString(parsedResults.sessions[i].area.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].area.name));
-			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].country.name));
-			
-			
-			// Instantiate a SessionsSearchResult object & populate it
-			SessionsSearchResult currentResult = new SessionsSearchResult(details, coordinates, user, venue, town, area, country);
-			
-			// Add the SessionsSearchResult object to the ArrayList to be returned to the caller
-			resultSet.add(currentResult);
-			}
-		
+				
+		// Use a private helper method to populate the ArrayList of SessionsSearchResult objects
+		resultSet = populateSessionsSearchResult(parsedResults);
+
 		// Return the set of results that has been collected
 		return resultSet;
 		}
 	
 	
 	/**
-	 * @param searchTerms
-	 * @param resultsPerPage
-	 * @param pageNumber
-	 * @return
+	 * Alternative version of searchSessions(String searchTerms, int resultsPerPage), allowing the caller to specify an individual page within a paginated JSON response
+	 * 
+	 * @param searchTerms The search terms provided by the user
+	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
+	 * @param pageNumber a specific page within a paginated JSON response
+	 * @return an ArrayList of SessionsSearchResult objects
 	 * @throws IllegalArgumentException
 	 */
 	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
@@ -420,28 +378,12 @@ public class KeywordSearch
 		SessionsSearchParser jsonParser = new SessionsSearchParser();
 		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
 		
-		// This will hold each individual search result
+		// This will hold each individual search result entry
 		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
-			
-		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.sessions.length)-1; i++)
-			{
-			// Extract the required elements from each individual search result in the JSON response
-			SessionDetails details = new SessionDetails(parsedResults.sessions[i].id, parsedResults.sessions[i].url, parsedResults.sessions[i].date);
-			Coordinates coordinates = new Coordinates(parsedResults.sessions[i].latitude, parsedResults.sessions[i].longitude);
-			User user = new User(Integer.toString(parsedResults.sessions[i].member.id),StringEscapeUtils.unescapeXml(parsedResults.sessions[i].member.name),parsedResults.sessions[i].member.url);
-			Venue venue = new Venue(Integer.toString(parsedResults.sessions[i].venue.id), parsedResults.sessions[i].venue.name, parsedResults.sessions[i].venue.telephone, parsedResults.sessions[i].venue.email, parsedResults.sessions[i].venue.web );
-			Town town = new Town(Integer.toString(parsedResults.sessions[i].town.id), parsedResults.sessions[i].town.name);
-			Area area = new Area(Integer.toString(parsedResults.sessions[i].area.id), parsedResults.sessions[i].area.name);
-			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), parsedResults.sessions[i].country.name);		
-			
-			// Instantiate a SessionsSearchResult object & populate it
-			SessionsSearchResult currentResult = new SessionsSearchResult(details, coordinates, user, venue, town, area, country);			
-			
-			// Add the SessionsSearchResult object to the ArrayList to be returned to the caller
-			resultSet.add(currentResult);
-			}
-	
+				
+		// Use a private helper method to populate the ArrayList of SessionsSearchResult objects
+		resultSet = populateSessionsSearchResult(parsedResults);
+
 		// Return the set of results that has been collected
 		return resultSet;
 		}
@@ -503,7 +445,7 @@ public class KeywordSearch
 	 * @param parsedResults
 	 * @return
 	 */
-	ArrayList<DiscussionsSearchResult> populateDiscussionsSearchResult(DiscussionsSearchResultWrapper parsedResults)
+	private ArrayList<DiscussionsSearchResult> populateDiscussionsSearchResult(DiscussionsSearchResultWrapper parsedResults)
 		{
 		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
@@ -537,7 +479,7 @@ public class KeywordSearch
 	 * @param parsedResults
 	 * @return
 	 */
-	ArrayList<EventsSearchResult> populateEventsSearchResult(EventsSearchResultWrapper parsedResults)	
+	private ArrayList<EventsSearchResult> populateEventsSearchResult(EventsSearchResultWrapper parsedResults)	
 		{
 		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
 		
@@ -567,6 +509,78 @@ public class KeywordSearch
 			}
 		
 		// Return the set of results that has been collected
+		return resultSet;
+		}
+	
+	
+	/**
+	 * Helper method to gather and parse the response to a keyword search for events
+	 * 
+	 * @param parsedResults
+	 * @return
+	 */
+	private ArrayList<RecordingsSearchResult> populateRecordingsSearchResult(RecordingsSearchResultWrapper parsedResults)	
+		{
+		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
+		
+		//Find out how many pages are in the response, to facilitate looping through multiple pages
+		pageCount = Integer.parseInt(parsedResults.pages);
+			
+		// Loop as many times as the count of recordings in the result set:
+		for(int i = 0; i < (parsedResults.recordings.length)-1; i++)
+			{
+			// Extract the elements from each individual search result in the JSON response
+			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
+			RecordingDetails details = new RecordingDetails(parsedResults.recordings[i].id, StringEscapeUtils.unescapeXml(parsedResults.recordings[i].name), parsedResults.recordings[i].url, parsedResults.recordings[i].date);
+			User user = new User(Integer.toString(parsedResults.recordings[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].member.name), parsedResults.recordings[i].member.url);
+			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].artist.url);
+			
+			// Instantiate a RecordingsSearchResult object & populate it
+			RecordingsSearchResult currentResult = new RecordingsSearchResult(details, user, artist);
+			
+			// Add the RecordingsSearchResult object to the ArrayList to be returned to the caller
+			resultSet.add(currentResult);
+			}
+		
+		// Return the set of results that has been collected
+		return resultSet;
+		}
+	
+	
+	/**
+	 * Helper method to gather and parse the response to a keyword-based search for sessions
+	 * 
+	 * @param parsedResults
+	 * @return
+	 */
+	private ArrayList<SessionsSearchResult> populateSessionsSearchResult(SessionsSearchResultWrapper parsedResults)	
+		{
+		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
+		
+		//Find out how many pages are in the response, to facilitate looping through multiple pages
+		pageCount = Integer.parseInt(parsedResults.pages);
+			
+		// Loop as many times as the count of sessions in the result set:
+		for(int i = 0; i < (parsedResults.sessions.length)-1; i++)
+			{
+			// Extract the required elements from each individual search result in the JSON response
+			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
+			SessionDetails details = new SessionDetails(parsedResults.sessions[i].id, parsedResults.sessions[i].url, parsedResults.sessions[i].date);
+			Coordinates coordinates = new Coordinates(parsedResults.sessions[i].latitude, parsedResults.sessions[i].longitude);
+			User user = new User(Integer.toString(parsedResults.sessions[i].member.id),StringEscapeUtils.unescapeXml(parsedResults.sessions[i].member.name),parsedResults.sessions[i].member.url);
+			Venue venue = new Venue(Integer.toString(parsedResults.sessions[i].venue.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].venue.name), parsedResults.sessions[i].venue.telephone, parsedResults.sessions[i].venue.email, parsedResults.sessions[i].venue.web );
+			Town town = new Town(Integer.toString(parsedResults.sessions[i].town.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].town.name));
+			Area area = new Area(Integer.toString(parsedResults.sessions[i].area.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].area.name));
+			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].country.name));
+			
+			
+			// Instantiate a SessionsSearchResult object & populate it
+			SessionsSearchResult currentResult = new SessionsSearchResult(details, coordinates, user, venue, town, area, country);
+			
+			// Add the SessionsSearchResult object to the ArrayList to be returned to the caller
+			resultSet.add(currentResult);
+			}
+			
 		return resultSet;
 		}
 	
