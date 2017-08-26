@@ -19,6 +19,7 @@ import result_set_wrappers.SessionsByLocationWrapper;
 // TODO: Create a method to search for events by location
 // TODO: Create a method to search for events by location, including the capability to specify a page number
 // TODO: Create a helper method to handle the parsing of the event by location search results
+// TODO: Complete the Javadoc comments for each of the methods
 
 /**
  * Queries the API at thesession.org with coordinates and a radius, and parses the response into an easily usable structure. 
@@ -103,7 +104,7 @@ public class SearchByLocation
 	 * @param parsedResults
 	 * @return
 	 */
-	ArrayList<SessionsByLocationResult> populateSessionsByLocationResult(SessionsByLocationWrapper parsedResults)	
+	private ArrayList<SessionsByLocationResult> populateSessionsByLocationResult(SessionsByLocationWrapper parsedResults)	
 		{	
 		// This will hold each individual search result entry
 		ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
