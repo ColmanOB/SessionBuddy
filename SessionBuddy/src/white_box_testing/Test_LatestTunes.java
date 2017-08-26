@@ -1,5 +1,6 @@
 package white_box_testing;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.TunesSearchResult;
@@ -8,7 +9,7 @@ import main.RetrieveLatest;
 class Test_LatestTunes
 //Purpose: Search the session.org API for a set of search terms, and store the results
 {
-public static void main(String[] args)
+public static void main(String[] args) throws MalformedURLException, RuntimeException
    {
 	// Set the search parameters
 	int resultsPerPage = 50;

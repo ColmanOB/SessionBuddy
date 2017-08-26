@@ -1,5 +1,6 @@
 package main;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -46,9 +47,10 @@ public class RetrieveLatest
 	* 
 	* @param resultsPerPage The number of individual tune entries you want returned per page, up to a maximum of 50
 	* @return ArrayList<TunesSearchResult>
-	* @throws IllegalArgumentException if you attempt to request more than 50 results per page
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	*/
-	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -167,9 +169,10 @@ public class RetrieveLatest
 	 * 
 	 * @param resultsPerPage The number of individual discussions you want returned per page, up to a maximum of 50
 	 * @return ArrayList<DiscussionsSearchResult> A list of the most recently added discussions
-	 * @throws IllegalArgumentException if you attempt to request more than 50 results per page
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -285,9 +288,10 @@ public class RetrieveLatest
 	 * 
 	 * @param resultsPerPage The number of individual recordings you want returned per page, up to a maximum of 50
 	 * @return ArrayList<RecordingsSearchResult>
-	 * @throws IllegalArgumentException if you attempt to request more than 50 results per page
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -405,9 +409,10 @@ public class RetrieveLatest
 	 * 
 	 * @param resultsPerPage The number of individual sessions you want returned per page, up to a maximum of 50
 	 * @return ArrayList<SessionsSearchResult>
-	 * @throws IllegalArgumentException if you attempt to request more than 50 results per page
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -532,9 +537,10 @@ public class RetrieveLatest
 	/**
 	 * @param resultsPerPage
 	 * @return
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage) throws MalformedURLException, RuntimeException
 	{
 	if (resultsPerPage > 50)
 		{

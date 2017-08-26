@@ -1,5 +1,6 @@
 package main;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -52,9 +53,10 @@ public class KeywordSearch
 	 * @param searchTerms A string containing the search terms entered by the user
 	 * @param resultsPerPage A number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
 	 * @return An ArrayList of TunesSearchResult objects
-	 * @throws IllegalArgumentException Thrown if either an invalid number of results per page is provided, or if the data returned by the API is not JSON with the expected structure
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -169,9 +171,10 @@ public class KeywordSearch
 	 * @param searchTerms A string containing the search terms entered by the user
 	 * @param resultsPerPage A number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
 	 * @return An ArrayList of DiscussionsSearchResult objects
-	 * @throws IllegalArgumentException Thrown if either an invalid number of results per page is provided, or if the data returned by the API is not JSON with the expected structure
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -286,9 +289,10 @@ public class KeywordSearch
 	 * @param searchTerms
 	 * @param resultsPerPage
 	 * @return
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -391,9 +395,10 @@ public class KeywordSearch
 	 * @param searchTerms
 	 * @param resultsPerPage
 	 * @return
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -483,9 +488,10 @@ public class KeywordSearch
 	 * @param searchTerms
 	 * @param resultsPerPage
 	 * @return
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{

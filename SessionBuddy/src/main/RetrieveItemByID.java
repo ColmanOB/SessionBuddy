@@ -55,7 +55,7 @@ public class RetrieveItemByID
 		{
 		// Make the API call using the the recording ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitListRequest("recordings", recordingID);
+		String apiQueryResults = searcher.submitItemByIDRequest("recordings", recordingID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		RecordingByIDParser jsonParser = new RecordingByIDParser();
@@ -126,7 +126,7 @@ public class RetrieveItemByID
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitListRequest("discussions", discussionID);
+		String apiQueryResults = searcher.submitItemByIDRequest("discussions", discussionID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		DiscussionByIDParser jsonParser = new DiscussionByIDParser();
@@ -172,7 +172,7 @@ public class RetrieveItemByID
 		{
 		// Make the API call using the tune ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitListRequest("tunes", tuneID);
+		String apiQueryResults = searcher.submitItemByIDRequest("tunes", tuneID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		TuneByIDParser jsonParser = new TuneByIDParser();
@@ -230,7 +230,7 @@ public class RetrieveItemByID
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitListRequest("sessions", sessionID);
+		String apiQueryResults = searcher.submitItemByIDRequest("sessions", sessionID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		SessionByIDParser jsonParser = new SessionByIDParser();
@@ -289,7 +289,7 @@ public class RetrieveItemByID
 		{
 		// Make the API call using the the event ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitListRequest("events", eventID);
+		String apiQueryResults = searcher.submitItemByIDRequest("events", eventID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		EventByIDParser jsonParser = new EventByIDParser();

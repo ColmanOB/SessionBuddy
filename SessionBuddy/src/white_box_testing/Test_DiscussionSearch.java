@@ -1,5 +1,6 @@
 package white_box_testing;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.DiscussionsSearchResult;
@@ -17,7 +18,7 @@ import main.KeywordSearch;
 public class Test_DiscussionSearch
 
 {
-public static void main(String[] args)
+public static void main(String[] args) throws MalformedURLException, RuntimeException
    {
 	// Set the search parameters
 	String searchTerms = "London";

@@ -1,5 +1,6 @@
 package white_box_testing;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.SessionsSearchResult;
@@ -9,7 +10,7 @@ import main.KeywordSearch;
 public class Test_SessionSearch
 //Purpose: Search thesession.org API for a set of search terms, and store the results
 {
-public static void main(String[] args)
+public static void main(String[] args) throws MalformedURLException, RuntimeException
    {
 	// Set the search parameters
 	String searchTerms = "London";
