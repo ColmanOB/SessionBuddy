@@ -21,8 +21,6 @@ import result_set_wrappers.EventsByLocationWrapper;
 import result_set_wrappers.SessionsByLocationWrapper;
 
 
-// TODO: Complete the Javadoc comments for each of the methods
-
 /**
  * Queries the API at thesession.org with coordinates and a radius, and parses the response into an easily usable structure. 
  * To use this feature, first create a new SearchByLocation object, then call one of its methods to perform the actual search.
@@ -37,12 +35,12 @@ public class SearchByLocation
 	/**
 	 * Queries the API for a list of sessions within a specified radius of a particular latitude and longitude
 	 * 
-	 * @param latitude
-	 * @param longitude
-	 * @param radius
-	 * @param resultsPerPage
-	 * @return
-	 * @throws IllegalArgumentException
+	 * @param latitude a latitude value between -90 to 90
+	 * @param longitude a longitude value between -180 to 180
+	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
+	 * @param resultsPerPage the number of results you want returned per page in the JSON response
+	 * @return an ArrayList of SessionsByLocationResult objects
+	 * @throws IllegalArgumentException if an invalid value was provided in either the coordinates or results per page
 	 */
 	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException
 		{
@@ -78,11 +76,11 @@ public class SearchByLocation
 	/** 
 	 * Alternative version of searchSessionsByLocation(), allowing a page number to be specified within a paginated JSON response.
 	 * 
-	 * @param latitude
-	 * @param longitude
-	 * @param radius
-	 * @param resultsPerPage
-	 * @return
+	 * @param latitude a latitude value between -90 to 90
+	 * @param longitude a longitude value between -180 to 180
+	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
+	 * @param resultsPerPage the number of results you want returned per page in the JSON response
+	 * @return an ArrayList of SessionsByLocationResult objects
 	 * @throws IllegalArgumentException
 	 */
 	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException
@@ -119,12 +117,12 @@ public class SearchByLocation
 	/**
 	 * Queries the API for a list of sessions within a specified radius of a particular latitude and longitude
 	 * 
-	 * @param latitude
-	 * @param longitude
-	 * @param radius
-	 * @param resultsPerPage
-	 * @return
-	 * @throws IllegalArgumentException
+	 * @param latitude a latitude value between -90 to 90
+	 * @param longitude a longitude value between -180 to 180
+	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
+	 * @param resultsPerPage the number of results you want returned per page in the JSON response
+	 * @return an ArrayList of EventsByLocationResult objects
+	 * @throws IllegalArgumentException if an invalid value was provided in either the coordinates or results per page
 	 */
 	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException
 		{
@@ -160,13 +158,13 @@ public class SearchByLocation
 	/**
 	 * Alternative version of searchEventsByLocation, allowing an individual page to be specified within a paginated JSON response
 	 * 
-	 * @param latitude
-	 * @param longitude
-	 * @param radius
-	 * @param resultsPerPage
-	 * @param pageNumber
-	 * @return
-	 * @throws IllegalArgumentException
+	 * @param latitude a latitude value between -90 to 90
+	 * @param longitude a longitude value between -180 to 180
+	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
+	 * @param resultsPerPage the number of results you want returned per page in the JSON response
+	 * @param pageNumber specifies an individual page within a paginated JSON response
+	 * @return an ArrayList of EventsByLocationResult objects
+	 * @throws IllegalArgumentException if an invalid value was provided in either the coordinates or results per page
 	 */
 	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException
 		{
@@ -242,7 +240,7 @@ public class SearchByLocation
 	/**
 	 * Helper method to gather and parse the response to a location-based search for sessions
 	 * 
-	 * @param parsedResults
+	 * @param parsedResults an EventsByLocationWrapper containing response data form the API
 	 * @return
 	 */
 	private ArrayList<EventsByLocationResult> populateEventsByLocationResult(EventsByLocationWrapper parsedResults)	
