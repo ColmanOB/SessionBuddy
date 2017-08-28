@@ -84,7 +84,7 @@ public class RetrieveLatest
 	pageCount = Integer.parseInt(parsedResults.pages);
 					
 	// Loop as many times as the count of tunes in the result set:
-	for(int i = 0; i < (parsedResults.tunes.length)-1; i++)
+	for(int i = 0; i < (parsedResults.tunes.length); i++)
 		{
 		// Extract the required elements from each individual search result in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -109,9 +109,10 @@ public class RetrieveLatest
 	 * @param resultsPerPage
 	 * @param pageNumber
 	 * @return
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -145,7 +146,7 @@ public class RetrieveLatest
 		pageCount = Integer.parseInt(parsedResults.pages);
 					
 		// Loop as many times as the count of tunes in the result set:
-		for(int i = 0; i < (parsedResults.tunes.length)-1; i++)
+		for(int i = 0; i < (parsedResults.tunes.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -206,7 +207,7 @@ public class RetrieveLatest
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.discussions.length)-1; i++)
+		for(int i = 0; i < (parsedResults.discussions.length); i++)
 			{
 			// Extract the elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
@@ -229,9 +230,10 @@ public class RetrieveLatest
 	 * @param resultsPerPage
 	 * @param pageNumber
 	 * @return
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 	{
 	if (resultsPerPage > 50)
 		{
@@ -265,7 +267,7 @@ public class RetrieveLatest
 	pageCount = Integer.parseInt(parsedResults.pages);
 		
 	// Loop as many times as the count of recordings in the result set:
-	for(int i = 0; i < (parsedResults.discussions.length)-1; i++)
+	for(int i = 0; i < (parsedResults.discussions.length); i++)
 		{
 		// Extract the elements from each individual search result in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
@@ -325,7 +327,7 @@ public class RetrieveLatest
 		pageCount = Integer.parseInt(parsedResults.pages);
 					
 		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.recordings.length)-1; i++)
+		for(int i = 0; i < (parsedResults.recordings.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -349,9 +351,10 @@ public class RetrieveLatest
 	 * @param resultsPerPage
 	 * @param pageNumber
 	 * @return
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 	{
 	if (resultsPerPage > 50)
 		{
@@ -385,7 +388,7 @@ public class RetrieveLatest
 	pageCount = Integer.parseInt(parsedResults.pages);
 				
 	// Loop as many times as the count of recordings in the result set:
-	for(int i = 0; i < (parsedResults.recordings.length)-1; i++)
+	for(int i = 0; i < (parsedResults.recordings.length); i++)
 		{
 		// Extract the required elements from each individual search result in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -446,7 +449,7 @@ public class RetrieveLatest
 		pageCount = Integer.parseInt(parsedResults.pages);
 					
 		// Loop as many times as the count of sessions in the result set:
-		for(int i = 0; i < (parsedResults.sessions.length)-1; i++)
+		for(int i = 0; i < (parsedResults.sessions.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -474,9 +477,10 @@ public class RetrieveLatest
 	 * @param resultsPerPage
 	 * @param pageNumber
 	 * @return
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -510,7 +514,7 @@ public class RetrieveLatest
 		pageCount = Integer.parseInt(parsedResults.pages);
 					
 		// Loop as many times as the count of sessions in the result set:
-		for(int i = 0; i < (parsedResults.sessions.length)-1; i++)
+		for(int i = 0; i < (parsedResults.sessions.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -574,7 +578,7 @@ public class RetrieveLatest
 	pageCount = Integer.parseInt(parsedResults.pages);
 				
 	// Loop as many times as the count of events in the result set:
-	for(int i = 0; i < (parsedResults.events.length)-1; i++)
+	for(int i = 0; i < (parsedResults.events.length); i++)
 		{
 		// Extract the required elements from each individual search result in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -603,9 +607,10 @@ public class RetrieveLatest
 	 * @param resultsPerPage
 	 * @param pageNumber
 	 * @return
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 		{
 		if (resultsPerPage > 50)
 			{
@@ -639,7 +644,7 @@ public class RetrieveLatest
 		pageCount = Integer.parseInt(parsedResults.pages);
 					
 		// Loop as many times as the count of events in the result set:
-		for(int i = 0; i < (parsedResults.events.length)-1; i++)
+		for(int i = 0; i < (parsedResults.events.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response

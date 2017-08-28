@@ -37,7 +37,7 @@ import result_set_wrappers.TunesSearchResultWrapper;
 // TODO: Complete the Javadoc comments for all methods
 
 /**
- * Queries the API at thesession.org with search terms, and parses the response into an easily usable structure. 
+ * Queries the API at thesession.org for a chosen type of data with search terms, and parses the response into an easily usable structure. 
  * To use this feature, first create a new KeywordSearch object, then call one of its methods to perform the actual search.
  * 
  * @author Colman O'B
@@ -60,9 +60,15 @@ public class KeywordSearch
 	 */
 	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException, IllegalArgumentException
 		{
-		if (resultsPerPage > 50)
+		try
 			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
 			}
 	
 		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
@@ -90,13 +96,20 @@ public class KeywordSearch
 	 * @param resultsPerPage a number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
 	 * @param pageNumber a particular page number within the JSON search results
 	 * @return An ArrayList of TunesSearchResult objects
-	 * @throws IllegalArgumentException if either an invalid number of results per page was provided, or if the data returned by the API was not JSON with the expected structure
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 		{
-		if (resultsPerPage > 50)
+		try
 			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
 			}
 		
 		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
@@ -127,9 +140,15 @@ public class KeywordSearch
 	 */
 	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
-		if (resultsPerPage > 50)
+		try
 			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
 			}
 		
 		// Launch a search for a list of matching discussions and store the JSON that is returned as a String
@@ -158,13 +177,20 @@ public class KeywordSearch
 	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @param pageNumber Specify a particular page within the search results
 	 * @return An ArrayList of DiscussionsSearchResult objects
-	 * @throws IllegalArgumentException Thrown if either an invalid number of results per page is provided, or if the data returned by the API is not JSON with the expected structure
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 		{
-		if (resultsPerPage > 50)
+		try
 			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
 			}
 		
 		// Launch a search for a list of matching discussions, specifying the page number in the result set, and store the JSON that is returned as a String
@@ -196,9 +222,15 @@ public class KeywordSearch
 	 */
 	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
-		if (resultsPerPage > 50)
+		try
 			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
 			}
 		
 		// Launch a search for a list of matching events and store the JSON that is returned as a String
@@ -226,13 +258,20 @@ public class KeywordSearch
 	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @param pageNumber A specific page within a paginated JSON response
 	 * @return an ArrayList of EventsSearchResult objects
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 		{
-		if (resultsPerPage > 50)
+		try
 			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
 			}
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
@@ -264,9 +303,15 @@ public class KeywordSearch
 	 */
 	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
-		if (resultsPerPage > 50)
+		try
 			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
 			}
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
@@ -294,13 +339,20 @@ public class KeywordSearch
 	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @param pageNumber a specific page within a paginated JSON response
 	 * @return an ArrayList of RecordingsSearchResult objects
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 		{
-		if (resultsPerPage > 50)
+		try
 			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
 			}
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
@@ -332,9 +384,15 @@ public class KeywordSearch
 	 */
 	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
-		if (resultsPerPage > 50)
+		try
 			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
 			}
 		
 		// Launch a search for a list of matching sessions and store the JSON that is returned as a String
@@ -363,13 +421,20 @@ public class KeywordSearch
 	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @param pageNumber a specific page within a paginated JSON response
 	 * @return an ArrayList of SessionsSearchResult objects
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 		{
-		if (resultsPerPage > 50)
+		try
 			{
-			throw new IllegalArgumentException("Number of results per page must be 50 or less");
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
 			}
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
@@ -411,8 +476,8 @@ public class KeywordSearch
 	/**
 	 * Helper method to gather and parse the response to a keyword search for a tune
 	 * 
-	 * @param parsedResults
-	 * @return
+	 * @param parsedResults a TunesSearchResultWrapper object that has already been created an populated
+	 * @return an ArrayList of TunesSearchResult objects
 	 */
 	private ArrayList<TunesSearchResult> populateTunesSearchResult(TunesSearchResultWrapper parsedResults)
 		{
@@ -422,7 +487,7 @@ public class KeywordSearch
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of tunes in the result set:
-		for(int i = 0; i < (parsedResults.tunes.length)-1; i++)
+		for(int i = 0; i < (parsedResults.tunes.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -444,8 +509,8 @@ public class KeywordSearch
 	/**
 	 * Helper method to gather and parse the response to a keyword search for discussions
 	 * 
-	 * @param parsedResults
-	 * @return
+	 * @param parsedResults an existing populated DiscussionsSearchResultWrapper object
+	 * @return an ArrayList of DiscussionsSearchResult objects
 	 */
 	private ArrayList<DiscussionsSearchResult> populateDiscussionsSearchResult(DiscussionsSearchResultWrapper parsedResults)
 		{
@@ -456,7 +521,7 @@ public class KeywordSearch
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.discussions.length)-1; i++)
+		for(int i = 0; i < (parsedResults.discussions.length); i++)
 			{
 			// Extract the elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
@@ -478,8 +543,8 @@ public class KeywordSearch
 	/**
 	 * Helper method to gather and parse the response to a keyword search for events
 	 * 
-	 * @param parsedResults
-	 * @return
+	 * @param parsedResults an EventsSearchResultWrapper object that has already been populated
+	 * @return an ArrayList of EventSearchResult objects
 	 */
 	private ArrayList<EventsSearchResult> populateEventsSearchResult(EventsSearchResultWrapper parsedResults)	
 		{
@@ -489,7 +554,7 @@ public class KeywordSearch
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.events.length)-1; i++)
+		for(int i = 0; i < (parsedResults.events.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -518,8 +583,8 @@ public class KeywordSearch
 	/**
 	 * Helper method to gather and parse the response to a keyword search for events
 	 * 
-	 * @param parsedResults
-	 * @return
+	 * @param parsedResults a RecordingsSearchResultWrapper object that has already been populated
+	 * @return an ArrayList of RecordingsSearchResult objects
 	 */
 	private ArrayList<RecordingsSearchResult> populateRecordingsSearchResult(RecordingsSearchResultWrapper parsedResults)	
 		{
@@ -529,7 +594,7 @@ public class KeywordSearch
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of recordings in the result set:
-		for(int i = 0; i < (parsedResults.recordings.length)-1; i++)
+		for(int i = 0; i < (parsedResults.recordings.length); i++)
 			{
 			// Extract the elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
@@ -552,8 +617,8 @@ public class KeywordSearch
 	/**
 	 * Helper method to gather and parse the response to a keyword-based search for sessions
 	 * 
-	 * @param parsedResults
-	 * @return
+	 * @param parsedResults a SessionSearchResultWrapper object that has been populated
+	 * @return an ArrayList of SessionsSearchResult objects
 	 */
 	private ArrayList<SessionsSearchResult> populateSessionsSearchResult(SessionsSearchResultWrapper parsedResults)	
 		{
@@ -563,7 +628,7 @@ public class KeywordSearch
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of sessions in the result set:
-		for(int i = 0; i < (parsedResults.sessions.length)-1; i++)
+		for(int i = 0; i < (parsedResults.sessions.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -584,6 +649,32 @@ public class KeywordSearch
 			}
 			
 		return resultSet;
+		}
+	
+	
+	/**
+	 * Helper method to validate that the user has specified a value between 1-50 for the results per page
+	 * 
+	 * @param resultsPerPage the number of results to be returned per page in the JSON response from the API
+	 * @return true if a valid number of results per page has been provided (i.e. 1 - 50)
+	 * @throws IllegalArgumentException if a value of zero or less, or a value of more than 50 was provided
+	 */
+	private boolean validateResultsPerPageCount(int resultsPerPage) throws IllegalArgumentException
+		{
+		if (resultsPerPage <= 0)
+			{
+			// Specifying zero or a negative number of results per page should not be allowed
+			throw new IllegalArgumentException("Number of results per page must be greater than zero");
+			}
+		
+		if (resultsPerPage > 50)
+			{
+			// The API only allows a maximum of 50 results per page
+			throw new IllegalArgumentException("Number of results per page cannot exceed 50");
+			}
+		
+		// The value specified is in the range 1 - 50 and is valid
+		else return true;
 		}
 	
 	}

@@ -1,5 +1,6 @@
 package example_usage;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.SessionsByLocationResult;
@@ -8,7 +9,7 @@ import main.SearchByLocation;
 
 public class Test_SearchByLocation_Sessions
 {
-public static void main(String[] args)
+public static void main(String[] args) throws MalformedURLException, RuntimeException
    {
 	// Set the search parameters
 	String latitude= "53.3498";

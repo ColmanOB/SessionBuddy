@@ -1,5 +1,6 @@
 package main;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -40,9 +41,10 @@ public class SearchByLocation
 	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of SessionsByLocationResult objects
-	 * @throws IllegalArgumentException if an invalid value was provided in either the coordinates or results per page
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
 		try
 			{
@@ -81,9 +83,10 @@ public class SearchByLocation
 	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of SessionsByLocationResult objects
-	 * @throws IllegalArgumentException
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 		{
 		try
 			{
@@ -122,9 +125,10 @@ public class SearchByLocation
 	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of EventsByLocationResult objects
-	 * @throws IllegalArgumentException if an invalid value was provided in either the coordinates or results per page
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException
+	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws MalformedURLException, RuntimeException
 		{
 		try
 			{
@@ -164,9 +168,10 @@ public class SearchByLocation
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @param pageNumber specifies an individual page within a paginated JSON response
 	 * @return an ArrayList of EventsByLocationResult objects
-	 * @throws IllegalArgumentException if an invalid value was provided in either the coordinates or results per page
+	 * @throws RuntimeException 
+	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException
+	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
 		{
 		try
 			{
@@ -200,8 +205,8 @@ public class SearchByLocation
 	/**
 	 * Helper method to gather and parse the response to a location-based search for sessions
 	 * 
-	 * @param parsedResults
-	 * @return
+	 * @param parsedResults a SessionsByLocationWrapper object that has already been created and populated
+	 * @return an ArrayList of SessionsByLoctionResult objects
 	 */
 	private ArrayList<SessionsByLocationResult> populateSessionsByLocationResult(SessionsByLocationWrapper parsedResults)	
 		{	
@@ -212,7 +217,7 @@ public class SearchByLocation
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of sessions in the result set:
-		for(int i = 0; i < (parsedResults.sessions.length)-1; i++)
+		for(int i = 0; i < (parsedResults.sessions.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -223,8 +228,7 @@ public class SearchByLocation
 			Town town = new Town(Integer.toString(parsedResults.sessions[i].town.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].town.name));
 			Area area = new Area(Integer.toString(parsedResults.sessions[i].area.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].area.name));
 			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].country.name));
-			
-			
+					
 			// Instantiate a SessionsByLocationResult object & populate it
 			SessionsByLocationResult currentResult = new SessionsByLocationResult(details, coordinates, user, venue, town, area, country);
 			
@@ -241,7 +245,7 @@ public class SearchByLocation
 	 * Helper method to gather and parse the response to a location-based search for sessions
 	 * 
 	 * @param parsedResults an EventsByLocationWrapper containing response data form the API
-	 * @return
+	 * @return an ArrayList of EventsByLocationResult objects
 	 */
 	private ArrayList<EventsByLocationResult> populateEventsByLocationResult(EventsByLocationWrapper parsedResults)	
 		{	
@@ -252,7 +256,7 @@ public class SearchByLocation
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of events in the result set:
-		for(int i = 0; i < (parsedResults.events.length)-1; i++)
+		for(int i = 0; i < (parsedResults.events.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -280,8 +284,8 @@ public class SearchByLocation
 	/**
 	 * Helper method to keep track of the number of pages in the JSON response form the API
 	 * 
-	 * @return
-	 * @throws IllegalStateException
+	 * @return the number of pages in the JSON reponse
+	 * @throws IllegalStateException when the pageCount variable has not been initialised
 	 */
 	public int getPageCount() throws IllegalStateException
 		{
@@ -323,9 +327,9 @@ public class SearchByLocation
 	/**
 	 * Helper method to validate the latitude, longitude and radius provided by the user
 	 * 
-	 * @param latitude
-	 * @param longitude
-	 * @param radius
+	 * @param latitude the latitude of the point at the centre of the search
+	 * @param longitude the longitude of the point at the centre of the search
+	 * @param radius a radius around the coordinates, to be included in the search
 	 * @return
 	 * @throws IllegalArgumentException
 	 */

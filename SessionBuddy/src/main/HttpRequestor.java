@@ -9,10 +9,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Submits a HTTPS GET request to the API at https://thesession.org and stores the JSON response as a String
+ * Submits a HTTPS GET request to the API at https://thesession.org, using a URL in the format required by the API.
+ * The JSON response is stored as a String
  * 
  * @author Colman O'B
- * @since 2017-08-26
+ * @since 2017-08-28
  */
 public class HttpRequestor
 	{	
@@ -116,8 +117,9 @@ public class HttpRequestor
 	 * @param pageNumber an individual page number within a paginated JSON response
 	 * @return the JSON response from the API as a String
 	 * @throws RuntimeException
+	 * @throws MalformedURLException 
 	 */
-	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException
+	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException, MalformedURLException
 		{
 		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
 		String response;	// A string of JSON data returned from the API
@@ -139,7 +141,7 @@ public class HttpRequestor
 	
 		catch (MalformedURLException e) 
 			{
-			throw new RuntimeException(e.getMessage());
+			throw new MalformedURLException(e.getMessage());
 			} 
 	
 		catch (RuntimeException e) 
@@ -159,8 +161,9 @@ public class HttpRequestor
 	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
 	 * @return A string representation of the location's latitude
 	 * @throws RuntimeException
+	 * @throws MalformedURLException 
 	 */
-	public String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage) throws RuntimeException
+	public String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage) throws RuntimeException, MalformedURLException
 		{		
 		String response;	// A string of JSON data returned from the API
 		
@@ -181,7 +184,7 @@ public class HttpRequestor
 		
 		catch (MalformedURLException e) 
 			{
-			throw new RuntimeException(e.getMessage());
+			throw new MalformedURLException(e.getMessage());
 			} 
 	
 		catch (IOException e) 
@@ -205,8 +208,9 @@ public class HttpRequestor
 	 * @param pageNumber A specific page number within a multi-page JSON response
 	 * @return A string representation of the location's latitude
 	 * @throws RuntimeException
+	 * @throws MalformedURLException 
 	 */
-	public String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws RuntimeException
+	public String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws RuntimeException, MalformedURLException
 		{		
 		String response;	// A string of JSON data returned from the API
 		
@@ -224,7 +228,7 @@ public class HttpRequestor
 		
 		catch (MalformedURLException e) 
 			{
-			throw new RuntimeException(e.getMessage());
+			throw new MalformedURLException(e.getMessage());
 			} 
 	
 		catch (IOException e) 
@@ -270,6 +274,7 @@ public class HttpRequestor
 			throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
 			}
 		
+		// Return the HTTPS connection to the caller
 		return connectionToURL;
 		}
 	
@@ -286,7 +291,7 @@ public class HttpRequestor
 		{
 		BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
 		
-		//Use a StringBuilder to build a string from the data in the BufferedReader
+		// Use a StringBuilder to build a string from the data in the BufferedReader
 		String searchResults;
 		StringBuilder builder = new StringBuilder();
 		
@@ -294,14 +299,17 @@ public class HttpRequestor
 			{ 
 			builder.append(searchResults);	
 			}
-	
+		
+		// Create a String from the StringBuilder and return it to the caller
 		return builder.toString();
 		}
 	
 	
 	/**
-	 * @param searchTerms
-	 * @return
+	 * A helper method to format the search terms so that any spaces are replaced with '+' characters, as required by the API
+	 * 
+	 * @param searchTerms a string containing the user's search terms, may contain spaces
+	 * @return a String with any spaces replaced with '+' characters
 	 */
 	private String formatSearchTerms(String searchTerms)
 		{
@@ -315,10 +323,11 @@ public class HttpRequestor
 	/**
 	 * Makes a HTTP connection to the API with the requested data in the URL, and get the response data
 	 * 
-	 * @param tuneSearchURL
-	 * @return
+	 * @param tuneSearchURL the URL used when querying the API
+	 * @return the entire JSON response to the API query, returned as a single String
+	 * @throws MalformedURLException 
 	 */
-	private String getAPIResponse(URL tuneSearchURL) throws RuntimeException
+	private String getAPIResponse(URL tuneSearchURL) throws RuntimeException, MalformedURLException
 		{	
 		String response;	// A string of JSON data returned from the API
 		
@@ -336,7 +345,7 @@ public class HttpRequestor
 	
 		catch (MalformedURLException e) 
 			{
-			throw new RuntimeException(e.getMessage());
+			throw new MalformedURLException(e.getMessage());
 			} 
 	
 		catch (IOException e) 

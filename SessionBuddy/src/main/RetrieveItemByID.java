@@ -75,13 +75,13 @@ public class RetrieveItemByID
 		ArrayList<TrackListing> tracks = new ArrayList<TrackListing>();
 		
 		// Populate the track listing
-		for(int i = 0; i < (parsedResults.tracks.length)-1; i++)
+		for(int i = 0; i < (parsedResults.tracks.length); i++)
 			{
 			// For each individual track, create an ArrayList of TuneRecord objects
 			ArrayList<TuneRecord> tunesOnTrack = new ArrayList<TuneRecord>();
 			
 			// Populate the ArrayList of TuneRecord objects
-			for (int j = 0; j < (parsedResults.tracks[i].tunes.length)-1; j++)
+			for (int j = 0; j < (parsedResults.tracks[i].tunes.length); j++)
 				{		
 				TuneRecord currentTune = new TuneRecord(StringEscapeUtils.unescapeXml(parsedResults.tracks[i].tunes[j].name), parsedResults.tracks[i].tunes[j].id ,parsedResults.tracks[i].tunes[j].url);
 				tunesOnTrack.add(currentTune);
