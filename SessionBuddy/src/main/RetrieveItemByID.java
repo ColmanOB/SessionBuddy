@@ -38,6 +38,7 @@ import result_set_wrappers.RecordingByIDWrapper;
 import result_set_wrappers.SessionByIDWrapper;
 import result_set_wrappers.TuneByIDWrapper;
 
+// TODO: Refactor the methods in this class, extract some 'helper' methods
 
 /**
  * @author Colman
