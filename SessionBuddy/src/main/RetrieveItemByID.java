@@ -27,11 +27,7 @@ import json_object_wrappers.TuneRecord;
 import json_object_wrappers.TuneSetting;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
-import response_parsers.DiscussionByIDParser;
-import response_parsers.EventByIDParser;
-import response_parsers.RecordingByIDParser;
-import response_parsers.SessionByIDParser;
-import response_parsers.TuneByIDParser;
+import response_parsers.JsonResponseParser;
 import result_set_wrappers.DiscussionByIDWrapper;
 import result_set_wrappers.EventByIDWrapper;
 import result_set_wrappers.RecordingByIDWrapper;
@@ -59,8 +55,8 @@ public class RetrieveItemByID
 		String apiQueryResults = searcher.submitItemByIDRequest("recordings", recordingID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		RecordingByIDParser jsonParser = new RecordingByIDParser();
-		RecordingByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		RecordingByIDWrapper parsedResults = jsonParser.parseItemRecording();
 		
 		// Extract each element from the recording entry in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -129,9 +125,9 @@ public class RetrieveItemByID
 		HttpRequestor searcher = new HttpRequestor();
 		String apiQueryResults = searcher.submitItemByIDRequest("discussions", discussionID);
 			
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		DiscussionByIDParser jsonParser = new DiscussionByIDParser();
-		DiscussionByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		// Parse the returned JSON into a pre-defined wrapper class to allow access to all elements
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		DiscussionByIDWrapper parsedResults = jsonParser.parseItemDiscussion();
 	
 		// Extract each element from the tune entry in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -176,8 +172,8 @@ public class RetrieveItemByID
 		String apiQueryResults = searcher.submitItemByIDRequest("tunes", tuneID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		TuneByIDParser jsonParser = new TuneByIDParser();
-		TuneByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		TuneByIDWrapper parsedResults = jsonParser.parseItemTune();
 	
 		// Extract each element from the tune entry in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -234,8 +230,8 @@ public class RetrieveItemByID
 		String apiQueryResults = searcher.submitItemByIDRequest("sessions", sessionID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		SessionByIDParser jsonParser = new SessionByIDParser();
-		SessionByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		SessionByIDWrapper parsedResults = jsonParser.parseItemSession();
 	
 		// Extract each element from the tune entry in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
@@ -293,8 +289,8 @@ public class RetrieveItemByID
 		String apiQueryResults = searcher.submitItemByIDRequest("events", eventID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		EventByIDParser jsonParser = new EventByIDParser();
-		EventByIDWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		EventByIDWrapper parsedResults = jsonParser.parseItemEvent();
 	
 		// Extract each element from the tune entry in the JSON response
 		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response

@@ -16,8 +16,7 @@ import json_object_wrappers.SessionsByLocationResult;
 import json_object_wrappers.Town;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
-import response_parsers.EventsByLocationParser;
-import response_parsers.SessionsByLocationParser;
+import response_parsers.JsonResponseParser;
 import result_set_wrappers.EventsByLocationWrapper;
 import result_set_wrappers.SessionsByLocationWrapper;
 
@@ -63,8 +62,8 @@ public class SearchByLocation
 		String apiQueryResults = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		SessionsByLocationParser jsonParser = new SessionsByLocationParser();
-		SessionsByLocationWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		SessionsByLocationWrapper parsedResults = jsonParser.parseLocationSession();
 			
 		// This will hold each individual search result entry
 		ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
@@ -105,8 +104,8 @@ public class SearchByLocation
 		String apiQueryResults = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage, pageNumber);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		SessionsByLocationParser jsonParser = new SessionsByLocationParser();
-		SessionsByLocationWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		SessionsByLocationWrapper parsedResults = jsonParser.parseLocationSession();
 			
 		// This will hold each individual search result entry
 		ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
@@ -147,8 +146,8 @@ public class SearchByLocation
 		String apiQueryResults = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		EventsByLocationParser jsonParser = new EventsByLocationParser();
-		EventsByLocationWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		EventsByLocationWrapper parsedResults = jsonParser.parseLocationEvent();
 			
 		// This will hold each individual search result entry
 		ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();
@@ -190,8 +189,8 @@ public class SearchByLocation
 		String apiQueryResults = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage, pageNumber);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		EventsByLocationParser jsonParser = new EventsByLocationParser();
-		EventsByLocationWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		EventsByLocationWrapper parsedResults = jsonParser.parseLocationEvent();
 			
 		// This will hold each individual search result entry
 		ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();
