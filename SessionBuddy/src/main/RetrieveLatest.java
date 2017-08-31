@@ -23,16 +23,15 @@ import json_object_wrappers.TuneDetails;
 import json_object_wrappers.TunesSearchResult;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
-import response_parsers.DiscussionsSearchParser;
-import response_parsers.EventsSearchParser;
-import response_parsers.RecordingsSearchParser;
-import response_parsers.SessionsSearchParser;
-import response_parsers.TunesSearchParser;
 import result_set_wrappers.DiscussionsSearchResultWrapper;
 import result_set_wrappers.EventsSearchResultWrapper;
 import result_set_wrappers.RecordingsSearchResultWrapper;
 import result_set_wrappers.SessionsSearchResultWrapper;
 import result_set_wrappers.TunesSearchResultWrapper;
+import utils.HttpRequestor;
+import utils.JsonResponseParser;
+import utils.SessionsSearchParser;
+import utils.TunesSearchParser;
 
 // TODO: Fix up all of the comments, especially Javadoc ones
 
@@ -147,8 +146,8 @@ public class RetrieveLatest
 		String apiQueryResults = searcher.submitLatestRequest("discussions", resultsPerPage);
 			
 		// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
-		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsDiscussion();
 
 		// This will hold each individual search result entry
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
@@ -184,8 +183,8 @@ public class RetrieveLatest
 		String apiQueryResults = searcher.submitLatestRequest("discussions", resultsPerPage, pageNumber);
 			
 		// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
-		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsDiscussion();
 		
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
 		
@@ -221,8 +220,8 @@ public class RetrieveLatest
 		String apiQueryResults = searcher.submitLatestRequest("recordings", resultsPerPage);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		RecordingsSearchParser jsonParser = new RecordingsSearchParser();
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		RecordingsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsRecording();
 						
 		// This will hold each individual search result entry
 		ArrayList<RecordingsSearchResult> resultSet = new ArrayList<RecordingsSearchResult>();
@@ -258,8 +257,8 @@ public class RetrieveLatest
 		String apiQueryResults = searcher.submitLatestRequest("recordings", resultsPerPage, pageNumber);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		RecordingsSearchParser jsonParser = new RecordingsSearchParser();
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		RecordingsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsRecording();
 				
 		// This will hold each individual search result entry
 		ArrayList<RecordingsSearchResult> resultSet = new ArrayList<RecordingsSearchResult>();
@@ -369,8 +368,8 @@ public class RetrieveLatest
 		String apiQueryResults = searcher.submitLatestRequest("events", resultsPerPage);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		EventsSearchParser jsonParser = new EventsSearchParser();
-		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		EventsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsEvent();
 						
 		// This will hold each individual search result entry
 		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
@@ -406,8 +405,8 @@ public class RetrieveLatest
 		String apiQueryResults = searcher.submitLatestRequest("events", resultsPerPage, pageNumber);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		EventsSearchParser jsonParser = new EventsSearchParser();
-		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		EventsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsEvent();
 						
 		// This will hold each individual search result entry
 		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();

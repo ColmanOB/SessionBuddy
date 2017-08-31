@@ -27,12 +27,13 @@ import json_object_wrappers.TuneRecord;
 import json_object_wrappers.TuneSetting;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
-import response_parsers.JsonResponseParser;
 import result_set_wrappers.DiscussionByIDWrapper;
 import result_set_wrappers.EventByIDWrapper;
 import result_set_wrappers.RecordingByIDWrapper;
 import result_set_wrappers.SessionByIDWrapper;
 import result_set_wrappers.TuneByIDWrapper;
+import utils.HttpRequestor;
+import utils.JsonResponseParser;
 
 // TODO: Refactor the methods in this class, extract some 'helper' methods
 

@@ -16,9 +16,10 @@ import json_object_wrappers.SessionsByLocationResult;
 import json_object_wrappers.Town;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
-import response_parsers.JsonResponseParser;
 import result_set_wrappers.EventsByLocationWrapper;
 import result_set_wrappers.SessionsByLocationWrapper;
+import utils.HttpRequestor;
+import utils.JsonResponseParser;
 
 
 /**

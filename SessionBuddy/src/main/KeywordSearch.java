@@ -23,16 +23,15 @@ import json_object_wrappers.TuneDetails;
 import json_object_wrappers.TunesSearchResult;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
-import response_parsers.DiscussionsSearchParser;
-import response_parsers.EventsSearchParser;
-import response_parsers.RecordingsSearchParser;
-import response_parsers.SessionsSearchParser;
-import response_parsers.TunesSearchParser;
 import result_set_wrappers.DiscussionsSearchResultWrapper;
 import result_set_wrappers.EventsSearchResultWrapper;
 import result_set_wrappers.RecordingsSearchResultWrapper;
 import result_set_wrappers.SessionsSearchResultWrapper;
 import result_set_wrappers.TunesSearchResultWrapper;
+import utils.HttpRequestor;
+import utils.JsonResponseParser;
+import utils.SessionsSearchParser;
+import utils.TunesSearchParser;
 
 // TODO: Complete the Javadoc comments for all methods
 
@@ -156,8 +155,8 @@ public class KeywordSearch
 		String apiQueryResults = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage);
 			
 		// Create a DiscussionSearchParser and DiscussionSearchResultWrapper to parse the raw JSON
-		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsDiscussion();
 		
 		// This will hold each individual search result entry
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
@@ -198,8 +197,8 @@ public class KeywordSearch
 		String apiQueryResults = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage, pageNumber);
 		
 		// Prepare the classes needed to parse the the JSON
-		DiscussionsSearchParser jsonParser = new DiscussionsSearchParser();
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsDiscussion();
 		
 		// This will hold each individual search result entry
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
@@ -238,8 +237,8 @@ public class KeywordSearch
 		String apiQueryResults = searcher.submitSearchRequest("events", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		EventsSearchParser jsonParser = new EventsSearchParser();
-		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		EventsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsEvent();
 			
 		// This will hold each individual search result entry
 		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
@@ -279,8 +278,8 @@ public class KeywordSearch
 		String apiQueryResults = searcher.submitSearchRequest("events",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		EventsSearchParser jsonParser = new EventsSearchParser();
-		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		EventsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsEvent();
 		
 		// This will hold each individual search result entry
 		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
@@ -319,8 +318,8 @@ public class KeywordSearch
 		String apiQueryResults = searcher.submitSearchRequest("recordings", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		RecordingsSearchParser jsonParser = new RecordingsSearchParser();
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		RecordingsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsRecording();
 			
 		// This will hold each individual search result entry
 		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
@@ -360,8 +359,8 @@ public class KeywordSearch
 		String apiQueryResults = searcher.submitSearchRequest("recordings",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		RecordingsSearchParser jsonParser = new RecordingsSearchParser();
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		RecordingsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsRecording();
 			
 		// This will hold each individual search result entry
 		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();

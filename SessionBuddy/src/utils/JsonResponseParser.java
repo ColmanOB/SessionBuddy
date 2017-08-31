@@ -1,13 +1,16 @@
-package response_parsers;
+package utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
 import result_set_wrappers.DiscussionByIDWrapper;
+import result_set_wrappers.DiscussionsSearchResultWrapper;
 import result_set_wrappers.EventByIDWrapper;
 import result_set_wrappers.EventsByLocationWrapper;
+import result_set_wrappers.EventsSearchResultWrapper;
 import result_set_wrappers.RecordingByIDWrapper;
+import result_set_wrappers.RecordingsSearchResultWrapper;
 import result_set_wrappers.SessionByIDWrapper;
 import result_set_wrappers.SessionsByLocationWrapper;
 import result_set_wrappers.TuneByIDWrapper;
@@ -108,34 +111,64 @@ private String jsonResponse; // A page of JSON data retrieved from thesession.or
 		return listOfResults;
 		}
 	
+	
+	/**
+	 * @return
+	 */
+	public DiscussionsSearchResultWrapper parseSearchResultsDiscussion()
+		{
+		DiscussionsSearchResultWrapper listOfResults = parseResponse(jsonResponse, DiscussionsSearchResultWrapper.class);	
+		return listOfResults;
+		}
 		
+	
+	/**
+	 * @return
+	 */
+	public EventsSearchResultWrapper parseSearchResultsEvent()
+		{
+		EventsSearchResultWrapper listOfResults = parseResponse(jsonResponse, EventsSearchResultWrapper.class);	
+		return listOfResults;
+		}
+
+	
+	/**
+	 * @return
+	 */
+	public RecordingsSearchResultWrapper parseSearchResultsRecording()
+		{
+		RecordingsSearchResultWrapper listOfResults = parseResponse(jsonResponse, RecordingsSearchResultWrapper.class);	
+		return listOfResults;
+		}
+	
+	
 		/**
 		 * Helper generic method using Gson to parse the JSON into the appropriate type of wrapper object
 		 * 
 		 * @param tuneDetailsString Pass in a string containing the JSON returned from thesession.org API
 		 * @return a TuneByIDWrapper object allowing access to any individual element of the response
 		 */
-		private <T> T parseResponse(String jsonResponse, Class <T> wrapperType ) 
-			{
-			T listOfResults;
-			
-			Gson gson = new GsonBuilder().create();
-			
-			try
+	private <T> T parseResponse(String jsonResponse, Class <T> wrapperType ) 
+		{
+		T listOfResults;
+		
+		Gson gson = new GsonBuilder().create();
+		
+		try
 			// Populate the Gson object using the string of JSON returned from the API
-				{
-				listOfResults = gson.fromJson(jsonResponse, wrapperType);
-				}
-			
-			catch (JsonSyntaxException e)
-			// Catch a case where the API returns something that is not valid JSON that matches the structure of a DiscussionByIDWrapper
-				{		
-				throw new RuntimeException(e.getMessage());
-				}
-			
-			// Return the DiscussionByIDWrapper object
-			return listOfResults;
+			{
+			listOfResults = gson.fromJson(jsonResponse, wrapperType);
 			}
+			
+		catch (JsonSyntaxException e)
+			// Catch a case where the API returns something that is not valid JSON that matches the structure of a DiscussionByIDWrapper
+			{		
+			throw new RuntimeException(e.getMessage());
+			}
+		
+		// Return the DiscussionByIDWrapper object
+		return listOfResults;
 		}
+	}
 
 

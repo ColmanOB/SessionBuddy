@@ -1,4 +1,4 @@
-package main;
+package utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -208,9 +208,6 @@ public class HttpRequestor
 			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
 			tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
-			
-			// Diagnostic code
-			System.out.println(tuneSearchURL);
 			
 			// Call the API using a private helper method and store the response
 			response = getAPIResponse(tuneSearchURL);
