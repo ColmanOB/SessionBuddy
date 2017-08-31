@@ -2,8 +2,7 @@ package example_usage;
 
 import java.net.MalformedURLException;
 
-import json_object_wrappers.SessionByIDResult;
-
+import json_object_wrappers.TuneByIDResult;
 import main.ItemRetriever;
 
 public class Test_RetrieveItemByID_Tune 
@@ -11,23 +10,21 @@ public class Test_RetrieveItemByID_Tune
 	public static void main(String[] args) throws MalformedURLException, RuntimeException
 		{
 		// Set the search parameters
-		String tuneID = "2379";		
+		String tuneID = "2";		
 		
 		// Instantiate a RetrieveItem object
 		ItemRetriever search = new ItemRetriever();
 		
 		// Pass in the parameters for the tune we want to retrieve
-		SessionByIDResult resultSet = search.getSessionByID(tuneID);
+		TuneByIDResult resultSet = search.getTuneByID(tuneID);
 		
-		System.out.println(resultSet.sessionDetails.sessionID);
-		System.out.println(resultSet.sessionDetails.sessionURL);
-		System.out.println(resultSet.sessionDetails.submittedDate);
+		System.out.println(resultSet.tuneDetails.tuneID);
+		System.out.println(resultSet.tuneDetails.tuneTitle);
+
 	
 		System.out.println(resultSet.member.userID);
 		System.out.println(resultSet.member.userName);
 		System.out.println(resultSet.member.userURL);
-		
-		System.out.println(resultSet.schedule.toString());
 		
 
 		// Loop through each individual setting of the tune and print the details

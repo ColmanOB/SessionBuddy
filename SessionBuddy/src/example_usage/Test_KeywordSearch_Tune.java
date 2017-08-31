@@ -11,8 +11,8 @@ public class Test_KeywordSearch_Tune
 public static void main(String[] args) throws MalformedURLException, RuntimeException
    {
 	// Set the search parameters
-	String searchTerms = "The Old Bush";
-	int resultsPerPage = 5;
+	String searchTerms = "Byrne";
+	int resultsPerPage = 50;
 	
 	// Instantiate a TheSessionAPISearcher object
 	KeywordSearch search = new KeywordSearch();

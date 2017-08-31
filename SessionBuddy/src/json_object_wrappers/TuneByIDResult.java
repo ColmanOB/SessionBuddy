@@ -14,11 +14,11 @@ public class TuneByIDResult
 	public String tunebooks;
 	public String recordings;
 	public ArrayList<String> aliases;	
-	
+	public ArrayList<DiscussionComment> comments;
 	// An array of different settings of the particular tune
 	public ArrayList<TuneSetting> settings; 
 
-	public TuneByIDResult(TuneDetails tuneDetails, User member, String tunebooks, String recordings, ArrayList<String> aliases, ArrayList<TuneSetting> settings)
+	public TuneByIDResult(TuneDetails tuneDetails, User member, String tunebooks, String recordings, ArrayList<String> aliases, ArrayList<TuneSetting> settings, ArrayList<DiscussionComment> comments)
 		{
 		this.tuneDetails = tuneDetails;
 		this.member = member;
@@ -26,5 +26,6 @@ public class TuneByIDResult
 		this.recordings = recordings;
 		this.aliases = aliases;
 		this.settings = settings;
+		this.comments = comments;
 		}
 }

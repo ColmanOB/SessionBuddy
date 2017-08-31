@@ -209,9 +209,24 @@ public class ItemRetriever
 			
 			settings.add(currentSetting);				
 			}
+		
+		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the dicussion
+		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
+			
+		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
+		for(int i = 0; i < (parsedResults.comments.length); i++)
+			{
+			// Populate the User object representing the person who submitted the comment
+			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
+			
+			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
+			DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			
+			comments.add(currentComment);				
+			}
 			
 		// Instantiate a TuneByIDResult object & populate it with the details captured above
-		TuneByIDResult finalResult = new TuneByIDResult(tuneDetails, member, tunebooks, recordings, aliases, settings);
+		TuneByIDResult finalResult = new TuneByIDResult(tuneDetails, member, tunebooks, recordings, aliases, settings, comments);
 			
 		// Return the set of results that has been collected
 		return finalResult;
