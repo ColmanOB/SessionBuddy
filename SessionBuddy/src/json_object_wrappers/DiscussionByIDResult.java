@@ -13,7 +13,7 @@ public class DiscussionByIDResult
 	public User member;
 		
 	// An array of comments in the discussion
-	public ArrayList<DiscussionComment> comments; 
+	public ArrayList<Comment> comments; 
 
 
 	/**
@@ -23,7 +23,7 @@ public class DiscussionByIDResult
 	 * @param member
 	 * @param comments
 	 */
-	public DiscussionByIDResult(DiscussionDetails discussionDetails, User member,ArrayList<DiscussionComment> comments)
+	public DiscussionByIDResult(DiscussionDetails discussionDetails, User member,ArrayList<Comment> comments)
 		{
 		this.discussionDetails = discussionDetails;
 		this.member = member;

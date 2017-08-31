@@ -10,7 +10,7 @@ import json_object_wrappers.Artist;
 import json_object_wrappers.Coordinates;
 import json_object_wrappers.Country;
 import json_object_wrappers.DiscussionByIDResult;
-import json_object_wrappers.DiscussionComment;
+import json_object_wrappers.Comment;
 import json_object_wrappers.DiscussionDetails;
 import json_object_wrappers.EventByIDResult;
 import json_object_wrappers.EventDetails;
@@ -36,10 +36,11 @@ import utils.HttpRequestor;
 import utils.JsonResponseParser;
 
 // TODO: Refactor the methods in this class, extract some 'helper' methods
+// TODO: Fix up all the comments in this class, including Javadoc comments
 
 /**
  * @author Colman
- * @since 2017-08-25
+ * @since 2017-08-31
  */
 public class ItemRetriever 
 {
@@ -91,7 +92,7 @@ public class ItemRetriever
 			}
 		
 		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment on the recording
-		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
+		ArrayList<Comment> comments = new ArrayList<Comment>();
 			
 		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
 		for(int i = 0; i < (parsedResults.comments.length); i++)
@@ -100,7 +101,7 @@ public class ItemRetriever
 			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
 			
 			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-			DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 			
 			comments.add(currentComment);				
 			}
@@ -138,7 +139,7 @@ public class ItemRetriever
 		User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
 		
 		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the dicussion
-		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
+		ArrayList<Comment> comments = new ArrayList<Comment>();
 			
 		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
 		for(int i = 0; i < (parsedResults.comments.length); i++)
@@ -147,7 +148,7 @@ public class ItemRetriever
 			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
 			
 			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-			DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 			
 			comments.add(currentComment);				
 			}
@@ -211,7 +212,7 @@ public class ItemRetriever
 			}
 		
 		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the dicussion
-		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
+		ArrayList<Comment> comments = new ArrayList<Comment>();
 			
 		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
 		for(int i = 0; i < (parsedResults.comments.length); i++)
@@ -220,7 +221,7 @@ public class ItemRetriever
 			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
 			
 			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-			DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 			
 			comments.add(currentComment);				
 			}
@@ -270,7 +271,7 @@ public class ItemRetriever
 
 		
 		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the dicussion
-		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
+		ArrayList<Comment> comments = new ArrayList<Comment>();
 			
 		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
 		for(int i = 0; i < (parsedResults.comments.length); i++)
@@ -279,7 +280,7 @@ public class ItemRetriever
 			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
 			
 			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-			DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 			
 			comments.add(currentComment);				
 			}
@@ -320,7 +321,7 @@ public class ItemRetriever
 		Country country = new Country(Integer.toString(parsedResults.country.id), StringEscapeUtils.unescapeXml(parsedResults.country.name));		
 		
 		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the event
-		ArrayList<DiscussionComment> comments = new ArrayList<DiscussionComment>();
+		ArrayList<Comment> comments = new ArrayList<Comment>();
 			
 		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
 		for(int i = 0; i < (parsedResults.comments.length); i++)
@@ -329,7 +330,7 @@ public class ItemRetriever
 			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
 			
 			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-			DiscussionComment currentComment = new DiscussionComment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 			
 			comments.add(currentComment);				
 			}

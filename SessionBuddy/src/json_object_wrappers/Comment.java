@@ -1,6 +1,6 @@
 package json_object_wrappers;
 
-public class DiscussionComment 
+public class Comment 
 	{
 	//Purpose: A wrapper for the individual comments within a discussion
 	public int id;		// The identifier for the particular comment in thesession.org database
@@ -10,7 +10,7 @@ public class DiscussionComment
 	public User member;	// The user who submitted the comment
 	public String date;	// The date on which the comment was submitted to thesession.org
 	
-	public DiscussionComment(int id, String url, String subject, String content, User member, String date)
+	public Comment(int id, String url, String subject, String content, User member, String date)
 		{
 		this.id = id;
 		this.url = url;

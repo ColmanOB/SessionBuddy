@@ -19,7 +19,7 @@ public class EventByIDResult
 	public Area area;
 	public Country country;
 	
-	public ArrayList<DiscussionComment> comments;
+	public ArrayList<Comment> comments;
 
 	/**
 	 * Constructor method
@@ -34,7 +34,7 @@ public class EventByIDResult
 	 * @param country
 	 * @param comments
 	 */
-	public EventByIDResult(EventDetails eventDetails, User member, EventSchedule schedule, Coordinates coordinates, Venue venue, Town town, Area area, Country country, ArrayList<DiscussionComment> comments)
+	public EventByIDResult(EventDetails eventDetails, User member, EventSchedule schedule, Coordinates coordinates, Venue venue, Town town, Area area, Country country, ArrayList<Comment> comments)
 		{
 		this.eventDetails = eventDetails;
 		this.member = member;

@@ -18,7 +18,7 @@ public class SessionByIDResult
 	public Country country;
 	
 	public ArrayList<String> schedule;
-	public ArrayList<DiscussionComment> comments;
+	public ArrayList<Comment> comments;
 
 
 	/**
@@ -34,7 +34,7 @@ public class SessionByIDResult
 	 * @param schedule
 	 * @param comments
 	 */
-	public SessionByIDResult(SessionDetails sessionDetails, Coordinates coordinates, User member, Venue venue, Town town, Area area, Country country, ArrayList<String> schedule, ArrayList<DiscussionComment> comments)
+	public SessionByIDResult(SessionDetails sessionDetails, Coordinates coordinates, User member, Venue venue, Town town, Area area, Country country, ArrayList<String> schedule, ArrayList<Comment> comments)
 		{
 		this.sessionDetails = sessionDetails;
 		this.coordinates = coordinates;

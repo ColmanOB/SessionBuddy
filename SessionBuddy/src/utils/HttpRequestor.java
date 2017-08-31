@@ -8,14 +8,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-// TODO: Re-order the methods logically - they're all over the place
+// TODO: Complete Javadoc comments, especially those re: exceptions thrown by methods
 		
 /**
  * Submits a HTTPS GET request to the API at https://thesession.org, using a URL in the format required by the API.
- * The JSON response is stored as a String
+ * The JSON response is captured as a String and returned to the caller
  * 
  * @author Colman O'B
- * @since 2017-08-28
+ * @since 2017-08-31
  */
 public class HttpRequestor
 	{	
@@ -68,16 +68,16 @@ public class HttpRequestor
 		
 	
 	/**
-	 * Alternative version of submitLatestRequest, allows the caller to retrieve a specific page within a paginated JSON response
+	 * Retrieves the most recently submitted entries in the chosen category thesession.org and stores the resulting JSON response.
+	 * The data category may be tunes, discussions, recordings, sessions or events.
 	 * 
 	 * @param baseCategory the category of information to be retrieved, i.e. tunes, discussions, sessions, recordings or events
 	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
-	 * @param pageNumber a specific page within the JSON response
 	 * @return the JSON response from the API as a String
 	 * @throws RuntimeException
 	 * @throws MalformedURLException 
 	 */
-	public String submitLatestRequest(String baseCategory, int resultsPerPage, int pageNumber) throws RuntimeException, MalformedURLException
+	public String submitLatestRequest(String baseCategory, int resultsPerPage) throws RuntimeException, MalformedURLException
 		{		
 		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
 		String response;	// A string of JSON data returned from the API
@@ -85,7 +85,7 @@ public class HttpRequestor
 		try 
 			{			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			tuneSearchURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			tuneSearchURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
 			// Call the API using a private helper method and store the response
 			response = getAPIResponse(tuneSearchURL);
@@ -106,16 +106,16 @@ public class HttpRequestor
 	
 	
 	/**
-	 * Retrieves the most recently submitted entries in the chosen category thesession.org and stores the resulting JSON response.
-	 * The data category may be tunes, discussions, recordings, sessions or events.
+	 * Alternative version of submitLatestRequest, allows the caller to retrieve a specific page within a paginated JSON response
 	 * 
 	 * @param baseCategory the category of information to be retrieved, i.e. tunes, discussions, sessions, recordings or events
 	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
+	 * @param pageNumber a specific page within the JSON response
 	 * @return the JSON response from the API as a String
 	 * @throws RuntimeException
 	 * @throws MalformedURLException 
 	 */
-	public String submitLatestRequest(String baseCategory, int resultsPerPage) throws RuntimeException, MalformedURLException
+	public String submitLatestRequest(String baseCategory, int resultsPerPage, int pageNumber) throws RuntimeException, MalformedURLException
 		{		
 		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
 		String response;	// A string of JSON data returned from the API
@@ -123,7 +123,7 @@ public class HttpRequestor
 		try 
 			{			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			tuneSearchURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			tuneSearchURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
 			
 			// Call the API using a private helper method and store the response
 			response = getAPIResponse(tuneSearchURL);
@@ -274,7 +274,7 @@ public class HttpRequestor
 
 	
 	/**
-	 * An location-based search for either sessions or events within a specific geographic area, allowing a specific page within the JSON response to be retrieved
+	 * Alternative version of submitLocationRequest, allowing a specific page within the JSON response to be retrieved
 	 * 
 	 * @param baseCategory the category of information to be retrieved, specifically sessions or events
 	 * @param latitude A string representation of the target location's latitude 
