@@ -29,10 +29,8 @@ import utils.JsonResponseParser;
  * @author Colman
  * @since 2017-08-26
  */
-public class SearchByLocation 
+public class LocationSearch extends Search
 	{
-	private int pageCount = 0;
-	
 	/**
 	 * Queries the API for a list of sessions within a specified radius of a particular latitude and longitude
 	 * 
@@ -279,50 +277,7 @@ public class SearchByLocation
 		// Return the set of results that has been collected
 		return resultSet;
 		}
-	
-	
-	/**
-	 * Helper method to keep track of the number of pages in the JSON response form the API
-	 * 
-	 * @return the number of pages in the JSON reponse
-	 * @throws IllegalStateException when the pageCount variable has not been initialised
-	 */
-	public int getPageCount() throws IllegalStateException
-		{
-		if (pageCount == 0)
-			{
-			throw new IllegalStateException("Page counter has not been initialised");
-			}
-		else 
-			return pageCount;
-		}
-	
-	
-	/**
-	 * Helper method to validate that the user has specified a value between 1-50 for the results per page
-	 * 
-	 * @param resultsPerPage
-	 * @return
-	 * @throws IllegalArgumentException
-	 */
-	private boolean validateResultsPerPageCount(int resultsPerPage) throws IllegalArgumentException
-		{
-		if (resultsPerPage <= 0)
-			{
-			// Specifying zero or a negative number of results per page should not be allowed
-			throw new IllegalArgumentException("Number of results per page must be greater than zero");
-			}
-		
-		if (resultsPerPage > 50)
-			{
-			// The API only allows a maximum of 50 results per page
-			throw new IllegalArgumentException("Number of results per page cannot exceed 50");
-			}
-		
-		// The value specified is in the range 1 - 50 and is valid
-		else return true;
-		}
-	
+			
 	
 	/**
 	 * Helper method to validate the latitude, longitude and radius provided by the user

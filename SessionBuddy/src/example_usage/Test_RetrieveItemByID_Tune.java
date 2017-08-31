@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 
 import json_object_wrappers.SessionByIDResult;
 
-import main.RetrieveItemByID;
+import main.ItemRetriever;
 
 public class Test_RetrieveItemByID_Tune 
 {
@@ -14,7 +14,7 @@ public class Test_RetrieveItemByID_Tune
 		String tuneID = "2379";		
 		
 		// Instantiate a RetrieveItem object
-		RetrieveItemByID search = new RetrieveItemByID();
+		ItemRetriever search = new ItemRetriever();
 		
 		// Pass in the parameters for the tune we want to retrieve
 		SessionByIDResult resultSet = search.getSessionByID(tuneID);

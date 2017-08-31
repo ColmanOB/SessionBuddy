@@ -41,7 +41,7 @@ import utils.JsonResponseParser;
  * @author Colman
  * @since 2017-08-25
  */
-public class RetrieveItemByID 
+public class ItemRetriever 
 {
 	/**
 	 * @param recordingID

@@ -3,7 +3,7 @@ package example_usage;
 import java.net.MalformedURLException;
 
 import json_object_wrappers.RecordingByIDResult;
-import main.RetrieveItemByID;
+import main.ItemRetriever;
 
 public class Test_RetrieveItemByID_Recording 
 {
@@ -15,7 +15,7 @@ public class Test_RetrieveItemByID_Recording
 		
 		
 		// Instantiate a RetrieveItem object
-		RetrieveItemByID search = new RetrieveItemByID();
+		ItemRetriever search = new ItemRetriever();
 		
 		// Pass in the parameters for the Recording we want to retrieve
 		RecordingByIDResult resultSet = search.getRecordingByID(recordingID);

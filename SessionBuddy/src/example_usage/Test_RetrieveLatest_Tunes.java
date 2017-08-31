@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.TunesSearchResult;
-import main.RetrieveLatest;
+import main.LatestSearch;
 
 class Test_RetrieveLatest_Tunes
 {
@@ -14,7 +14,7 @@ public static void main(String[] args) throws MalformedURLException, RuntimeExce
 	int resultsPerPage = 50;
 	
 	// Instantiate a TheSessionAPISearcher object
-	RetrieveLatest search = new RetrieveLatest();
+	LatestSearch search = new LatestSearch();
 	
 	// Pass in the search parameters
 	ArrayList<TunesSearchResult> resultSet = search.getLatestTunes(resultsPerPage);

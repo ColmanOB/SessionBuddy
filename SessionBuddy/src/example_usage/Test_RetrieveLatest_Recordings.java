@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.RecordingsSearchResult;
-import main.RetrieveLatest;
+import main.LatestSearch;
 
 /**
  * Example usage of the searchDiscussions method of RetrieveLatest class to search thesession.org API for a recording based on a set of search terms, and store the results.
@@ -25,7 +25,7 @@ public static void main(String[] args) throws MalformedURLException, RuntimeExce
 	ArrayList<RecordingsSearchResult> resultSet;
 	
 	// Instantiate a RetrieveLatest object
-	RetrieveLatest search = new RetrieveLatest();
+	LatestSearch search = new LatestSearch();
 	
 	try
 		{

@@ -30,8 +30,6 @@ import result_set_wrappers.SessionsSearchResultWrapper;
 import result_set_wrappers.TunesSearchResultWrapper;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
-import utils.SessionsSearchParser;
-import utils.TunesSearchParser;
 
 // TODO: Fix up all of the comments, especially Javadoc ones
 
@@ -39,10 +37,8 @@ import utils.TunesSearchParser;
  * @author Colman O'B
  * @since 2017-08-30
  */
-public class RetrieveLatest 
+public class LatestSearch extends Search 
 	{
-	private int pageCount = 0;
-		
 	/**
 	* Retrieves a list of the most recently submitted tunes on thesession.org
 	* 
@@ -69,8 +65,8 @@ public class RetrieveLatest
 		String apiQueryResults = searcher.submitLatestRequest("tunes", resultsPerPage);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		TunesSearchParser jsonParser = new TunesSearchParser();
-		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		TunesSearchResultWrapper parsedResults = jsonParser.parseSearchResultsTune();
 							
 		// This will hold each individual search result entry
 		ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
@@ -108,8 +104,8 @@ public class RetrieveLatest
 		String apiQueryResults = searcher.submitLatestRequest("tunes", resultsPerPage, pageNumber);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		TunesSearchParser jsonParser = new TunesSearchParser();
-		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		TunesSearchResultWrapper parsedResults = jsonParser.parseSearchResultsTune();
 						
 		// This will hold each individual search result entry
 		ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
@@ -295,8 +291,8 @@ public class RetrieveLatest
 		String apiQueryResults = searcher.submitLatestRequest("sessions", resultsPerPage);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		SessionsSearchParser jsonParser = new SessionsSearchParser();
-		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		SessionsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsSession();
 						
 		// This will hold each individual search result entry
 		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
@@ -332,8 +328,8 @@ public class RetrieveLatest
 		String apiQueryResults = searcher.submitLatestRequest("sessions", resultsPerPage, pageNumber);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		SessionsSearchParser jsonParser = new SessionsSearchParser();
-		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		SessionsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsSession();
 						
 		// This will hold each individual search result entry
 		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
@@ -611,34 +607,5 @@ public class RetrieveLatest
 		// Return the set of results that has been collected
 		return resultSet;
 		}
-	
-	
-	/**
-	 * Helper method to validate that the user has specified a value between 1-50 for the results per page
-	 * 
-	 * @param resultsPerPage the number of results to be returned per page in the JSON response from the API
-	 * @return true if a valid number of results per page has been provided (i.e. 1 - 50)
-	 * @throws IllegalArgumentException if a value of zero or less, or a value of more than 50 was provided
-	 */
-	private boolean validateResultsPerPageCount(int resultsPerPage) throws IllegalArgumentException
-		{
-		if (resultsPerPage <= 0)
-			{
-			// Specifying zero or a negative number of results per page should not be allowed
-			throw new IllegalArgumentException("Number of results per page must be greater than zero");
-			}
 		
-		if (resultsPerPage > 50)
-			{
-			// The API only allows a maximum of 50 results per page
-			throw new IllegalArgumentException("Number of results per page cannot exceed 50");
-			}
-		
-		// The value specified is in the range 1 - 50 and is valid
-		else return true;
-		}
-	
-	
-
-	
 }

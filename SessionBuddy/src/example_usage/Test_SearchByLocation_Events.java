@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.EventsByLocationResult;
-import main.SearchByLocation;
+import main.LocationSearch;
 
 
 public class Test_SearchByLocation_Events
@@ -18,7 +18,7 @@ public static void main(String[] args) throws MalformedURLException, RuntimeExce
 	int resultsPerPage = 50;
 	
 	// Instantiate a TheSessionAPISearcher object
-	SearchByLocation search = new SearchByLocation();
+	LocationSearch search = new LocationSearch();
 	
 	// Pass in the search parameters
 	ArrayList<EventsByLocationResult> resultSet = search.searchEventsByLocation(latitude, longitude, radius, resultsPerPage);

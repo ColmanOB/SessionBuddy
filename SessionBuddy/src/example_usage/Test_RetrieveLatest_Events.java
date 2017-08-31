@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.EventsSearchResult;
-import main.RetrieveLatest;
+import main.LatestSearch;
 
 /**
  * Example usage of the getLatestEvents method of RetrieveLatest class to search thesession.org API for the latest events and store the results.
@@ -25,7 +25,7 @@ public static void main(String[] args) throws MalformedURLException, RuntimeExce
 	ArrayList<EventsSearchResult> resultSet;
 	
 	// Instantiate a RetrieveLatest object
-	RetrieveLatest search = new RetrieveLatest();
+	LatestSearch search = new LatestSearch();
 	
 	try
 		{

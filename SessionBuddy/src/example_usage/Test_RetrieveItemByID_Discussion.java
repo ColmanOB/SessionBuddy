@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 
 import json_object_wrappers.DiscussionByIDResult;
 
-import main.RetrieveItemByID;
+import main.ItemRetriever;
 
 public class Test_RetrieveItemByID_Discussion 
 {
@@ -14,7 +14,7 @@ public class Test_RetrieveItemByID_Discussion
 		String discussionID = "666";
 		
 		// Instantiate a RetrieveItem object
-		RetrieveItemByID search = new RetrieveItemByID();
+		ItemRetriever search = new ItemRetriever();
 		
 		// Pass in the parameters for the discussion we want to retrieve
 		DiscussionByIDResult resultSet = search.getDiscussionByID(discussionID);

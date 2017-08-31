@@ -13,7 +13,9 @@ import result_set_wrappers.RecordingByIDWrapper;
 import result_set_wrappers.RecordingsSearchResultWrapper;
 import result_set_wrappers.SessionByIDWrapper;
 import result_set_wrappers.SessionsByLocationWrapper;
+import result_set_wrappers.SessionsSearchResultWrapper;
 import result_set_wrappers.TuneByIDWrapper;
+import result_set_wrappers.TunesSearchResultWrapper;
 
 // TODO: Totally re-do the comments throughout this class
 // TODO: Create a method in this class corresponding to each of the individual classes in response_parsers package
@@ -138,6 +140,25 @@ private String jsonResponse; // A page of JSON data retrieved from thesession.or
 	public RecordingsSearchResultWrapper parseSearchResultsRecording()
 		{
 		RecordingsSearchResultWrapper listOfResults = parseResponse(jsonResponse, RecordingsSearchResultWrapper.class);	
+		return listOfResults;
+		}
+	
+	
+	/**
+	 * @return
+	 */
+	public SessionsSearchResultWrapper parseSearchResultsSession()
+		{
+		SessionsSearchResultWrapper listOfResults = parseResponse(jsonResponse, SessionsSearchResultWrapper.class);	
+		return listOfResults;
+		}
+	
+	/**
+	 * @return
+	 */
+	public TunesSearchResultWrapper parseSearchResultsTune()
+		{
+		TunesSearchResultWrapper listOfResults = parseResponse(jsonResponse, TunesSearchResultWrapper.class);	
 		return listOfResults;
 		}
 	

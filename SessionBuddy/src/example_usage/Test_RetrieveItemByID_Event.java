@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 
 import json_object_wrappers.EventByIDResult;
 
-import main.RetrieveItemByID;
+import main.ItemRetriever;
 
 public class Test_RetrieveItemByID_Event 
 {
@@ -14,7 +14,7 @@ public class Test_RetrieveItemByID_Event
 		String eventID = "2";
 		
 		// Instantiate a RetrieveItem object
-		RetrieveItemByID search = new RetrieveItemByID();
+		ItemRetriever search = new ItemRetriever();
 		
 		// Pass in the parameters for the session we want to retrieve
 		EventByIDResult resultSet = search.getEventByID(eventID);
