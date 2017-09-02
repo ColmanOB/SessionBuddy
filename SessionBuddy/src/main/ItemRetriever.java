@@ -1,5 +1,6 @@
 package main;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
@@ -49,7 +50,7 @@ public class ItemRetriever
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public RecordingByIDResult getRecordingByID(String recordingID) throws MalformedURLException, RuntimeException
+	public RecordingByIDResult getRecordingByID(String recordingID) throws IOException, MalformedURLException
 		{
 		// Make the API call using the the recording ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -120,7 +121,7 @@ public class ItemRetriever
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public DiscussionByIDResult getDiscussionByID(String discussionID) throws MalformedURLException, RuntimeException
+	public DiscussionByIDResult getDiscussionByID(String discussionID) throws IOException, MalformedURLException
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -166,7 +167,7 @@ public class ItemRetriever
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public TuneByIDResult getTuneByID(String tuneID) throws MalformedURLException, RuntimeException
+	public TuneByIDResult getTuneByID(String tuneID) throws IOException, MalformedURLException
 		{
 		// Make the API call using the tune ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -239,7 +240,7 @@ public class ItemRetriever
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public SessionByIDResult getSessionByID(String sessionID) throws MalformedURLException, RuntimeException
+	public SessionByIDResult getSessionByID(String sessionID) throws IOException, MalformedURLException
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -298,7 +299,7 @@ public class ItemRetriever
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public EventByIDResult getEventByID(String eventID) throws MalformedURLException, RuntimeException
+	public EventByIDResult getEventByID(String eventID) throws IOException, MalformedURLException
 		{
 		// Make the API call using the the event ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();

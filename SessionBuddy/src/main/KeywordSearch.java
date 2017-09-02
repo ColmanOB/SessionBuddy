@@ -1,5 +1,6 @@
 package main;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
@@ -52,7 +53,7 @@ public class KeywordSearch extends Search
 	 * @throws MalformedURLException 
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 */
-	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException, IllegalArgumentException
+	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws IOException,  MalformedURLException, IllegalArgumentException
 		{
 		try
 			{
@@ -93,7 +94,7 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -132,7 +133,7 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage) throws IOException,  MalformedURLException
 		{
 		try
 			{
@@ -174,7 +175,7 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -214,7 +215,7 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -255,7 +256,7 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -295,7 +296,7 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -336,7 +337,7 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -376,7 +377,7 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -418,7 +419,7 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{
 		try
 			{

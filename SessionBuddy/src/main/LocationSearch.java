@@ -1,5 +1,6 @@
 package main;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
@@ -41,36 +42,41 @@ public class LocationSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate the user input
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
+		
+			// Launch a search for a list of sessions in the geographic area specified, and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage);
+				
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			SessionsByLocationWrapper parsedResults = jsonParser.parseResponse(SessionsByLocationWrapper.class);
+				
+			// This will hold each individual search result entry
+			ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
+			
+			resultSet = populateSessionsByLocationResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
 			{
 			throw new IllegalArgumentException(e.getMessage());
 			}
-	
-		// Launch a search for a list of sessions in the geographic area specified, and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage);
-			
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		SessionsByLocationWrapper parsedResults = jsonParser.parseResponse(SessionsByLocationWrapper.class);
-			
-		// This will hold each individual search result entry
-		ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
 		
-		resultSet = populateSessionsByLocationResult(parsedResults);
+		catch(IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		
-		return resultSet;
-		}
-	
+	}
 	
 	/** 
 	 * Alternative version of searchSessionsByLocation(), allowing a page number to be specified within a paginated JSON response.
@@ -83,34 +89,39 @@ public class LocationSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate the user input
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
+		
+			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage, pageNumber);
+				
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			SessionsByLocationWrapper parsedResults = jsonParser.parseResponse(SessionsByLocationWrapper.class);
+				
+			// This will hold each individual search result entry
+			ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
+			
+			resultSet = populateSessionsByLocationResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
 			{
 			throw new IllegalArgumentException(e.getMessage());
 			}
-		
-		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage, pageNumber);
-			
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		SessionsByLocationWrapper parsedResults = jsonParser.parseResponse(SessionsByLocationWrapper.class);
-			
-		// This will hold each individual search result entry
-		ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
-		
-		resultSet = populateSessionsByLocationResult(parsedResults);
-		
-		return resultSet;
+	
+		catch(IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}	
 		}
 	
 	
@@ -125,34 +136,39 @@ public class LocationSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate the user input
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
-			}
 	
+			// Launch a search for a list of matching events and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage);
+				
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			EventsByLocationWrapper parsedResults = jsonParser.parseResponse(EventsByLocationWrapper.class);
+				
+			// This will hold each individual search result entry
+			ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();
+			
+			resultSet = populateEventsByLocationResult(parsedResults);
+			
+			return resultSet;
+			}
+		
 		catch (IllegalArgumentException e)
 			{
 			throw new IllegalArgumentException(e.getMessage());
 			}
 	
-		// Launch a search for a list of matching events and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage);
-			
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		EventsByLocationWrapper parsedResults = jsonParser.parseResponse(EventsByLocationWrapper.class);
-			
-		// This will hold each individual search result entry
-		ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();
-		
-		resultSet = populateEventsByLocationResult(parsedResults);
-		
-		return resultSet;
+		catch(IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		}
 	
 	
@@ -168,34 +184,39 @@ public class LocationSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate the user input
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
-			}
 	
+			// Launch a search for a list of matching events and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage, pageNumber);
+				
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			EventsByLocationWrapper parsedResults = jsonParser.parseResponse(EventsByLocationWrapper.class);
+				
+			// This will hold each individual search result entry
+			ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();
+			
+			resultSet = populateEventsByLocationResult(parsedResults);
+			
+			return resultSet;
+			}
+		
 		catch (IllegalArgumentException e)
 			{
 			throw new IllegalArgumentException(e.getMessage());
 			}
 	
-		// Launch a search for a list of matching events and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage, pageNumber);
-			
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		EventsByLocationWrapper parsedResults = jsonParser.parseResponse(EventsByLocationWrapper.class);
-			
-		// This will hold each individual search result entry
-		ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();
-		
-		resultSet = populateEventsByLocationResult(parsedResults);
-		
-		return resultSet;
+		catch(IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		}
 	
 	

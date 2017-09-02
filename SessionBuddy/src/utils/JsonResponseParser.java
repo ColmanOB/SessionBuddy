@@ -33,7 +33,7 @@ public class JsonResponseParser
 	 * @param wrapperType the type of wrapper object into which the JSON data should be parsed
 	 * @return a wrapper object of the type specified in the argument
 	 */
-	public <T> T parseResponse(Class <T> wrapperType ) 
+	public <T> T parseResponse(Class <T> wrapperType) throws IllegalStateException 
 		{
 		T listOfResults;
 			
@@ -48,7 +48,7 @@ public class JsonResponseParser
 		catch (JsonSyntaxException e)
 			// Catch a case where the API returns something that is not valid JSON/ does not match the structure of the chosen wrapper type
 			{		
-			throw new RuntimeException(e.getMessage());
+			throw new IllegalStateException(e.getMessage());
 			}
 		
 		// Return the wrapper object containing the response from the API

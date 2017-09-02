@@ -1,5 +1,6 @@
 package main;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ import utils.StringCleaner;
 
 /**
  * @author Colman O'B
- * @since 2017-08-30
+ * @since 2017-09-02
  */
 public class LatestSearch extends Search 
 	{
@@ -46,33 +47,38 @@ public class LatestSearch extends Search
 	* @throws RuntimeException 
 	* @throws MalformedURLException 
 	*/
-	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+
+			// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLatestRequest("tunes", resultsPerPage);
+							
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
+								
+			// This will hold each individual search result entry
+			ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
+			
+			resultSet = populateTunesSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
 			{
 			throw new IllegalArgumentException(e.getMessage());
 			}
-
-		// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLatestRequest("tunes", resultsPerPage);
-						
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
-							
-		// This will hold each individual search result entry
-		ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
-		
-		resultSet = populateTunesSearchResult(parsedResults);
-		
-		return resultSet;
+	
+		catch(IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		}
 
 		
@@ -85,7 +91,7 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -123,7 +129,7 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -160,7 +166,7 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -197,7 +203,7 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -234,7 +240,7 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -272,7 +278,7 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -309,7 +315,7 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -345,7 +351,7 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage) throws MalformedURLException, RuntimeException
+	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage) throws IOException, MalformedURLException
 		{
 		try
 			{
@@ -382,7 +388,7 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage, int pageNumber) throws MalformedURLException, RuntimeException
+	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{
 		try
 			{

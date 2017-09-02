@@ -38,7 +38,7 @@ public class HttpRequestor
 	 * @throws RuntimeException
 	 * @throws MalformedURLException 
 	 */
-	public String submitItemByIDRequest(String baseCategory, String itemID) throws RuntimeException, MalformedURLException
+	public String submitItemByIDRequest(String baseCategory, String itemID) throws IOException, MalformedURLException
 		{
 		URL tuneSearchURL; 	// The correctly-formatted URL for the API request
 		String response;	// A string of JSON data returned from the API
@@ -57,9 +57,9 @@ public class HttpRequestor
 			throw new MalformedURLException(e.getMessage());
 			}
 		
-		catch(RuntimeException e)
+		catch(IOException e)
 			{
-			throw new RuntimeException(e.getMessage());
+			throw new IOException(e.getMessage());
 			}
 		
 		// The JSON data returned by the API, stored as a single string
@@ -77,7 +77,7 @@ public class HttpRequestor
 	 * @throws RuntimeException
 	 * @throws MalformedURLException 
 	 */
-	public String submitLatestRequest(String baseCategory, int resultsPerPage) throws RuntimeException, MalformedURLException
+	public String submitLatestRequest(String baseCategory, int resultsPerPage) throws IOException, MalformedURLException
 		{		
 		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
 		String response;	// A string of JSON data returned from the API
@@ -98,9 +98,9 @@ public class HttpRequestor
 			throw new MalformedURLException(e.getMessage());
 			} 
 	
-		catch (RuntimeException e) 
+		catch (IOException e) 
 			{
-			throw new RuntimeException(e.getMessage());
+			throw new IOException(e.getMessage());
 			}
 		}
 	
@@ -115,7 +115,7 @@ public class HttpRequestor
 	 * @throws RuntimeException
 	 * @throws MalformedURLException 
 	 */
-	public String submitLatestRequest(String baseCategory, int resultsPerPage, int pageNumber) throws RuntimeException, MalformedURLException
+	public String submitLatestRequest(String baseCategory, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{		
 		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
 		String response;	// A string of JSON data returned from the API
@@ -136,9 +136,9 @@ public class HttpRequestor
 			throw new MalformedURLException(e.getMessage());
 			} 
 	
-		catch (RuntimeException e) 
+		catch (IOException e) 
 			{
-			throw new RuntimeException(e.getMessage());
+			throw new IOException(e.getMessage());
 			}
 		}
 	
@@ -156,7 +156,7 @@ public class HttpRequestor
 	 * @throws RuntimeException
 	 * @throws MalformedURLException 
 	 */
-	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws RuntimeException, MalformedURLException
+	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{
 		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
 		String response;	// A string of JSON data returned from the API
@@ -181,9 +181,9 @@ public class HttpRequestor
 			throw new MalformedURLException(e.getMessage());
 			} 
 	
-		catch (RuntimeException e) 
+		catch (IOException e) 
 			{
-			throw new RuntimeException(e.getMessage());
+			throw new IOException(e.getMessage());
 			}
 		}
 	
@@ -196,7 +196,7 @@ public class HttpRequestor
 	 * @throws RuntimeException
 	 * @throws MalformedURLException
 	 */
-	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage) throws RuntimeException, MalformedURLException
+	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage) throws IOException, MalformedURLException
 		{		
 		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
 		String response;	// A string of JSON data returned from the API
@@ -220,9 +220,9 @@ public class HttpRequestor
 			throw new MalformedURLException(e.getMessage());
 			} 
 	
-		catch (RuntimeException e) 
+		catch (IOException e) 
 			{
-			throw new RuntimeException(e.getMessage());
+			throw new IOException(e.getMessage());
 			}
 		}
 		
@@ -401,9 +401,9 @@ public class HttpRequestor
 	 * 
 	 * @param tuneSearchURL the URL used when querying the API
 	 * @return the entire JSON response to the API query, returned as a single String
-	 * @throws MalformedURLException 
+	 * @throws IOException 
 	 */
-	private String getAPIResponse(URL tuneSearchURL) throws RuntimeException, MalformedURLException
+	private String getAPIResponse(URL tuneSearchURL) throws MalformedURLException, IOException
 		{	
 		String response;	// A string of JSON data returned from the API
 		
@@ -426,7 +426,7 @@ public class HttpRequestor
 	
 		catch (IOException e) 
 			{
-			throw new RuntimeException(e.getMessage());
+			throw new IOException(e.getMessage());
 			}
 	
 		// Return the API response as one long string of JSON data
