@@ -3,8 +3,6 @@ package main;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-
 import json_object_wrappers.Area;
 import json_object_wrappers.Artist;
 import json_object_wrappers.Coordinates;
@@ -30,6 +28,7 @@ import result_set_wrappers.SessionsSearchResultWrapper;
 import result_set_wrappers.TunesSearchResultWrapper;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
+import utils.StringCleaner;
 
 // TODO: Complete the Javadoc comments for all methods
 
@@ -72,7 +71,7 @@ public class KeywordSearch extends Search
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		TunesSearchResultWrapper parsedResults = jsonParser.parseSearchResultsTune();
+		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
 		
 		// Set up the structure that will hold the parsed response from the API
 		ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
@@ -113,7 +112,7 @@ public class KeywordSearch extends Search
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		TunesSearchResultWrapper parsedResults = jsonParser.parseSearchResultsTune();
+		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
 		
 		// Set up the structure that will hold the parsed response from the API
 		ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
@@ -152,7 +151,7 @@ public class KeywordSearch extends Search
 			
 		// Create a DiscussionSearchParser and DiscussionSearchResultWrapper to parse the raw JSON
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsDiscussion();
+		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
 		
 		// This will hold each individual search result entry
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
@@ -194,7 +193,7 @@ public class KeywordSearch extends Search
 		
 		// Prepare the classes needed to parse the the JSON
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsDiscussion();
+		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
 		
 		// This will hold each individual search result entry
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
@@ -234,7 +233,7 @@ public class KeywordSearch extends Search
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		EventsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsEvent();
+		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
 			
 		// This will hold each individual search result entry
 		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
@@ -275,7 +274,7 @@ public class KeywordSearch extends Search
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		EventsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsEvent();
+		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
 		
 		// This will hold each individual search result entry
 		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
@@ -315,7 +314,7 @@ public class KeywordSearch extends Search
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsRecording();
+		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
 			
 		// This will hold each individual search result entry
 		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
@@ -356,7 +355,7 @@ public class KeywordSearch extends Search
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsRecording();
+		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
 			
 		// This will hold each individual search result entry
 		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
@@ -396,7 +395,7 @@ public class KeywordSearch extends Search
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		SessionsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsSession();
+		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
 		
 		// This will hold each individual search result entry
 		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
@@ -438,7 +437,7 @@ public class KeywordSearch extends Search
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		SessionsSearchResultWrapper parsedResults = jsonParser.parseSearchResultsSession();
+		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
 		
 		// This will hold each individual search result entry
 		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
@@ -485,9 +484,9 @@ public class KeywordSearch extends Search
 		for(int i = 0; i < (parsedResults.tunes.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
-			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-			TuneDetails details = new TuneDetails(parsedResults.tunes[i].id, StringEscapeUtils.unescapeXml(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
-			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
+			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
+			TuneDetails details = new TuneDetails(parsedResults.tunes[i].id, StringCleaner.cleanString(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
+			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringCleaner.cleanString(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
 						
 			// Instantiate a TunesSearchResult object & populate it
 			TunesSearchResult currentResult = new TunesSearchResult(details, submitter);
@@ -519,9 +518,9 @@ public class KeywordSearch extends Search
 		for(int i = 0; i < (parsedResults.discussions.length); i++)
 			{
 			// Extract the elements from each individual search result in the JSON response
-			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
-			DiscussionDetails details = new DiscussionDetails(parsedResults.discussions[i].id, StringEscapeUtils.unescapeXml(parsedResults.discussions[i].name), parsedResults.discussions[i].url, parsedResults.discussions[i].date, parsedResults.discussions[i].comments);
-			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
+			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response		
+			DiscussionDetails details = new DiscussionDetails(parsedResults.discussions[i].id, StringCleaner.cleanString(parsedResults.discussions[i].name), parsedResults.discussions[i].url, parsedResults.discussions[i].date, parsedResults.discussions[i].comments);
+			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringCleaner.cleanString(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
 			
 			// Instantiate a DiscussionsSearchResult object & populate it
 			DiscussionsSearchResult currentResult = new DiscussionsSearchResult(details, user);
@@ -552,15 +551,15 @@ public class KeywordSearch extends Search
 		for(int i = 0; i < (parsedResults.events.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
-			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-			EventDetails details = new EventDetails(parsedResults.events[i].id, StringEscapeUtils.unescapeXml(parsedResults.events[i].name), parsedResults.events[i].url, parsedResults.events[i].date);
-			User user = new User(Integer.toString(parsedResults.events[i].member.id),StringEscapeUtils.unescapeXml(parsedResults.events[i].member.name),parsedResults.events[i].member.url);
+			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
+			EventDetails details = new EventDetails(parsedResults.events[i].id, StringCleaner.cleanString(parsedResults.events[i].name), parsedResults.events[i].url, parsedResults.events[i].date);
+			User user = new User(Integer.toString(parsedResults.events[i].member.id),StringCleaner.cleanString(parsedResults.events[i].member.name),parsedResults.events[i].member.url);
 			EventSchedule schedule = new EventSchedule(parsedResults.events[i].dtstart, parsedResults.events[i].dtend);
 			Coordinates coordinates = new Coordinates(parsedResults.events[i].latitude, parsedResults.events[i].longitude);
-			Venue venue = new Venue(Integer.toString(parsedResults.events[i].venue.id), StringEscapeUtils.unescapeXml(parsedResults.events[i].venue.name), parsedResults.events[i].venue.telephone, parsedResults.events[i].venue.email, parsedResults.events[i].venue.web );
-			Town town = new Town(Integer.toString(parsedResults.events[i].town.id), StringEscapeUtils.unescapeXml(parsedResults.events[i].town.name));
-			Area area = new Area(Integer.toString(parsedResults.events[i].area.id), StringEscapeUtils.unescapeXml(parsedResults.events[i].area.name));
-			Country country = new Country(Integer.toString(parsedResults.events[i].country.id), StringEscapeUtils.unescapeXml(parsedResults.events[i].country.name));
+			Venue venue = new Venue(Integer.toString(parsedResults.events[i].venue.id), StringCleaner.cleanString(parsedResults.events[i].venue.name), parsedResults.events[i].venue.telephone, parsedResults.events[i].venue.email, parsedResults.events[i].venue.web );
+			Town town = new Town(Integer.toString(parsedResults.events[i].town.id), StringCleaner.cleanString(parsedResults.events[i].town.name));
+			Area area = new Area(Integer.toString(parsedResults.events[i].area.id), StringCleaner.cleanString(parsedResults.events[i].area.name));
+			Country country = new Country(Integer.toString(parsedResults.events[i].country.id), StringCleaner.cleanString(parsedResults.events[i].country.name));
 			
 			
 			// Instantiate a EventsSearchResult object & populate it
@@ -592,10 +591,10 @@ public class KeywordSearch extends Search
 		for(int i = 0; i < (parsedResults.recordings.length); i++)
 			{
 			// Extract the elements from each individual search result in the JSON response
-			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response		
-			RecordingDetails details = new RecordingDetails(parsedResults.recordings[i].id, StringEscapeUtils.unescapeXml(parsedResults.recordings[i].name), parsedResults.recordings[i].url, parsedResults.recordings[i].date);
-			User user = new User(Integer.toString(parsedResults.recordings[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].member.name), parsedResults.recordings[i].member.url);
-			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringEscapeUtils.unescapeXml(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].artist.url);
+			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response		
+			RecordingDetails details = new RecordingDetails(parsedResults.recordings[i].id, StringCleaner.cleanString(parsedResults.recordings[i].name), parsedResults.recordings[i].url, parsedResults.recordings[i].date);
+			User user = new User(Integer.toString(parsedResults.recordings[i].member.id), StringCleaner.cleanString(parsedResults.recordings[i].member.name), parsedResults.recordings[i].member.url);
+			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringCleaner.cleanString(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].artist.url);
 			
 			// Instantiate a RecordingsSearchResult object & populate it
 			RecordingsSearchResult currentResult = new RecordingsSearchResult(details, user, artist);
@@ -626,14 +625,14 @@ public class KeywordSearch extends Search
 		for(int i = 0; i < (parsedResults.sessions.length); i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
-			// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
+			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 			SessionDetails details = new SessionDetails(parsedResults.sessions[i].id, parsedResults.sessions[i].url, parsedResults.sessions[i].date);
 			Coordinates coordinates = new Coordinates(parsedResults.sessions[i].latitude, parsedResults.sessions[i].longitude);
-			User user = new User(Integer.toString(parsedResults.sessions[i].member.id),StringEscapeUtils.unescapeXml(parsedResults.sessions[i].member.name),parsedResults.sessions[i].member.url);
-			Venue venue = new Venue(Integer.toString(parsedResults.sessions[i].venue.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].venue.name), parsedResults.sessions[i].venue.telephone, parsedResults.sessions[i].venue.email, parsedResults.sessions[i].venue.web );
-			Town town = new Town(Integer.toString(parsedResults.sessions[i].town.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].town.name));
-			Area area = new Area(Integer.toString(parsedResults.sessions[i].area.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].area.name));
-			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), StringEscapeUtils.unescapeXml(parsedResults.sessions[i].country.name));
+			User user = new User(Integer.toString(parsedResults.sessions[i].member.id),StringCleaner.cleanString(parsedResults.sessions[i].member.name),parsedResults.sessions[i].member.url);
+			Venue venue = new Venue(Integer.toString(parsedResults.sessions[i].venue.id), StringCleaner.cleanString(parsedResults.sessions[i].venue.name), parsedResults.sessions[i].venue.telephone, parsedResults.sessions[i].venue.email, parsedResults.sessions[i].venue.web );
+			Town town = new Town(Integer.toString(parsedResults.sessions[i].town.id), StringCleaner.cleanString(parsedResults.sessions[i].town.name));
+			Area area = new Area(Integer.toString(parsedResults.sessions[i].area.id), StringCleaner.cleanString(parsedResults.sessions[i].area.name));
+			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), StringCleaner.cleanString(parsedResults.sessions[i].country.name));
 			
 			
 			// Instantiate a SessionsSearchResult object & populate it

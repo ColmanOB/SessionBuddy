@@ -11,7 +11,7 @@ public class Test_RetrieveItemByID_Session
 	public static void main(String[] args) throws MalformedURLException, RuntimeException
 		{
 		// Set the parameters
-		String sessionID = "2379";
+		String sessionID = "6264";
 
 		// Instantiate a RetrieveItem object
 		ItemRetriever search = new ItemRetriever();

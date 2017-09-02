@@ -3,8 +3,6 @@ package main;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-
 import json_object_wrappers.Area;
 import json_object_wrappers.Artist;
 import json_object_wrappers.Coordinates;
@@ -34,6 +32,7 @@ import result_set_wrappers.SessionByIDWrapper;
 import result_set_wrappers.TuneByIDWrapper;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
+import utils.StringCleaner;
 
 // TODO: Refactor the methods in this class, extract some 'helper' methods
 // TODO: Fix up all the comments in this class, including Javadoc comments
@@ -58,17 +57,17 @@ public class ItemRetriever
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		RecordingByIDWrapper parsedResults = jsonParser.parseItemRecording();
+		RecordingByIDWrapper parsedResults = jsonParser.parseResponse(RecordingByIDWrapper.class);
 		
 		// Extract each element from the recording entry in the JSON response
-		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-		RecordingDetails recordingDetails = new RecordingDetails(parsedResults.id, parsedResults.url, StringEscapeUtils.unescapeXml(parsedResults.name) , parsedResults.date);
+		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
+		RecordingDetails recordingDetails = new RecordingDetails(parsedResults.id, parsedResults.url, StringCleaner.cleanString(parsedResults.name) , parsedResults.date);
 		
 		// Get the details of the member who originally submitted the recording
-		User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
+		User member = new User(Integer.toString(parsedResults.member.id), StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
 		
 		// Get the details of the recording artist(s)
-		Artist artist = new Artist(parsedResults.artist.id, StringEscapeUtils.unescapeXml(parsedResults.artist.name), parsedResults.artist.url);
+		Artist artist = new Artist(parsedResults.artist.id, StringCleaner.cleanString(parsedResults.artist.name), parsedResults.artist.url);
 		
 		// Set up the structure needed to hold the track listing
 		ArrayList<TrackListing> tracks = new ArrayList<TrackListing>();
@@ -82,7 +81,7 @@ public class ItemRetriever
 			// Populate the ArrayList of TuneRecord objects
 			for (int j = 0; j < (parsedResults.tracks[i].tunes.length); j++)
 				{		
-				TuneRecord currentTune = new TuneRecord(StringEscapeUtils.unescapeXml(parsedResults.tracks[i].tunes[j].name), parsedResults.tracks[i].tunes[j].id ,parsedResults.tracks[i].tunes[j].url);
+				TuneRecord currentTune = new TuneRecord(StringCleaner.cleanString(parsedResults.tracks[i].tunes[j].name), parsedResults.tracks[i].tunes[j].id ,parsedResults.tracks[i].tunes[j].url);
 				tunesOnTrack.add(currentTune);
 				}
 			
@@ -101,7 +100,7 @@ public class ItemRetriever
 			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
 			
 			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 			
 			comments.add(currentComment);				
 			}
@@ -129,14 +128,14 @@ public class ItemRetriever
 			
 		// Parse the returned JSON into a pre-defined wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		DiscussionByIDWrapper parsedResults = jsonParser.parseItemDiscussion();
+		DiscussionByIDWrapper parsedResults = jsonParser.parseResponse(DiscussionByIDWrapper.class);
 	
 		// Extract each element from the tune entry in the JSON response
-		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
+		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 		DiscussionDetails discussionDetails = new DiscussionDetails(parsedResults.id, parsedResults.name, parsedResults.url, parsedResults.date);
 		
 		// Get the details of the member who originally submitted the discussion
-		User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
+		User member = new User(Integer.toString(parsedResults.member.id), StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
 		
 		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the dicussion
 		ArrayList<Comment> comments = new ArrayList<Comment>();
@@ -148,7 +147,7 @@ public class ItemRetriever
 			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
 			
 			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 			
 			comments.add(currentComment);				
 			}
@@ -175,14 +174,14 @@ public class ItemRetriever
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		TuneByIDWrapper parsedResults = jsonParser.parseItemTune();
+		TuneByIDWrapper parsedResults = jsonParser.parseResponse(TuneByIDWrapper.class);
 	
 		// Extract each element from the tune entry in the JSON response
-		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-		TuneDetails tuneDetails = new TuneDetails(parsedResults.id, StringEscapeUtils.unescapeXml(parsedResults.name), parsedResults.type, parsedResults.url, parsedResults.date);
+		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
+		TuneDetails tuneDetails = new TuneDetails(parsedResults.id, StringCleaner.cleanString(parsedResults.name), parsedResults.type, parsedResults.url, parsedResults.date);
 	
 		// Get the details of the member who originally submitted the tune
-		User member = new User(Integer.toString(parsedResults.member.id), StringEscapeUtils.unescapeXml(parsedResults.member.name), parsedResults.member.url);
+		User member = new User(Integer.toString(parsedResults.member.id), StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
 		
 		String tunebooks = (parsedResults.tunebooks);
 		String recordings = (parsedResults.recordings);
@@ -221,7 +220,7 @@ public class ItemRetriever
 			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
 			
 			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 			
 			comments.add(currentComment);				
 			}
@@ -248,17 +247,17 @@ public class ItemRetriever
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		SessionByIDWrapper parsedResults = jsonParser.parseItemSession();
+		SessionByIDWrapper parsedResults = jsonParser.parseResponse(SessionByIDWrapper.class);
 	
 		// Extract each element from the tune entry in the JSON response
-		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
+		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 		SessionDetails sessionDetails = new SessionDetails(parsedResults.id, parsedResults.url, parsedResults.date);
 		Coordinates coordinates = new Coordinates(parsedResults.latitude, parsedResults.longitude);
-		User member = new User(Integer.toString(parsedResults.member.id),StringEscapeUtils.unescapeXml(parsedResults.member.name),parsedResults.member.url);	
-		Venue venue = new Venue(Integer.toString(parsedResults.venue.id), StringEscapeUtils.unescapeXml(parsedResults.venue.name), parsedResults.venue.telephone, parsedResults.venue.email, parsedResults.venue.web);	
-		Town town = new Town(Integer.toString(parsedResults.town.id), StringEscapeUtils.unescapeXml(parsedResults.town.name));
-		Area area = new Area(Integer.toString(parsedResults.area.id), StringEscapeUtils.unescapeXml(parsedResults.area.name));
-		Country country = new Country(Integer.toString(parsedResults.country.id), StringEscapeUtils.unescapeXml(parsedResults.country.name));		
+		User member = new User(Integer.toString(parsedResults.member.id),StringCleaner.cleanString(parsedResults.member.name),parsedResults.member.url);	
+		Venue venue = new Venue(Integer.toString(parsedResults.venue.id), StringCleaner.cleanString(parsedResults.venue.name), parsedResults.venue.telephone, parsedResults.venue.email, parsedResults.venue.web);	
+		Town town = new Town(Integer.toString(parsedResults.town.id), StringCleaner.cleanString(parsedResults.town.name));
+		Area area = new Area(Integer.toString(parsedResults.area.id), StringCleaner.cleanString(parsedResults.area.name));
+		Country country = new Country(Integer.toString(parsedResults.country.id), StringCleaner.cleanString(parsedResults.country.name));		
 
 		// Initialize an ArrayList of Strings to store the schedule, i.e. list of days when the session happens
 		ArrayList<String> schedule = new ArrayList<String>();
@@ -277,10 +276,10 @@ public class ItemRetriever
 		for(int i = 0; i < (parsedResults.comments.length); i++)
 			{
 			// Populate the User object representing the person who submitted the comment
-			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
+			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), StringCleaner.cleanString(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
 			
 			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 			
 			comments.add(currentComment);				
 			}
@@ -307,18 +306,18 @@ public class ItemRetriever
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
-		EventByIDWrapper parsedResults = jsonParser.parseItemEvent();
+		EventByIDWrapper parsedResults = jsonParser.parseResponse(EventByIDWrapper.class);
 	
 		// Extract each element from the tune entry in the JSON response
-		// StringEscapeUtils.unescapeXml() will decode the &039; etc. XML entities from the JSON response
-		EventDetails eventDetails = new EventDetails(parsedResults.id, StringEscapeUtils.unescapeXml(parsedResults.name), parsedResults.url, parsedResults.date);
-		User member = new User(Integer.toString(parsedResults.member.id),StringEscapeUtils.unescapeXml(parsedResults.member.name),parsedResults.member.url);	
+		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
+		EventDetails eventDetails = new EventDetails(parsedResults.id, StringCleaner.cleanString(parsedResults.name), parsedResults.url, parsedResults.date);
+		User member = new User(Integer.toString(parsedResults.member.id),StringCleaner.cleanString(parsedResults.member.name),parsedResults.member.url);	
 		EventSchedule schedule = new EventSchedule(parsedResults.dtstart, parsedResults.dtend);
 		Coordinates coordinates = new Coordinates(parsedResults.latitude, parsedResults.longitude);
-		Venue venue = new Venue(Integer.toString(parsedResults.venue.id), StringEscapeUtils.unescapeXml(parsedResults.venue.name), parsedResults.venue.telephone, parsedResults.venue.email, parsedResults.venue.web);	
-		Town town = new Town(Integer.toString(parsedResults.town.id), StringEscapeUtils.unescapeXml(parsedResults.town.name));
-		Area area = new Area(Integer.toString(parsedResults.area.id), StringEscapeUtils.unescapeXml(parsedResults.area.name));
-		Country country = new Country(Integer.toString(parsedResults.country.id), StringEscapeUtils.unescapeXml(parsedResults.country.name));		
+		Venue venue = new Venue(Integer.toString(parsedResults.venue.id), StringCleaner.cleanString(parsedResults.venue.name), parsedResults.venue.telephone, parsedResults.venue.email, parsedResults.venue.web);	
+		Town town = new Town(Integer.toString(parsedResults.town.id), StringCleaner.cleanString(parsedResults.town.name));
+		Area area = new Area(Integer.toString(parsedResults.area.id), StringCleaner.cleanString(parsedResults.area.name));
+		Country country = new Country(Integer.toString(parsedResults.country.id), StringCleaner.cleanString(parsedResults.country.name));		
 		
 		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment within the event
 		ArrayList<Comment> comments = new ArrayList<Comment>();
@@ -327,10 +326,10 @@ public class ItemRetriever
 		for(int i = 0; i < (parsedResults.comments.length); i++)
 			{
 			// Populate the User object representing the person who submitted the comment
-			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), StringEscapeUtils.unescapeXml(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
+			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), StringCleaner.cleanString(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
 			
 			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringEscapeUtils.unescapeXml(parsedResults.comments[i].subject), StringEscapeUtils.unescapeXml(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 			
 			comments.add(currentComment);				
 			}
