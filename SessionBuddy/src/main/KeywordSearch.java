@@ -67,10 +67,10 @@ public class KeywordSearch extends Search
 	
 		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage);
+		String response = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
 		
 		// Set up the structure that will hold the parsed response from the API
@@ -108,10 +108,10 @@ public class KeywordSearch extends Search
 		
 		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage, pageNumber);
+		String response = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage, pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
 		
 		// Set up the structure that will hold the parsed response from the API
@@ -147,10 +147,10 @@ public class KeywordSearch extends Search
 		
 		// Launch a search for a list of matching discussions and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage);
+		String response = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage);
 			
 		// Create a DiscussionSearchParser and DiscussionSearchResultWrapper to parse the raw JSON
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
 		
 		// This will hold each individual search result entry
@@ -189,10 +189,10 @@ public class KeywordSearch extends Search
 		
 		// Launch a search for a list of matching discussions, specifying the page number in the result set, and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage, pageNumber);
+		String response = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage, pageNumber);
 		
 		// Prepare the classes needed to parse the the JSON
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
 		
 		// This will hold each individual search result entry
@@ -229,10 +229,10 @@ public class KeywordSearch extends Search
 		
 		// Launch a search for a list of matching events and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("events", searchTerms, resultsPerPage);
+		String response = searcher.submitSearchRequest("events", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
 			
 		// This will hold each individual search result entry
@@ -270,10 +270,10 @@ public class KeywordSearch extends Search
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("events",searchTerms, resultsPerPage,pageNumber);
+		String response = searcher.submitSearchRequest("events",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
 		
 		// This will hold each individual search result entry
@@ -310,10 +310,10 @@ public class KeywordSearch extends Search
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("recordings", searchTerms, resultsPerPage);
+		String response = searcher.submitSearchRequest("recordings", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
 			
 		// This will hold each individual search result entry
@@ -351,10 +351,10 @@ public class KeywordSearch extends Search
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("recordings",searchTerms, resultsPerPage,pageNumber);
+		String response = searcher.submitSearchRequest("recordings",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
 			
 		// This will hold each individual search result entry
@@ -391,10 +391,10 @@ public class KeywordSearch extends Search
 		
 		// Launch a search for a list of matching sessions and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("sessions", searchTerms, resultsPerPage);
+		String response = searcher.submitSearchRequest("sessions", searchTerms, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
 		
 		// This will hold each individual search result entry
@@ -433,10 +433,10 @@ public class KeywordSearch extends Search
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitSearchRequest("sessions",searchTerms, resultsPerPage,pageNumber);
+		String response = searcher.submitSearchRequest("sessions",searchTerms, resultsPerPage,pageNumber);
 		
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
 		
 		// This will hold each individual search result entry
@@ -447,23 +447,6 @@ public class KeywordSearch extends Search
 
 		// Return the set of results that has been collected
 		return resultSet;
-		}
-	
-	
-	/**
-	 * Helper method to keep track of how many pages are in a particular JSON response
-	 * 
-	 * @return the number of pages in the JSON response
-	 * @throws IllegalStateException
-	 */
-	public int getPageCount() throws IllegalStateException
-		{
-		if (pageCount == 0)
-			{
-			throw new IllegalStateException("Page counter has not been initialised");
-			}
-		else 
-			return pageCount;
 		}
 	
 	

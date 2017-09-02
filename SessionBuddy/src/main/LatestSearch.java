@@ -61,10 +61,10 @@ public class LatestSearch extends Search
 
 		// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLatestRequest("tunes", resultsPerPage);
+		String response = searcher.submitLatestRequest("tunes", resultsPerPage);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
 							
 		// This will hold each individual search result entry
@@ -100,10 +100,10 @@ public class LatestSearch extends Search
 
 		// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLatestRequest("tunes", resultsPerPage, pageNumber);
+		String response = searcher.submitLatestRequest("tunes", resultsPerPage, pageNumber);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
 						
 		// This will hold each individual search result entry
@@ -138,10 +138,10 @@ public class LatestSearch extends Search
 
 		// Launch a search for a list of latest discussions and store the JSON response as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLatestRequest("discussions", resultsPerPage);
+		String response = searcher.submitLatestRequest("discussions", resultsPerPage);
 			
 		// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
 
 		// This will hold each individual search result entry
@@ -175,10 +175,10 @@ public class LatestSearch extends Search
 
 		// Launch a search for a list of latest discussions and store the JSON response as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLatestRequest("discussions", resultsPerPage, pageNumber);
+		String response = searcher.submitLatestRequest("discussions", resultsPerPage, pageNumber);
 			
 		// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
 		
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
@@ -212,10 +212,10 @@ public class LatestSearch extends Search
 
 		// Launch a search for a list of most recently submitted recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLatestRequest("recordings", resultsPerPage);
+		String response = searcher.submitLatestRequest("recordings", resultsPerPage);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
 						
 		// This will hold each individual search result entry
@@ -249,10 +249,10 @@ public class LatestSearch extends Search
 	
 		// Launch a search for a list of most recently submitted recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLatestRequest("recordings", resultsPerPage, pageNumber);
+		String response = searcher.submitLatestRequest("recordings", resultsPerPage, pageNumber);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
 				
 		// This will hold each individual search result entry
@@ -287,10 +287,10 @@ public class LatestSearch extends Search
 		
 		// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLatestRequest("sessions", resultsPerPage);
+		String response = searcher.submitLatestRequest("sessions", resultsPerPage);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
 						
 		// This will hold each individual search result entry
@@ -324,10 +324,10 @@ public class LatestSearch extends Search
 
 		// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLatestRequest("sessions", resultsPerPage, pageNumber);
+		String response = searcher.submitLatestRequest("sessions", resultsPerPage, pageNumber);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
 						
 		// This will hold each individual search result entry
@@ -360,10 +360,10 @@ public class LatestSearch extends Search
 
 		// Launch a search for a list of most recently submitted events and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLatestRequest("events", resultsPerPage);
+		String response = searcher.submitLatestRequest("events", resultsPerPage);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
 						
 		// This will hold each individual search result entry
@@ -397,10 +397,10 @@ public class LatestSearch extends Search
 		
 		// Launch a search for a list of most recently submitted events and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLatestRequest("events", resultsPerPage, pageNumber);
+		String response = searcher.submitLatestRequest("events", resultsPerPage, pageNumber);
 						
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
 						
 		// This will hold each individual search result entry
@@ -409,21 +409,6 @@ public class LatestSearch extends Search
 		resultSet = populateEventsSearchResult(parsedResults);
 		
 		return resultSet;
-		}
-	
-	
-	/**
-	 * @return
-	 * @throws IllegalStateException
-	 */
-	public int getPageCount() throws IllegalStateException
-		{
-		if (pageCount == 0)
-			{
-			throw new IllegalStateException("Page counter has not been initialised");
-			}
-		else 
-			return pageCount;
 		}
 	
 	

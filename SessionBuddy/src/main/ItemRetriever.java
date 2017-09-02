@@ -53,10 +53,10 @@ public class ItemRetriever
 		{
 		// Make the API call using the the recording ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitItemByIDRequest("recordings", recordingID);
+		String response = searcher.submitItemByIDRequest("recordings", recordingID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		RecordingByIDWrapper parsedResults = jsonParser.parseResponse(RecordingByIDWrapper.class);
 		
 		// Extract each element from the recording entry in the JSON response
@@ -124,10 +124,10 @@ public class ItemRetriever
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitItemByIDRequest("discussions", discussionID);
+		String response = searcher.submitItemByIDRequest("discussions", discussionID);
 			
 		// Parse the returned JSON into a pre-defined wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		DiscussionByIDWrapper parsedResults = jsonParser.parseResponse(DiscussionByIDWrapper.class);
 	
 		// Extract each element from the tune entry in the JSON response
@@ -170,10 +170,10 @@ public class ItemRetriever
 		{
 		// Make the API call using the tune ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitItemByIDRequest("tunes", tuneID);
+		String response = searcher.submitItemByIDRequest("tunes", tuneID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		TuneByIDWrapper parsedResults = jsonParser.parseResponse(TuneByIDWrapper.class);
 	
 		// Extract each element from the tune entry in the JSON response
@@ -243,10 +243,10 @@ public class ItemRetriever
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitItemByIDRequest("sessions", sessionID);
+		String response = searcher.submitItemByIDRequest("sessions", sessionID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		SessionByIDWrapper parsedResults = jsonParser.parseResponse(SessionByIDWrapper.class);
 	
 		// Extract each element from the tune entry in the JSON response
@@ -302,10 +302,10 @@ public class ItemRetriever
 		{
 		// Make the API call using the the event ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitItemByIDRequest("events", eventID);
+		String response = searcher.submitItemByIDRequest("events", eventID);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		EventByIDWrapper parsedResults = jsonParser.parseResponse(EventByIDWrapper.class);
 	
 		// Extract each element from the tune entry in the JSON response

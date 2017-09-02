@@ -23,7 +23,7 @@ import utils.StringCleaner;
 
 /**
  * Queries the API at thesession.org with coordinates and a radius, and parses the response into an easily usable structure. 
- * To use this feature, first create a new SearchByLocation object, then call one of its methods to perform the actual search.
+ * To use this feature, first create a new LocationSearch object, then call one of its methods to perform the actual search.
  * 
  * @author Colman
  * @since 2017-08-26
@@ -55,12 +55,12 @@ public class LocationSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 	
-		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
+		// Launch a search for a list of sessions in the geographic area specified, and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage);
+		String response = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		SessionsByLocationWrapper parsedResults = jsonParser.parseResponse(SessionsByLocationWrapper.class);
 			
 		// This will hold each individual search result entry
@@ -99,10 +99,10 @@ public class LocationSearch extends Search
 		
 		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage, pageNumber);
+		String response = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage, pageNumber);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		SessionsByLocationWrapper parsedResults = jsonParser.parseResponse(SessionsByLocationWrapper.class);
 			
 		// This will hold each individual search result entry
@@ -141,10 +141,10 @@ public class LocationSearch extends Search
 	
 		// Launch a search for a list of matching events and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage);
+		String response = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		EventsByLocationWrapper parsedResults = jsonParser.parseResponse(EventsByLocationWrapper.class);
 			
 		// This will hold each individual search result entry
@@ -184,10 +184,10 @@ public class LocationSearch extends Search
 	
 		// Launch a search for a list of matching events and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String apiQueryResults = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage, pageNumber);
+		String response = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage, pageNumber);
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(apiQueryResults);
+		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		EventsByLocationWrapper parsedResults = jsonParser.parseResponse(EventsByLocationWrapper.class);
 			
 		// This will hold each individual search result entry

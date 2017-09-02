@@ -40,7 +40,7 @@ public class HttpRequestor
 	 */
 	public String submitItemByIDRequest(String baseCategory, String itemID) throws RuntimeException, MalformedURLException
 		{
-		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
+		URL tuneSearchURL; 	// The correctly-formatted URL for the API request
 		String response;	// A string of JSON data returned from the API
 		
 		try 
