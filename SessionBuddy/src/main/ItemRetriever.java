@@ -38,23 +38,39 @@ import utils.StringCleaner;
 // TODO: Refactor the methods in this class, extract some 'helper' methods
 // TODO: Fix up all the comments in this class, including Javadoc comments
 
+
 /**
  * @author Colman
- * @since 2017-08-31
+ *
  */
 public class ItemRetriever 
 {
+
 	/**
 	 * @param recordingID
 	 * @return
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IOException
 	 */
-	public RecordingByIDResult getRecordingByID(String recordingID) throws IOException, MalformedURLException
+	public RecordingByIDResult getRecordingByID(String recordingID) throws IOException
 		{
 		// Make the API call using the the recording ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitItemByIDRequest("recordings", recordingID);
+		String response;
+		
+		try
+			{
+			response = searcher.submitItemByIDRequest("recordings", recordingID);
+			}
+		
+		catch (MalformedURLException e)
+			{
+			throw new IOException(e.getMessage());
+			}
+		
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -115,18 +131,31 @@ public class ItemRetriever
 
 	
 	/**
-	 * 
 	 * @param discussionID
 	 * @return
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IOException
 	 */
-	public DiscussionByIDResult getDiscussionByID(String discussionID) throws IOException, MalformedURLException
+	public DiscussionByIDResult getDiscussionByID(String discussionID) throws IOException
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitItemByIDRequest("discussions", discussionID);
-			
+		String response;
+		
+		try
+			{
+			response = searcher.submitItemByIDRequest("discussions", discussionID);
+			}
+		
+			catch (MalformedURLException e)
+			{
+			throw new IOException(e.getMessage());
+			}
+		
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
+		
 		// Parse the returned JSON into a pre-defined wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		DiscussionByIDWrapper parsedResults = jsonParser.parseResponse(DiscussionByIDWrapper.class);
@@ -159,19 +188,33 @@ public class ItemRetriever
 		// Return the set of results that has been collected
 		return finalResult;
 		}
-
 	
+
 	/**
 	 * @param tuneID
 	 * @return
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IOException
 	 */
-	public TuneByIDResult getTuneByID(String tuneID) throws IOException, MalformedURLException
+	public TuneByIDResult getTuneByID(String tuneID) throws IOException
 		{
 		// Make the API call using the tune ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitItemByIDRequest("tunes", tuneID);
+		String response;
+		
+		try
+			{
+			response = searcher.submitItemByIDRequest("tunes", tuneID);
+			}
+		
+		catch (MalformedURLException e)
+			{
+			throw new IOException(e.getMessage());
+			}
+		
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -237,14 +280,28 @@ public class ItemRetriever
 	/**
 	 * @param sessionID
 	 * @return
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IOException
 	 */
-	public SessionByIDResult getSessionByID(String sessionID) throws IOException, MalformedURLException
+	public SessionByIDResult getSessionByID(String sessionID) throws IOException
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitItemByIDRequest("sessions", sessionID);
+		String response;
+		
+		try
+			{
+			response = searcher.submitItemByIDRequest("sessions", sessionID);
+			}
+		
+		catch (MalformedURLException e)
+			{
+			throw new IOException(e.getMessage());
+			}
+		
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -299,12 +356,26 @@ public class ItemRetriever
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public EventByIDResult getEventByID(String eventID) throws IOException, MalformedURLException
+	public EventByIDResult getEventByID(String eventID) throws IOException
 		{
 		// Make the API call using the the event ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitItemByIDRequest("events", eventID);
+		String response;
+		
+		try
+			{
+			response = searcher.submitItemByIDRequest("events", eventID);
+			}
 			
+		catch (MalformedURLException e)
+			{
+			throw new IOException(e.getMessage());
+			}
+		
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(response);
 		EventByIDWrapper parsedResults = jsonParser.parseResponse(EventByIDWrapper.class);

@@ -1,6 +1,6 @@
 package example_usage;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import json_object_wrappers.DiscussionsSearchResult;
@@ -18,7 +18,7 @@ import main.LatestSearch;
 class Test_RetrieveLatest_Discussions
 
 {
-public static void main(String[] args) throws MalformedURLException, RuntimeException
+public static void main(String[] args)
    {
 	// Set the search parameters
 	int resultsPerPage = 50;
@@ -55,5 +55,9 @@ public static void main(String[] args) throws MalformedURLException, RuntimeExce
 		System.out.println(e.getMessage());
 		}	
 
+	catch (IOException e)
+		{
+		System.out.println(e.getMessage());
+		}
    	}
 }

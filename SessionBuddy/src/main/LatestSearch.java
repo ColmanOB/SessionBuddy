@@ -91,33 +91,38 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLatestRequest("tunes", resultsPerPage, pageNumber);
+							
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
+							
+			// This will hold each individual search result entry
+			ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
+			
+			resultSet = populateTunesSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
 			{
 			throw new IllegalArgumentException(e.getMessage());
 			}
-
-		// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLatestRequest("tunes", resultsPerPage, pageNumber);
-						
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
-						
-		// This will hold each individual search result entry
-		ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
 		
-		resultSet = populateTunesSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		}
 	
 	
@@ -135,29 +140,33 @@ public class LatestSearch extends Search
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of latest discussions and store the JSON response as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLatestRequest("discussions", resultsPerPage);
+				
+			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
+
+			// This will hold each individual search result entry
+			ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
+			
+			resultSet = populateDiscussionsSearchResult(parsedResults);
+				
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
 			{
 			throw new IllegalArgumentException(e.getMessage());
 			}
-
-		// Launch a search for a list of latest discussions and store the JSON response as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLatestRequest("discussions", resultsPerPage);
-			
-		// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
-
-		// This will hold each individual search result entry
-		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
 		
-		resultSet = populateDiscussionsSearchResult(parsedResults);
-			
-		return resultSet;
+		catch (IOException e)
+			{
+			throw new IOException (e.getMessage());
+			}
 		}
-	
 	
 	/**
 	 * @param resultsPerPage
@@ -166,12 +175,26 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of latest discussions and store the JSON response as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLatestRequest("discussions", resultsPerPage, pageNumber);
+				
+			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
+			
+			ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
+			
+			resultSet = populateDiscussionsSearchResult(parsedResults);
+				
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -179,19 +202,10 @@ public class LatestSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 
-		// Launch a search for a list of latest discussions and store the JSON response as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLatestRequest("discussions", resultsPerPage, pageNumber);
-			
-		// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
-		
-		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
-		
-		resultSet = populateDiscussionsSearchResult(parsedResults);
-			
-		return resultSet;
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		}
 	
 	
@@ -203,33 +217,38 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage) throws IOException, MalformedURLException
+	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of most recently submitted recordings and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLatestRequest("recordings", resultsPerPage);
+							
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
+							
+			// This will hold each individual search result entry
+			ArrayList<RecordingsSearchResult> resultSet = new ArrayList<RecordingsSearchResult>();
+			
+			resultSet = populateRecordingsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
 			{
 			throw new IllegalArgumentException(e.getMessage());
+			}	
+		
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
 			}
-
-		// Launch a search for a list of most recently submitted recordings and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLatestRequest("recordings", resultsPerPage);
-						
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
-						
-		// This will hold each individual search result entry
-		ArrayList<RecordingsSearchResult> resultSet = new ArrayList<RecordingsSearchResult>();
-		
-		resultSet = populateRecordingsSearchResult(parsedResults);
-		
-		return resultSet;
 		}
 	
 	
@@ -240,12 +259,27 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of most recently submitted recordings and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLatestRequest("recordings", resultsPerPage, pageNumber);
+							
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
+					
+			// This will hold each individual search result entry
+			ArrayList<RecordingsSearchResult> resultSet = new ArrayList<RecordingsSearchResult>();
+			
+			resultSet = populateRecordingsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -253,20 +287,10 @@ public class LatestSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 	
-		// Launch a search for a list of most recently submitted recordings and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLatestRequest("recordings", resultsPerPage, pageNumber);
-						
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
-				
-		// This will hold each individual search result entry
-		ArrayList<RecordingsSearchResult> resultSet = new ArrayList<RecordingsSearchResult>();
-		
-		resultSet = populateRecordingsSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IOException e)
+			{
+			throw new IOException (e.getMessage());
+			}
 		}
 	
 	
@@ -278,12 +302,27 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage) throws IOException, MalformedURLException
+	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLatestRequest("sessions", resultsPerPage);
+							
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
+							
+			// This will hold each individual search result entry
+			ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
+					
+			resultSet = populateSessionsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -291,20 +330,11 @@ public class LatestSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 		
-		// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLatestRequest("sessions", resultsPerPage);
-						
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
-						
-		// This will hold each individual search result entry
-		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
-				
-		resultSet = populateSessionsSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
+
 		}
 	
 	
@@ -315,12 +345,27 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLatestRequest("sessions", resultsPerPage, pageNumber);
+							
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
+							
+			// This will hold each individual search result entry
+			ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
+					
+			resultSet = populateSessionsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -328,20 +373,10 @@ public class LatestSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 
-		// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLatestRequest("sessions", resultsPerPage, pageNumber);
-						
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
-						
-		// This will hold each individual search result entry
-		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
-				
-		resultSet = populateSessionsSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IOException e)
+			{	
+			throw new IOException(e.getMessage());
+			}
 		}
 		
 	
@@ -351,12 +386,27 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage) throws IOException, MalformedURLException
+	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of most recently submitted events and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLatestRequest("events", resultsPerPage);
+							
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
+							
+			// This will hold each individual search result entry
+			ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
+			
+			resultSet = populateEventsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -364,20 +414,10 @@ public class LatestSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 
-		// Launch a search for a list of most recently submitted events and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLatestRequest("events", resultsPerPage);
-						
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
-						
-		// This will hold each individual search result entry
-		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
-		
-		resultSet = populateEventsSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		}
 	
 	
@@ -388,12 +428,27 @@ public class LatestSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of most recently submitted events and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitLatestRequest("events", resultsPerPage, pageNumber);
+							
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
+							
+			// This will hold each individual search result entry
+			ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
+			
+			resultSet = populateEventsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -401,20 +456,10 @@ public class LatestSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 		
-		// Launch a search for a list of most recently submitted events and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitLatestRequest("events", resultsPerPage, pageNumber);
-						
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
-						
-		// This will hold each individual search result entry
-		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
-		
-		resultSet = populateEventsSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		}
 	
 	

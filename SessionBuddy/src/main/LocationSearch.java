@@ -76,6 +76,11 @@ public class LocationSearch extends Search
 			throw new IOException(e.getMessage());
 			}
 		
+		catch (IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}
+		
 	}
 	
 	/** 

@@ -1,14 +1,13 @@
 package example_usage;
 
-import java.net.MalformedURLException;
-
+import java.io.IOException;
 import json_object_wrappers.DiscussionByIDResult;
 
 import main.ItemRetriever;
 
 public class Test_RetrieveItemByID_Discussion 
 {
-	public static void main(String[] args) throws MalformedURLException, RuntimeException
+	public static void main(String[] args) throws IOException
 		{
 		// Set the search parameters
 		String discussionID = "666";

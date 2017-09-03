@@ -1,7 +1,6 @@
 package example_usage;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.DiscussionsSearchResult;
@@ -19,7 +18,7 @@ import main.KeywordSearch;
 public class Test_KeywordSearch_Discussions
 
 {
-public static void main(String[] args) throws MalformedURLException, IOException
+public static void main(String[] args) throws IOException
    {
 	// Set the search parameters
 	String searchTerms = "London";
