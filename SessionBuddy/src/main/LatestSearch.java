@@ -39,14 +39,13 @@ import utils.StringCleaner;
  */
 public class LatestSearch extends Search 
 	{
+
 	/**
-	* Retrieves a list of the most recently submitted tunes on thesession.org
-	* 
-	* @param resultsPerPage The number of individual tune entries you want returned per page, up to a maximum of 50
-	* @return ArrayList<TunesSearchResult>
-	* @throws RuntimeException 
-	* @throws MalformedURLException 
-	*/
+	 * @param resultsPerPage
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IOException
+	 */
 	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
@@ -80,16 +79,14 @@ public class LatestSearch extends Search
 			throw new IOException(e.getMessage());
 			}
 		}
-
 		
+
 	/**
-	 * Retrieves a list of the most recently submitted tunes on thesession.org, specifying a particular page in the result set returned
-	 * 
 	 * @param resultsPerPage
 	 * @param pageNumber
 	 * @return
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException
+	 * @throws IOException
 	 */
 	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
@@ -127,12 +124,10 @@ public class LatestSearch extends Search
 	
 	
 	/**
-	 * Retrieves a list of the most recently submitted discussions on thesession.org forum
-	 * 
-	 * @param resultsPerPage The number of individual discussions you want returned per page, up to a maximum of 50
-	 * @return ArrayList<DiscussionsSearchResult> A list of the most recently added discussions
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @param resultsPerPage
+	 * @return
+	 * @throws IOException
+	 * @throws MalformedURLException
 	 */
 	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage) throws IOException, MalformedURLException
 		{
@@ -168,12 +163,13 @@ public class LatestSearch extends Search
 			}
 		}
 	
+
 	/**
 	 * @param resultsPerPage
 	 * @param pageNumber
 	 * @return
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException
+	 * @throws IOException
 	 */
 	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
@@ -210,12 +206,10 @@ public class LatestSearch extends Search
 	
 	
 	/**
-	 * Retrieves a list of the most recently submitted recordings on thesession.org forum
-	 * 
-	 * @param resultsPerPage The number of individual recordings you want returned per page, up to a maximum of 50
-	 * @return ArrayList<RecordingsSearchResult>
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @param resultsPerPage
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IOException
 	 */
 	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
@@ -256,8 +250,8 @@ public class LatestSearch extends Search
 	 * @param resultsPerPage
 	 * @param pageNumber
 	 * @return
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException
+	 * @throws IOException
 	 */
 	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
@@ -293,14 +287,12 @@ public class LatestSearch extends Search
 			}
 		}
 	
-	
+
 	/**
-	 * Retrieves a list of the most recently submitted sessions on thesession.org forum
-	 * 
-	 * @param resultsPerPage The number of individual sessions you want returned per page, up to a maximum of 50
-	 * @return ArrayList<SessionsSearchResult>
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @param resultsPerPage
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IOException
 	 */
 	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
@@ -338,12 +330,13 @@ public class LatestSearch extends Search
 		}
 	
 	
+
 	/**
 	 * @param resultsPerPage
 	 * @param pageNumber
 	 * @return
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException
+	 * @throws IOException
 	 */
 	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
@@ -383,8 +376,8 @@ public class LatestSearch extends Search
 	/**
 	 * @param resultsPerPage
 	 * @return
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException
+	 * @throws IOException
 	 */
 	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
@@ -425,8 +418,8 @@ public class LatestSearch extends Search
 	 * @param resultsPerPage
 	 * @param pageNumber
 	 * @return
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException
+	 * @throws IOException
 	 */
 	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{

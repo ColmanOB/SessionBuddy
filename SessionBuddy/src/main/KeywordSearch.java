@@ -49,16 +49,30 @@ public class KeywordSearch extends Search
 	 * @param searchTerms A string containing the search terms entered by the user
 	 * @param resultsPerPage A number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
 	 * @return An ArrayList of TunesSearchResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 */
-	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws IOException,  MalformedURLException, IllegalArgumentException
+	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of matching tunes and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage);
+				
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
+			
+			// Set up the structure that will hold the parsed response from the API
+			ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
+			
+			// Use a private helper method to populate the ArrayList of TunesSearchResult objects
+			resultSet = populateTunesSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -66,21 +80,15 @@ public class KeywordSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 	
-		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage);
-			
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		
-		// Set up the structure that will hold the parsed response from the API
-		ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
-		
-		// Use a private helper method to populate the ArrayList of TunesSearchResult objects
-		resultSet = populateTunesSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}
 		}
 	
 	
@@ -94,12 +102,28 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of matching tunes and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage, pageNumber);
+			
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
+			
+			// Set up the structure that will hold the parsed response from the API
+			ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
+			
+			// Use a private helper method to populate the ArrayList of TunesSearchResult objects
+			resultSet = populateTunesSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -107,21 +131,15 @@ public class KeywordSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 		
-		// Launch a search for a list of matching tunes and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage, pageNumber);
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
-		
-		// Set up the structure that will hold the parsed response from the API
-		ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
-		
-		// Use a private helper method to populate the ArrayList of TunesSearchResult objects
-		resultSet = populateTunesSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}
 		}
 
 	/**
@@ -133,12 +151,28 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage) throws IOException,  MalformedURLException
+	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of matching discussions and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage);
+				
+			// Create a DiscussionSearchParser and DiscussionSearchResultWrapper to parse the raw JSON
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
+			
+			// This will hold each individual search result entry
+			ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
+			
+			// Use a private helper method to populate the ArrayList of DiscussionsSearchResult objects
+			resultSet = populateDiscussionsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -146,23 +180,17 @@ public class KeywordSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 		
-		// Launch a search for a list of matching discussions and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage);
-			
-		// Create a DiscussionSearchParser and DiscussionSearchResultWrapper to parse the raw JSON
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}		
 		
-		// This will hold each individual search result entry
-		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
-		
-		// Use a private helper method to populate the ArrayList of DiscussionsSearchResult objects
-		resultSet = populateDiscussionsSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}
 		}
-	
+			
 	
 	/**
 	 * Search the API for a list of discussions matching a specific set of search terms, and specify the number of results that should be returned per page.
@@ -175,12 +203,28 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of matching discussions, specifying the page number in the result set, and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage, pageNumber);
+			
+			// Prepare the classes needed to parse the the JSON
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
+			
+			// This will hold each individual search result entry
+			ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
+			
+			// Use a private helper method to populate the ArrayList of DiscussionsSearchResult objects
+			resultSet = populateDiscussionsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -188,21 +232,15 @@ public class KeywordSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 		
-		// Launch a search for a list of matching discussions, specifying the page number in the result set, and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage, pageNumber);
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		
-		// Prepare the classes needed to parse the the JSON
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
-		
-		// This will hold each individual search result entry
-		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
-		
-		// Use a private helper method to populate the ArrayList of DiscussionsSearchResult objects
-		resultSet = populateDiscussionsSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}
 		}
 	
 	
@@ -215,12 +253,28 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage) throws IOException, MalformedURLException
+	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of matching events and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitSearchRequest("events", searchTerms, resultsPerPage);
+				
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
+				
+			// This will hold each individual search result entry
+			ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
+			
+			// Use a private helper method to populate the ArrayList of EventsSearchResult objects
+			resultSet = populateEventsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -228,21 +282,15 @@ public class KeywordSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 		
-		// Launch a search for a list of matching events and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitSearchRequest("events", searchTerms, resultsPerPage);
-			
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
-			
-		// This will hold each individual search result entry
-		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		
-		// Use a private helper method to populate the ArrayList of EventsSearchResult objects
-		resultSet = populateEventsSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}
 		}
 	
 	
@@ -256,12 +304,28 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitSearchRequest("events",searchTerms, resultsPerPage,pageNumber);
+			
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
+			
+			// This will hold each individual search result entry
+			ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
+			
+			// Use a private helper method to populate the ArrayList of EventsSearchResult objects
+			resultSet = populateEventsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -269,21 +333,15 @@ public class KeywordSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 		
-		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitSearchRequest("events",searchTerms, resultsPerPage,pageNumber);
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
-		
-		// This will hold each individual search result entry
-		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
-		
-		// Use a private helper method to populate the ArrayList of EventsSearchResult objects
-		resultSet = populateEventsSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}
 		}
 	
 	
@@ -296,12 +354,28 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage) throws IOException, MalformedURLException
+	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitSearchRequest("recordings", searchTerms, resultsPerPage);
+				
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
+				
+			// This will hold each individual search result entry
+			ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
+			
+			// Use a private helper method to populate the ArrayList of RecordingsSearchResult objects
+			resultSet = populateRecordingsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -309,21 +383,17 @@ public class KeywordSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 		
-		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitSearchRequest("recordings", searchTerms, resultsPerPage);
-			
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
-			
-		// This will hold each individual search result entry
-		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		
-		// Use a private helper method to populate the ArrayList of RecordingsSearchResult objects
-		resultSet = populateRecordingsSearchResult(parsedResults);
+		catch (IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}
 		
-		return resultSet;
+		
 		}
 	
 	
@@ -337,12 +407,28 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitSearchRequest("recordings",searchTerms, resultsPerPage,pageNumber);
+			
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
+				
+			// This will hold each individual search result entry
+			ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
+			
+			// Use a private helper method to populate the ArrayList of RecordingsSearchResult objects
+			resultSet = populateRecordingsSearchResult(parsedResults);
+			
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -350,21 +436,15 @@ public class KeywordSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 		
-		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitSearchRequest("recordings",searchTerms, resultsPerPage,pageNumber);
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
-			
-		// This will hold each individual search result entry
-		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
-		
-		// Use a private helper method to populate the ArrayList of RecordingsSearchResult objects
-		resultSet = populateRecordingsSearchResult(parsedResults);
-		
-		return resultSet;
+		catch (IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}	
 		}
 	
 	
@@ -377,12 +457,29 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage) throws IOException, MalformedURLException
+	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of matching sessions and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitSearchRequest("sessions", searchTerms, resultsPerPage);
+				
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
+			
+			// This will hold each individual search result entry
+			ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
+					
+			// Use a private helper method to populate the ArrayList of SessionsSearchResult objects
+			resultSet = populateSessionsSearchResult(parsedResults);
+
+			// Return the set of results that has been collected
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -390,22 +487,15 @@ public class KeywordSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 		
-		// Launch a search for a list of matching sessions and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitSearchRequest("sessions", searchTerms, resultsPerPage);
-			
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
 		
-		// This will hold each individual search result entry
-		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
-				
-		// Use a private helper method to populate the ArrayList of SessionsSearchResult objects
-		resultSet = populateSessionsSearchResult(parsedResults);
-
-		// Return the set of results that has been collected
-		return resultSet;
+		catch (IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}	
 		}
 	
 	
@@ -419,12 +509,29 @@ public class KeywordSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitSearchRequest("sessions",searchTerms, resultsPerPage,pageNumber);
+			
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
+			
+			// This will hold each individual search result entry
+			ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
+					
+			// Use a private helper method to populate the ArrayList of SessionsSearchResult objects
+			resultSet = populateSessionsSearchResult(parsedResults);
+
+			// Return the set of results that has been collected
+			return resultSet;
 			}
 		
 		catch (IllegalArgumentException e)
@@ -432,22 +539,15 @@ public class KeywordSearch extends Search
 			throw new IllegalArgumentException(e.getMessage());
 			}
 		
-		// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response = searcher.submitSearchRequest("sessions",searchTerms, resultsPerPage,pageNumber);
-		
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
-		
-		// This will hold each individual search result entry
-		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
-				
-		// Use a private helper method to populate the ArrayList of SessionsSearchResult objects
-		resultSet = populateSessionsSearchResult(parsedResults);
-
-		// Return the set of results that has been collected
-		return resultSet;
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}
+	
+		catch (IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}
 		}
 	
 	
