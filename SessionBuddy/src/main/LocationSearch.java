@@ -42,7 +42,7 @@ public class LocationSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -79,9 +79,8 @@ public class LocationSearch extends Search
 		catch (IllegalStateException e)
 			{
 			throw new IllegalStateException(e.getMessage());
-			}
-		
-	}
+			}	
+		}
 	
 	/** 
 	 * Alternative version of searchSessionsByLocation(), allowing a page number to be specified within a paginated JSON response.
@@ -94,7 +93,7 @@ public class LocationSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -127,6 +126,11 @@ public class LocationSearch extends Search
 			{
 			throw new IOException(e.getMessage());
 			}	
+		
+		catch(IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
+			}	
 		}
 	
 	
@@ -141,7 +145,7 @@ public class LocationSearch extends Search
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -173,6 +177,11 @@ public class LocationSearch extends Search
 		catch(IOException e)
 			{
 			throw new IOException(e.getMessage());
+			}
+		
+		catch(IllegalStateException e)
+			{
+			throw new IllegalStateException(e.getMessage());
 			}
 		}
 	

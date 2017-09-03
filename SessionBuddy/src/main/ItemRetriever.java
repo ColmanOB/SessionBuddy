@@ -45,21 +45,75 @@ import utils.StringCleaner;
  */
 public class ItemRetriever 
 {
-
 	/**
 	 * @param recordingID
 	 * @return
+	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	public RecordingByIDResult getRecordingByID(String recordingID) throws IOException
+	public RecordingByIDResult getRecordingByID(String recordingID) throws IllegalStateException, IOException
 		{
-		// Make the API call using the the recording ID and store the JSON that is returned as a String
-		HttpRequestor searcher = new HttpRequestor();
-		String response;
-		
 		try
 			{
-			response = searcher.submitItemByIDRequest("recordings", recordingID);
+			// Make the API call using the the recording ID and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitItemByIDRequest("recordings", recordingID);
+			
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			RecordingByIDWrapper parsedResults = jsonParser.parseResponse(RecordingByIDWrapper.class);
+			
+			// Extract each element from the recording entry in the JSON response
+			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
+			RecordingDetails recordingDetails = new RecordingDetails(parsedResults.id, parsedResults.url, StringCleaner.cleanString(parsedResults.name) , parsedResults.date);
+			
+			// Get the details of the member who originally submitted the recording
+			User member = new User(Integer.toString(parsedResults.member.id), StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
+			
+			// Get the details of the recording artist(s)
+			Artist artist = new Artist(parsedResults.artist.id, StringCleaner.cleanString(parsedResults.artist.name), parsedResults.artist.url);
+			
+			// Set up the structure needed to hold the track listing
+			ArrayList<TrackListing> tracks = new ArrayList<TrackListing>();
+			
+			// Populate the track listing
+			for(int i = 0; i < (parsedResults.tracks.length); i++)
+				{
+				// For each individual track, create an ArrayList of TuneRecord objects
+				ArrayList<TuneRecord> tunesOnTrack = new ArrayList<TuneRecord>();
+				
+				// Populate the ArrayList of TuneRecord objects
+				for (int j = 0; j < (parsedResults.tracks[i].tunes.length); j++)
+					{		
+					TuneRecord currentTune = new TuneRecord(StringCleaner.cleanString(parsedResults.tracks[i].tunes[j].name), parsedResults.tracks[i].tunes[j].id ,parsedResults.tracks[i].tunes[j].url);
+					tunesOnTrack.add(currentTune);
+					}
+				
+				// Add the current track to the track listing
+				TrackListing currentTrack = new TrackListing(tunesOnTrack);
+				tracks.add(currentTrack);
+				}
+			
+			// Initalise an ArrayList of DiscussionComment objects to hold each individual comment on the recording
+			ArrayList<Comment> comments = new ArrayList<Comment>();
+				
+			// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
+			for(int i = 0; i < (parsedResults.comments.length); i++)
+				{
+				// Populate the User object representing the person who submitted the comment
+				User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
+				
+				// Populate the DiscussionComment object with all information related to the comment, including the user set up above
+				Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
+				
+				comments.add(currentComment);				
+				}
+				
+			// Instantiate a RecordingByIDResult object & populate it with the details captured above
+			RecordingByIDResult finalResult = new RecordingByIDResult(recordingDetails, member, artist, tracks, comments);
+				
+			// Return the set of results that has been collected
+			return finalResult;
 			}
 		
 		catch (MalformedURLException e)
@@ -71,62 +125,11 @@ public class ItemRetriever
 			{
 			throw new IOException(e.getMessage());
 			}
-			
-		// Parse the returned JSON into a wrapper class to allow access to all elements
-		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		RecordingByIDWrapper parsedResults = jsonParser.parseResponse(RecordingByIDWrapper.class);
 		
-		// Extract each element from the recording entry in the JSON response
-		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
-		RecordingDetails recordingDetails = new RecordingDetails(parsedResults.id, parsedResults.url, StringCleaner.cleanString(parsedResults.name) , parsedResults.date);
-		
-		// Get the details of the member who originally submitted the recording
-		User member = new User(Integer.toString(parsedResults.member.id), StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
-		
-		// Get the details of the recording artist(s)
-		Artist artist = new Artist(parsedResults.artist.id, StringCleaner.cleanString(parsedResults.artist.name), parsedResults.artist.url);
-		
-		// Set up the structure needed to hold the track listing
-		ArrayList<TrackListing> tracks = new ArrayList<TrackListing>();
-		
-		// Populate the track listing
-		for(int i = 0; i < (parsedResults.tracks.length); i++)
+		catch (IllegalStateException e)
 			{
-			// For each individual track, create an ArrayList of TuneRecord objects
-			ArrayList<TuneRecord> tunesOnTrack = new ArrayList<TuneRecord>();
-			
-			// Populate the ArrayList of TuneRecord objects
-			for (int j = 0; j < (parsedResults.tracks[i].tunes.length); j++)
-				{		
-				TuneRecord currentTune = new TuneRecord(StringCleaner.cleanString(parsedResults.tracks[i].tunes[j].name), parsedResults.tracks[i].tunes[j].id ,parsedResults.tracks[i].tunes[j].url);
-				tunesOnTrack.add(currentTune);
-				}
-			
-			// Add the current track to the track listing
-			TrackListing currentTrack = new TrackListing(tunesOnTrack);
-			tracks.add(currentTrack);
-			}
-		
-		// Initalise an ArrayList of DiscussionComment objects to hold each individual comment on the recording
-		ArrayList<Comment> comments = new ArrayList<Comment>();
-			
-		// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
-		for(int i = 0; i < (parsedResults.comments.length); i++)
-			{
-			// Populate the User object representing the person who submitted the comment
-			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
-			
-			// Populate the DiscussionComment object with all information related to the comment, including the user set up above
-			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
-			
-			comments.add(currentComment);				
-			}
-			
-		// Instantiate a RecordingByIDResult object & populate it with the details captured above
-		RecordingByIDResult finalResult = new RecordingByIDResult(recordingDetails, member, artist, tracks, comments);
-			
-		// Return the set of results that has been collected
-		return finalResult;
+			throw new IllegalStateException(e.getMessage());
+			}			
 		}
 
 	
@@ -135,7 +138,7 @@ public class ItemRetriever
 	 * @return
 	 * @throws IOException
 	 */
-	public DiscussionByIDResult getDiscussionByID(String discussionID) throws IOException
+	public DiscussionByIDResult getDiscussionByID(String discussionID) throws IllegalStateException, IOException
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
