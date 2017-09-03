@@ -1,69 +1,74 @@
 package example_usage;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import json_object_wrappers.EventsSearchResult;
 import main.LatestSearch;
 
-/**
- * Example usage of the getLatestEvents method of RetrieveLatest class to search thesession.org API for the latest events and store the results.
- * 
- * This class does not test the iteration through multiple pages of JSON search results
- * 
- * @author Colman
- * @since 2017-08-21
- */
 
 class Test_RetrieveLatest_Events
-
-{
-public static void main(String[] args) throws MalformedURLException, RuntimeException
-   {
-	// Set the search parameters
-	int resultsPerPage = 50;
-	ArrayList<EventsSearchResult> resultSet;
-	
-	// Instantiate a RetrieveLatest object
-	LatestSearch search = new LatestSearch();
-	
-	try
-		{
-		// Pass in the search parameters
-		resultSet = search.getLatestEvents(resultsPerPage);
+	{
+	public static void main(String[] args)
+	   {
 		
-		// Loop through the results and print each attribute of each individual result in the set
-		for (int i = 0; i < resultSet.size(); i++)
+		try
 			{
-			System.out.println(resultSet.get(i).details.eventID);
-			System.out.println(resultSet.get(i).details.eventName);
-			System.out.println(resultSet.get(i).details.eventURL);
-			System.out.println(resultSet.get(i).details.submittedDate);
-
-			System.out.println(resultSet.get(i).schedule.startDate);
-			System.out.println(resultSet.get(i).schedule.endDate);
-					
-			System.out.println(resultSet.get(i).user.userID);
-			System.out.println(resultSet.get(i).user.userName);
-			System.out.println(resultSet.get(i).user.userURL);
+			// Set the search parameters
+			int resultsPerPage = 50;
 			
-			System.out.println(resultSet.get(i).coordinates.latitude);
-			System.out.println(resultSet.get(i).coordinates.longitude);
+			// Create a structure to store the response
+			ArrayList<EventsSearchResult> resultSet;
 			
-			System.out.println(resultSet.get(i).venue.venueName);
-			System.out.println(resultSet.get(i).venue.venueEmail);
-			System.out.println(resultSet.get(i).venue.venuePhone);
-			System.out.println(resultSet.get(i).venue.venueWebsite);
+			// Instantiate a LatestSearch object
+			LatestSearch search = new LatestSearch();
+		
+			// Pass in the number of results to be returned per page
+			resultSet = search.getLatestEvents(resultsPerPage);
 			
-			System.out.println("\n");
-			}
-		}
+			// Loop through the results and print attributes of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				System.out.println("Event ID: " + resultSet.get(i).details.eventID);
+				System.out.println("Event Name: " + resultSet.get(i).details.eventName);
+				System.out.println("Event URL: " + resultSet.get(i).details.eventURL);
+				System.out.println("Date Submitted: " + resultSet.get(i).details.submittedDate);
 	
-	catch (IllegalArgumentException e)
-		// Catch any cases where an invalid number of results per page has been specified
-		{
-		System.out.println(e.getMessage());
-		}	
-
-   	}
-}
+				System.out.println("Event Start Date: " + resultSet.get(i).schedule.startDate);
+				System.out.println("Event End Date: " + resultSet.get(i).schedule.endDate);
+						
+				System.out.println("Submitter User ID: " + resultSet.get(i).user.userID);
+				System.out.println("Submitter Username: " + resultSet.get(i).user.userName);
+				System.out.println("Submitter Profile Page: " + resultSet.get(i).user.userURL);
+				
+				System.out.println("Latitude: " + resultSet.get(i).coordinates.latitude);
+				System.out.println("Longitude: " + resultSet.get(i).coordinates.longitude);
+				
+				System.out.println("Venue Name: " + resultSet.get(i).venue.venueName);
+				System.out.println("Venue Email: " + resultSet.get(i).venue.venueEmail);
+				System.out.println("Venue Phone No.: " + resultSet.get(i).venue.venuePhone);
+				System.out.println("Venue Website: " + resultSet.get(i).venue.venueWebsite);
+				
+				System.out.println("Town: " + resultSet.get(i).town.townName);
+				System.out.println("Area: " + resultSet.get(i).area.areaName);
+				System.out.println("Country: " + resultSet.get(i).country.countryName);
+				System.out.println("\n");
+				}
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			System.out.println(e.getMessage());
+			}	
+		
+		catch (IllegalStateException e)
+			{
+			System.out.println(e.getMessage());
+			}	
+	
+		catch (IOException e)
+			{
+			System.out.println(e.getMessage());
+			}	
+	   	}
+	}

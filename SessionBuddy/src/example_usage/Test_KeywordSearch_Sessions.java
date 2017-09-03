@@ -1,6 +1,6 @@
 package example_usage;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import json_object_wrappers.SessionsSearchResult;
@@ -8,32 +8,68 @@ import main.KeywordSearch;
 
 
 public class Test_KeywordSearch_Sessions
-{
-public static void main(String[] args) throws MalformedURLException, RuntimeException
-   {
-	// Set the search parameters
-	String searchTerms = "London";
-	int resultsPerPage = 50;
+	{
 	
-	// Instantiate a TheSessionAPISearcher object
-	KeywordSearch search = new KeywordSearch();
-	
-	// Pass in the search parameters
-	ArrayList<SessionsSearchResult> resultSet = search.searchSessions(searchTerms, resultsPerPage);
-	
-	// Loop through the results and print each attribute of each individual result in the set
-	for (int i = 0; i < resultSet.size(); i++)
-		{
-		System.out.println(resultSet.get(i).details.sessionID);
-		System.out.println(resultSet.get(i).details.sessionURL);
-		System.out.println(resultSet.get(i).details.submittedDate);	
-				
-		System.out.println(resultSet.get(i).user.userID);
-		System.out.println(resultSet.get(i).user.userName);
-		System.out.println(resultSet.get(i).user.userURL);
+	public static void main(String[] args)
+	   {
+		// Set the search parameters
+		String searchTerms = "London";
+		int resultsPerPage = 50;
 		
-		System.out.println("\n");
-		}
-   	}
-
-}
+		// Instantiate a KeywordSearch object
+		KeywordSearch search = new KeywordSearch();
+		
+		try
+			{
+			// Perform the search by calling the searchSessions method and passing in the search parameters
+			ArrayList<SessionsSearchResult> resultSet = search.searchSessions(searchTerms, resultsPerPage);
+			
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				System.out.println("Session ID: " + resultSet.get(i).details.sessionID);
+				System.out.println("Session URL: " + resultSet.get(i).details.sessionURL);
+				System.out.println("Submitted Date: " + resultSet.get(i).details.submittedDate);	
+				
+				System.out.println("Venue ID: " + resultSet.get(i).venue.venueID);
+				System.out.println("Venue Name: " + resultSet.get(i).venue.venueName);
+				System.out.println("Venue Email: " + resultSet.get(i).venue.venueEmail);
+				System.out.println("Venue Phone No.: " + resultSet.get(i).venue.venuePhone);
+				System.out.println("Venue Website: " + resultSet.get(i).venue.venueWebsite);
+						
+				System.out.println("Submitter User ID: " + resultSet.get(i).user.userID);
+				System.out.println("Submitter User Name: " + resultSet.get(i).user.userName);
+				System.out.println("Submitter Profile Page: " + resultSet.get(i).user.userURL);
+				
+				System.out.println("Latitude: " + resultSet.get(i).coordinates.latitude);
+				System.out.println("Longitude: " + resultSet.get(i).coordinates.longitude);
+				
+				System.out.println("Town ID: " + resultSet.get(i).town.townID);
+				System.out.println("Town Name: " + resultSet.get(i).town.townName);
+				
+				System.out.println("Area ID: " + resultSet.get(i).area.areaID);
+				System.out.println("Area Name: " + resultSet.get(i).area.areaName);
+				
+				System.out.println("Area ID: " + resultSet.get(i).country.countryID);
+				System.out.println("Area Name: " + resultSet.get(i).country.countryName);
+				
+				System.out.println("\n");
+				}
+			}
+		
+			catch (IllegalArgumentException e)
+				{
+				e.printStackTrace();
+				}
+		
+			catch (IllegalStateException e)
+				{
+				e.printStackTrace();
+				}
+		
+			catch (IOException e)
+				{
+				e.printStackTrace();
+				}
+	   	}
+	}

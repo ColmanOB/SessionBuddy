@@ -6,12 +6,14 @@ package utils;
  * @author Colman O'B
  * @since 2017-09-03
  */
-
 public class StringCleaner 
 	{
-	
+	// TODO: Needs a clause to cater for cases where a & exists as part of an abc transcription
 	/**
-	 * An iterative method to catch any XML entities in the response from the API and replace them with their standard characters
+	 * An iterative method to catch any XML entities in the response from the API and replace them with their standard characters.
+	 * 
+	 * This is tricky because the API is not always consistent in how it returns XML entities.
+	 * e.g. an ampersand may be returned as "&amp;", "&#038;", "&#38;", or even an unescaped & character
 	 * 
 	 * @param inputString a string that may contain XML entities
 	 * @return a string with any XML entities replaced with their standard characters
@@ -42,17 +44,24 @@ public class StringCleaner
 	                i += 5;
 	            	} 
 	            
-	            if (inputString.startsWith("&#038;", i)) 
+	            else if (inputString.startsWith("&#038;", i)) 
 	            	{
 	                outputString.append('&');
 	                i += 6;
 	            	} 
 	            
-	            if (inputString.startsWith("&#38;", i)) 
+	            else if (inputString.startsWith("&#38;", i)) 
 	            	{
 	                outputString.append('&');
 	                i += 5;
 	            	} 
+	            
+	            // Cater for cases where an actual ampersand is sent in the response
+	            else if (inputString.startsWith("& ", i)) 
+	            	{
+	                outputString.append('&');
+	                i += 1;
+	            	}
 	            
 	            // Handle three different ways an apostrophe may be rendered
 	            else if (inputString.startsWith("&apos;", i)) 

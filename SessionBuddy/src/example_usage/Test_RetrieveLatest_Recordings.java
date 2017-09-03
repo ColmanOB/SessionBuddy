@@ -1,63 +1,64 @@
 package example_usage;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import json_object_wrappers.RecordingsSearchResult;
 import main.LatestSearch;
 
-/**
- * Example usage of the searchDiscussions method of RetrieveLatest class to search thesession.org API for a recording based on a set of search terms, and store the results.
- * 
- * This class does not test the iteration through multiple pages of JSON search results
- * 
- * @author Colman
- * @since 2017-08-13
- */
 
 class Test_RetrieveLatest_Recordings
-
-{
-public static void main(String[] args) throws MalformedURLException, RuntimeException
-   {
-	// Set the search parameters
-	int resultsPerPage = 50;
-	ArrayList<RecordingsSearchResult> resultSet;
-	
-	// Instantiate a RetrieveLatest object
-	LatestSearch search = new LatestSearch();
-	
-	try
-		{
-		// Pass in the search parameters
-		resultSet = search.getLatestRecordings(resultsPerPage);
-		
-		// Loop through the results and print each attribute of each individual result in the set
-		for (int i = 0; i < resultSet.size(); i++)
+	{
+	public static void main(String[] args)
+	   {
+		try
 			{
-			System.out.println(resultSet.get(i).recordingInfo.recordingID);
-			System.out.println(resultSet.get(i).recordingInfo.recordingName);
-			System.out.println(resultSet.get(i).recordingInfo.recordingDate);
-			System.out.println(resultSet.get(i).recordingInfo.recordingURL);
-
+			// Set the number of results to be returned per page
+			int resultsPerPage = 50;
+			
+			// Set up a structure to hold the response data
+			ArrayList<RecordingsSearchResult> resultSet;
+			
+			// Instantiate a LatestSearch object
+			LatestSearch search = new LatestSearch();
+			
+			// Call the getLatestRecordings method, passing in the number of results to be returned per page
+			resultSet = search.getLatestRecordings(resultsPerPage);
+				
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				System.out.println("Recording ID: " + resultSet.get(i).recordingInfo.recordingID);
+				System.out.println("Recording Name: " + resultSet.get(i).recordingInfo.recordingName);
+				System.out.println("Submission Date: " + resultSet.get(i).recordingInfo.recordingDate);
+				System.out.println("Recurding URL: " + resultSet.get(i).recordingInfo.recordingURL);
+							
+				System.out.println("Submitter User ID: " + resultSet.get(i).submitter.userID);
+				System.out.println("Submitter Username: " + resultSet.get(i).submitter.userName);
+				System.out.println("Submitter Profile Page: " + resultSet.get(i).submitter.userURL);
 					
-			System.out.println(resultSet.get(i).submitter.userID);
-			System.out.println(resultSet.get(i).submitter.userName);
-			System.out.println(resultSet.get(i).submitter.userURL);
-			
-			System.out.println(resultSet.get(i).artist.artistID);
-			System.out.println(resultSet.get(i).artist.artistName);
-			System.out.println(resultSet.get(i).artist.artistPageURL);
-			
-			System.out.println("\n");
+				System.out.println("Artist ID: " + resultSet.get(i).artist.artistID);
+				System.out.println("Artist Name: " + resultSet.get(i).artist.artistName);
+				System.out.println("Artist Page URL: " + resultSet.get(i).artist.artistPageURL);
+					
+				System.out.println("\n");
+				}
 			}
-		}
+		
+		catch (IllegalArgumentException e)
+			{
+			System.out.println(e.getMessage());
+			}	
+		
+		catch (IllegalStateException e)
+			{
+			System.out.println(e.getMessage());
+			}
 	
-	catch (IllegalArgumentException e)
-		// Catch any cases where an invalid number of results per page has been specified
-		{
-		System.out.println(e.getMessage());
-		}	
-
-   	}
-}
+		catch (IOException e)
+			{
+			System.out.println(e.getMessage());
+			}
+		
+	   	}
+	}
