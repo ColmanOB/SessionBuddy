@@ -13,12 +13,15 @@ import json_object_wrappers.DiscussionsSearchResult;
 import json_object_wrappers.EventDetails;
 import json_object_wrappers.EventSchedule;
 import json_object_wrappers.EventsSearchResult;
+import json_object_wrappers.LatestSettingDetails;
+import json_object_wrappers.LatestTuneDetails;
 import json_object_wrappers.RecordingDetails;
 import json_object_wrappers.RecordingsSearchResult;
 import json_object_wrappers.SessionDetails;
 import json_object_wrappers.SessionsSearchResult;
 import json_object_wrappers.Town;
 import json_object_wrappers.TuneDetails;
+import json_object_wrappers.TunesLatestResult;
 import json_object_wrappers.TunesSearchResult;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
@@ -26,6 +29,7 @@ import result_set_wrappers.DiscussionsSearchResultWrapper;
 import result_set_wrappers.EventsSearchResultWrapper;
 import result_set_wrappers.RecordingsSearchResultWrapper;
 import result_set_wrappers.SessionsSearchResultWrapper;
+import result_set_wrappers.TunesLatestWrapper;
 import result_set_wrappers.TunesSearchResultWrapper;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
@@ -46,7 +50,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException
 	 * @throws IOException
 	 */
-	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<TunesLatestResult> getLatestTunes(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -59,10 +63,10 @@ public class LatestSearch extends Search
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
+			TunesLatestWrapper parsedResults = jsonParser.parseResponse(TunesLatestWrapper.class);
 								
 			// This will hold each individual search result entry
-			ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
+			ArrayList<TunesLatestResult> resultSet = new ArrayList<TunesLatestResult>();
 			
 			resultSet = populateTunesSearchResult(parsedResults);
 			
@@ -88,7 +92,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException
 	 * @throws IOException
 	 */
-	public ArrayList<TunesSearchResult> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<TunesLatestResult> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -101,10 +105,10 @@ public class LatestSearch extends Search
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
+			TunesLatestWrapper parsedResults = jsonParser.parseResponse(TunesLatestWrapper.class);
 							
 			// This will hold each individual search result entry
-			ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
+			ArrayList<TunesLatestResult> resultSet = new ArrayList<TunesLatestResult>();
 			
 			resultSet = populateTunesSearchResult(parsedResults);
 			
@@ -462,23 +466,24 @@ public class LatestSearch extends Search
 	 * @param parsedResults a TunesSearchResultWrapper object that has already been created an populated
 	 * @return an ArrayList of TunesSearchResult objects
 	 */
-	private ArrayList<TunesSearchResult> populateTunesSearchResult(TunesSearchResultWrapper parsedResults)
+	private ArrayList<TunesLatestResult> populateTunesSearchResult(TunesLatestWrapper parsedResults)
 		{
-		ArrayList <TunesSearchResult> resultSet = new ArrayList <TunesSearchResult>();
+		ArrayList <TunesLatestResult> resultSet = new ArrayList <TunesLatestResult>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
 			
 		// Loop as many times as the count of tunes in the result set:
-		for(int i = 0; i < (parsedResults.tunes.length); i++)
+		for(int i = 0; i < parsedResults.settings.length; i++)
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
-			TuneDetails details = new TuneDetails(parsedResults.tunes[i].id, StringCleaner.cleanString(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
-			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringCleaner.cleanString(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
-						
+			LatestTuneDetails details = new LatestTuneDetails(parsedResults.settings[i].id, StringCleaner.cleanString(parsedResults.settings[i].url), parsedResults.settings[i].key, parsedResults.settings[i].date);
+			User submitter = new User(Integer.toString(parsedResults.settings[i].member.id), StringCleaner.cleanString(parsedResults.settings[i].member.name), parsedResults.settings[i].member.url);
+			LatestSettingDetails settingDetails = new LatestSettingDetails( Integer.toString(parsedResults.settings[i].details.id), parsedResults.settings[i].details.name, parsedResults.settings[i].details.url );
+			
 			// Instantiate a TunesSearchResult object & populate it
-			TunesSearchResult currentResult = new TunesSearchResult(details, submitter);
+			TunesLatestResult currentResult = new TunesLatestResult(details, submitter, settingDetails);
 			
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
