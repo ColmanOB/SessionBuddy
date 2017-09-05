@@ -5,7 +5,7 @@ package main;
  * This class is unlikely to ever be instantiated directly - it just holds common fields & methods shared by the three subclasses.
  * 
  * @author Colman
- *
+ * @since 2017-09-06
  */
 public class Search 
 	{

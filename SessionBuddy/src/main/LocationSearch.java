@@ -1,7 +1,6 @@
 package main;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.Area;
@@ -39,8 +38,9 @@ public class LocationSearch extends Search
 	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of SessionsByLocationResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -90,8 +90,9 @@ public class LocationSearch extends Search
 	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of SessionsByLocationResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -142,8 +143,9 @@ public class LocationSearch extends Search
 	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of EventsByLocationResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -195,8 +197,9 @@ public class LocationSearch extends Search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @param pageNumber specifies an individual page within a paginated JSON response
 	 * @return an ArrayList of EventsByLocationResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
@@ -319,8 +322,8 @@ public class LocationSearch extends Search
 	 * @param latitude the latitude of the point at the centre of the search
 	 * @param longitude the longitude of the point at the centre of the search
 	 * @param radius a radius around the coordinates, to be included in the search
-	 * @return
-	 * @throws IllegalArgumentException
+	 * @return true if the provided coordinates are a valid latitude and longitude, and the radius is less than 1000Km
+	 * @throws IllegalArgumentException if an invalid number is provided for either the latitude, longitude or radius
 	 */
 	private boolean validateCoordinates(String latitude, String longitude, String radius) throws IllegalArgumentException
 		{	

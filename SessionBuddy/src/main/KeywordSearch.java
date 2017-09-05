@@ -1,7 +1,6 @@
 package main;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.Area;
@@ -31,14 +30,13 @@ import utils.HttpRequestor;
 import utils.JsonResponseParser;
 import utils.StringCleaner;
 
-// TODO: Complete the Javadoc comments for all methods
 
 /**
  * Queries the API at thesession.org for a chosen type of data with search terms, and parses the response into an easily usable structure. 
  * To use this feature, first create a new KeywordSearch object, then call one of its methods to perform the actual search.
  * 
  * @author Colman O'B
- * @since 2017-08-26
+ * @since 2017-09-06
  *
  */
 public class KeywordSearch extends Search
@@ -50,6 +48,8 @@ public class KeywordSearch extends Search
 	 * @param resultsPerPage A number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
 	 * @return An ArrayList of TunesSearchResult objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -99,8 +99,9 @@ public class KeywordSearch extends Search
 	 * @param resultsPerPage a number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
 	 * @param pageNumber a particular page number within the JSON search results
 	 * @return An ArrayList of TunesSearchResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -148,8 +149,9 @@ public class KeywordSearch extends Search
 	 * @param searchTerms A string containing the search terms entered by the user
 	 * @param resultsPerPage A number indicating how many discussions should be returned per page.  The maximum permitted by the API is 50.
 	 * @return An ArrayList of DiscussionsSearchResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -200,8 +202,9 @@ public class KeywordSearch extends Search
 	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @param pageNumber Specify a particular page within the search results
 	 * @return An ArrayList of DiscussionsSearchResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -250,8 +253,9 @@ public class KeywordSearch extends Search
 	 * @param searchTerms The search terms provided by the user
 	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @return an ArrayList of EventsSearchResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -301,8 +305,9 @@ public class KeywordSearch extends Search
 	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @param pageNumber A specific page within a paginated JSON response
 	 * @return an ArrayList of EventsSearchResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -351,8 +356,9 @@ public class KeywordSearch extends Search
 	 * @param searchTerms The search terms provided by the user
 	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @return an ArrayList of RecordingsSearchResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -404,8 +410,9 @@ public class KeywordSearch extends Search
 	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @param pageNumber a specific page within a paginated JSON response
 	 * @return an ArrayList of RecordingsSearchResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -454,8 +461,9 @@ public class KeywordSearch extends Search
 	 * @param searchTerms The search terms provided by the user
 	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @return an ArrayList of SessionsSearchResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
@@ -506,8 +514,9 @@ public class KeywordSearch extends Search
 	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @param pageNumber a specific page within a paginated JSON response
 	 * @return an ArrayList of SessionsSearchResult objects
-	 * @throws RuntimeException 
-	 * @throws MalformedURLException 
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{

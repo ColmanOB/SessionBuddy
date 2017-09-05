@@ -1,7 +1,6 @@
 package main;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import json_object_wrappers.Area;
@@ -41,11 +40,14 @@ import utils.StringCleaner;
 public class LatestSearch extends Search 
 	{
 
+
 	/**
-	 * @param resultsPerPage
-	 * @return
-	 * @throws IllegalArgumentException
-	 * @throws IOException
+	 * Retrieves the most recently added tunes/settings on thesession.org, most recent first
+	 * 
+	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+	 * @return an ArrayList of TunesLatestResult objects
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<TunesLatestResult> getLatestTunes(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
@@ -83,11 +85,13 @@ public class LatestSearch extends Search
 		
 
 	/**
-	 * @param resultsPerPage
-	 * @param pageNumber
-	 * @return
-	 * @throws IllegalArgumentException
-	 * @throws IOException
+	 * An alternative version of getLatestTunes(), allowing the caller to specify a particular page in the response
+	 * 
+	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+	 * @param pageNumber a specific page within the JSON response
+	 * @return an ArrayList of TunesLatestResult objects
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<TunesLatestResult> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
@@ -125,12 +129,14 @@ public class LatestSearch extends Search
 	
 	
 	/**
-	 * @param resultsPerPage
-	 * @return
-	 * @throws IOException
-	 * @throws MalformedURLException
+	 * Retrieves the most recently added discussions on thesession.org, most recent first
+	 * 
+	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+	 * @return an ArrayList of DiscussionsSearchResult objects
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage) throws IOException, MalformedURLException
+	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -166,11 +172,13 @@ public class LatestSearch extends Search
 	
 
 	/**
-	 * @param resultsPerPage
-	 * @param pageNumber
-	 * @return
-	 * @throws IllegalArgumentException
-	 * @throws IOException
+	 * An alternative version of getLatestDiscussions(), allowing the caller to specify a page number within the response
+	 * 
+	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+	 * @param pageNumber a specific page within the JSON response
+	 * @return an ArrayList of DiscussionsSearchResult objects
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{

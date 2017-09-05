@@ -3,19 +3,18 @@ package utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-// TODO: Complete Javadoc comments, especially those re: exceptions thrown by methods
 		
 /**
  * Submits a HTTPS GET request to the API at https://thesession.org, using a URL in the format required by the API.
- * The JSON response is captured as a String and returned to the caller
+ * The JSON response is captured as a String and returned to the caller.
+ * A standard user of this library should never have to instantiate an object of this class directly - it is essentially a 'helper' class used by several other classes in the 'main' package.
  * 
  * @author Colman O'B
- * @since 2017-08-31
+ * @since 2017-09-05
  */
 public class HttpRequestor
 	{	
@@ -33,23 +32,26 @@ public class HttpRequestor
 	 * The item may be a tune, discussion, recording, session or event.
 	 * 
 	 * @param baseCategory the category of information to be retrieved, i.e. tunes, discussions, sessions, recordings or events
-	 * @param itemID the unique numeric ID of the item to be retrieved, generally known from a previous search
+	 * @param itemID the unique numeric ID of the item to be retrieved, which will generally be known from a previous search
 	 * @return the JSON response from the API as a String
-	 * @throws IOException
-	 * @throws MalformedURLException 
+	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
+	 * @throws MalformedURLException if an invalid URL has somehow been constructed
 	 */
 	public String submitItemByIDRequest(String baseCategory, String itemID) throws IOException, MalformedURLException
-		{
-		URL tuneSearchURL; 	// The correctly-formatted URL for the API request
-		String response;	// A string of JSON data returned from the API
-		
-		try 
+		{		
+		try
 			{
+			URL tuneSearchURL; 	// The correctly-formatted URL for the API request
+			String response;	// A string of JSON data retrieved from the API
+			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
 			tuneSearchURL = new URL(baseURL + baseCategory + "/" + itemID + "?" + "format=" + dataFormat);
 			
 			// Call the API using a private helper method and store the response
 			response = getAPIResponse(tuneSearchURL);
+			
+			// The JSON data returned by the API, stored as a single string
+			return response;
 			} 
 		
 		catch (MalformedURLException e) 
@@ -61,9 +63,6 @@ public class HttpRequestor
 			{
 			throw new IOException(e.getMessage());
 			}
-		
-		// The JSON data returned by the API, stored as a single string
-		return response;
 		}
 		
 	
@@ -74,16 +73,16 @@ public class HttpRequestor
 	 * @param baseCategory the category of information to be retrieved, i.e. tunes, discussions, sessions, recordings or events
 	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
 	 * @return the JSON response from the API as a String
-	 * @throws RuntimeException
-	 * @throws MalformedURLException 
+	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
+	 * @throws MalformedURLException if an invalid URL has somehow been constructed
 	 */
 	public String submitLatestRequest(String baseCategory, int resultsPerPage) throws IOException, MalformedURLException
-		{		
-		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
-		String response;	// A string of JSON data returned from the API
-		
+		{				
 		try 
-			{			
+			{	
+			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
+			String response;	// A string of JSON data returned from the API
+			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
 			tuneSearchURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
@@ -112,16 +111,16 @@ public class HttpRequestor
 	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
 	 * @param pageNumber a specific page within the JSON response
 	 * @return the JSON response from the API as a String
-	 * @throws RuntimeException
-	 * @throws MalformedURLException 
+	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
+	 * @throws MalformedURLException if an invalid URL has somehow been constructed
 	 */
 	public String submitLatestRequest(String baseCategory, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{		
-		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
-		String response;	// A string of JSON data returned from the API
-		
 		try 
-			{			
+			{
+			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
+			String response;	// A string of JSON data returned from the API
+			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
 			tuneSearchURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
 			
@@ -153,16 +152,16 @@ public class HttpRequestor
 	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
 	 * @param pageNumber an individual page number within a paginated JSON response
 	 * @return the JSON response from the API as a String
-	 * @throws RuntimeException
-	 * @throws MalformedURLException 
+	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
+	 * @throws MalformedURLException if an invalid URL has somehow been constructed
 	 */
 	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
-		{
-		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
-		String response;	// A string of JSON data returned from the API
-		
+		{		
 		try 
 			{
+			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
+			String response;	// A string of JSON data returned from the API
+			
 			// Clean up the search terms provided by the user using a private helper method
 			String searchTermsFormatted = formatSearchTerms(searchTermsInput);
 		
@@ -193,16 +192,16 @@ public class HttpRequestor
 	 * @param searchTermsInput
 	 * @param resultsPerPage
 	 * @return
-	 * @throws RuntimeException
-	 * @throws MalformedURLException
+	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
+	 * @throws MalformedURLException if an invalid URL has somehow been constructed
 	 */
 	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage) throws IOException, MalformedURLException
-		{		
-		URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
-		String response;	// A string of JSON data returned from the API
-		
+		{				
 		try 
 			{
+			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
+			String response;	// A string of JSON data returned from the API
+			
 			// Clean up the search terms provided by the user
 			String searchTermsFormatted = formatSearchTerms(searchTermsInput);
 			
@@ -235,16 +234,16 @@ public class HttpRequestor
 	 * @param longitude A string representation of the target location's latitude
 	 * @param radius The radius in kilometers around the coordinates that we wish to include in the search
 	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
-	 * @return A string representation of the location's latitude
-	 * @throws RuntimeException
-	 * @throws MalformedURLException 
+	 * @return the JSON response from the API as a String
+	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
+	 * @throws MalformedURLException if an invalid URL has somehow been constructed
 	 */
 	public String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage) throws RuntimeException, MalformedURLException
-		{		
-		String response;	// A string of JSON data returned from the API
-		
+		{			
 		try 
-			{			
+			{		
+			String response;	// A string of JSON data returned from the API
+			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
 			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + latLonOperator + latitude + "," + longitude + radiusOperator + radius + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
@@ -256,6 +255,9 @@ public class HttpRequestor
 			
 			// We have our search results.  Close the connection to https://thesession.org
 			connectionToURL.disconnect();		
+			
+			// Return the API response as one long string of JSON data
+			return response;
 			} 
 		
 		catch (MalformedURLException e) 
@@ -267,9 +269,6 @@ public class HttpRequestor
 			{
 			throw new RuntimeException(e.getMessage());
 			}
-		
-		// Return the API response as one long string of JSON data
-		return response;
 		}
 
 	
@@ -282,16 +281,16 @@ public class HttpRequestor
 	 * @param radius The radius in kilometers around the coordinates that we wish to include in the search
 	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
 	 * @param pageNumber A specific page number within a multi-page JSON response
-	 * @return A string representation of the location's latitude
-	 * @throws RuntimeException
-	 * @throws MalformedURLException 
+	 * @return the JSON response from the API as a String
+	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
+	 * @throws MalformedURLException if an invalid URL has somehow been constructed
 	 */
-	public String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws RuntimeException, MalformedURLException
-		{		
-		String response;	// A string of JSON data returned from the API
-		
+	public String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+		{			
 		try 
 			{
+			String response;	// A string of JSON data returned from the API
+			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
 			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + latLonOperator + latitude + "," + longitude + radiusOperator + radius + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
 
@@ -300,6 +299,9 @@ public class HttpRequestor
 			
 			// Store the response from the API
 			response = captureResponse(connectionToURL);
+			
+			// Return the API response as one long string of JSON data
+			return response;
 			} 
 		
 		catch (MalformedURLException e) 
@@ -309,11 +311,8 @@ public class HttpRequestor
 	
 		catch (IOException e) 
 			{
-			throw new RuntimeException(e.getMessage());
+			throw new IOException(e.getMessage());
 			}
-		
-		// Return the API response as one long string of JSON data
-		return response;
 		}
 
 	
@@ -322,36 +321,35 @@ public class HttpRequestor
 	 * 
 	 * @param tuneSearchURL a complete URL in the format required by the API at https://thesession.org
 	 * @return the HTTPS connection to the API, from which the API response can be read
-	 * @throws IOException
-	 * @throws RuntimeException
+	 * @throws IOException if there is a problem setting up the connection or reading data from it
 	 */
-	private HttpURLConnection buildConnection(URL tuneSearchURL) throws IOException, RuntimeException
-		{
-		HttpURLConnection connectionToURL;
-		
+	private HttpURLConnection buildConnection(URL tuneSearchURL) throws IOException
+		{		
 		try 
 			{
+			HttpURLConnection connectionToURL;
+			
 			// Make the HTTP(S) connection to thesession.org
 			connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
+			
+			// Set parameters for the HTTPS connection
+			connectionToURL.setRequestMethod("GET");
+			connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
+			
+			//Assuming any HTTP response code other than 200 is a problem to be notified to the user
+			if (connectionToURL.getResponseCode() != 200) 
+				{	
+				throw new IOException("HTTP error " + connectionToURL.getResponseCode());
+				}
+			
+			// Return the HTTPS connection to the caller, in order to read the data from it
+			return connectionToURL;
 			} 
 		
 		catch (IOException e) 
 			{
 			throw new IOException(e.getMessage());
 			}
-		
-		// Set parameters for the HTTPS connection
-		connectionToURL.setRequestMethod("GET");
-		connectionToURL.setRequestProperty("Accept", "application/" + dataFormat);
-	
-		//Assuming anything other than 200 is a problem to be notified to the user
-		if (connectionToURL.getResponseCode() != 200) 
-			{	
-			throw new RuntimeException("A problem has occurred - HTTP error " + connectionToURL.getResponseCode());
-			}
-		
-		// Return the HTTPS connection to the caller
-		return connectionToURL;
 		}
 	
 	
@@ -360,24 +358,32 @@ public class HttpRequestor
 	 * 
 	 * @param connectionToURL a HttpURLConnection to API, built with a URL in the format required by the API
 	 * @return a String containing either the entire JSON response from the API, or a specific page of the response
-	 * @throws UnsupportedEncodingException
-	 * @throws IOException
+	 * @throws IOException if there is a problem setting up the connection or reading data from it
 	 */
-	private String captureResponse(HttpURLConnection connectionToURL) throws UnsupportedEncodingException, IOException
+	private String captureResponse(HttpURLConnection connectionToURL) throws IOException
 		{
-		BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
-		
-		// Use a StringBuilder to build a string from the data in the BufferedReader
-		String searchResults;
-		StringBuilder builder = new StringBuilder();
-		
-		while ((searchResults = inputReader.readLine()) != null) 
-			{ 
-			builder.append(searchResults);	
+		try
+			{
+			// Create an input stream reader to read the API response
+			BufferedReader inputReader = new BufferedReader(new InputStreamReader((connectionToURL.getInputStream()),"utf-8"));
+			
+			// Read the response line by line, using a StringBuilder to put it all together
+			String resultCurrentLine;
+			StringBuilder builder = new StringBuilder();
+			
+			while ((resultCurrentLine = inputReader.readLine()) != null) 
+				{ 
+				builder.append(resultCurrentLine);	
+				}
+			
+			// Return the completed String containing the entire response from the API to the caller
+			return builder.toString();
 			}
 		
-		// Create a String from the StringBuilder and return it to the caller
-		return builder.toString();
+		catch (IOException e)
+			{
+			throw new IOException(e.getMessage());
+			}		
 		}
 	
 	
@@ -401,22 +407,25 @@ public class HttpRequestor
 	 * 
 	 * @param tuneSearchURL the URL used when querying the API
 	 * @return the entire JSON response to the API query, returned as a single String
-	 * @throws IOException 
+	 * @throws IOException if there was a problem establishing the connection to the API or reading a response
 	 */
 	private String getAPIResponse(URL tuneSearchURL) throws MalformedURLException, IOException
 		{	
-		String response;	// A string of JSON data returned from the API
-		
 		try
 			{
-			// Use the buildConnection method to create the HTTPS connection
+			String response;	// A string of JSON data returned from the API
+			
+			// Create the HTTPS connection
 			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
 				
-			// Store the response from the API
+			// Store the response from the API as a String
 			response = captureResponse(connectionToURL);
 			
-			// We have our search results.  Close the connection to https://thesession.org
+			// We have our search results and can close the connection to the API.
 			connectionToURL.disconnect();		
+			
+			// Return the API response as one long string of JSON data
+			return response;
 			}
 	
 		catch (MalformedURLException e) 
@@ -428,9 +437,6 @@ public class HttpRequestor
 			{
 			throw new IOException(e.getMessage());
 			}
-	
-		// Return the API response as one long string of JSON data
-		return response;
 		}
 	
 	}
