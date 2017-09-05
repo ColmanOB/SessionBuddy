@@ -20,9 +20,7 @@ import json_object_wrappers.RecordingsSearchResult;
 import json_object_wrappers.SessionDetails;
 import json_object_wrappers.SessionsSearchResult;
 import json_object_wrappers.Town;
-import json_object_wrappers.TuneDetails;
 import json_object_wrappers.TunesLatestResult;
-import json_object_wrappers.TunesSearchResult;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
 import result_set_wrappers.DiscussionsSearchResultWrapper;
@@ -30,7 +28,6 @@ import result_set_wrappers.EventsSearchResultWrapper;
 import result_set_wrappers.RecordingsSearchResultWrapper;
 import result_set_wrappers.SessionsSearchResultWrapper;
 import result_set_wrappers.TunesLatestWrapper;
-import result_set_wrappers.TunesSearchResultWrapper;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
 import utils.StringCleaner;
@@ -478,9 +475,9 @@ public class LatestSearch extends Search
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
-			LatestTuneDetails details = new LatestTuneDetails(parsedResults.settings[i].id, StringCleaner.cleanString(parsedResults.settings[i].url), parsedResults.settings[i].key, parsedResults.settings[i].date);
+			LatestTuneDetails details = new LatestTuneDetails(parsedResults.settings[i].id, parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].date);
 			User submitter = new User(Integer.toString(parsedResults.settings[i].member.id), StringCleaner.cleanString(parsedResults.settings[i].member.name), parsedResults.settings[i].member.url);
-			LatestSettingDetails settingDetails = new LatestSettingDetails( Integer.toString(parsedResults.settings[i].details.id), parsedResults.settings[i].details.name, parsedResults.settings[i].details.url );
+			LatestSettingDetails settingDetails = new LatestSettingDetails( Integer.toString(parsedResults.settings[i].tune.id), parsedResults.settings[i].tune.name, parsedResults.settings[i].tune.url );
 			
 			// Instantiate a TunesSearchResult object & populate it
 			TunesLatestResult currentResult = new TunesLatestResult(details, submitter, settingDetails);

@@ -30,7 +30,7 @@ public class TunesLatestWrapper
 		public String key;
 		public SubmitterDetails member; // Details of thesession.org user who submitted the tune
 		public String date;
-		public TuneDetails details;
+		public TuneDetails tune;
 
 		/**
 		 * A wrapper for the details of the "member" within each "tune" in the result set

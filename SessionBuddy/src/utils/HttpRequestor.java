@@ -35,7 +35,7 @@ public class HttpRequestor
 	 * @param baseCategory the category of information to be retrieved, i.e. tunes, discussions, sessions, recordings or events
 	 * @param itemID the unique numeric ID of the item to be retrieved, generally known from a previous search
 	 * @return the JSON response from the API as a String
-	 * @throws RuntimeException
+	 * @throws IOException
 	 * @throws MalformedURLException 
 	 */
 	public String submitItemByIDRequest(String baseCategory, String itemID) throws IOException, MalformedURLException
