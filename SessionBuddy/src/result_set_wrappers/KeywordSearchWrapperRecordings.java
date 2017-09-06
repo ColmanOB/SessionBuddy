@@ -8,7 +8,7 @@ package result_set_wrappers;
  * @author Colman O'B
  * @since 2017-01-28
  */
-public class RecordingsSearchResultWrapper
+public class KeywordSearchWrapperRecordings
 	{
 	public String q;		// The search query submitted by the user
 	public String pages;	// The number of pages in the result set

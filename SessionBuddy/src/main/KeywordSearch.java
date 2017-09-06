@@ -21,11 +21,11 @@ import json_object_wrappers.TuneDetails;
 import json_object_wrappers.TunesSearchResult;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
-import result_set_wrappers.DiscussionsSearchResultWrapper;
-import result_set_wrappers.EventsSearchResultWrapper;
-import result_set_wrappers.RecordingsSearchResultWrapper;
-import result_set_wrappers.SessionsSearchResultWrapper;
-import result_set_wrappers.TunesSearchResultWrapper;
+import result_set_wrappers.KeywordSearchWrapperDiscussions;
+import result_set_wrappers.KeywordSearchWrapperEvents;
+import result_set_wrappers.KeywordSearchWrapperRecordings;
+import result_set_wrappers.KeywordSearchWrapperSessions;
+import result_set_wrappers.KeywordSearchWrapperTunes;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
 import utils.StringCleaner;
@@ -64,7 +64,7 @@ public class KeywordSearch extends Search
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
+			KeywordSearchWrapperTunes parsedResults = jsonParser.parseResponse(KeywordSearchWrapperTunes.class);
 			
 			// Set up the structure that will hold the parsed response from the API
 			ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
@@ -116,7 +116,7 @@ public class KeywordSearch extends Search
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			TunesSearchResultWrapper parsedResults = jsonParser.parseResponse(TunesSearchResultWrapper.class);
+			KeywordSearchWrapperTunes parsedResults = jsonParser.parseResponse(KeywordSearchWrapperTunes.class);
 			
 			// Set up the structure that will hold the parsed response from the API
 			ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
@@ -166,7 +166,7 @@ public class KeywordSearch extends Search
 				
 			// Create a DiscussionSearchParser and DiscussionSearchResultWrapper to parse the raw JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
+			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
 			
 			// This will hold each individual search result entry
 			ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
@@ -219,7 +219,7 @@ public class KeywordSearch extends Search
 			
 			// Prepare the classes needed to parse the the JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			DiscussionsSearchResultWrapper parsedResults = jsonParser.parseResponse(DiscussionsSearchResultWrapper.class);
+			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
 			
 			// This will hold each individual search result entry
 			ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
@@ -270,7 +270,7 @@ public class KeywordSearch extends Search
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
+			KeywordSearchWrapperEvents parsedResults = jsonParser.parseResponse(KeywordSearchWrapperEvents.class);
 				
 			// This will hold each individual search result entry
 			ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
@@ -322,7 +322,7 @@ public class KeywordSearch extends Search
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			EventsSearchResultWrapper parsedResults = jsonParser.parseResponse(EventsSearchResultWrapper.class);
+			KeywordSearchWrapperEvents parsedResults = jsonParser.parseResponse(KeywordSearchWrapperEvents.class);
 			
 			// This will hold each individual search result entry
 			ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
@@ -373,7 +373,7 @@ public class KeywordSearch extends Search
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
+			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
 				
 			// This will hold each individual search result entry
 			ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
@@ -427,7 +427,7 @@ public class KeywordSearch extends Search
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			RecordingsSearchResultWrapper parsedResults = jsonParser.parseResponse(RecordingsSearchResultWrapper.class);
+			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
 				
 			// This will hold each individual search result entry
 			ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
@@ -478,7 +478,7 @@ public class KeywordSearch extends Search
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
+			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
 			
 			// This will hold each individual search result entry
 			ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
@@ -531,7 +531,7 @@ public class KeywordSearch extends Search
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			SessionsSearchResultWrapper parsedResults = jsonParser.parseResponse(SessionsSearchResultWrapper.class);
+			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
 			
 			// This will hold each individual search result entry
 			ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
@@ -566,7 +566,7 @@ public class KeywordSearch extends Search
 	 * @param parsedResults a TunesSearchResultWrapper object that has already been created an populated
 	 * @return an ArrayList of TunesSearchResult objects
 	 */
-	private ArrayList<TunesSearchResult> populateTunesSearchResult(TunesSearchResultWrapper parsedResults)
+	private ArrayList<TunesSearchResult> populateTunesSearchResult(KeywordSearchWrapperTunes parsedResults)
 		{
 		ArrayList <TunesSearchResult> resultSet = new ArrayList <TunesSearchResult>();
 		
@@ -599,7 +599,7 @@ public class KeywordSearch extends Search
 	 * @param parsedResults an existing populated DiscussionsSearchResultWrapper object
 	 * @return an ArrayList of DiscussionsSearchResult objects
 	 */
-	private ArrayList<DiscussionsSearchResult> populateDiscussionsSearchResult(DiscussionsSearchResultWrapper parsedResults)
+	private ArrayList<DiscussionsSearchResult> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
 		{
 		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
 		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
@@ -633,7 +633,7 @@ public class KeywordSearch extends Search
 	 * @param parsedResults an EventsSearchResultWrapper object that has already been populated
 	 * @return an ArrayList of EventSearchResult objects
 	 */
-	private ArrayList<EventsSearchResult> populateEventsSearchResult(EventsSearchResultWrapper parsedResults)	
+	private ArrayList<EventsSearchResult> populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)	
 		{
 		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
 		
@@ -673,7 +673,7 @@ public class KeywordSearch extends Search
 	 * @param parsedResults a RecordingsSearchResultWrapper object that has already been populated
 	 * @return an ArrayList of RecordingsSearchResult objects
 	 */
-	private ArrayList<RecordingsSearchResult> populateRecordingsSearchResult(RecordingsSearchResultWrapper parsedResults)	
+	private ArrayList<RecordingsSearchResult> populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)	
 		{
 		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
 		
@@ -707,7 +707,7 @@ public class KeywordSearch extends Search
 	 * @param parsedResults a SessionSearchResultWrapper object that has been populated
 	 * @return an ArrayList of SessionsSearchResult objects
 	 */
-	private ArrayList<SessionsSearchResult> populateSessionsSearchResult(SessionsSearchResultWrapper parsedResults)	
+	private ArrayList<SessionsSearchResult> populateSessionsSearchResult(KeywordSearchWrapperSessions parsedResults)	
 		{
 		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
 		

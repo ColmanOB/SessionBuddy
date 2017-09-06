@@ -9,7 +9,7 @@ package result_set_wrappers;
  * @author Colman O'B
  * @since 2017-01-26
  */
-public class TunesSearchResultWrapper 
+public class KeywordSearchWrapperTunes 
 	{
 	public String q;		// The user's search terms
 	public String pages;	// Number of pages in the result set

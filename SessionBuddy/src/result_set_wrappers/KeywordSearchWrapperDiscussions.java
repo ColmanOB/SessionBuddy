@@ -9,7 +9,7 @@ package result_set_wrappers;
  * @author Colman O'B
  * @since 2017-08-13
  */
-public class DiscussionsSearchResultWrapper
+public class KeywordSearchWrapperDiscussions
 	{
 	public String q;		// The search query submitted by the user
 	public String pages;	// The number of pages in the result set
