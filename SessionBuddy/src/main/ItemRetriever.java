@@ -38,13 +38,14 @@ import utils.StringCleaner;
 // TODO: Refactor the methods in this class, extract some 'helper' methods
 // TODO: Fix up all the comments in this class, including Javadoc comments
 
-
 /**
+ * Retrieves the data for a single item from the session.org.  The item may be a tune, discussion, recording, session or event
+ * 
  * @author Colman
- *
+ * @since 2017-09-06
  */
 public class ItemRetriever 
-{
+	{
 	/**
 	 * @param recordingID
 	 * @return
