@@ -8,7 +8,7 @@ package result_set_wrappers;
  * @author Colman O'B
  * @since 2017-08-22
  */
-public class SessionsByLocationWrapper
+public class LocationSearchWrapperSessions
 	{
 	public String latlon;	// The latitude and longitude specified in the request, separated by a comma
 	public String radius;	// No. of Km radius to include around the specified coordinates

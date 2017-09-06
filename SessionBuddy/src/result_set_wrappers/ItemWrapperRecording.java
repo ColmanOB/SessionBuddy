@@ -1,7 +1,7 @@
 package result_set_wrappers;
 
 
-public class RecordingByIDWrapper 
+public class ItemWrapperRecording 
 	{
 	//Purpose: A wrapper class for a recording, including its metadata and track listing
 	//The fields and nested structure follow the format of the JSON structure of the search results

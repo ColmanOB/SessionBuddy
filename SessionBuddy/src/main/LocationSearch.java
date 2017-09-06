@@ -14,8 +14,8 @@ import json_object_wrappers.SessionsByLocationResult;
 import json_object_wrappers.Town;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
-import result_set_wrappers.EventsByLocationWrapper;
-import result_set_wrappers.SessionsByLocationWrapper;
+import result_set_wrappers.LocationSearchWrapperEvents;
+import result_set_wrappers.LocationSearchWrapperSessions;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
 import utils.StringCleaner;
@@ -56,7 +56,7 @@ public class LocationSearch extends Search
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			SessionsByLocationWrapper parsedResults = jsonParser.parseResponse(SessionsByLocationWrapper.class);
+			LocationSearchWrapperSessions parsedResults = jsonParser.parseResponse(LocationSearchWrapperSessions.class);
 				
 			// This will hold each individual search result entry
 			ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
@@ -108,7 +108,7 @@ public class LocationSearch extends Search
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			SessionsByLocationWrapper parsedResults = jsonParser.parseResponse(SessionsByLocationWrapper.class);
+			LocationSearchWrapperSessions parsedResults = jsonParser.parseResponse(LocationSearchWrapperSessions.class);
 				
 			// This will hold each individual search result entry
 			ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
@@ -161,7 +161,7 @@ public class LocationSearch extends Search
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			EventsByLocationWrapper parsedResults = jsonParser.parseResponse(EventsByLocationWrapper.class);
+			LocationSearchWrapperEvents parsedResults = jsonParser.parseResponse(LocationSearchWrapperEvents.class);
 				
 			// This will hold each individual search result entry
 			ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();
@@ -215,7 +215,7 @@ public class LocationSearch extends Search
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			EventsByLocationWrapper parsedResults = jsonParser.parseResponse(EventsByLocationWrapper.class);
+			LocationSearchWrapperEvents parsedResults = jsonParser.parseResponse(LocationSearchWrapperEvents.class);
 				
 			// This will hold each individual search result entry
 			ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();
@@ -243,7 +243,7 @@ public class LocationSearch extends Search
 	 * @param parsedResults a SessionsByLocationWrapper object that has already been created and populated
 	 * @return an ArrayList of SessionsByLoctionResult objects
 	 */
-	private ArrayList<SessionsByLocationResult> populateSessionsByLocationResult(SessionsByLocationWrapper parsedResults)	
+	private ArrayList<SessionsByLocationResult> populateSessionsByLocationResult(LocationSearchWrapperSessions parsedResults)	
 		{	
 		// This will hold each individual search result entry
 		ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
@@ -282,7 +282,7 @@ public class LocationSearch extends Search
 	 * @param parsedResults an EventsByLocationWrapper containing response data form the API
 	 * @return an ArrayList of EventsByLocationResult objects
 	 */
-	private ArrayList<EventsByLocationResult> populateEventsByLocationResult(EventsByLocationWrapper parsedResults)	
+	private ArrayList<EventsByLocationResult> populateEventsByLocationResult(LocationSearchWrapperEvents parsedResults)	
 		{	
 		// This will hold each individual search result entry
 		ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();

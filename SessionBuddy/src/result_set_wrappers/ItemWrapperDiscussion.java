@@ -1,7 +1,7 @@
 package result_set_wrappers;
 
 
-public class DiscussionByIDWrapper 
+public class ItemWrapperDiscussion 
 	{
 	//Purpose: A wrapper class for a discussion, including the list of comments in the discussion from thesession.org API
 	//The fields and nested structure follow the format of the JSON structure of the search results

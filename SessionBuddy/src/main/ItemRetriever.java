@@ -26,11 +26,11 @@ import json_object_wrappers.TuneRecord;
 import json_object_wrappers.TuneSetting;
 import json_object_wrappers.User;
 import json_object_wrappers.Venue;
-import result_set_wrappers.DiscussionByIDWrapper;
-import result_set_wrappers.EventByIDWrapper;
-import result_set_wrappers.RecordingByIDWrapper;
-import result_set_wrappers.SessionByIDWrapper;
-import result_set_wrappers.TuneByIDWrapper;
+import result_set_wrappers.ItemWrapperDiscussion;
+import result_set_wrappers.ItemWrapperEvent;
+import result_set_wrappers.ItemWrapperRecording;
+import result_set_wrappers.ItemWrapperSession;
+import result_set_wrappers.ItemWrapperTune;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
 import utils.StringCleaner;
@@ -62,7 +62,7 @@ public class ItemRetriever
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			RecordingByIDWrapper parsedResults = jsonParser.parseResponse(RecordingByIDWrapper.class);
+			ItemWrapperRecording parsedResults = jsonParser.parseResponse(ItemWrapperRecording.class);
 			
 			// Extract each element from the recording entry in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -162,7 +162,7 @@ public class ItemRetriever
 		
 		// Parse the returned JSON into a pre-defined wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		DiscussionByIDWrapper parsedResults = jsonParser.parseResponse(DiscussionByIDWrapper.class);
+		ItemWrapperDiscussion parsedResults = jsonParser.parseResponse(ItemWrapperDiscussion.class);
 	
 		// Extract each element from the tune entry in the JSON response
 		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -222,7 +222,7 @@ public class ItemRetriever
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		TuneByIDWrapper parsedResults = jsonParser.parseResponse(TuneByIDWrapper.class);
+		ItemWrapperTune parsedResults = jsonParser.parseResponse(ItemWrapperTune.class);
 	
 		// Extract each element from the tune entry in the JSON response
 		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -309,7 +309,7 @@ public class ItemRetriever
 			
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		SessionByIDWrapper parsedResults = jsonParser.parseResponse(SessionByIDWrapper.class);
+		ItemWrapperSession parsedResults = jsonParser.parseResponse(ItemWrapperSession.class);
 	
 		// Extract each element from the tune entry in the JSON response
 		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -382,7 +382,7 @@ public class ItemRetriever
 			}
 		// Parse the returned JSON into a wrapper class to allow access to all elements
 		JsonResponseParser jsonParser = new JsonResponseParser(response);
-		EventByIDWrapper parsedResults = jsonParser.parseResponse(EventByIDWrapper.class);
+		ItemWrapperEvent parsedResults = jsonParser.parseResponse(ItemWrapperEvent.class);
 	
 		// Extract each element from the tune entry in the JSON response
 		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response

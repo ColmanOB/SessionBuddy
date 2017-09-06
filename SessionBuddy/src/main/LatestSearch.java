@@ -26,7 +26,7 @@ import result_set_wrappers.DiscussionsSearchResultWrapper;
 import result_set_wrappers.EventsSearchResultWrapper;
 import result_set_wrappers.RecordingsSearchResultWrapper;
 import result_set_wrappers.SessionsSearchResultWrapper;
-import result_set_wrappers.TunesLatestWrapper;
+import result_set_wrappers.LatestWrapperTunes;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
 import utils.StringCleaner;
@@ -64,7 +64,7 @@ public class LatestSearch extends Search
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			TunesLatestWrapper parsedResults = jsonParser.parseResponse(TunesLatestWrapper.class);
+			LatestWrapperTunes parsedResults = jsonParser.parseResponse(LatestWrapperTunes.class);
 								
 			// This will hold each individual search result entry
 			ArrayList<TunesLatestResult> resultSet = new ArrayList<TunesLatestResult>();
@@ -108,7 +108,7 @@ public class LatestSearch extends Search
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			TunesLatestWrapper parsedResults = jsonParser.parseResponse(TunesLatestWrapper.class);
+			LatestWrapperTunes parsedResults = jsonParser.parseResponse(LatestWrapperTunes.class);
 							
 			// This will hold each individual search result entry
 			ArrayList<TunesLatestResult> resultSet = new ArrayList<TunesLatestResult>();
@@ -485,7 +485,7 @@ public class LatestSearch extends Search
 	 * @param parsedResults a TunesSearchResultWrapper object that has already been created an populated
 	 * @return an ArrayList of TunesSearchResult objects
 	 */
-	private ArrayList<TunesLatestResult> populateTunesSearchResult(TunesLatestWrapper parsedResults)
+	private ArrayList<TunesLatestResult> populateTunesSearchResult(LatestWrapperTunes parsedResults)
 		{
 		ArrayList <TunesLatestResult> resultSet = new ArrayList <TunesLatestResult>();
 		

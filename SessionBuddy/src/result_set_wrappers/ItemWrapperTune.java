@@ -1,6 +1,6 @@
 package result_set_wrappers;
 
-public class TuneByIDWrapper 
+public class ItemWrapperTune 
 {
 	//Purpose: A wrapper class for a tune entry, including the list of settings of one particular tune returned from thesession.org API
 	//The fields and nested structure follow the format of the JSON structure of the search results
