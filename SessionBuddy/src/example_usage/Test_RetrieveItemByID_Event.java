@@ -2,9 +2,8 @@ package example_usage;
 
 import java.io.IOException;
 
-import json_object_wrappers.EventByIDResult;
-
 import main.ItemRetriever;
+import wrappers_result_sets.ItemResultEvent;
 
 public class Test_RetrieveItemByID_Event 
 {
@@ -19,7 +18,7 @@ public class Test_RetrieveItemByID_Event
 			ItemRetriever search = new ItemRetriever();
 			
 			// Perform the search and pass in the identifier for the event we want to retrieve
-			EventByIDResult resultSet = search.getEventByID(eventID);
+			ItemResultEvent resultSet = search.getEventByID(eventID);
 			
 			System.out.println("Event ID: " + resultSet.eventDetails.eventID);
 			System.out.println("Event Name: " + resultSet.eventDetails.eventName);

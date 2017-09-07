@@ -1,8 +1,9 @@
 package example_usage;
 
 import java.io.IOException;
-import json_object_wrappers.TuneByIDResult;
+
 import main.ItemRetriever;
+import wrappers_result_sets.ItemResultTune;
 
 public class Test_RetrieveItemByID_Tune 
 {
@@ -18,7 +19,7 @@ public class Test_RetrieveItemByID_Tune
 			ItemRetriever search = new ItemRetriever();
 			
 			// Pass in the parameters for the tune we want to retrieve
-			TuneByIDResult resultSet = search.getTuneByID(tuneID);
+			ItemResultTune resultSet = search.getTuneByID(tuneID);
 			
 			// Retrieve all the general tune details
 			System.out.println("Tune ID: " + resultSet.tuneDetails.tuneID);

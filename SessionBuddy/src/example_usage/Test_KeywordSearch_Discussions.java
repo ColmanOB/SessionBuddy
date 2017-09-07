@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import json_object_wrappers.DiscussionsSearchResult;
 import main.KeywordSearch;
+import wrappers_result_sets.SearchResultsDiscussions;
 
 /**
  * Example usage of the searchDiscussions method of KeywordSearch class to search thesession.org API for a discussion based on a set of search terms, and store the results.
@@ -25,7 +25,7 @@ public class Test_KeywordSearch_Discussions
 		int resultsPerPage = 10;
 		
 		// Create a structure to hold the data from the response
-		ArrayList<DiscussionsSearchResult> resultSet;
+		ArrayList<SearchResultsDiscussions> resultSet;
 		
 		// Instantiate a KeywordSearch object
 		KeywordSearch search = new KeywordSearch();

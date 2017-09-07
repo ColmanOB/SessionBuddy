@@ -3,32 +3,32 @@ package main;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import json_object_wrappers.Area;
-import json_object_wrappers.Artist;
-import json_object_wrappers.Coordinates;
-import json_object_wrappers.Country;
-import json_object_wrappers.DiscussionDetails;
-import json_object_wrappers.DiscussionsSearchResult;
-import json_object_wrappers.EventDetails;
-import json_object_wrappers.EventSchedule;
-import json_object_wrappers.EventsSearchResult;
-import json_object_wrappers.RecordingDetails;
-import json_object_wrappers.RecordingsSearchResult;
-import json_object_wrappers.SessionDetails;
-import json_object_wrappers.SessionsSearchResult;
-import json_object_wrappers.Town;
-import json_object_wrappers.TuneDetails;
-import json_object_wrappers.TunesSearchResult;
-import json_object_wrappers.User;
-import json_object_wrappers.Venue;
-import result_set_wrappers.KeywordSearchWrapperDiscussions;
-import result_set_wrappers.KeywordSearchWrapperEvents;
-import result_set_wrappers.KeywordSearchWrapperRecordings;
-import result_set_wrappers.KeywordSearchWrapperSessions;
-import result_set_wrappers.KeywordSearchWrapperTunes;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
 import utils.StringCleaner;
+import wrappers_granular_objects.Area;
+import wrappers_granular_objects.Artist;
+import wrappers_granular_objects.Coordinates;
+import wrappers_granular_objects.Country;
+import wrappers_granular_objects.DiscussionDetails;
+import wrappers_granular_objects.EventDetails;
+import wrappers_granular_objects.EventSchedule;
+import wrappers_granular_objects.RecordingDetails;
+import wrappers_granular_objects.SessionDetails;
+import wrappers_granular_objects.Town;
+import wrappers_granular_objects.TuneDetails;
+import wrappers_granular_objects.User;
+import wrappers_granular_objects.Venue;
+import wrappers_json_response.KeywordSearchWrapperDiscussions;
+import wrappers_json_response.KeywordSearchWrapperEvents;
+import wrappers_json_response.KeywordSearchWrapperRecordings;
+import wrappers_json_response.KeywordSearchWrapperSessions;
+import wrappers_json_response.KeywordSearchWrapperTunes;
+import wrappers_result_sets.SearchResultEvents;
+import wrappers_result_sets.SearchResultSessions;
+import wrappers_result_sets.SearchResultTunes;
+import wrappers_result_sets.SearchResultsDiscussions;
+import wrappers_result_sets.SearchResultsRecordings;
 
 
 /**
@@ -51,7 +51,7 @@ public class KeywordSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultTunes> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -67,7 +67,7 @@ public class KeywordSearch extends Search
 			KeywordSearchWrapperTunes parsedResults = jsonParser.parseResponse(KeywordSearchWrapperTunes.class);
 			
 			// Set up the structure that will hold the parsed response from the API
-			ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
+			ArrayList<SearchResultTunes> resultSet = new ArrayList<SearchResultTunes>();
 			
 			// Use a private helper method to populate the ArrayList of TunesSearchResult objects
 			resultSet = populateTunesSearchResult(parsedResults);
@@ -103,7 +103,7 @@ public class KeywordSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<TunesSearchResult> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultTunes> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -119,7 +119,7 @@ public class KeywordSearch extends Search
 			KeywordSearchWrapperTunes parsedResults = jsonParser.parseResponse(KeywordSearchWrapperTunes.class);
 			
 			// Set up the structure that will hold the parsed response from the API
-			ArrayList<TunesSearchResult> resultSet = new ArrayList<TunesSearchResult>();
+			ArrayList<SearchResultTunes> resultSet = new ArrayList<SearchResultTunes>();
 			
 			// Use a private helper method to populate the ArrayList of TunesSearchResult objects
 			resultSet = populateTunesSearchResult(parsedResults);
@@ -153,7 +153,7 @@ public class KeywordSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultsDiscussions> searchDiscussions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -169,7 +169,7 @@ public class KeywordSearch extends Search
 			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
 			
 			// This will hold each individual search result entry
-			ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
+			ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
 			
 			// Use a private helper method to populate the ArrayList of DiscussionsSearchResult objects
 			resultSet = populateDiscussionsSearchResult(parsedResults);
@@ -206,7 +206,7 @@ public class KeywordSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<DiscussionsSearchResult> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultsDiscussions> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -222,7 +222,7 @@ public class KeywordSearch extends Search
 			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
 			
 			// This will hold each individual search result entry
-			ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
+			ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
 			
 			// Use a private helper method to populate the ArrayList of DiscussionsSearchResult objects
 			resultSet = populateDiscussionsSearchResult(parsedResults);
@@ -257,7 +257,7 @@ public class KeywordSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultEvents> searchEvents(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -273,7 +273,7 @@ public class KeywordSearch extends Search
 			KeywordSearchWrapperEvents parsedResults = jsonParser.parseResponse(KeywordSearchWrapperEvents.class);
 				
 			// This will hold each individual search result entry
-			ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
+			ArrayList<SearchResultEvents> resultSet = new ArrayList <SearchResultEvents>();
 			
 			// Use a private helper method to populate the ArrayList of EventsSearchResult objects
 			resultSet = populateEventsSearchResult(parsedResults);
@@ -309,7 +309,7 @@ public class KeywordSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<EventsSearchResult> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultEvents> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -325,7 +325,7 @@ public class KeywordSearch extends Search
 			KeywordSearchWrapperEvents parsedResults = jsonParser.parseResponse(KeywordSearchWrapperEvents.class);
 			
 			// This will hold each individual search result entry
-			ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
+			ArrayList<SearchResultEvents> resultSet = new ArrayList <SearchResultEvents>();
 			
 			// Use a private helper method to populate the ArrayList of EventsSearchResult objects
 			resultSet = populateEventsSearchResult(parsedResults);
@@ -360,7 +360,7 @@ public class KeywordSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultsRecordings> searchRecordings(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -376,7 +376,7 @@ public class KeywordSearch extends Search
 			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
 				
 			// This will hold each individual search result entry
-			ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
+			ArrayList<SearchResultsRecordings> resultSet = new ArrayList <SearchResultsRecordings>();
 			
 			// Use a private helper method to populate the ArrayList of RecordingsSearchResult objects
 			resultSet = populateRecordingsSearchResult(parsedResults);
@@ -414,7 +414,7 @@ public class KeywordSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<RecordingsSearchResult> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultsRecordings> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -430,7 +430,7 @@ public class KeywordSearch extends Search
 			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
 				
 			// This will hold each individual search result entry
-			ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
+			ArrayList<SearchResultsRecordings> resultSet = new ArrayList <SearchResultsRecordings>();
 			
 			// Use a private helper method to populate the ArrayList of RecordingsSearchResult objects
 			resultSet = populateRecordingsSearchResult(parsedResults);
@@ -465,7 +465,7 @@ public class KeywordSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultSessions> searchSessions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -481,7 +481,7 @@ public class KeywordSearch extends Search
 			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
 			
 			// This will hold each individual search result entry
-			ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
+			ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
 					
 			// Use a private helper method to populate the ArrayList of SessionsSearchResult objects
 			resultSet = populateSessionsSearchResult(parsedResults);
@@ -518,7 +518,7 @@ public class KeywordSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<SessionsSearchResult> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultSessions> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -534,7 +534,7 @@ public class KeywordSearch extends Search
 			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
 			
 			// This will hold each individual search result entry
-			ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
+			ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
 					
 			// Use a private helper method to populate the ArrayList of SessionsSearchResult objects
 			resultSet = populateSessionsSearchResult(parsedResults);
@@ -566,9 +566,9 @@ public class KeywordSearch extends Search
 	 * @param parsedResults a TunesSearchResultWrapper object that has already been created an populated
 	 * @return an ArrayList of TunesSearchResult objects
 	 */
-	private ArrayList<TunesSearchResult> populateTunesSearchResult(KeywordSearchWrapperTunes parsedResults)
+	private ArrayList<SearchResultTunes> populateTunesSearchResult(KeywordSearchWrapperTunes parsedResults)
 		{
-		ArrayList <TunesSearchResult> resultSet = new ArrayList <TunesSearchResult>();
+		ArrayList <SearchResultTunes> resultSet = new ArrayList <SearchResultTunes>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -582,7 +582,7 @@ public class KeywordSearch extends Search
 			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringCleaner.cleanString(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
 						
 			// Instantiate a TunesSearchResult object & populate it
-			TunesSearchResult currentResult = new TunesSearchResult(details, submitter);
+			SearchResultTunes currentResult = new SearchResultTunes(details, submitter);
 			
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -599,10 +599,10 @@ public class KeywordSearch extends Search
 	 * @param parsedResults an existing populated DiscussionsSearchResultWrapper object
 	 * @return an ArrayList of DiscussionsSearchResult objects
 	 */
-	private ArrayList<DiscussionsSearchResult> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
+	private ArrayList<SearchResultsDiscussions> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
 		{
 		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
-		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
+		ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -616,7 +616,7 @@ public class KeywordSearch extends Search
 			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringCleaner.cleanString(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
 			
 			// Instantiate a DiscussionsSearchResult object & populate it
-			DiscussionsSearchResult currentResult = new DiscussionsSearchResult(details, user);
+			SearchResultsDiscussions currentResult = new SearchResultsDiscussions(details, user);
 			
 			// Add the DiscussionsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -633,9 +633,9 @@ public class KeywordSearch extends Search
 	 * @param parsedResults an EventsSearchResultWrapper object that has already been populated
 	 * @return an ArrayList of EventSearchResult objects
 	 */
-	private ArrayList<EventsSearchResult> populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)	
+	private ArrayList<SearchResultEvents> populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)	
 		{
-		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
+		ArrayList<SearchResultEvents> resultSet = new ArrayList <SearchResultEvents>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -656,7 +656,7 @@ public class KeywordSearch extends Search
 			
 			
 			// Instantiate a EventsSearchResult object & populate it
-			EventsSearchResult currentResult = new EventsSearchResult(details, user, schedule, coordinates, venue, town, area, country);
+			SearchResultEvents currentResult = new SearchResultEvents(details, user, schedule, coordinates, venue, town, area, country);
 			
 			// Add the EventsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -673,9 +673,9 @@ public class KeywordSearch extends Search
 	 * @param parsedResults a RecordingsSearchResultWrapper object that has already been populated
 	 * @return an ArrayList of RecordingsSearchResult objects
 	 */
-	private ArrayList<RecordingsSearchResult> populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)	
+	private ArrayList<SearchResultsRecordings> populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)	
 		{
-		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
+		ArrayList<SearchResultsRecordings> resultSet = new ArrayList <SearchResultsRecordings>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -690,7 +690,7 @@ public class KeywordSearch extends Search
 			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringCleaner.cleanString(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].artist.url);
 			
 			// Instantiate a RecordingsSearchResult object & populate it
-			RecordingsSearchResult currentResult = new RecordingsSearchResult(details, user, artist);
+			SearchResultsRecordings currentResult = new SearchResultsRecordings(details, user, artist);
 			
 			// Add the RecordingsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -707,9 +707,9 @@ public class KeywordSearch extends Search
 	 * @param parsedResults a SessionSearchResultWrapper object that has been populated
 	 * @return an ArrayList of SessionsSearchResult objects
 	 */
-	private ArrayList<SessionsSearchResult> populateSessionsSearchResult(KeywordSearchWrapperSessions parsedResults)	
+	private ArrayList<SearchResultSessions> populateSessionsSearchResult(KeywordSearchWrapperSessions parsedResults)	
 		{
-		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
+		ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -729,7 +729,7 @@ public class KeywordSearch extends Search
 			
 			
 			// Instantiate a SessionsSearchResult object & populate it
-			SessionsSearchResult currentResult = new SessionsSearchResult(details, coordinates, user, venue, town, area, country);
+			SearchResultSessions currentResult = new SearchResultSessions(details, coordinates, user, venue, town, area, country);
 			
 			// Add the SessionsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);

@@ -1,9 +1,9 @@
 package example_usage;
 
 import java.io.IOException;
-import json_object_wrappers.SessionByIDResult;
 
 import main.ItemRetriever;
+import wrappers_result_sets.ItemResultSession;
 
 public class Test_RetrieveItemByID_Session 
 {
@@ -18,7 +18,7 @@ public class Test_RetrieveItemByID_Session
 			ItemRetriever search = new ItemRetriever();
 			
 			// Perform the search, passing in the parameters for the session we want to retrieve
-			SessionByIDResult resultSet = search.getSessionByID(sessionID);
+			ItemResultSession resultSet = search.getSessionByID(sessionID);
 			
 			System.out.println("Session ID: " + resultSet.sessionDetails.sessionID);
 			System.out.println("Session URL: " + resultSet.sessionDetails.sessionURL);

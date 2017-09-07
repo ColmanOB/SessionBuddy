@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import json_object_wrappers.SessionsByLocationResult;
 import main.LocationSearch;
+import wrappers_result_sets.LocationResultSessions;
 
 
 public class Test_SearchByLocation_Sessions
@@ -23,7 +23,7 @@ public class Test_SearchByLocation_Sessions
 		LocationSearch search = new LocationSearch();
 		
 		// Pass in the search parameters
-		ArrayList<SessionsByLocationResult> resultSet = search.searchSessionsByLocation(latitude, longitude, radius, resultsPerPage);
+		ArrayList<LocationResultSessions> resultSet = search.searchSessionsByLocation(latitude, longitude, radius, resultsPerPage);
 		
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)

@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import json_object_wrappers.DiscussionsSearchResult;
 import main.LatestSearch;
+import wrappers_result_sets.SearchResultsDiscussions;
 
 /**
  * Example usage of the searchDiscussions method of RetrieveLatest class to search thesession.org API for a discussion based on a set of search terms, and store the results.
@@ -22,7 +22,7 @@ public static void main(String[] args)
    {
 	// Set the search parameters
 	int resultsPerPage = 50;
-	ArrayList<DiscussionsSearchResult> resultSet;
+	ArrayList<SearchResultsDiscussions> resultSet;
 	
 	// Instantiate a RetrieveLatest object
 	LatestSearch search = new LatestSearch();

@@ -3,33 +3,33 @@ package main;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import json_object_wrappers.Area;
-import json_object_wrappers.Artist;
-import json_object_wrappers.Coordinates;
-import json_object_wrappers.Country;
-import json_object_wrappers.DiscussionDetails;
-import json_object_wrappers.DiscussionsSearchResult;
-import json_object_wrappers.EventDetails;
-import json_object_wrappers.EventSchedule;
-import json_object_wrappers.EventsSearchResult;
-import json_object_wrappers.LatestSettingDetails;
-import json_object_wrappers.LatestTuneDetails;
-import json_object_wrappers.RecordingDetails;
-import json_object_wrappers.RecordingsSearchResult;
-import json_object_wrappers.SessionDetails;
-import json_object_wrappers.SessionsSearchResult;
-import json_object_wrappers.Town;
-import json_object_wrappers.TunesLatestResult;
-import json_object_wrappers.User;
-import json_object_wrappers.Venue;
-import result_set_wrappers.KeywordSearchWrapperDiscussions;
-import result_set_wrappers.KeywordSearchWrapperEvents;
-import result_set_wrappers.KeywordSearchWrapperRecordings;
-import result_set_wrappers.KeywordSearchWrapperSessions;
-import result_set_wrappers.LatestWrapperTunes;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
 import utils.StringCleaner;
+import wrappers_granular_objects.Area;
+import wrappers_granular_objects.Artist;
+import wrappers_granular_objects.Coordinates;
+import wrappers_granular_objects.Country;
+import wrappers_granular_objects.DiscussionDetails;
+import wrappers_granular_objects.EventDetails;
+import wrappers_granular_objects.EventSchedule;
+import wrappers_granular_objects.LatestSettingDetails;
+import wrappers_granular_objects.LatestTuneDetails;
+import wrappers_granular_objects.RecordingDetails;
+import wrappers_granular_objects.SessionDetails;
+import wrappers_granular_objects.Town;
+import wrappers_granular_objects.User;
+import wrappers_granular_objects.Venue;
+import wrappers_json_response.KeywordSearchWrapperDiscussions;
+import wrappers_json_response.KeywordSearchWrapperEvents;
+import wrappers_json_response.KeywordSearchWrapperRecordings;
+import wrappers_json_response.KeywordSearchWrapperSessions;
+import wrappers_json_response.LatestWrapperTunes;
+import wrappers_result_sets.LatestSearchTunes;
+import wrappers_result_sets.SearchResultEvents;
+import wrappers_result_sets.SearchResultSessions;
+import wrappers_result_sets.SearchResultsDiscussions;
+import wrappers_result_sets.SearchResultsRecordings;
 
 // TODO: Fix up all of the comments, especially Javadoc ones
 
@@ -51,7 +51,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<TunesLatestResult> getLatestTunes(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<LatestSearchTunes> getLatestTunes(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -67,7 +67,7 @@ public class LatestSearch extends Search
 			LatestWrapperTunes parsedResults = jsonParser.parseResponse(LatestWrapperTunes.class);
 								
 			// This will hold each individual search result entry
-			ArrayList<TunesLatestResult> resultSet = new ArrayList<TunesLatestResult>();
+			ArrayList<LatestSearchTunes> resultSet = new ArrayList<LatestSearchTunes>();
 			
 			resultSet = populateTunesSearchResult(parsedResults);
 			
@@ -95,7 +95,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<TunesLatestResult> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<LatestSearchTunes> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -111,7 +111,7 @@ public class LatestSearch extends Search
 			LatestWrapperTunes parsedResults = jsonParser.parseResponse(LatestWrapperTunes.class);
 							
 			// This will hold each individual search result entry
-			ArrayList<TunesLatestResult> resultSet = new ArrayList<TunesLatestResult>();
+			ArrayList<LatestSearchTunes> resultSet = new ArrayList<LatestSearchTunes>();
 			
 			resultSet = populateTunesSearchResult(parsedResults);
 			
@@ -138,7 +138,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsDiscussions> getLatestDiscussions(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -154,7 +154,7 @@ public class LatestSearch extends Search
 			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
 
 			// This will hold each individual search result entry
-			ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
+			ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
 			
 			resultSet = populateDiscussionsSearchResult(parsedResults);
 				
@@ -182,7 +182,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<DiscussionsSearchResult> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsDiscussions> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -197,7 +197,7 @@ public class LatestSearch extends Search
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
 			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
 			
-			ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
+			ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
 			
 			resultSet = populateDiscussionsSearchResult(parsedResults);
 				
@@ -224,7 +224,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsRecordings> getLatestRecordings(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -240,7 +240,7 @@ public class LatestSearch extends Search
 			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
 							
 			// This will hold each individual search result entry
-			ArrayList<RecordingsSearchResult> resultSet = new ArrayList<RecordingsSearchResult>();
+			ArrayList<SearchResultsRecordings> resultSet = new ArrayList<SearchResultsRecordings>();
 			
 			resultSet = populateRecordingsSearchResult(parsedResults);
 			
@@ -268,7 +268,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<RecordingsSearchResult> getLatestRecordings(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsRecordings> getLatestRecordings(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -284,7 +284,7 @@ public class LatestSearch extends Search
 			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
 					
 			// This will hold each individual search result entry
-			ArrayList<RecordingsSearchResult> resultSet = new ArrayList<RecordingsSearchResult>();
+			ArrayList<SearchResultsRecordings> resultSet = new ArrayList<SearchResultsRecordings>();
 			
 			resultSet = populateRecordingsSearchResult(parsedResults);
 			
@@ -311,7 +311,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultSessions> getLatestSessions(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -327,7 +327,7 @@ public class LatestSearch extends Search
 			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
 							
 			// This will hold each individual search result entry
-			ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
+			ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
 					
 			resultSet = populateSessionsSearchResult(parsedResults);
 			
@@ -357,7 +357,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<SessionsSearchResult> getLatestSessions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultSessions> getLatestSessions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -373,7 +373,7 @@ public class LatestSearch extends Search
 			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
 							
 			// This will hold each individual search result entry
-			ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
+			ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
 					
 			resultSet = populateSessionsSearchResult(parsedResults);
 			
@@ -400,7 +400,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultEvents> getLatestEvents(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -416,7 +416,7 @@ public class LatestSearch extends Search
 			KeywordSearchWrapperEvents parsedResults = jsonParser.parseResponse(KeywordSearchWrapperEvents.class);
 							
 			// This will hold each individual search result entry
-			ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
+			ArrayList<SearchResultEvents> resultSet = new ArrayList <SearchResultEvents>();
 			
 			resultSet = populateEventsSearchResult(parsedResults);
 			
@@ -444,7 +444,7 @@ public class LatestSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<EventsSearchResult> getLatestEvents(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultEvents> getLatestEvents(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -460,7 +460,7 @@ public class LatestSearch extends Search
 			KeywordSearchWrapperEvents parsedResults = jsonParser.parseResponse(KeywordSearchWrapperEvents.class);
 							
 			// This will hold each individual search result entry
-			ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
+			ArrayList<SearchResultEvents> resultSet = new ArrayList <SearchResultEvents>();
 			
 			resultSet = populateEventsSearchResult(parsedResults);
 			
@@ -485,9 +485,9 @@ public class LatestSearch extends Search
 	 * @param parsedResults a TunesSearchResultWrapper object that has already been created an populated
 	 * @return an ArrayList of TunesSearchResult objects
 	 */
-	private ArrayList<TunesLatestResult> populateTunesSearchResult(LatestWrapperTunes parsedResults)
+	private ArrayList<LatestSearchTunes> populateTunesSearchResult(LatestWrapperTunes parsedResults)
 		{
-		ArrayList <TunesLatestResult> resultSet = new ArrayList <TunesLatestResult>();
+		ArrayList <LatestSearchTunes> resultSet = new ArrayList <LatestSearchTunes>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -502,7 +502,7 @@ public class LatestSearch extends Search
 			LatestSettingDetails settingDetails = new LatestSettingDetails( Integer.toString(parsedResults.settings[i].tune.id), parsedResults.settings[i].tune.name, parsedResults.settings[i].tune.url );
 			
 			// Instantiate a TunesSearchResult object & populate it
-			TunesLatestResult currentResult = new TunesLatestResult(details, submitter, settingDetails);
+			LatestSearchTunes currentResult = new LatestSearchTunes(details, submitter, settingDetails);
 			
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -519,10 +519,10 @@ public class LatestSearch extends Search
 	 * @param parsedResults an existing populated DiscussionsSearchResultWrapper object
 	 * @return an ArrayList of DiscussionsSearchResult objects
 	 */
-	private ArrayList<DiscussionsSearchResult> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
+	private ArrayList<SearchResultsDiscussions> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
 		{
 		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
-		ArrayList<DiscussionsSearchResult> resultSet = new ArrayList <DiscussionsSearchResult>();
+		ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -536,7 +536,7 @@ public class LatestSearch extends Search
 			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringCleaner.cleanString(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
 			
 			// Instantiate a DiscussionsSearchResult object & populate it
-			DiscussionsSearchResult currentResult = new DiscussionsSearchResult(details, user);
+			SearchResultsDiscussions currentResult = new SearchResultsDiscussions(details, user);
 			
 			// Add the DiscussionsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -553,10 +553,10 @@ public class LatestSearch extends Search
 	 * @param parsedResults
 	 * @return
 	 */
-	private ArrayList<RecordingsSearchResult> populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)
+	private ArrayList<SearchResultsRecordings> populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)
 		{
 		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
-		ArrayList<RecordingsSearchResult> resultSet = new ArrayList <RecordingsSearchResult>();
+		ArrayList<SearchResultsRecordings> resultSet = new ArrayList <SearchResultsRecordings>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -571,7 +571,7 @@ public class LatestSearch extends Search
 			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringCleaner.cleanString(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].url);
 			
 			// Instantiate a RecordingsSearchResult object & populate it
-			RecordingsSearchResult currentResult = new RecordingsSearchResult(details, submitter, artist);
+			SearchResultsRecordings currentResult = new SearchResultsRecordings(details, submitter, artist);
 						
 			// Add the RecordingsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -588,10 +588,10 @@ public class LatestSearch extends Search
 	 * @param parsedResults
 	 * @return
 	 */
-	private ArrayList<SessionsSearchResult> populateSessionsSearchResult(KeywordSearchWrapperSessions parsedResults)
+	private ArrayList<SearchResultSessions> populateSessionsSearchResult(KeywordSearchWrapperSessions parsedResults)
 		{
 		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
-		ArrayList<SessionsSearchResult> resultSet = new ArrayList <SessionsSearchResult>();
+		ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -610,7 +610,7 @@ public class LatestSearch extends Search
 			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), StringCleaner.cleanString(parsedResults.sessions[i].country.name));
 			
 			// Instantiate a SessionsSearchResult object & populate it
-			SessionsSearchResult currentResult = new SessionsSearchResult(details, coordinates, submitter, venue, town, area, country);
+			SearchResultSessions currentResult = new SearchResultSessions(details, coordinates, submitter, venue, town, area, country);
 						
 			// Add the SessionsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -627,10 +627,10 @@ public class LatestSearch extends Search
 	 * @param parsedResults
 	 * @return
 	 */
-	private ArrayList<EventsSearchResult> populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)
+	private ArrayList<SearchResultEvents> populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)
 		{
 		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
-		ArrayList<EventsSearchResult> resultSet = new ArrayList <EventsSearchResult>();
+		ArrayList<SearchResultEvents> resultSet = new ArrayList <SearchResultEvents>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -650,7 +650,7 @@ public class LatestSearch extends Search
 			Country country = new Country(Integer.toString(parsedResults.events[i].country.id), StringCleaner.cleanString(parsedResults.events[i].country.name));
 			
 			// Instantiate a EventsSearchResult object & populate it
-			EventsSearchResult currentResult = new EventsSearchResult(details, submitter, schedule, coordinates, venue, town, area, country);
+			SearchResultEvents currentResult = new SearchResultEvents(details, submitter, schedule, coordinates, venue, town, area, country);
 						
 			// Add the EventsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);

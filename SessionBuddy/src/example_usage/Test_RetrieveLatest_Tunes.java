@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import json_object_wrappers.TunesLatestResult;
 import main.LatestSearch;
+import wrappers_result_sets.LatestSearchTunes;
 
 // TODO: the field names printed out are not 100% right - investigate and fix!
 
@@ -21,7 +21,7 @@ class Test_RetrieveLatest_Tunes
 			LatestSearch search = new LatestSearch();
 			
 			// Perform the search by calling the getLatestTunes method on the LatestSearch object
-			ArrayList<TunesLatestResult> resultSet = search.getLatestTunes(resultsPerPage);
+			ArrayList<LatestSearchTunes> resultSet = search.getLatestTunes(resultsPerPage);
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

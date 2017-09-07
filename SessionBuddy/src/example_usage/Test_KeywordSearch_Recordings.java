@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import json_object_wrappers.RecordingsSearchResult;
 import main.KeywordSearch;
+import wrappers_result_sets.SearchResultsRecordings;
 
 
 public class Test_KeywordSearch_Recordings
@@ -20,7 +20,7 @@ public class Test_KeywordSearch_Recordings
 		KeywordSearch search = new KeywordSearch();
 		
 		// Create a structure to hold the response from the API
-		ArrayList<RecordingsSearchResult> resultSet;
+		ArrayList<SearchResultsRecordings> resultSet;
 		
 		try 
 			{

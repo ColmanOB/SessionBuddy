@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import json_object_wrappers.TunesSearchResult;
 import main.KeywordSearch;
+import wrappers_result_sets.SearchResultTunes;
 
 public class Test_KeywordSearch_Tune
 	{
@@ -21,7 +21,7 @@ public class Test_KeywordSearch_Tune
 		try
 			{
 			// Call the searchTunes method of KeywordSearch and pass in the search parameters
-			ArrayList<TunesSearchResult> resultSet = search.searchTunes(searchTerms, resultsPerPage);
+			ArrayList<SearchResultTunes> resultSet = search.searchTunes(searchTerms, resultsPerPage);
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

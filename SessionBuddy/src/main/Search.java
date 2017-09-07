@@ -1,8 +1,8 @@
 package main;
 
 /**
- * A superclass of the KeywordSearch, LatestSearch & LocationSearch classes.
- * This class is unlikely to ever be instantiated directly - it just holds common fields & methods shared by the three subclasses.
+ * A superclass of the KeywordSearch, LatestSearch and LocationSearch classes.
+ * This class is unlikely to ever be instantiated directly - it just holds common fields and methods shared by the three subclasses.
  * 
  * @author Colman
  * @since 2017-09-06

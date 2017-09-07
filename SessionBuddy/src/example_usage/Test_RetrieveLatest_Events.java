@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import json_object_wrappers.EventsSearchResult;
 import main.LatestSearch;
+import wrappers_result_sets.SearchResultEvents;
 
 
 class Test_RetrieveLatest_Events
@@ -18,7 +18,7 @@ class Test_RetrieveLatest_Events
 			int resultsPerPage = 50;
 			
 			// Create a structure to store the response
-			ArrayList<EventsSearchResult> resultSet;
+			ArrayList<SearchResultEvents> resultSet;
 			
 			// Instantiate a LatestSearch object
 			LatestSearch search = new LatestSearch();

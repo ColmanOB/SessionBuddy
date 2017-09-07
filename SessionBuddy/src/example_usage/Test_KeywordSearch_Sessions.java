@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import json_object_wrappers.SessionsSearchResult;
 import main.KeywordSearch;
+import wrappers_result_sets.SearchResultSessions;
 
 
 public class Test_KeywordSearch_Sessions
@@ -22,7 +22,7 @@ public class Test_KeywordSearch_Sessions
 		try
 			{
 			// Perform the search by calling the searchSessions method and passing in the search parameters
-			ArrayList<SessionsSearchResult> resultSet = search.searchSessions(searchTerms, resultsPerPage);
+			ArrayList<SearchResultSessions> resultSet = search.searchSessions(searchTerms, resultsPerPage);
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

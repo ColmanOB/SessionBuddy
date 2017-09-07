@@ -3,22 +3,22 @@ package main;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import json_object_wrappers.Area;
-import json_object_wrappers.Coordinates;
-import json_object_wrappers.Country;
-import json_object_wrappers.EventDetails;
-import json_object_wrappers.EventSchedule;
-import json_object_wrappers.EventsByLocationResult;
-import json_object_wrappers.SessionDetails;
-import json_object_wrappers.SessionsByLocationResult;
-import json_object_wrappers.Town;
-import json_object_wrappers.User;
-import json_object_wrappers.Venue;
-import result_set_wrappers.LocationSearchWrapperEvents;
-import result_set_wrappers.LocationSearchWrapperSessions;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
 import utils.StringCleaner;
+import wrappers_granular_objects.Area;
+import wrappers_granular_objects.Coordinates;
+import wrappers_granular_objects.Country;
+import wrappers_granular_objects.EventDetails;
+import wrappers_granular_objects.EventSchedule;
+import wrappers_granular_objects.SessionDetails;
+import wrappers_granular_objects.Town;
+import wrappers_granular_objects.User;
+import wrappers_granular_objects.Venue;
+import wrappers_json_response.LocationSearchWrapperEvents;
+import wrappers_json_response.LocationSearchWrapperSessions;
+import wrappers_result_sets.LocationResultEvents;
+import wrappers_result_sets.LocationResultSessions;
 
 
 /**
@@ -42,7 +42,7 @@ public class LocationSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -59,7 +59,7 @@ public class LocationSearch extends Search
 			LocationSearchWrapperSessions parsedResults = jsonParser.parseResponse(LocationSearchWrapperSessions.class);
 				
 			// This will hold each individual search result entry
-			ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
+			ArrayList<LocationResultSessions> resultSet = new ArrayList <LocationResultSessions>();
 			
 			resultSet = populateSessionsByLocationResult(parsedResults);
 			
@@ -89,12 +89,13 @@ public class LocationSearch extends Search
 	 * @param longitude a longitude value between -180 to 180
 	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
+	 * @param pageNumber a specific page within a multi-page JSON response
 	 * @return an ArrayList of SessionsByLocationResult objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<SessionsByLocationResult> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -111,7 +112,7 @@ public class LocationSearch extends Search
 			LocationSearchWrapperSessions parsedResults = jsonParser.parseResponse(LocationSearchWrapperSessions.class);
 				
 			// This will hold each individual search result entry
-			ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
+			ArrayList<LocationResultSessions> resultSet = new ArrayList <LocationResultSessions>();
 			
 			resultSet = populateSessionsByLocationResult(parsedResults);
 			
@@ -147,7 +148,7 @@ public class LocationSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
 		{
 		try
 			{
@@ -164,7 +165,7 @@ public class LocationSearch extends Search
 			LocationSearchWrapperEvents parsedResults = jsonParser.parseResponse(LocationSearchWrapperEvents.class);
 				
 			// This will hold each individual search result entry
-			ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();
+			ArrayList<LocationResultEvents> resultSet = new ArrayList <LocationResultEvents>();
 			
 			resultSet = populateEventsByLocationResult(parsedResults);
 			
@@ -201,7 +202,7 @@ public class LocationSearch extends Search
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
-	public ArrayList<EventsByLocationResult> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
 		try
 			{
@@ -218,7 +219,7 @@ public class LocationSearch extends Search
 			LocationSearchWrapperEvents parsedResults = jsonParser.parseResponse(LocationSearchWrapperEvents.class);
 				
 			// This will hold each individual search result entry
-			ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();
+			ArrayList<LocationResultEvents> resultSet = new ArrayList <LocationResultEvents>();
 			
 			resultSet = populateEventsByLocationResult(parsedResults);
 			
@@ -243,10 +244,10 @@ public class LocationSearch extends Search
 	 * @param parsedResults a SessionsByLocationWrapper object that has already been created and populated
 	 * @return an ArrayList of SessionsByLoctionResult objects
 	 */
-	private ArrayList<SessionsByLocationResult> populateSessionsByLocationResult(LocationSearchWrapperSessions parsedResults)	
+	private ArrayList<LocationResultSessions> populateSessionsByLocationResult(LocationSearchWrapperSessions parsedResults)	
 		{	
 		// This will hold each individual search result entry
-		ArrayList<SessionsByLocationResult> resultSet = new ArrayList <SessionsByLocationResult>();
+		ArrayList<LocationResultSessions> resultSet = new ArrayList <LocationResultSessions>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -265,7 +266,7 @@ public class LocationSearch extends Search
 			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), StringCleaner.cleanString(parsedResults.sessions[i].country.name));
 					
 			// Instantiate a SessionsByLocationResult object & populate it
-			SessionsByLocationResult currentResult = new SessionsByLocationResult(details, coordinates, user, venue, town, area, country);
+			LocationResultSessions currentResult = new LocationResultSessions(details, coordinates, user, venue, town, area, country);
 			
 			// Add the SessionsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -282,10 +283,10 @@ public class LocationSearch extends Search
 	 * @param parsedResults an EventsByLocationWrapper containing response data form the API
 	 * @return an ArrayList of EventsByLocationResult objects
 	 */
-	private ArrayList<EventsByLocationResult> populateEventsByLocationResult(LocationSearchWrapperEvents parsedResults)	
+	private ArrayList<LocationResultEvents> populateEventsByLocationResult(LocationSearchWrapperEvents parsedResults)	
 		{	
 		// This will hold each individual search result entry
-		ArrayList<EventsByLocationResult> resultSet = new ArrayList <EventsByLocationResult>();
+		ArrayList<LocationResultEvents> resultSet = new ArrayList <LocationResultEvents>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -305,7 +306,7 @@ public class LocationSearch extends Search
 			Country country = new Country(Integer.toString(parsedResults.events[i].country.id), StringCleaner.cleanString(parsedResults.events[i].country.name));
 			
 			// Instantiate a EventsByLocationResult object & populate it
-			EventsByLocationResult currentResult = new EventsByLocationResult(details, user, schedule, coordinates, venue, town, area, country);
+			LocationResultEvents currentResult = new LocationResultEvents(details, user, schedule, coordinates, venue, town, area, country);
 			
 			// Add the EventsByLocationResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);

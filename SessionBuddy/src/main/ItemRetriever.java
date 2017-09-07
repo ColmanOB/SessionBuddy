@@ -4,36 +4,36 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-import json_object_wrappers.Area;
-import json_object_wrappers.Artist;
-import json_object_wrappers.Coordinates;
-import json_object_wrappers.Country;
-import json_object_wrappers.DiscussionByIDResult;
-import json_object_wrappers.Comment;
-import json_object_wrappers.DiscussionDetails;
-import json_object_wrappers.EventByIDResult;
-import json_object_wrappers.EventDetails;
-import json_object_wrappers.EventSchedule;
-import json_object_wrappers.RecordingByIDResult;
-import json_object_wrappers.RecordingDetails;
-import json_object_wrappers.SessionByIDResult;
-import json_object_wrappers.SessionDetails;
-import json_object_wrappers.Town;
-import json_object_wrappers.TrackListing;
-import json_object_wrappers.TuneByIDResult;
-import json_object_wrappers.TuneDetails;
-import json_object_wrappers.TuneRecord;
-import json_object_wrappers.TuneSetting;
-import json_object_wrappers.User;
-import json_object_wrappers.Venue;
-import result_set_wrappers.ItemWrapperDiscussion;
-import result_set_wrappers.ItemWrapperEvent;
-import result_set_wrappers.ItemWrapperRecording;
-import result_set_wrappers.ItemWrapperSession;
-import result_set_wrappers.ItemWrapperTune;
 import utils.HttpRequestor;
 import utils.JsonResponseParser;
 import utils.StringCleaner;
+import wrappers_granular_objects.Area;
+import wrappers_granular_objects.Artist;
+import wrappers_granular_objects.Comment;
+import wrappers_granular_objects.Coordinates;
+import wrappers_granular_objects.Country;
+import wrappers_granular_objects.DiscussionDetails;
+import wrappers_granular_objects.EventDetails;
+import wrappers_granular_objects.EventSchedule;
+import wrappers_granular_objects.RecordingDetails;
+import wrappers_granular_objects.SessionDetails;
+import wrappers_granular_objects.Town;
+import wrappers_granular_objects.TrackListing;
+import wrappers_granular_objects.TuneDetails;
+import wrappers_granular_objects.TuneRecord;
+import wrappers_granular_objects.TuneSetting;
+import wrappers_granular_objects.User;
+import wrappers_granular_objects.Venue;
+import wrappers_json_response.ItemWrapperDiscussion;
+import wrappers_json_response.ItemWrapperEvent;
+import wrappers_json_response.ItemWrapperRecording;
+import wrappers_json_response.ItemWrapperSession;
+import wrappers_json_response.ItemWrapperTune;
+import wrappers_result_sets.ItemResultDiscussion;
+import wrappers_result_sets.ItemResultEvent;
+import wrappers_result_sets.ItemResultRecording;
+import wrappers_result_sets.ItemResultSession;
+import wrappers_result_sets.ItemResultTune;
 
 // TODO: Refactor the methods in this class, extract some 'helper' methods
 // TODO: Fix up all the comments in this class, including Javadoc comments
@@ -52,7 +52,7 @@ public class ItemRetriever
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	public RecordingByIDResult getRecordingByID(String recordingID) throws IllegalStateException, IOException
+	public ItemResultRecording getRecordingByID(String recordingID) throws IllegalStateException, IOException
 		{
 		try
 			{
@@ -111,7 +111,7 @@ public class ItemRetriever
 				}
 				
 			// Instantiate a RecordingByIDResult object & populate it with the details captured above
-			RecordingByIDResult finalResult = new RecordingByIDResult(recordingDetails, member, artist, tracks, comments);
+			ItemResultRecording finalResult = new ItemResultRecording(recordingDetails, member, artist, tracks, comments);
 				
 			// Return the set of results that has been collected
 			return finalResult;
@@ -137,9 +137,10 @@ public class ItemRetriever
 	/**
 	 * @param discussionID
 	 * @return
+	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	public DiscussionByIDResult getDiscussionByID(String discussionID) throws IllegalStateException, IOException
+	public ItemResultDiscussion getDiscussionByID(String discussionID) throws IllegalStateException, IOException
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -187,7 +188,7 @@ public class ItemRetriever
 			}
 			
 		// Instantiate a DiscussionByIDResult object & populate it with the details captured above
-		DiscussionByIDResult finalResult = new DiscussionByIDResult(discussionDetails, member, comments);
+		ItemResultDiscussion finalResult = new ItemResultDiscussion(discussionDetails, member, comments);
 			
 		// Return the set of results that has been collected
 		return finalResult;
@@ -199,7 +200,7 @@ public class ItemRetriever
 	 * @return
 	 * @throws IOException
 	 */
-	public TuneByIDResult getTuneByID(String tuneID) throws IOException
+	public ItemResultTune getTuneByID(String tuneID) throws IOException
 		{
 		// Make the API call using the tune ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -274,7 +275,7 @@ public class ItemRetriever
 			}
 			
 		// Instantiate a TuneByIDResult object & populate it with the details captured above
-		TuneByIDResult finalResult = new TuneByIDResult(tuneDetails, member, tunebooks, recordings, aliases, settings, comments);
+		ItemResultTune finalResult = new ItemResultTune(tuneDetails, member, tunebooks, recordings, aliases, settings, comments);
 			
 		// Return the set of results that has been collected
 		return finalResult;
@@ -286,7 +287,7 @@ public class ItemRetriever
 	 * @return
 	 * @throws IOException
 	 */
-	public SessionByIDResult getSessionByID(String sessionID) throws IOException
+	public ItemResultSession getSessionByID(String sessionID) throws IOException
 		{
 		// Make the API call using the the discussion ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -347,7 +348,7 @@ public class ItemRetriever
 			}
 			
 		// Instantiate a DiscussionByIDResult object & populate it with the details captured above
-		SessionByIDResult finalResult = new SessionByIDResult(sessionDetails, coordinates, member, venue, town, area, country, schedule, comments);
+		ItemResultSession finalResult = new ItemResultSession(sessionDetails, coordinates, member, venue, town, area, country, schedule, comments);
 			
 		// Return the set of results that has been collected
 		return finalResult;
@@ -360,7 +361,7 @@ public class ItemRetriever
 	 * @throws RuntimeException 
 	 * @throws MalformedURLException 
 	 */
-	public EventByIDResult getEventByID(String eventID) throws IOException
+	public ItemResultEvent getEventByID(String eventID) throws IOException
 		{
 		// Make the API call using the the event ID and store the JSON that is returned as a String
 		HttpRequestor searcher = new HttpRequestor();
@@ -411,7 +412,7 @@ public class ItemRetriever
 			}
 			
 		// Instantiate a DiscussionByIDResult object & populate it with the details captured above
-		EventByIDResult finalResult = new EventByIDResult(eventDetails, member, schedule, coordinates, venue, town, area, country, comments);
+		ItemResultEvent finalResult = new ItemResultEvent(eventDetails, member, schedule, coordinates, venue, town, area, country, comments);
 			
 		// Return the set of results that has been collected
 		return finalResult;

@@ -1,9 +1,9 @@
 package example_usage;
 
 import java.io.IOException;
-import json_object_wrappers.DiscussionByIDResult;
 
 import main.ItemRetriever;
+import wrappers_result_sets.ItemResultDiscussion;
 
 public class Test_RetrieveItemByID_Discussion 
 {
@@ -18,7 +18,7 @@ public class Test_RetrieveItemByID_Discussion
 			ItemRetriever search = new ItemRetriever();
 			
 			// Pass in the parameters for the discussion we want to retrieve
-			DiscussionByIDResult resultSet = search.getDiscussionByID(discussionID);
+			ItemResultDiscussion resultSet = search.getDiscussionByID(discussionID);
 			
 			// Print out attributes of the discussion as a whole:
 			System.out.println("Discussion ID: " + resultSet.discussionDetails.discussionID);

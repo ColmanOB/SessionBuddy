@@ -1,8 +1,9 @@
 package example_usage;
 
 import java.io.IOException;
-import json_object_wrappers.RecordingByIDResult;
+
 import main.ItemRetriever;
+import wrappers_result_sets.ItemResultRecording;
 
 public class Test_RetrieveItemByID_Recording 
 	{
@@ -15,7 +16,7 @@ public class Test_RetrieveItemByID_Recording
 		ItemRetriever search = new ItemRetriever();
 		
 		// Instantiate an object to hold the response from the API
-		RecordingByIDResult resultSet;
+		ItemResultRecording resultSet;
 		
 		try 
 			{
