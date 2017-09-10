@@ -1,30 +1,24 @@
 package wrappers_granular_objects;
 
 /**
- * Represents the set of metadata associated with a tune from thesession.org database
+ * Represents an individual tune setting returned when searching for a list of newest settings
  * 
  * @author Colman O'B
- * @since 2017-02-01
+ * @since 2017-09-10
  */
 public class LatestSettingDetails 
 	{
-	public String tuneID;
-	public String tuneName;
-	public String tuneURL;
+	public String settingID;
+	public String settingURL;
+	public String key;
+	public String date;
 
-	/**
-	 * Constructor method 
-	 * 
-	 * @param tuneID
-	 * @param tuneTitle
-	 * @param tuneType
-	 * @param tuneURL
-	 * @param submittedDate
-	 */
-	public LatestSettingDetails(String tuneID, String tuneName, String tuneURL)
+
+	public LatestSettingDetails(String settingID, String settingURL, String key, String date)
 		{
-		this.tuneID = tuneID;
-		this.tuneName = tuneName;
-		this.tuneURL = tuneURL;
+		this.settingID = settingID;
+		this.settingURL = settingURL;
+		this.key = key;
+		this.date = date;
 		}
 	}

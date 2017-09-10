@@ -13,8 +13,8 @@ import wrappers_granular_objects.Country;
 import wrappers_granular_objects.DiscussionDetails;
 import wrappers_granular_objects.EventDetails;
 import wrappers_granular_objects.EventSchedule;
-import wrappers_granular_objects.LatestSettingDetails;
 import wrappers_granular_objects.LatestTuneDetails;
+import wrappers_granular_objects.LatestSettingDetails;
 import wrappers_granular_objects.RecordingDetails;
 import wrappers_granular_objects.SessionDetails;
 import wrappers_granular_objects.Town;
@@ -497,9 +497,9 @@ public class LatestSearch extends Search
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
-			LatestTuneDetails details = new LatestTuneDetails(parsedResults.settings[i].id, parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].date);
+			LatestSettingDetails details = new LatestSettingDetails(parsedResults.settings[i].id, parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].date);
 			User submitter = new User(Integer.toString(parsedResults.settings[i].member.id), StringCleaner.cleanString(parsedResults.settings[i].member.name), parsedResults.settings[i].member.url);
-			LatestSettingDetails settingDetails = new LatestSettingDetails( Integer.toString(parsedResults.settings[i].tune.id), parsedResults.settings[i].tune.name, parsedResults.settings[i].tune.url );
+			LatestTuneDetails settingDetails = new LatestTuneDetails( Integer.toString(parsedResults.settings[i].tune.id), parsedResults.settings[i].tune.name, parsedResults.settings[i].tune.url );
 			
 			// Instantiate a TunesSearchResult object & populate it
 			LatestSearchTunes currentResult = new LatestSearchTunes(details, submitter, settingDetails);

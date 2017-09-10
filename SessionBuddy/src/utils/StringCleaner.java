@@ -4,11 +4,12 @@ package utils;
  * Unescapes XML entities in a string
  * 
  * @author Colman O'B
- * @since 2017-09-03
+ * @since 2017-09-10
  */
 public class StringCleaner 
 	{
 	// TODO: Needs a clause to cater for cases where a & exists as part of an abc transcription
+	// TODO: This needs to be tested with input containing more than one type of XML entity
 	/**
 	 * An iterative method to catch any XML entities in the response from the API and replace them with their standard characters.
 	 * 
@@ -37,7 +38,7 @@ public class StringCleaner
 	        
 	        else 
 	        	{
-	        	// Handle three different ways an ampersand may be rendered
+	        	// Handle three different ways an ampersand may be rendered in the response
 	            if (inputString.startsWith("&amp;", i)) 
 	            	{
 	                outputString.append('&');
@@ -63,7 +64,7 @@ public class StringCleaner
 	                i += 1;
 	            	}
 	            
-	            // Handle three different ways an apostrophe may be rendered
+	            // Handle three different ways an apostrophe may be rendered in the response
 	            else if (inputString.startsWith("&apos;", i)) 
 	            	{
 	                outputString.append('\'');
@@ -82,7 +83,7 @@ public class StringCleaner
 	                i += 5;
 	            	} 
 	            
-	            // Handle three ways double quotes might be rendered
+	            // Handle three ways double quotes might be rendered in the response
 	            else if (inputString.startsWith("&quot;", i)) 
 	            	{
 	                outputString.append('"');
@@ -101,7 +102,7 @@ public class StringCleaner
 	                i += 5;
 	            	} 
 	            
-	            // Handle three ways a less-than character might be rendered
+	            // Handle three ways a less-than character might be rendered in the response
 	            else if (inputString.startsWith("&lt;", i)) 
 	            	{
 	                outputString.append('<');
@@ -120,7 +121,7 @@ public class StringCleaner
 	                i += 5;
 	            	} 
 	            
-	            // Handle three ways a greater-than character might be rendered
+	            // Handle three ways a greater-than character might be rendered in the response
 	            else if (inputString.startsWith("&gt;", i)) 
 	            	{
 	                outputString.append('>');

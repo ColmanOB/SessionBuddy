@@ -1,31 +1,27 @@
 package wrappers_result_sets;
 
-import wrappers_granular_objects.LatestSettingDetails;
 import wrappers_granular_objects.LatestTuneDetails;
+import wrappers_granular_objects.LatestSettingDetails;
 import wrappers_granular_objects.User;
 
 /**
- * A structure to hold an individual tune from a set of search results from thesession.org API
+ * A structure to represent an individual result from a search for the latest tunes submitted to thesession.org
  * 
  * @author Colman O'B
- * @since 2017-01-28
+ * @since 2017-09-10
  *
  */
 public class LatestSearchTunes 
 	{
-	public LatestTuneDetails details; // Attributes of the tune itself
-	public User submitter; // Attributes of the user who submitted the tune to https://thesession.org
-	public LatestSettingDetails settings;
+	public LatestSettingDetails details;	// Attributes of the tune setting
+	public User submitter;	// Attributes of the user who submitted the setting
+	public LatestTuneDetails settings; // Attributes of the tune to which the setting belongs
 
-	/**
-	 * @param details
-	 * @param submitter
-	 */
-	public LatestSearchTunes(LatestTuneDetails details, User submitter, LatestSettingDetails settings)
+
+	public LatestSearchTunes(LatestSettingDetails details, User submitter, LatestTuneDetails settings)
 		{
 		this.details = details;
 		this.submitter = submitter;
 		this.settings = settings;
 		}
-
 	}

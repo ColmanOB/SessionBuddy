@@ -26,8 +26,8 @@ class Test_RetrieveLatest_Tunes
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				System.out.println("Tune ID: " + resultSet.get(i).details.tuneID);
-				System.out.println("Tune URL: " + resultSet.get(i).details.tuneURL);
+				System.out.println("Tune ID: " + resultSet.get(i).details.settingID);
+				System.out.println("Tune URL: " + resultSet.get(i).details.settingURL);
 				System.out.println("Key: "+ resultSet.get(i).details.key);
 				
 				System.out.println("Setting ID: " + resultSet.get(i).settings.tuneID);

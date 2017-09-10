@@ -141,6 +141,49 @@ public class HttpRequestor
 			}
 		}
 	
+	
+	/**
+	 * Performs a keyword-based search of thesession.org API against a chosen category of data.
+	 * The category may be tunes, discussions, recordings, sessions or events.
+	 * 
+	 * @param baseCategory the category of information to be retrieved, i.e. tunes, discussions, sessions, recordings or events
+	 * @param searchTermsInput searchTermsInput the search terms collected from the user, as a single string
+	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
+	 * @return the JSON response from the API as a String
+	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
+	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 */
+	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage) throws IOException, MalformedURLException
+		{				
+		try 
+			{
+			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
+			String response;	// A string of JSON data returned from the API
+			
+			// Clean up the search terms provided by the user
+			String searchTermsFormatted = formatSearchTerms(searchTermsInput);
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			
+			// Call the API using a private helper method and store the response
+			response = getAPIResponse(tuneSearchURL);
+			
+			return response;
+			}
+	
+		catch (MalformedURLException e) 
+			{
+			throw new MalformedURLException(e.getMessage());
+			} 
+	
+		catch (IOException e) 
+			{
+			throw new IOException(e.getMessage());
+			}
+		}
+		
+	
 		
 	/**
 	 * An alternative to the submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage) method.
@@ -186,45 +229,6 @@ public class HttpRequestor
 			}
 		}
 	
-	
-	/**
-	 * @param baseCategory
-	 * @param searchTermsInput
-	 * @param resultsPerPage
-	 * @return
-	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
-	 * @throws MalformedURLException if an invalid URL has somehow been constructed
-	 */
-	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage) throws IOException, MalformedURLException
-		{				
-		try 
-			{
-			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
-			String response;	// A string of JSON data returned from the API
-			
-			// Clean up the search terms provided by the user
-			String searchTermsFormatted = formatSearchTerms(searchTermsInput);
-			
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
-			
-			// Call the API using a private helper method and store the response
-			response = getAPIResponse(tuneSearchURL);
-			
-			return response;
-			}
-	
-		catch (MalformedURLException e) 
-			{
-			throw new MalformedURLException(e.getMessage());
-			} 
-	
-		catch (IOException e) 
-			{
-			throw new IOException(e.getMessage());
-			}
-		}
-		
 	
 	/**
 	 * Performs a location-based search for either sessions or events within a specific geographic area.
