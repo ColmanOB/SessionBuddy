@@ -2,7 +2,7 @@ package wrappers_json_response;
 
 /**
  * A wrapper class for the result set when retrieving an individual event by its ID.
- * For an example of the JSON response, se https://thesession.org/events/6169?format=json
+ * For an example of the JSON response, see https://thesession.org/events/6169?format=json
  * The fields and nested structure follow the JSON structure of the response
  * 
  * @author Colman O'B

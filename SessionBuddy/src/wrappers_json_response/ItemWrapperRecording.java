@@ -1,10 +1,16 @@
 package wrappers_json_response;
 
 
+/**
+ * A wrapper class for the result set when retrieving an individual recording by its ID.
+ * For an example of the JSON response, see https://thesession.org/recordings/1222?format=json
+ * The fields and nested structure follow the JSON structure of the response
+ * 
+ * @author Colman
+ * @since 2017-09-10
+ */
 public class ItemWrapperRecording 
 	{
-	//Purpose: A wrapper class for a recording, including its metadata and track listing
-	//The fields and nested structure follow the format of the JSON structure of the search results
 	public String format;	// The format of the response, i.e. JSON
 	public String id;		// The unique ID of the recording in thesession.org database
 	public String url;		// The URL of the recording's page in thesession.org
