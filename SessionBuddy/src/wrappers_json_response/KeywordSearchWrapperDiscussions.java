@@ -1,51 +1,45 @@
 package wrappers_json_response;
 /**
- * A wrapper class for the JSON response returned from the API at https://thesession.org when searching for discussions.
- * 
- * This is a utility class used by DiscussionsSearchParser to facilitate access to any individual field within a set of JSON search results
- * 
+ * A wrapper class for the JSON response returned from the API at https://thesession.org when searching for discussions by keyword(s).
  * The fields and nested structure follow the format of the JSON structure of the recordings search results from the API
- * * 
+ * 
  * @author Colman O'B
- * @since 2017-08-13
+ * @since 2017-09-12
  */
 public class KeywordSearchWrapperDiscussions
 	{
-	public String q;		// The search query submitted by the user
-	public String pages;	// The number of pages in the result set
-	public String page;		// The current page within the result set
-	public String format;	// The format of the results (should always be JSON for this project)
-	public DiscussionsList[] discussions; // An array of the individual discussions returned by the search
+	public String q;		// Search query provided by user
+	public String pages;	// Number of pages in the result set
+	public String page;		// Current page number within the result set
+	public String format;	// Response format (always JSON in this project)
+	public DiscussionsList[] discussions; // Array of the individual discussions returned by the search
 
 	/**
-	 * A wrapper for the individual discussions within the search results returned from thesession.org API
+	 * A wrapper for an individual discussion within the search results
 	 * 
 	 * @author Colman O'B
-	 * @since 2017-02-01
+	 * @since 2017-09-12
 	 */
 	public class DiscussionsList
 		{
-		public String id;	// A unique ID for the discussion within thesession.org
-		public String name;	// The discussion's title
-		public String url;	// The URL of the discussion
-		
-		public SubmitterDetails member; // Details of thesession.org user who submitted the discussion
-		
-		public String date;	// Date the discussion was submitted
+		public String id;	// ID of the discussion within thesession.org
+		public String name;	// Discussion's title
+		public String url;	// URL of the discussion	
+		public SubmitterDetails member; // Details of thesession.org user who submitted the discussion	
+		public String date;		// Date the discussion was submitted
 		public String comments; // Number of comments in the discussion
 			
 		/**
-		 * A 'sub-wrapper' representing the details of the user that submitted the discussion
+		 * Wrapper representing the details of the user that submitted the discussion
 		 * 
 		 * @author Colman
-		 * @since 2017-08-13
+		 * @since 2017-09-12
 		 */
 		public class SubmitterDetails 
 			{
-			public int id;		// Numeric ID of the submitter
+			public int id;		// ID of the submitter in thesession.org database
 			public String name;	// Username of the submitter
-			public String url;	// URL of the member's profile page on thesession.org
-			}
-		
+			public String url;	// URL of the user's profile page on thesession.org
+			}	
 		}
 	}

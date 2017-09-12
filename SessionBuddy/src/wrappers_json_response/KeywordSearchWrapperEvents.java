@@ -1,79 +1,104 @@
 package wrappers_json_response;
-// TODO: Fix up the comments here, add JavaDoc comments, edit comments so they relate to Events, not Recordings
+
+
 /**
- * A wrapper class for the response returned from the API at https://thesession.org
- * This is a utility class used by EventsSearchParser to facilitate access to any individual field within a set of JSON search results
- * The fields and nested structure follow the format of the JSON structure of the recordings search results from the API
- * * 
+ * A wrapper class for the response returned from the API at https://thesession.org when searching for events by keyword(s).
+ * The fields and nested structure follow the format of the JSON structure of the response.
+ * 
  * @author Colman O'B
- * @since 2017-02-01
+ * @since 2017-09-12
  */
 public class KeywordSearchWrapperEvents
 	{
-	public String q;		// The search query submitted by the user
-	public String pages;	// The number of pages in the result set
-	public String page;		// The current page within the result set
-	public String format;	// The format of the results (should always be JSON for this project)
-	public EventsList[] events; // An array of the individual recordings returned by the search
+	public String q;		// Search query provided by user
+	public String pages;	// Number of pages in the result set
+	public String page;		// Current page number within the result set
+	public String format;	// Format of the results (always JSON for this project)
+	public EventsList[] events; // Array of the individual events returned by the search
 
 	/**
-	 * A wrapper for the individual events within the search results returned from thesession.org API
+	 * A wrapper for an individual event within the result set
 	 * 
 	 * @author Colman O'B
 	 * @since 2017-02-01
 	 */
 	public class EventsList
 		{
-		public String id;		// A unique ID for the recording within thesession.org database
-		public String name;	// The name of the recording within thesession.org database
-		public String url;	// The URL of the recording's individual page on thesession.org website
-		
-		public SubmitterDetails member; // Details of thesession.org user who submitted the tune
-		
-		public String date;	// The date on which the recording was submitted to thesession.org website
-			
-		public String dtstart;
-		public String dtend;
-		
-		public String latitude;
-		public String longitude;
-		
-		public VenueDetails venue;		
-		public TownDetails town;
-		public AreaDetails area;
-		public CountryDetails country;
+		public String id;		// ID for the event within thesession.org database
+		public String name;		// Name of the event
+		public String url;		// URL of the event's page on thesession.org
+		public SubmitterDetails member; // Details of thesession.org user who submitted the event
+		public String date;		// The date on which the event was submitted to thesession.org website	
+		public String dtstart;	// Start date/time of the event
+		public String dtend;	// End date/time of the event
+		public String latitude;		// Latitude of the venue
+		public String longitude;	// Longitude of the venue
+		public VenueDetails venue;	// Venue details	
+		public TownDetails town;	// Town where the event is happening
+		public AreaDetails area;	// Geographic area of the event (county, province etc.)
+		public CountryDetails country; // Country where the event is happening
 
+		/**
+		 * A wrapper for a session.org user who submitted an event
+		 * 
+		 * @author Colman
+		 * @since 2017-09-12
+		 */
 		public class SubmitterDetails 
 			{
-			public int id;		// A unique ID for the member of thesession.org who submitted the recording
-			public String name;	// The user name of the member of thesession.org who submitted the recording
-			public String url;	// The URL of the member's personal page on thesession.org website
+			public int id;		// ID of the user in thesession.org database
+			public String name;	// Username of the submitter
+			public String url;	// URL of the user's profile page on thesession.org
 			}
 		
+		/**
+		 * A wrapper for the details of the venue where an event is taking place
+		 * 
+		 * @author Colman
+		 * @since 2017-09-12
+		 */
 		public class VenueDetails 
 			{
-			public int id;		// A unique ID for the recording artist
-			public String name;	// The artist name
-			public String telephone;
-			public String email;
-			public String web;	// The URL of the artist page on thesession.org website
+			public int id;			// A unique ID for the venue in thesession.org
+			public String name;		// Venue name
+			public String telephone;// Venue phone number
+			public String email;	// Venue email address
+			public String web;		// Venue website/social media page
 			}
 		
+		/**
+		 * A wrapper for the details of the town where an event is taking place
+		 * 
+		 * @author Colman
+		 * @since 2017-09-12
+		 */
 		public class TownDetails 
 			{
-			public int id;		// A unique ID for the town
+			public int id;		// ID for the town in thesession.org
 			public String name;	// The town name
 			}
 	
+		/**
+		 * A wrapper for the details of the area (county, province etc.) where an event is taking place
+		 * 
+		 * @author Colman
+		 * @since 2017-09-12
+		 */
 		public class AreaDetails 
 			{
-			public int id;		// A unique ID for the geographic area
-			public String name;	// The name of the geographic area
+			public int id;		// ID for the geographic area in thesession.org
+			public String name;	// Name of the geographic area
 			}
 		
+		/**
+		 * A wrapper for the details of the country where an event is taking place
+		 * 
+		 * @author Colman
+		 * @since 2017-09-12
+		 */
 		public class CountryDetails 
 			{
-			public int id;		// A unique ID for the country
+			public int id;		// ID for the country in thesession.org
 			public String name;	// The country name
 			}
 		}

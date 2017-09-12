@@ -1,35 +1,35 @@
 package wrappers_json_response;
 
+
 /**
- * A wrapper class for the response returned from the API at https://thesession.org
- * This is a utility class used by RecordingsSearchParser to facilitate access to any individual field within a set of JSON search results
- * The fields and nested structure follow the format of the JSON structure of the recordings search results from the API
- * * 
+ * A wrapper for the response returned from the API at https://thesession.org when searching by keyword for a recording.
+ * The fields and nested structure follow the format of the JSON structure of the recordings search results from the API.
+ *  
  * @author Colman O'B
- * @since 2017-01-28
+ * @since 2017-09-12
  */
 public class KeywordSearchWrapperRecordings
 	{
-	public String q;		// The search query submitted by the user
-	public String pages;	// The number of pages in the result set
-	public String page;		// The current page within the result set
-	public String format;	// The format of the results (should always be JSON for this project)
+	public String q;		// Search query submitted by the user
+	public String pages;	// Number of pages in the result set
+	public String page;		// Current page number within the result set
+	public String format;	// Format of the results (should always be JSON for this project)
 	public recordingsList[] recordings; // An array of the individual recordings returned by the search
 
 	/**
-	 * A wrapper for the individual recordings within the search results returned from thesession.org API
+	 * A wrapper for the individual recordings within the search results
 	 * 
 	 * @author Colman O'B
 	 * @since 2017-01-28
 	 */
 	public class recordingsList
 		{
-		public String id;		// A unique ID for the recording within thesession.org database
-		public String name;	// The name of the recording within thesession.org database
-		public String url;	// The URL of the recording's individual page on thesession.org website
-		public String date;	// The date on which the recording was submitted to thesession.org website
-		public SubmitterDetails member; // Details of thesession.org user who submitted the tune
-		public ArtistDetails artist; // Details of the recording artist
+		public String id;	// ID of the recording within thesession.org
+		public String name;	// The recording title
+		public String url;	// URL of the recording's page on thesession.org
+		public String date;	// Date the recording was submitted
+		public SubmitterDetails member; // The user who submitted the tune
+		public ArtistDetails artist; 	// Details of the recording artist
 
 		/**
 		 * A wrapper for the details of the "member" within each "recording" in the result set
@@ -40,9 +40,9 @@ public class KeywordSearchWrapperRecordings
 		 */
 		public class SubmitterDetails 
 			{
-			public int id;		// A unique ID for the member of thesession.org who submitted the recording
-			public String name;	// The user name of the member of thesession.org who submitted the recording
-			public String url;	// The URL of the member's personal page on thesession.org website
+			public int id;		// ID of the user within thesession.org
+			public String name;	// Username of the member who submitted the recording
+			public String url;	// URL of the user's personal page on thesession.org
 			}
 		
 		/**
@@ -54,9 +54,9 @@ public class KeywordSearchWrapperRecordings
 		 */
 		public class ArtistDetails 
 			{
-			public int id;		// A unique ID for the recording artist
-			public String name;	// The artist name
-			public String url;	// The URL of the artist page on thesession.org website
+			public int id;		// ID of the recording artist within thesession.org
+			public String name;	// The artist/group name
+			public String url;	// URL of the artist page on thesession.org website
 			}
 		}
 	}

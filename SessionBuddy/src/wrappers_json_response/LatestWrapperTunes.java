@@ -1,9 +1,8 @@
 package wrappers_json_response;
 
 /**
- * A wrapper class for the response returned when searching for the most recently added tunes at thesession.org
- * This is a utility class used by JsonSearchParser to facilitate access to any individual field within a set of JSON search results
- * The fields and nested structure follow the format of the JSON structure of the latest tunes results from the API
+ * A wrapper class for the response returned when searching for the most recently added tunes on thesession.org.
+ * The fields and nested structure follow the format of the JSON structure of the latest tunes results from the API.
  * 
  * Note that this wrapper is an anomaly - for all other data categories the response is the same for a keyword search and for latest listings.
  * Latest tunes are presented quite differently from the results of a keyword search for tunes.
@@ -27,11 +26,11 @@ public class LatestWrapperTunes
 	 */
 	public class SettingDetails 
 		{
-		public String id;	// Unique ID for the setting in thesession.org database
-		public String url;	// The URL of the individual setting on thesession.org
-		public String key; 	// The key of the setting
-		public SubmitterDetails member; // Details of thesession.org user who submitted the setting
-		public String date; // The date on which this setting was submitted
+		public String id;		// ID for the setting in thesession.org database
+		public String url;		// URL of the individual setting on thesession.org
+		public String key; 		// Key of the setting
+		public SubmitterDetails member; // Details of user who submitted the setting
+		public String date; 	// The date on which this setting was submitted
 		public TuneDetails tune; // The 'parent' tune, of which this is a setting
 
 		
@@ -44,9 +43,9 @@ public class LatestWrapperTunes
 		 */
 		public class SubmitterDetails 
 			{
-			public int id;		// Numeric ID for the tune submitter
-			public String name;	// The tune submitter's username
-			public String url;	// The URL of the submitter's profile page on thesession.org
+			public int id;		// ID for the tune submitter in thesession.org
+			public String name;	// Tune submitter's username
+			public String url;	// URL of the submitter's profile page on thesession.org
 			}
 		
 		
@@ -59,9 +58,9 @@ public class LatestWrapperTunes
 		 */
 		public class TuneDetails 
 			{
-			public int id;		// Numeric ID for the tune
+			public int id;		// ID for the tune on thesession.org
 			public String name;	// The tune title
-			public String url;	// The URL of the tune's page
+			public String url;	// URL of the tune's page
 			}
 		}
 	}
