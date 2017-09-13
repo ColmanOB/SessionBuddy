@@ -19,97 +19,97 @@ public class StringCleaner
 	 * @param inputString a string that may contain XML entities
 	 * @return a string with any XML entities replaced with their standard characters
 	 */
-	public static String cleanString(final String inputString) 
+	public static String cleanString(final String inputString)
 		{
 	    StringBuilder outputString = new StringBuilder(inputString.length());
 	    int i = 0;
 	    int inputLength = inputString.length();
 	    
 	    // Iterate through each character of the input string, and look for anything starting with an & character
-	    while (i < inputLength) 
+	    while (i < inputLength)
 	    	{
-	        char currentChar = inputString.charAt(i);
+	    	char currentChar = inputString.charAt(i);
 	        
-	        if (currentChar != '&') 
+	        if (currentChar != '&')
 	        	{
 	            outputString.append(currentChar);
 	            i++;
-	        	} 
+	        	}
 	        
-	        else 
+	        else
 	        	{
 	        	// Handle three different ways an ampersand may be rendered in the response
-	            if (inputString.startsWith("&amp;", i)) 
+	            if (inputString.startsWith("&amp;", i))
 	            	{
 	                outputString.append('&');
 	                i += 5;
-	            	} 
+	            	}
 	            
-	            else if (inputString.startsWith("&#038;", i)) 
+	            else if (inputString.startsWith("&#038;", i))
 	            	{
 	                outputString.append('&');
 	                i += 6;
-	            	} 
+	            	}
 	            
-	            else if (inputString.startsWith("&#38;", i)) 
+	            else if (inputString.startsWith("&#38;", i))
 	            	{
 	                outputString.append('&');
 	                i += 5;
-	            	} 
+	            	}
 	            
 	            // Cater for cases where an actual ampersand is sent in the response
-	            else if (inputString.startsWith("& ", i)) 
+	            else if (inputString.startsWith("& ", i))
 	            	{
 	                outputString.append('&');
 	                i += 1;
 	            	}
 	            
 	            // Handle three different ways an apostrophe may be rendered in the response
-	            else if (inputString.startsWith("&apos;", i)) 
+	            else if (inputString.startsWith("&apos;", i))
 	            	{
 	                outputString.append('\'');
 	                i += 6;
-	            	} 
+	            	}
 	            
-	            else if (inputString.startsWith("&#039;", i)) 
+	            else if (inputString.startsWith("&#039;", i))
 	            	{
 	                outputString.append('\'');
 	                i += 6;
-	            	} 
+	            	}
 	            
-	            else if (inputString.startsWith("&#39;", i)) 
+	            else if (inputString.startsWith("&#39;", i))
 	            	{
 	                outputString.append('\'');
 	                i += 5;
-	            	} 
+	            	}
 	            
 	            // Handle three ways double quotes might be rendered in the response
-	            else if (inputString.startsWith("&quot;", i)) 
+	            else if (inputString.startsWith("&quot;", i))
 	            	{
 	                outputString.append('"');
 	                i += 6;
-	            	} 
+	            	}
 	            
-	            else if (inputString.startsWith("&#034;", i)) 
+	            else if (inputString.startsWith("&#034;", i))
 	            	{
 	                outputString.append('"');
 	                i += 6;
-	            	} 
+	            	}
 	            
-	            else if (inputString.startsWith("&#34;", i)) 
+	            else if (inputString.startsWith("&#34;", i))
 	            	{
 	                outputString.append('"');
 	                i += 5;
 	            	} 
 	            
 	            // Handle three ways a less-than character might be rendered in the response
-	            else if (inputString.startsWith("&lt;", i)) 
+	            else if (inputString.startsWith("&lt;", i))
 	            	{
 	                outputString.append('<');
 	                i += 4;
-	            	} 
+	            	}
 	            
-	            else if (inputString.startsWith("&#060;", i)) 
+	            else if (inputString.startsWith("&#060;", i))
 	            	{
 	                outputString.append('<');
 	                i += 6;
@@ -126,15 +126,15 @@ public class StringCleaner
 	            	{
 	                outputString.append('>');
 	                i += 4;
-	            	} 
+	            	}
 	            
-	            else if (inputString.startsWith("&#062;", i)) 
+	            else if (inputString.startsWith("&#062;", i))
 	            	{
 	                outputString.append('>');
 	                i += 6;
 	            	}
 	            
-	            else if (inputString.startsWith("&#62;", i)) 
+	            else if (inputString.startsWith("&#62;", i))
 	            	{
 	                outputString.append('>');
 	                i += 5;
@@ -142,8 +142,7 @@ public class StringCleaner
 	            
 	            else i++;
 	        	}
-	    	}    
+	    	}
 	    return outputString.toString();
 		}
-	
 	}

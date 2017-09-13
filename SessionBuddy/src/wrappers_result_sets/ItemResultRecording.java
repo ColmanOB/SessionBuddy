@@ -9,20 +9,21 @@ import wrappers_granular_objects.TrackListing;
 import wrappers_granular_objects.User;
 
 /**
+ * A wrapper for the result returned when retrieving an individual recording by its ID.
+ * 
  * @author Colman
- * @since 2017-08-17
+ * @since 2017-09-13
  */
 public class ItemResultRecording 
 	{
-	// Variables to hold data relating to the recording as a whole	
-	public RecordingDetails recordingDetails; // recording ID, title, etc.
-	public User member; // The member who submitted the recording
-	public Artist artist; // The recording artist
-	public ArrayList<TrackListing> tracks; // The list of tracks on the recording
-	public ArrayList<Comment> comments; // The comments on the recording
+	public RecordingDetails recordingDetails;	// Metadata relating to the recording
+	public User member; 						// User who submitted the recording
+	public Artist artist; 						// The recording artist or group
+	public ArrayList<TrackListing> tracks; 		// List of tracks on the recording
+	public ArrayList<Comment> comments; 		// Comments on the recording's page
 
 	/**
-	 * Constructor method
+	 * Constructor
 	 * 
 	 * @param recordingDetails
 	 * @param member
