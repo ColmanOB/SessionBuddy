@@ -25,11 +25,11 @@ public class ItemResultRecording
 	/**
 	 * Constructor
 	 * 
-	 * @param recordingDetails
-	 * @param member
-	 * @param artist
-	 * @param tracks
-	 * @param comments
+	 * @param recordingDetails a RecordingDetails object that has already been populated
+	 * @param member a User object representing the recording submitter
+	 * @param artist an Artist object representing the recording artist
+	 * @param tracks an ArrayList of TrackListing objects that have already been populated
+	 * @param comments an ArrayList of Comment objects that have already been populated
 	 */
 	public ItemResultRecording(RecordingDetails recordingDetails, User member, Artist artist, ArrayList<TrackListing> tracks, ArrayList<Comment> comments)
 		{
