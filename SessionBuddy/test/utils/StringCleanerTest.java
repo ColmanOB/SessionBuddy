@@ -36,4 +36,18 @@ public class StringCleanerTest
 		assertEquals("Tr&bla'h", StringCleaner.cleanString("Tr&#38;bla&apos;h"));
 		}
 	
+	@Test
+	public void testAmpersandAndSpaceInRespose() 
+		{
+		// Test that the sequence "&#38;" is replaced by a single ampersand
+		assertEquals("Tr& blah", StringCleaner.cleanString("Tr& blah"));
+		}
+	
+	@Test
+	public void testAmpersandInRespose() 
+		{
+		// Test that an ampersand on its own is passed through unchanged
+		assertEquals("Tr&blah", StringCleaner.cleanString("Tr&blah"));
+		}
+	
 	}

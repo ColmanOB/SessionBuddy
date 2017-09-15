@@ -8,8 +8,6 @@ package utils;
  */
 public class StringCleaner 
 	{
-	// TODO: Needs a clause to cater for cases where a & exists as part of an abc transcription
-	// TODO: This needs to be tested with input containing more than one type of XML entity
 	/**
 	 * An iterative method to catch any XML entities in the response from the API and replace them with their standard characters.
 	 * 
@@ -138,6 +136,13 @@ public class StringCleaner
 	            	{
 	                outputString.append('>');
 	                i += 5;
+	            	}
+	            
+	            // Cater for cases where an ampersand exists in the abc notation
+	            else if (inputString.startsWith("&", i))
+	            	{
+	                outputString.append('&');
+	                i += 1;
 	            	}
 	            
 	            else i++;

@@ -10,31 +10,33 @@ import wrappers_granular_objects.User;
 import wrappers_granular_objects.Venue;
 
 /**
- * A structure to hold an individual event from a set of search results from thesession.org API
+ * A structure to hold an individual event from a set of results from a location-based search
  * 
  * @author Colman O'B
- * @since 2017-08-27
+ * @since 2017-09-15
  */
 public class LocationResultEvents 
 	{
-	public EventDetails details;	
-	public User user;
-	public EventSchedule schedule;
-	public Coordinates coordinates;
-	public Venue venue;
-	public Town town;
-	public Area area;
-	public Country country;
+	public EventDetails details;	// General details relating to the event
+	public User user;				// Details of the user who submitted the event
+	public EventSchedule schedule;	// Start and end dates of the event
+	public Coordinates coordinates; // Latitude and longitude of the venue
+	public Venue venue;				// Details of the venue
+	public Town town;				// Details of the town where the venue is located
+	public Area area;				// Details of the geographic area where the town is located
+	public Country country;			// Details of the country where the event is taking place
 
 	/**
-	 * @param details
-	 * @param user
-	 * @param schedule
-	 * @param coordinates
-	 * @param venue
-	 * @param town
-	 * @param area
-	 * @param country
+	 * Constructor
+	 * 
+	 * @param details an already-populated EventDetails object
+	 * @param user an already-populated User object representing the submitter of the event
+	 * @param schedule an EventSchedule object with the start and end date/time of the event
+	 * @param coordinates a Coordinates object with the latitude and longitude of the venue
+	 * @param venue a populated Venue object
+	 * @param town a populated Town object
+	 * @param area a populated Area object
+	 * @param country a populated country object
 	 */
 	public LocationResultEvents(EventDetails details, User user, EventSchedule schedule, Coordinates coordinates, Venue venue, Town town, Area area, Country country)
 		{

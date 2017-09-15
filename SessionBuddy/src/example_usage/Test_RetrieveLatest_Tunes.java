@@ -26,15 +26,15 @@ class Test_RetrieveLatest_Tunes
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				System.out.println("Tune ID: " + resultSet.get(i).details.settingID);
-				System.out.println("Tune URL: " + resultSet.get(i).details.settingURL);
-				System.out.println("Key: "+ resultSet.get(i).details.key);
+				System.out.println("Tune ID: " + resultSet.get(i).settingDetails.settingID);
+				System.out.println("Tune URL: " + resultSet.get(i).settingDetails.settingURL);
+				System.out.println("Key: "+ resultSet.get(i).settingDetails.key);
 				
-				System.out.println("Setting ID: " + resultSet.get(i).settings.tuneID);
-				System.out.println("Setting Name: " + resultSet.get(i).settings.tuneName);
-				System.out.println("Setting URL: " + resultSet.get(i).settings.tuneURL);
+				System.out.println("Setting ID: " + resultSet.get(i).tuneDetails.tuneID);
+				System.out.println("Setting Name: " + resultSet.get(i).tuneDetails.tuneName);
+				System.out.println("Setting URL: " + resultSet.get(i).tuneDetails.tuneURL);
 				
-				System.out.println("Key: "+ resultSet.get(i).details.date);
+				System.out.println("Date: "+ resultSet.get(i).settingDetails.date);
 	
 				System.out.println("User ID: " + resultSet.get(i).submitter.userID);
 				System.out.println("User Name: " + resultSet.get(i).submitter.userName);

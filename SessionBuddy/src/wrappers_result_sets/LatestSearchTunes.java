@@ -13,15 +13,22 @@ import wrappers_granular_objects.User;
  */
 public class LatestSearchTunes 
 	{
-	public LatestSettingDetails details;	// Attributes of the tune setting
-	public User submitter;	// Attributes of the user who submitted the setting
-	public LatestTuneDetails settings; // Attributes of the tune to which the setting belongs
+	public LatestSettingDetails settingDetails;	// Details of the tune setting
+	public User submitter;						// Details of the user who submitted the setting
+	public LatestTuneDetails tuneDetails; 		// Details of the tune to which the setting belongs
 
 
-	public LatestSearchTunes(LatestSettingDetails details, User submitter, LatestTuneDetails settings)
+	/**
+	 * Constructor 
+	 * 
+	 * @param settingDetails a LatestSettingDetails object that has already been populated
+	 * @param submitter a User object populated with the details of the submitter
+	 * @param tuneDetails a LatestTuneDetails object that has already been populated
+	 */
+	public LatestSearchTunes(LatestSettingDetails settingDetails, User submitter, LatestTuneDetails tuneDetails)
 		{
-		this.details = details;
+		this.settingDetails = settingDetails;
 		this.submitter = submitter;
-		this.settings = settings;
+		this.tuneDetails = tuneDetails;
 		}
 	}
