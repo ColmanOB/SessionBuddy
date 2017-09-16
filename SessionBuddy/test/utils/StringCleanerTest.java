@@ -4,6 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * Tests the StringCleaner class to ensure it cleans input strings as expected
+ * 
+ * @author Colman
+ * @since 2017-09-16
+ */
 public class StringCleanerTest 
 	{
 	StringCleaner cleaner = new StringCleaner();

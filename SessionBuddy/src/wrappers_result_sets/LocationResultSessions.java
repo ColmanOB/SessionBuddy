@@ -9,29 +9,31 @@ import wrappers_granular_objects.User;
 import wrappers_granular_objects.Venue;
 
 /**
- * A structure to hold an individual event from a set of search results from thesession.org API
+ * A structure to hold an individual session listing from a location-based search
  * 
  * @author Colman O'B
- * @since 2017-02-01
+ * @since 2017-09-16
  */
 public class LocationResultSessions 
 	{
-	public SessionDetails details;	
-	public Coordinates coordinates;
-	public User user;
-	public Venue venue;
-	public Town town;
-	public Area area;
-	public Country country;
+	public SessionDetails details;	// General information about the session
+	public Coordinates coordinates;	// Latitude and longitude of the venue
+	public User user;				// The submitter of the session
+	public Venue venue;				// Details of the session venue
+	public Town town;				// Details of the town where the venue is located
+	public Area area;				// Details of the geographic area
+	public Country country;			// Details of the country
 	
 	/**
-	 * @param details
-	 * @param coordinates
-	 * @param user
-	 * @param venue
-	 * @param town
-	 * @param area
-	 * @param country
+	 * Constructor 
+	 * 
+	 * @param details an already-populated SessionDetails object
+	 * @param coordinates a Coordinates object populated with a latitude and longitude
+	 * @param user a populated User object representing the submitter of the session
+	 * @param venue a Venue object populated with the venue details
+	 * @param town an already-populated Town object
+	 * @param area an already-populated Area object
+	 * @param country an already-populated Country object
 	 */
 	public LocationResultSessions(SessionDetails details, Coordinates coordinates, User user, Venue venue, Town town, Area area, Country country)
 		{

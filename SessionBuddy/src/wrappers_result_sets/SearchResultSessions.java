@@ -10,21 +10,24 @@ import wrappers_granular_objects.Venue;
 
 /**
  * A structure to hold an individual event from a set of search results from thesession.org API
+ * The search may be a keyword-based search or a location-based search
  * 
  * @author Colman O'B
- * @since 2017-02-01
+ * @since 2017-09-16
  */
 public class SearchResultSessions 
 	{
-	public SessionDetails details;	
-	public Coordinates coordinates;
-	public User user;
-	public Venue venue;
-	public Town town;
-	public Area area;
-	public Country country;
+	public SessionDetails details;	// General details about the session
+	public Coordinates coordinates;	// Latitude and longitude of the session venue
+	public User user;				// Details of the user who submitted the session
+	public Venue venue;				// Details of the session venue
+	public Town town;				// The town where the venue is located
+	public Area area;				// The geographic area where the town is located
+	public Country country;			// The country where the session is located
 	
 	/**
+	 * Constructor
+	 * 
 	 * @param details
 	 * @param coordinates
 	 * @param user

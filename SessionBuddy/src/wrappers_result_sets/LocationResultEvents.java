@@ -10,7 +10,7 @@ import wrappers_granular_objects.User;
 import wrappers_granular_objects.Venue;
 
 /**
- * A structure to hold an individual event from a set of results from a location-based search
+ * A structure to hold an event listing returned from a location-based search for events
  * 
  * @author Colman O'B
  * @since 2017-09-15
