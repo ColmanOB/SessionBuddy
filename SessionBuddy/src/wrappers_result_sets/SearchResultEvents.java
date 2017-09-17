@@ -11,7 +11,7 @@ import wrappers_granular_objects.Venue;
 
 /**
  * A structure to hold an individual event from a set of search results from thesession.org API.
- * The search may be a keyword-based search or a location-based search
+ * The search may be a keyword-based search or a search for recently-added events
  * 
  * @author Colman O'B
  * @since 2017-09-16
