@@ -39,13 +39,14 @@ import wrappers_result_sets.ItemResultTune;
 // TODO: Fix up all the comments in this class, including Javadoc comments
 
 /**
- * Retrieves the data for a single item from the session.org.  The item may be a tune, discussion, recording, session or event
+ * Retrieves the data for a single item from the session.org.  The item may be a tune, discussion, recording, session or event.
  * 
  * @author Colman
- * @since 2017-09-06
+ * @since 2017-09-19
  */
 public class ItemRetriever 
 	{
+	
 	/**
 	 * @param recordingID
 	 * @return
@@ -97,7 +98,7 @@ public class ItemRetriever
 			
 			// Initalise an ArrayList of DiscussionComment objects to hold each individual comment on the recording
 			ArrayList<Comment> comments = new ArrayList<Comment>();
-				
+			
 			// Populate the ArrayList of DiscussionComment objects by iterating through each comment in the JSON response
 			for(int i = 0; i < (parsedResults.comments.length); i++)
 				{
@@ -108,7 +109,7 @@ public class ItemRetriever
 				Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
 				
 				comments.add(currentComment);				
-				}
+				} 
 				
 			// Instantiate a RecordingByIDResult object & populate it with the details captured above
 			ItemResultRecording finalResult = new ItemResultRecording(recordingDetails, member, artist, tracks, comments);
@@ -417,4 +418,7 @@ public class ItemRetriever
 		// Return the set of results that has been collected
 		return finalResult;
 		}
-}
+	
+	
+	}
+
