@@ -209,8 +209,8 @@ public class HttpRequestor
 			String searchTermsFormatted = formatSearchTerms(searchTermsInput);
 		
 			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
-			tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
-		
+			tuneSearchURL = new URL(baseURL + baseCategory  + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			System.out.println(tuneSearchURL);
 			// Call the API using a private helper method and store the response
 			response = getAPIResponse(tuneSearchURL);
 			
