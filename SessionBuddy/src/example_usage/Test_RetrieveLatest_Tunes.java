@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import main.LatestSearch;
-import wrappers_result_sets.LatestSearchTunes;
+import sessionbuddy.LatestSearch;
+import sessionbuddy.wrappers.resultsets.LatestSearchTunes;
 
 // TODO: the field names printed out are not 100% right - investigate and fix!
 

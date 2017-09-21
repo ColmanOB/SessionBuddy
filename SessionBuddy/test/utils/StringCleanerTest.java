@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import sessionbuddy.utils.StringCleaner;
+
 /**
  * Tests the StringCleaner class to ensure it cleans input strings as expected
  * 

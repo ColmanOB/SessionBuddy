@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import main.KeywordSearch;
-import wrappers_result_sets.SearchResultTunes;
+import sessionbuddy.KeywordSearch;
+import sessionbuddy.wrappers.resultsets.SearchResultTunes;
 
 public class Test_KeywordSearch_Tune
 	{

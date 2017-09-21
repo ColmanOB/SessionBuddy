@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import main.LatestSearch;
-import wrappers_result_sets.SearchResultSessions;
+import sessionbuddy.LatestSearch;
+import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 
 
 class Test_RetrieveLatest_Sessions

@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import main.LocationSearch;
-import wrappers_result_sets.LocationResultSessions;
+import sessionbuddy.LocationSearch;
+import sessionbuddy.wrappers.resultsets.LocationResultSessions;
 
 
 public class Test_SearchByLocation_Sessions

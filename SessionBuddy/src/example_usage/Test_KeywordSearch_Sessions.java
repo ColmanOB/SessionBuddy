@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import main.KeywordSearch;
-import wrappers_result_sets.SearchResultSessions;
+import sessionbuddy.KeywordSearch;
+import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 
 
 public class Test_KeywordSearch_Sessions

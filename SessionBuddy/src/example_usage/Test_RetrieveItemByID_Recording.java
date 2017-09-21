@@ -2,8 +2,8 @@ package example_usage;
 
 import java.io.IOException;
 
-import main.ItemRetriever;
-import wrappers_result_sets.ItemResultRecording;
+import sessionbuddy.ItemRetriever;
+import sessionbuddy.wrappers.resultsets.ItemResultRecording;
 
 public class Test_RetrieveItemByID_Recording 
 	{

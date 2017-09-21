@@ -3,8 +3,8 @@ package example_usage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import main.LatestSearch;
-import wrappers_result_sets.SearchResultsDiscussions;
+import sessionbuddy.LatestSearch;
+import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
 
 /**
  * Example usage of the searchDiscussions method of RetrieveLatest class to search thesession.org API for a discussion based on a set of search terms, and store the results.
