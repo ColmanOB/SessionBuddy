@@ -166,5 +166,4 @@ public class StringCleanerTest
 		// Test that unescaped 'less than' symbols are passed through unchanged
 		assertEquals("Text > Text", StringCleaner.cleanString("Text > Text"));
 		}
-	
 	}
