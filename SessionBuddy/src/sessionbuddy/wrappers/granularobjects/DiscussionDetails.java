@@ -1,7 +1,8 @@
 package sessionbuddy.wrappers.granularobjects;
 
 /**
- * Represents a set of metadata associated with a discussion from thesession.org database
+ * Represents a set of metadata associated with a discussion from thesession.org database.
+ * Does not include actual discussion comments.
  * 
  * @author Colman O'B
  * @since 2017-12-24

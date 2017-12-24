@@ -4,12 +4,24 @@ package sessionbuddy.wrappers.granularobjects;
  * Represents an individual user from thesession.org website
  * 
  * @author Colman O'B
- * @since 2017-01-31
+ * @since 2017-12-24
  */
 public class User 
 	{
+	/**
+	 * A numeric ID for the particular user within thesession.org database.
+	 */
 	public String userID;
+	
+	/**
+	 * The person's username / handle on thesession.org, which may be changed by the user
+	 */
 	public String userName;
+	
+	/**
+	 * The URL of the user's profile page on thesession.org.
+	 * This may contain biographical information, original compositions etc.
+	 */
 	public String userURL;
 
 	/**
