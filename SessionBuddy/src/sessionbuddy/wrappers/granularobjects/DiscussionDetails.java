@@ -1,27 +1,46 @@
 package sessionbuddy.wrappers.granularobjects;
 
 /**
- * Represents the set of metadata associated with a discussion from thesession.org database
+ * Represents a set of metadata associated with a discussion from thesession.org database
  * 
  * @author Colman O'B
- * @since 2017-09-20
+ * @since 2017-12-24
  */
 public class DiscussionDetails 
 	{
-	public String discussionID;		// Numeric ID of the discussion in thesession.org database
-	public String discussionName;	// Subject line of the discussion
-	public String discussionURL;	// URL of the discussion's page on thesession.org
-	public String submittedDate;	// Date the discussion was originally submitted
-	public String numberOfComments;	// The current number of comments that make up the disccusion
+	/**
+	 * The numeric ID of the discussion in thesession.org database
+	 */
+	public String discussionID;
+	
+	/**
+	 * The title / subject line of the discussion
+	 */
+	public String discussionName;
+	
+	/**
+	 * The URL of the discussion's page on thesession.org
+	 */
+	public String discussionURL;
+	
+	/**
+	 * The date on which the discussion was originally submitted
+	 */
+	public String submittedDate;
+	
+	/**
+	 * The current number of comments that make up the discussion
+	 */
+	public String numberOfComments;
 
 
 	/**
 	 * Constructor that populates all fields
 	 * 
-	 * @param discussionID numeric ID of the discussion in thesession.org database
-	 * @param discussionName subject line of the discussion
-	 * @param discussionURL URL of the discussion's page on thesession.org
-	 * @param submittedDate	date the discussion was originally submitted
+	 * @param discussionID the numeric ID of the discussion in thesession.org database
+	 * @param discussionName the subject line of the discussion
+	 * @param discussionURL the URL of the discussion's page on thesession.org
+	 * @param submittedDate	the date on which the discussion was originally submitted
 	 * @param numberOfComments the current number of comments that make up the discussion
 	 */
 	public DiscussionDetails(String discussionID, String discussionName, String discussionURL, String submittedDate, String numberOfComments)
@@ -36,10 +55,10 @@ public class DiscussionDetails
 	/**
 	 * Constructor method to use when the number of comments is unknown, e.g. when retrieving a discussion by ID
 	 * 
-	 * @param discussionID numeric ID of the discussion in thesession.org database
-	 * @param discussionName subject line of the discussion
-	 * @param discussionURL URL of the discussion's page on thesession.org
-	 * @param submittedDate	date the discussion was originally submitted
+	 * @param discussionID the numeric ID of the discussion in thesession.org database
+	 * @param discussionName the subject line of the discussion
+	 * @param discussionURL the URL of the discussion's page on thesession.org
+	 * @param submittedDate	the date on which the discussion was originally submitted
 	 */
 	public DiscussionDetails(String discussionID, String discussionName, String discussionURL, String submittedDate)
 		{
