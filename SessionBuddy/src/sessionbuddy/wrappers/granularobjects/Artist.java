@@ -1,15 +1,26 @@
 package sessionbuddy.wrappers.granularobjects;
 
 /**
- * Represents an individual recording artist from thesession.org website
+ * Represents an individual recording artist or group from thesession.org website
  * 
  * @author Colman O'B
- * @since 2017-01-31
+ * @since 2017-12-25
  */
 public class Artist 
 	{
+	/**
+	 * A unique numeric identifier assigned to the recording artist / group in thesession.org database
+	 */
 	public String artistID;
+	
+	/**
+	 * The recording artist/band name as stored in thesession.org database
+	 */
 	public String artistName;
+	
+	/**
+	 * The URL of the artist's profile page on thesession.org
+	 */
 	public String artistPageURL;
 
 	/**

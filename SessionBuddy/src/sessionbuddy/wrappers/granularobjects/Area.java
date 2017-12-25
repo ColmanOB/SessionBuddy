@@ -1,16 +1,24 @@
 package sessionbuddy.wrappers.granularobjects;
 
 /**
- * Represents an individual geographic area from thesession.org website
+ * Represents an individual geographic area from thesession.org website.
+ * Typically a county, province, region or similar geographic area.
  * 
  * @author Colman O'B
- * @since 2017-01-31
+ * @since 2017-12-25
  */
 public class Area 
 	{
+	/**
+	 * A numeric identifier in thesession.org database for the particular geographic area 
+	 */
 	public String areaID;
-	public String areaName;
-
+	
+	/**
+	 * The name of the geographic area
+	 */
+	public String areaName; 
+	
 	/**
 	 * Constructor that populates all fields
 	 * 
