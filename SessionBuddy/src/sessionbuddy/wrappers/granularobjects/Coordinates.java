@@ -4,11 +4,18 @@ package sessionbuddy.wrappers.granularobjects;
  * Represents a set of geographic co-ordinates from thesession.org website
  * 
  * @author Colman O'B
- * @since 2017-01-31
+ * @since 2017-12-29
  */
 public class Coordinates 
 	{
+	/**
+	 * A geographic latitude value
+	 */
 	public String latitude;
+	
+	/**
+	 * A geographic longitude value
+	 */
 	public String longitude;
 
 	/**

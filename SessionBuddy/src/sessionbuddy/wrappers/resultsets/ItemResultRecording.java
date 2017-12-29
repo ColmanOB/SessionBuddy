@@ -12,18 +12,37 @@ import sessionbuddy.wrappers.granularobjects.User;
  * A wrapper for the result returned when retrieving an individual recording by its ID.
  * 
  * @author Colman
- * @since 2017-09-13
+ * @since 2017-12-29
  */
 public class ItemResultRecording 
 	{
-	public RecordingDetails recordingDetails;	// Metadata relating to the recording
-	public User member; 						// User who submitted the recording
-	public Artist artist; 						// The recording artist or group
-	public ArrayList<TrackListing> tracks; 		// List of tracks on the recording
-	public ArrayList<Comment> comments; 		// Comments on the recording's page
+	/**
+	 * Metadata relating to the recording
+	 */
+	public RecordingDetails recordingDetails;
+	
+	/**
+	 * User who submitted the recording
+	 */
+	public User member;
+	
+	/**
+	 * The recording artist or group
+	 */
+	public Artist artist;
+	
+	/**
+	 * List of tracks on the recording
+	 */
+	public ArrayList<TrackListing> tracks;
+	
+	/**
+	 * Comments on the recording's page
+	 */
+	public ArrayList<Comment> comments;
 
 	/**
-	 * Constructor
+	 * Constructor that populates all fields
 	 * 
 	 * @param recordingDetails a RecordingDetails object that has already been populated
 	 * @param member a User object representing the recording submitter

@@ -5,23 +5,39 @@ package sessionbuddy.wrappers.granularobjects;
  * May be a comment on a discussion, a tune, a session etc.
  * 
  * @author Colman
- * @since 2017-12-25
+ * @since 2017-12-29
  */
 public class Comment 
 	{
 	/**
-	 * 
+	 * A numeric identifier for the particular comment in thesession.org database
 	 */
-	public int id;		// The identifier for the particular comment in thesession.org database
+	public int id;
 	
 	/**
-	 * 
+	 * The URL of the particular comment
 	 */
-	public String url;	// The URL of the particular comment
-	public String subject;	// The subject line of the comment
-	public String content;	// The actual text of the comment submitted by the user
-	public User member;	// The user who submitted the comment
-	public String date;	// The date on which the comment was submitted to thesession.org
+	public String url;
+	
+	/**
+	 * The subject line of the comment
+	 */
+	public String subject;
+	
+	/**
+	 * The actual text of the comment submitted by the user
+	 */
+	public String content;
+	
+	/**
+	 * The user who submitted the comment
+	 */
+	public User member;
+	
+	/**
+	 * The date on which the comment was submitted to thesession.org
+	 */
+	public String date;
 	
 	/**
 	 * Constructor that populates all fields

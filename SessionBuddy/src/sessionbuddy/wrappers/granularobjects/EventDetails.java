@@ -4,14 +4,29 @@ package sessionbuddy.wrappers.granularobjects;
  * Represents the set of metadata associated with an event from thesession.org database
  * 
  * @author Colman O'B
- * @since 2017-09-20
+ * @since 2017-12-29
  */
 public class EventDetails 
 	{
-	public String eventID;			// Numeric ID of the event in thesession.org database
-	public String eventName;		// Name of the event
-	public String eventURL;			// URL of the event's page on thesession.org
-	public String submittedDate;	// Date the event was submitted to thesession.org
+	/**
+	 * Numeric ID of the event in thesession.org database
+	 */
+	public String eventID;
+	
+	/**
+	 * Name of the event
+	 */
+	public String eventName;
+	
+	/**
+	 * URL of the event's page on thesession.org
+	 */
+	public String eventURL;
+	
+	/**
+	 * Date the event was submitted to thesession.org
+	 */
+	public String submittedDate;
 
 
 	/**
