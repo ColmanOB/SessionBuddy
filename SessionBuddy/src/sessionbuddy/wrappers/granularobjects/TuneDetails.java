@@ -4,15 +4,34 @@ package sessionbuddy.wrappers.granularobjects;
  * Represents the set of metadata associated with a tune from thesession.org database
  * 
  * @author Colman O'B
- * @since 2017-09-20
+ * @since 2017-12-29
  */
 public class TuneDetails 
 	{
-	public String tuneID;			// Numeric identifier of the tune in thesession.org
-	public String tuneTitle;		// Name of the tune
-	public String tuneType;			// Tune type, i.e. jig, reel etc.
-	public String tuneURL;			// URL of the tune's page on thesession.org
-	public String submittedDate;	// Date of original submission of the tune
+	/**
+	 * Numeric identifier of the tune in thesession.org
+	 */
+	public String tuneID;
+	
+	/**
+	 * Name of the tune
+	 */
+	public String tuneTitle;
+	
+	/**
+	 * Tune type, i.e. jig, reel etc.
+	 */
+	public String tuneType;
+	
+	/**
+	 * URL of the tune's page on thesession.org
+	 */
+	public String tuneURL;
+	
+	/**
+	 * Date of original submission of the tune
+	 */
+	public String submittedDate;
 
 	/**
 	 * Constructor method that populates all fields

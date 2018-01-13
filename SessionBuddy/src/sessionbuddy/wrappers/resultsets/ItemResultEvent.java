@@ -17,23 +17,56 @@ import sessionbuddy.wrappers.granularobjects.Venue;
  * Holds metadata relating to the event, its schedule, its location, and any comments on the event's page
  * 
  * @author Colman
- * @since 2017-09-13
+ * @since 2017-12-29
  */
 public class ItemResultEvent 
 	{
-	public EventDetails eventDetails;	// Metadata relating to the event
-	public User member;					// The user who submitted the event
-	public EventSchedule schedule;		// The start and end dates of the event
-	public Coordinates coordinates;		// The latitude and longitude of the venue
-	public Venue venue;					// General details of the venue
-	public Town town;					// Details of the town where the event will take place
+	/**
+	 * Metadata relating to the event
+	 */
+	public EventDetails eventDetails;
+	
+	/**
+	 * The user who submitted the event
+	 */
+	public User member;
+	
+	/**
+	 * The start and end dates of the event
+	 */
+	public EventSchedule schedule;
+	
+	/**
+	 * The latitude and longitude of the venue
+	 */
+	public Coordinates coordinates;
+	
+	/**
+	 * General details of the venue
+	 */
+	public Venue venue;
+	
+	/**
+	 * Details of the town where the event will take place
+	 */
+	public Town town;
+	
+	/**
+	 * 
+	 */
 	public Area area;					// Details of the geographic area where the event will take place
+	/**
+	 * 
+	 */
 	public Country country;				// Details of the country where the event will take place
 	
+	/**
+	 * 
+	 */
 	public ArrayList<Comment> comments; // A list of comments on the event's page
 
 	/**
-	 * Constructor
+	 * Constructor that populates all fields
 	 * 
 	 * @param eventDetails an EventDetails object that has already been populated
 	 * @param member a User object representing the event submitter

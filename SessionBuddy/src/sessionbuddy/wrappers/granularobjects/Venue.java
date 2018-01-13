@@ -1,17 +1,36 @@
 package sessionbuddy.wrappers.granularobjects;
 
 /**
- * Represents an individual venue from thesession.org website
+ * Represents an individual venue record from thesession.org website
  * 
  * @author Colman O'B
- * @since 2017-01-31
+ * @since 2017-12-29
  */
 public class Venue
 	{
+	/**
+	 * A unique numeric identifier given to each venue in thesession.org database
+	 */
 	public String venueID;
+	
+	/**
+	 * The venue's name, as stored in thesession.org database
+	 */
 	public String venueName;
+	
+	/**
+	 * The venue's phone number, if present
+	 */
 	public String venuePhone;
+	
+	/**
+	 * The venue's email address, if present
+	 */
 	public String venueEmail;
+	
+	/**
+	 * The venue's website / social media page, if present
+	 */
 	public String venueWebsite;
 
 	/**

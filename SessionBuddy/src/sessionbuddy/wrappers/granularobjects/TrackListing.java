@@ -6,10 +6,13 @@ import java.util.ArrayList;
  * Represents an individual track on a recording
  * 
  * @author Colman O'B
- * @since 2017-08-18
+ * @since 2017-12-29
  */
 public class TrackListing 
 	{
+	/**
+	 * An ArrayList of TuneRecord objects, one for each tune on the track
+	 */
 	public ArrayList<TuneRecord> tunes;
 
 	/**
