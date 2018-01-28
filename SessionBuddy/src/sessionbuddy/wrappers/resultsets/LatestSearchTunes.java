@@ -8,15 +8,25 @@ import sessionbuddy.wrappers.granularobjects.User;
  * A structure to represent an individual result from a search for the latest tunes submitted to thesession.org
  * 
  * @author Colman O'B
- * @since 2017-09-10
+ * @since 2018-01-28
  *
  */
 public class LatestSearchTunes 
 	{
-	public LatestSettingDetails settingDetails;	// Details of the tune setting
-	public User submitter;						// Details of the user who submitted the setting
-	public LatestTuneDetails tuneDetails; 		// Details of the tune to which the setting belongs
-
+	/**
+	 * Details of the tune setting
+	 */
+	public LatestSettingDetails settingDetails;
+	
+	/**
+	 * Details of the user who submitted the setting
+	 */
+	public User submitter;
+	
+	/**
+	 * Details of the tune to which the setting belongs
+	 */
+	public LatestTuneDetails tuneDetails;
 
 	/**
 	 * Constructor 

@@ -52,18 +52,19 @@ public class ItemResultEvent
 	public Town town;
 	
 	/**
-	 * 
+	 * Details of the geographic area where the event will take place
 	 */
-	public Area area;					// Details of the geographic area where the event will take place
-	/**
-	 * 
-	 */
-	public Country country;				// Details of the country where the event will take place
+	public Area area;
 	
 	/**
-	 * 
+	 * Details of the country where the event will take place
 	 */
-	public ArrayList<Comment> comments; // A list of comments on the event's page
+	public Country country;
+	
+	/**
+	 * A list of comments on the event's page
+	 */
+	public ArrayList<Comment> comments;
 
 	/**
 	 * Constructor that populates all fields

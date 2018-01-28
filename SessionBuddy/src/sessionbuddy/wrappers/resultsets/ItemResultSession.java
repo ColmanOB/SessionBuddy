@@ -15,20 +15,54 @@ import sessionbuddy.wrappers.granularobjects.Venue;
  * A wrapper for the result returned when retrieving an individual session by its ID.
  * 
  * @author Colman
- * @since 2017-09-14
+ * @since 2018-01-28
  */
 public class ItemResultSession 
 	{
-	public SessionDetails sessionDetails;	// Metadata relating to the session
-	public Coordinates coordinates;			// Latitude and longitude of the venue
-	public User member;						// The user who submitted thesession
-	public Venue venue;						// General details of the venue
-	public Town town;						// Details of the town where the session takes place
-	public Area area;						// Details of the geographic area where the town is located
-	public Country country;					// Details of the country where the session is located
+	/**
+	 * Metadata relating to the session
+	 */
+	public SessionDetails sessionDetails;
 	
-	public ArrayList<String> schedule;		// Days of the week on which the session takes place
-	public ArrayList<Comment> comments;		// A list of comments on the session's page on thesession.org
+	/**
+	 * Latitude and longitude of the venue
+	 */
+	public Coordinates coordinates;
+	
+	/**
+	 * The user who submitted thesession
+	 */
+	public User member;
+	
+	/**
+	 * General details of the venue
+	 */
+	public Venue venue;
+	
+	/**
+	 * Details of the town where the session takes place
+	 */
+	public Town town;
+	
+	/**
+	 * Details of the geographic area where the town is located
+	 */
+	public Area area;
+	
+	/**
+	 * Details of the country where the session is located
+	 */
+	public Country country;
+	
+	/**
+	 * Days of the week on which the session takes place
+	 */
+	public ArrayList<String> schedule;
+	
+	/**
+	 * A list of comments on the session's page on thesession.org
+	 */
+	public ArrayList<Comment> comments;
 
 
 	/**

@@ -11,18 +11,44 @@ import sessionbuddy.wrappers.granularobjects.User;
  * A wrapper for the result returned when retrieving an individual tune by its ID.
  * 
  * @author Colman
- * @since 2017-09-14
+ * @since 2018-01-28
  */
 public class ItemResultTune 
 	{
-	public TuneDetails tuneDetails;			// Metadata relating to the tune
-	public User member;						// Details of the user who submitted the tune
-	public String tunebooks;				// Number of user tunebooks to which this tune has been added
-	public String recordings;				// Number of recordings with a tune of this name
+	/**
+	 * Metadata relating to the tune
+	 */
+	public TuneDetails tuneDetails;
 	
-	public ArrayList<String> aliases;		// Alternative titles for the tune
-	public ArrayList<Comment> comments;		// A list of comments on the tune's page
-	public ArrayList<TuneSetting> settings;	// A list of different settings of the particular tune
+	/**
+	 * Details of the user who submitted the tune
+	 */
+	public User member;
+	
+	/**
+	 * Number of user tunebooks to which this tune has been added
+	 */
+	public String tunebooks;
+	
+	/**
+	 * Number of recordings with a tune of this name
+	 */
+	public String recordings;
+	
+	/**
+	 * Alternative titles for the tune
+	 */
+	public ArrayList<String> aliases;
+	
+	/**
+	 * A list of comments on the tune's page
+	 */
+	public ArrayList<Comment> comments;
+	
+	/**
+	 * A list of different settings of the particular tune
+	 */
+	public ArrayList<TuneSetting> settings;
 
 	/**
 	 * Constructor
