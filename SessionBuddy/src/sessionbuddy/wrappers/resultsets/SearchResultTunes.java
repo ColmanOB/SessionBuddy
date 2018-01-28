@@ -13,8 +13,15 @@ import sessionbuddy.wrappers.granularobjects.User;
  */
 public class SearchResultTunes 
 	{
-	public TuneDetails details; // Attributes of the tune itself
-	public User submitter; 		// Attributes of the user who submitted the tune
+	/**
+	 * Attributes of the tune itself
+	 */
+	public TuneDetails details;
+	
+	/**
+	 * Attributes of the user who submitted the tune
+	 */
+	public User submitter;
 	
 	/**
 	 * Constructor

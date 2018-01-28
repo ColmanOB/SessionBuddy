@@ -7,44 +7,105 @@ package sessionbuddy.wrappers.jsonresponse;
  * The fields and nested structure follow the JSON structure of the response
  * 
  * @author Colman O'B
- * @since 2017-09-10
+ * @since 2018-01-28
  */
 public class ItemWrapperDiscussion 
 	{
-	public String format;	// Format of the response, i.e. JSON
-	public String id;		// ID of the discussion in thesession.org database
-	public String name;		// Subject line of the discussion
-	public String url;		// URL of the discussion
-	public Submitter member; // User who submitted the discussion
-	public String date;		// The date the discussion was started
-	public Comment[] comments; // The array of comments that make up the discussion
+	/**
+	 * Format of the response, i.e. JSON
+	 */
+	public String format;
+	
+	/**
+	 * ID of the discussion in thesession.org database
+	 */
+	public String id;
+	
+	/**
+	 * Subject line of the discussion
+	 */
+	public String name;
+	
+	/**
+	 * URL of the discussion
+	 */
+	public String url;
+	
+	/**
+	 * User who submitted the discussion
+	 */
+	public Submitter member;
+	
+	/**
+	 * The date the discussion was started
+	 */
+	public String date;
+	
+	/**
+	 * The array of comments that make up the discussion
+	 */
+	public Comment[] comments;
 
 	/**
 	 * A wrapper for the individual comments within the discussion
 	 * 
 	 * @author Colman O'B
-	 * @since 2017-09-10
+	 * @since 2018-01-28
 	 */
 	public class Comment
 		{
-		public String id;	// The identifier for the particular comment
-		public String url;	// The URL of the particular comment
-		public String subject;	// The subject line of the comment
-		public String content;	// The actual text of the comment submitted by the user
-		public Submitter member; // The user who made the comment
-		public String date;	// The date of the comment
+		/**
+		 * The identifier for the particular comment
+		 */
+		public String id;
+		
+		/**
+		 * The URL of the particular comment
+		 */
+		public String url;
+		
+		/**
+		 * The subject line of the comment
+		 */
+		public String subject;
+		
+		/**
+		 * The actual text of the comment submitted by the user
+		 */
+		public String content;
+		
+		/**
+		 * The user who made the comment
+		 */
+		public Submitter member;
+		
+		/**
+		 * The date of the comment
+		 */
+		public String date;
 		}
 			
 	/**
 	 * A wrapper for the details of thesession.org user who submitted the discussion or comment	
 	 * 
 	 * @author Colman O'B
-	 * @since 2017-09-10
+	 * @since 2018-01-28
 	 */
 	public class Submitter
 		{
-		public int id;		// A numeric identifier for the particular user within thesession.org database
-		public String name;	// Username of the submitter
-		public String url;	// Profile page URL of the submitter				
+		/**
+		 * A numeric identifier for the particular user within thesession.org database
+		 */
+		public int id;
+		
+		/**
+		 * Username of the submitter
+		 */
+		public String name;
+		
+		/**
+		 * Profile page URL of the submitter
+		 */
+		public String url;		
 		}
 	}

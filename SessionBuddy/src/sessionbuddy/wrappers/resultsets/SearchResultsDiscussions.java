@@ -8,12 +8,19 @@ import sessionbuddy.wrappers.granularobjects.User;
  * The search may be a keyword-based search or a location-based search
  * 
  * @author Colman O'B
- * @since 2017-09-16
+ * @since 2017-01-28
  */
 public class SearchResultsDiscussions 
 	{
-	public DiscussionDetails details;	// General details of the discussion
-	public User user;					// Details of the user who submitted the discussion
+	/**
+	 * General details of the discussion
+	 */
+	public DiscussionDetails details;
+	
+	/**
+	 * Details of the user who submitted the discussion
+	 */
+	public User user;
 	
 	/**
 	 * Constructor

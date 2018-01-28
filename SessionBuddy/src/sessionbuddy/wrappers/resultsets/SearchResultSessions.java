@@ -13,17 +13,44 @@ import sessionbuddy.wrappers.granularobjects.Venue;
  * The search may be a keyword-based search or a search for recently-added sessions
  * 
  * @author Colman O'B
- * @since 2017-09-16
+ * @since 2018-01-28
  */
 public class SearchResultSessions 
 	{
-	public SessionDetails details;	// General details about the session
-	public Coordinates coordinates;	// Latitude and longitude of the session venue
-	public User user;				// Details of the user who submitted the session
-	public Venue venue;				// Details of the session venue
-	public Town town;				// The town where the venue is located
-	public Area area;				// The geographic area where the town is located
-	public Country country;			// The country where the session is located
+	/**
+	 * General details about the session
+	 */
+	public SessionDetails details;
+	
+	/**
+	 * Latitude and longitude of the session venue
+	 */
+	public Coordinates coordinates;
+	
+	/**
+	 * Details of the user who submitted the session
+	 */
+	public User user;
+	
+	/**
+	 * Details of the session venue
+	 */
+	public Venue venue;
+	
+	/**
+	 * The town where the venue is located
+	 */
+	public Town town;
+	
+	/**
+	 * The geographic area where the town is located
+	 */
+	public Area area;
+	
+	/**
+	 * The country where the session is located
+	 */
+	public Country country;
 	
 	/**
 	 * Constructor

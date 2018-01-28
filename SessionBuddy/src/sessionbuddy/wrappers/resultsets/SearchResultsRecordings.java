@@ -9,13 +9,24 @@ import sessionbuddy.wrappers.granularobjects.User;
  * The search may be a keyword-based search or a search for recently-added recordings
  * 
  * @author Colman O'B
- * @since 2017-09-17
+ * @since 2018-01-28
  */
 public class SearchResultsRecordings 
 	{
-	public RecordingDetails recordingInfo;	// General details relating to the recording
-	public User submitter;					// Details of the user who submitted the recording
-	public Artist artist;					// Details of the recording artist/group
+	/**
+	 * General details relating to the recording
+	 */
+	public RecordingDetails recordingInfo;
+	
+	/**
+	 * Details of the user who submitted the recording
+	 */
+	public User submitter;
+	
+	/**
+	 * Details of the recording artist/group
+	 */
+	public Artist artist;
 
 	/**
 	 * Constructor

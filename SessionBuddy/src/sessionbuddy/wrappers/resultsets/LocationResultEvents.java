@@ -13,18 +13,49 @@ import sessionbuddy.wrappers.granularobjects.Venue;
  * A structure to hold an event listing returned from a location-based search for events
  * 
  * @author Colman O'B
- * @since 2017-09-15
+ * @since 2018-01-28
  */
 public class LocationResultEvents 
 	{
-	public EventDetails details;	// General details relating to the event
-	public User user;				// Details of the user who submitted the event
-	public EventSchedule schedule;	// Start and end dates of the event
-	public Coordinates coordinates; // Latitude and longitude of the venue
-	public Venue venue;				// Details of the venue
-	public Town town;				// Details of the town where the venue is located
-	public Area area;				// Details of the geographic area where the town is located
-	public Country country;			// Details of the country where the event is taking place
+	/**
+	 * General details relating to the event
+	 */
+	public EventDetails details;
+	
+	/**
+	 * Details of the user who submitted the event
+	 */
+	public User user;
+	
+	/**
+	 * Start and end dates of the event
+	 */
+	public EventSchedule schedule;
+	
+	/**
+	 * Latitude and longitude of the venue
+	 */
+	public Coordinates coordinates;
+	
+	/**
+	 * Details of the venue
+	 */
+	public Venue venue;
+	
+	/**
+	 * Details of the town where the venue is located
+	 */
+	public Town town;
+	
+	/**
+	 * Details of the geographic area where the town is located
+	 */
+	public Area area;
+	
+	/**
+	 * Details of the country where the event is taking place
+	 */
+	public Country country;
 
 	/**
 	 * Constructor
