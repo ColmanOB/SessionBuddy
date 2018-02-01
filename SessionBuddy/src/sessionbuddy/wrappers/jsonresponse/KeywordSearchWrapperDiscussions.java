@@ -4,7 +4,7 @@ package sessionbuddy.wrappers.jsonresponse;
  * The fields and nested structure follow the format of the JSON structure of the recordings search results from the API
  * 
  * @author Colman O'B
- * @since 2017-09-12
+ * @since 2018-02-01
  */
 public class KeywordSearchWrapperDiscussions
 	{
