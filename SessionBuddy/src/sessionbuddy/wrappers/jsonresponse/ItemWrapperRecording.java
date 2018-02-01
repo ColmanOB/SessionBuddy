@@ -7,19 +7,54 @@ package sessionbuddy.wrappers.jsonresponse;
  * The fields and nested structure follow the JSON structure of the response
  * 
  * @author Colman
- * @since 2017-09-10
+ * @since 2018-02-01
  */
 public class ItemWrapperRecording 
 	{
-	public String format;	// Format of the response, i.e. JSON
-	public String id;		// ID of the recording in thesession.org database
-	public String url;		// URL of the recording's page in thesession.org
-	public String name;		// Title of the recording
-	public Submitter member; // User who submitted the recording
-	public String date;		// Date the recording was submitted
-	public Artist artist;	// The recording artist
-	public Track[] tracks; 	// Track listing for the recording
-	public Comment[] comments; // User-added comments on the recording's page
+	/**
+	 * Format of the response, i.e. JSON
+	 */
+	public String format;
+	
+	/**
+	 * ID of the recording in thesession.org database
+	 */
+	public String id;
+	
+	/**
+	 * URL of the recording's page in thesession.org
+	 */
+	public String url;
+	
+	/**
+	 * Title of the recording
+	 */
+	public String name;
+	
+	/**
+	 * User who submitted the recording
+	 */
+	public Submitter member;
+	
+	/**
+	 * Date the recording was submitted
+	 */
+	public String date;
+	
+	/**
+	 * The recording artist
+	 */
+	public Artist artist;
+	
+	/**
+	 * Track listing for the recording
+	 */
+	public Track[] tracks;
+	
+	/**
+	 * User-added comments on the recording's page
+	 */
+	public Comment[] comments;
 
 	/**
 	 * A wrapper for each individual track listing on a recording, may contain numerous tunes
@@ -29,7 +64,10 @@ public class ItemWrapperRecording
 	 */
 	public class Track
 		{		
-		public Tune[] tunes; // An array of tunes within a single track
+		/**
+		 * An array of tunes within a single track
+		 */
+		public Tune[] tunes;
 		
 		/**
 		 * A wrapper for each individual tune within a single track listing
@@ -39,9 +77,20 @@ public class ItemWrapperRecording
 		 */
 		public class Tune
 			{
-			public String name;	// Tune name
-			public String id;	// ID of the tune in thesession.org
-			public String url;	// URL of the tune page
+			/**
+			 * Tune name
+			 */
+			public String name;
+			
+			/**
+			 * ID of the tune in thesession.org
+			 */
+			public String id;
+			
+			/**
+			 * URL of the tune page
+			 */
+			public String url;
 			}
 		}	
 		
@@ -53,9 +102,20 @@ public class ItemWrapperRecording
 		 */
 	public class Artist
 		{
-		public String id; 	// ID of the artist in thesession.org
-		public String name;	// Name of the tune
-		public String url;	// URL of the artist page on thesession.org
+		/**
+		 * ID of the artist in thesession.org
+		 */
+		public String id;
+		
+		/**
+		 * Name of the tune
+		 */
+		public String name;
+		
+		/**
+		 * URL of the artist page on thesession.org
+		 */
+		public String url;
 		}
 			
 	/**
@@ -66,9 +126,20 @@ public class ItemWrapperRecording
 	 */
 	public class Submitter
 		{
-		public int id;		// ID of the user within thesession.org database
-		public String name;	// Username of the person who submitted the recording
-		public String url;	// Profile page of thesession.org user who submitted the recording
+		/**
+		 * ID of the user within thesession.org database
+		 */
+		public int id;
+		
+		/**
+		 * Username of the person who submitted the recording
+		 */
+		public String name;
+		
+		/**
+		 * Profile page of thesession.org user who submitted the recording
+		 */
+		public String url;
 		}
 		
 	/**
@@ -79,11 +150,34 @@ public class ItemWrapperRecording
 	 */
 	public class Comment
 		{
-		public String id;			// ID of the comment within thesession.org
-		public String url;			// URL of the particular comment
-		public String subject;		// Subject line of the comment
-		public String content;		// Text of the comment
-		public Submitter member;	// Comment submitter
-		public String date;			// Date of the comment
+		/**
+		 * ID of the comment within thesession.org
+		 */
+		public String id;
+		
+		/**
+		 * URL of the particular comment
+		 */
+		public String url;
+		
+		/**
+		 * Subject line of the comment
+		 */
+		public String subject;
+		
+		/**
+		 * Text of the comment
+		 */
+		public String content;
+		
+		/**
+		 * Comment submitter
+		 */
+		public Submitter member;
+		
+		/**
+		 * Date of the comment
+		 */
+		public String date;
 		}
 	}
