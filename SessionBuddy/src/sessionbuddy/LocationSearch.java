@@ -35,7 +35,7 @@ public class LocationSearch extends Search
 	 * 
 	 * @param latitude a latitude value between -90 to 90
 	 * @param longitude a longitude value between -180 to 180
-	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
+	 * @param radius defines a radius (in kilometres) around the coordinates to be included in the search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of SessionsByLocationResult objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
