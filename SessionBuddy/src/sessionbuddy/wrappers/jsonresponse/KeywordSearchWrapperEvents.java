@@ -6,11 +6,17 @@ package sessionbuddy.wrappers.jsonresponse;
  * The fields and nested structure follow the format of the JSON structure of the response.
  * 
  * @author Colman O'B
- * @since 2017-09-12
+ * @since 2018-02-01
  */
 public class KeywordSearchWrapperEvents
 	{
+	/**
+	 * 
+	 */
 	public String q;		// Search query provided by user
+	/**
+	 * 
+	 */
 	public String pages;	// Number of pages in the result set
 	public String page;		// Current page number within the result set
 	public String format;	// Format of the results (always JSON for this project)
