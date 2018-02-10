@@ -31,7 +31,6 @@ import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
 import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
 
-// TODO: Fix up all of the comments, especially Javadoc ones
 
 /**
  * Retrieves a list of most-recently added entries in a chosen category - tunes, discussions, recordings, events or sessions.
@@ -41,7 +40,6 @@ import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
  */
 public class LatestSearch extends Search 
 	{
-
 
 	/**
 	 * Retrieves the most recently added tunes/settings on thesession.org, most recent first

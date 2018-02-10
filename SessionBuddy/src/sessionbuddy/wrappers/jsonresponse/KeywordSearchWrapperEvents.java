@@ -10,13 +10,7 @@ package sessionbuddy.wrappers.jsonresponse;
  */
 public class KeywordSearchWrapperEvents
 	{
-	/**
-	 * 
-	 */
 	public String q;		// Search query provided by user
-	/**
-	 * 
-	 */
 	public String pages;	// Number of pages in the result set
 	public String page;		// Current page number within the result set
 	public String format;	// Format of the results (always JSON for this project)

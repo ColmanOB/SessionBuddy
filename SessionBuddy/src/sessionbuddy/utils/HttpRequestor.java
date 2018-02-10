@@ -23,6 +23,7 @@ public class HttpRequestor
 	private static final String baseURL = "https://thesession.org/"; 
 	private static final String searchOperator = "search?q=";
 	private static final String latestOperator = "new?";
+	private static final String popularOperator = "popular?";
 	private static final String latLonOperator = "nearby?latlon=";
 	private static final String radiusOperator = "&radius=";
 	
@@ -317,6 +318,81 @@ public class HttpRequestor
 			throw new IOException(e.getMessage());
 			}
 		}
+	
+	
+	/**
+	 * Retrieves the most popular tunes on thesession.org and stores the resulting JSON response.
+	 * The only data category supported via the API at the time of writing is tunes
+	 * 
+	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
+	 * @return the JSON response from the API as a String
+	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
+	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 */
+	public String submitPopularRequest(int resultsPerPage) throws IOException, MalformedURLException
+		{				
+		try 
+			{	
+			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
+			String response;	// A string of JSON data returned from the API
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			tuneSearchURL = new URL(baseURL + "tunes" + "/" + popularOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			
+			// Call the API using a private helper method and store the response
+			response = getAPIResponse(tuneSearchURL);
+			
+			return response;
+			}
+		
+		catch (MalformedURLException e) 
+			{
+			throw new MalformedURLException(e.getMessage());
+			} 
+	
+		catch (IOException e) 
+			{
+			throw new IOException(e.getMessage());
+			}
+		}
+	
+	
+	/**
+	 * Alternative version of submitPopularRequest, allows the caller to retrieve a specific page within a paginated JSON response
+	 * 
+	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
+	 * @param pageNumber a specific page within the JSON response
+	 * @return the JSON response from the API as a String
+	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
+	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 */
+	public String submitPopularRequest(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+		{		
+		try 
+			{
+			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
+			String response;	// A string of JSON data returned from the API
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			tuneSearchURL = new URL(baseURL + "tunes" + "/" + popularOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			
+			// Call the API using a private helper method and store the response
+			response = getAPIResponse(tuneSearchURL);
+			
+			return response;
+			}
+		
+		catch (MalformedURLException e) 
+			{
+			throw new MalformedURLException(e.getMessage());
+			} 
+	
+		catch (IOException e) 
+			{
+			throw new IOException(e.getMessage());
+			}
+		}
+	
 
 	
 	/**
