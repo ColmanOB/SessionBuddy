@@ -40,14 +40,16 @@ import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
  */
 public class LatestSearch extends Search 
 	{
-
 	/**
 	 * Retrieves the most recently added tunes/settings on thesession.org, most recent first
 	 * 
 	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
-	 * @return an ArrayList of TunesLatestResult objects
+	 * @return an ArrayList of LatestSearchTunes objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	public ArrayList<LatestSearchTunes> getLatestTunes(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
@@ -89,9 +91,12 @@ public class LatestSearch extends Search
 	 * 
 	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
 	 * @param pageNumber a specific page within the JSON response
-	 * @return an ArrayList of TunesLatestResult objects
+	 * @return an ArrayList of LatestSearchTunes objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	public ArrayList<LatestSearchTunes> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
@@ -132,9 +137,12 @@ public class LatestSearch extends Search
 	 * Retrieves the most recently added discussions on thesession.org, most recent first
 	 * 
 	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
-	 * @return an ArrayList of DiscussionsSearchResult objects
+	 * @return an ArrayList of SearchResultsDiscussion objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	public ArrayList<SearchResultsDiscussions> getLatestDiscussions(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
@@ -176,9 +184,12 @@ public class LatestSearch extends Search
 	 * 
 	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
 	 * @param pageNumber a specific page within the JSON response
-	 * @return an ArrayList of DiscussionsSearchResult objects
+	 * @return an ArrayList of SearchResultsDiscussion objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	public ArrayList<SearchResultsDiscussions> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
@@ -215,12 +226,15 @@ public class LatestSearch extends Search
 	
 	
 	/**
-	 * Retrieves a list of recently added discussions on thesession.org, with the most recent results first
+	 * Retrieves a list of recently added recordings on thesession.org, with the most recent results first
 	 * 
 	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
-	 * @return an ArrayList of RecordingsSearchResult objects
+	 * @return an ArrayList of SearchResultsRecordings objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	public ArrayList<SearchResultsRecordings> getLatestRecordings(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
@@ -262,9 +276,12 @@ public class LatestSearch extends Search
 	 * 
 	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
 	 * @param pageNumber allows you to specify an individual page within the JSON response
-	 * @return an ArrayList of RecordingsSearchResult objects
+	 * @return an ArrayList of SearchResultsRecordings objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	public ArrayList<SearchResultsRecordings> getLatestRecordings(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
@@ -305,9 +322,12 @@ public class LatestSearch extends Search
 	 * Retrieves a list of recently added sessions on thesession.org, with the most recent results first
 	 * 
 	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
-	 * @return an ArrayList of SessionsSearchResult objects
+	 * @return an ArrayList of SearchResultSessions objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	public ArrayList<SearchResultSessions> getLatestSessions(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
@@ -345,15 +365,17 @@ public class LatestSearch extends Search
 		}
 	
 	
-
 	/**
-	 * An alternative version of getLatestSessions that allows the caller to specify an idividual page within the JSON response
+	 * An alternative version of getLatestSessions that allows the caller to specify an individual page within the JSON response
 	 * 
 	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
 	 * @param pageNumber allows you to specify an individual page within the JSON response
-	 * @return an ArrayList of SessionsSearchResult objects
+	 * @return an ArrayList of SearchResultSessions objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	public ArrayList<SearchResultSessions> getLatestSessions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
@@ -394,9 +416,12 @@ public class LatestSearch extends Search
 	 * Retrieves a list of recently added events on thesession.org, with the most recent results first
 	 * 
 	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
-	 * @return an ArrayList of EventsSearchResult objects
+	 * @return an ArrayList of SearchResultEvents objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	public ArrayList<SearchResultEvents> getLatestEvents(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
@@ -438,9 +463,12 @@ public class LatestSearch extends Search
 	 * 
 	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
 	 * @param pageNumber allows you to specify an individual page within the JSON response
-	 * @return an ArrayList of EventsSearchResult objects
+	 * @return an ArrayList of SearchResultEvents objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	public ArrayList<SearchResultEvents> getLatestEvents(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
@@ -480,8 +508,11 @@ public class LatestSearch extends Search
 	/**
 	 * Helper method to gather and parse the response to a keyword search for a tune
 	 * 
-	 * @param parsedResults a TunesSearchResultWrapper object that has already been created an populated
-	 * @return an ArrayList of TunesSearchResult objects
+	 * @param parsedResults a LatestWrapperTunes object that has already been created and populated
+	 * @return an ArrayList of LatestSearchTunes objects
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	private ArrayList<LatestSearchTunes> populateTunesSearchResult(LatestWrapperTunes parsedResults)
 		{
@@ -514,8 +545,11 @@ public class LatestSearch extends Search
 	/**
 	 * Helper method to gather and parse the response to a search for the latest discussions
 	 * 
-	 * @param parsedResults an existing populated DiscussionsSearchResultWrapper object
-	 * @return an ArrayList of DiscussionsSearchResult objects
+	 * @param parsedResults an existing populated KeywordSearchWrapperDiscussions object
+	 * @return an ArrayList of SearchResultsDiscussions objects
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	private ArrayList<SearchResultsDiscussions> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
 		{
@@ -548,8 +582,11 @@ public class LatestSearch extends Search
 	/**
 	 * Helper method to gather and parse the response to a search for the latest recordings
 	 * 
-	 * @param parsedResults
-	 * @return
+	 * @param parsedResults an existing KeywordSearchWrapperRecordings object that has already been populated
+	 * @return an ArrayList of SearchResultsRecordings objects
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	private ArrayList<SearchResultsRecordings> populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)
 		{
@@ -583,8 +620,11 @@ public class LatestSearch extends Search
 	/**
 	 * Helper method to gather and parse the response to a search for the latest sessions
 	 * 
-	 * @param parsedResults
-	 * @return
+	 * @param parsedResults an existing KeywordSearchWrapperSessions object that has been populated
+	 * @return an ArrayList of SearchResultSessions objects
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	private ArrayList<SearchResultSessions> populateSessionsSearchResult(KeywordSearchWrapperSessions parsedResults)
 		{
@@ -622,8 +662,11 @@ public class LatestSearch extends Search
 	/**
 	 * Helper method to gather and parse the response to a search for the latest events
 	 * 
-	 * @param parsedResults
-	 * @return
+	 * @param parsedResults an existing KeywordSearchWrapperEvents object that has been populated
+	 * @return an ArrayList of SearchResultEvents objects
+	 * 
+	 * @author Colman
+	 * @since 2018-02-10
 	 */
 	private ArrayList<SearchResultEvents> populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)
 		{

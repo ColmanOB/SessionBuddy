@@ -11,7 +11,6 @@ import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.jsonresponse.PopularWrapperTunes;
 import sessionbuddy.wrappers.resultsets.PopularTunes;
 
-// TODO: Complete the JavaDoc comments
 
 /**
  * Retrieves the current most popular tunes, i.e. those that have been added to the largest number of user tunebooks on thesession.org
@@ -21,18 +20,16 @@ import sessionbuddy.wrappers.resultsets.PopularTunes;
  */
 public class PopularSearch extends Search
 	{
-	
 	/**
-	 * Retrieves a list of the most popular tunes on thesession.org
+	 * Retrieves a list of the most popular tunes on thesession.org, i.e. those that have been added to the most user tunebooks.
 	 * 
-	 * @param resultsPerPage
-	 * @return
-	 * @throws IllegalArgumentException
-	 * @throws IOException
+	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+	 * @return an ArrayList of PopularTunes objects
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<PopularTunes> getPopularTunes(int resultsPerPage) throws IllegalArgumentException, IOException
 		{
-		// TODO: Complete this method
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
@@ -40,14 +37,12 @@ public class PopularSearch extends Search
 	
 			// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
 			HttpRequestor searcher = new HttpRequestor();
-			
-			// TODO: Change the following line to use the correct method in HttpRequestor to retrieve popular tunes
+
 			String response = searcher.submitPopularRequest(resultsPerPage);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
 			PopularWrapperTunes parsedResults = jsonParser.parseResponse(PopularWrapperTunes.class);
-
 								
 			// This will hold each individual search result entry
 			ArrayList<PopularTunes> resultSet = new ArrayList<PopularTunes>();
@@ -72,15 +67,14 @@ public class PopularSearch extends Search
 	/**
 	 * An alternative version of getPopularTunes, allowing the caller to specify a page number within the JSON reponse from the API
 	 * 
-	 * @param resultsPerPage
-	 * @param pageNumber
-	 * @return
-	 * @throws IllegalArgumentException
-	 * @throws IOException
+	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+	 * @param pageNumber specifies the page to be retrieved, where a result set spans multiple pages
+	 * @return an ArrayList of PopularTunes objects
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 */
 	public ArrayList<PopularTunes> getPopularTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
 		{
-		// TODO: Complete this method
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
@@ -90,8 +84,7 @@ public class PopularSearch extends Search
 			HttpRequestor searcher = new HttpRequestor();
 			
 			String response = searcher.submitPopularRequest(resultsPerPage, pageNumber);
-
-							
+				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
 			PopularWrapperTunes parsedResults = jsonParser.parseResponse(PopularWrapperTunes.class);

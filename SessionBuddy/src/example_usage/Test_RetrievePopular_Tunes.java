@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import sessionbuddy.PopularSearch;
 import sessionbuddy.wrappers.resultsets.PopularTunes;
 
-// TODO: the field names printed out are not 100% right - investigate and fix!
 
 class Test_RetrievePopular_Tunes
 	{
