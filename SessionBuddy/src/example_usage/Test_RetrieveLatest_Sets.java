@@ -1,0 +1,57 @@
+package example_usage;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import sessionbuddy.LatestSearch;
+import sessionbuddy.wrappers.resultsets.LatestSearchSets;
+
+
+class Test_RetrieveLatest_Sets
+	{
+	public static void main(String[] args)
+	   {
+		try
+			{
+			// Set the search parameters
+			int resultsPerPage = 50;
+			
+			// Instantiate a PopularSearch object
+			LatestSearch search = new LatestSearch();
+			
+			// Perform the search by calling the getLatestTunes method on the PopularSearch object
+			ArrayList<LatestSearchSets> resultSet = search.getLatestSets(resultsPerPage);
+			
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				System.out.println("Set ID: " + resultSet.get(i).setDetails.setID);
+				System.out.println("Set name: " + resultSet.get(i).setDetails.setName);
+				System.out.println("Date Added: "+ resultSet.get(i).setDetails.setDate);
+				System.out.println("URL: "+ resultSet.get(i).setDetails.setURL);
+				
+
+				System.out.println("User ID: " + resultSet.get(i).submitter.userID);
+				System.out.println("User Name: " + resultSet.get(i).submitter.userName);
+				System.out.println("User Profile Page: " + resultSet.get(i).submitter.userURL); 
+				
+				System.out.println("\n");
+				}
+		   	}
+		
+		catch (IllegalArgumentException e)
+			{
+			System.out.println(e.getMessage());
+			}
+		
+		catch (IllegalStateException e)
+			{
+			System.out.println(e.getMessage());
+			}
+		
+		catch (IOException e)
+			{
+			System.out.println(e.getMessage());
+			}
+	   }
+	}

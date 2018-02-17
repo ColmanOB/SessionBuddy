@@ -13,6 +13,7 @@ import sessionbuddy.wrappers.granularobjects.Country;
 import sessionbuddy.wrappers.granularobjects.DiscussionDetails;
 import sessionbuddy.wrappers.granularobjects.EventDetails;
 import sessionbuddy.wrappers.granularobjects.EventSchedule;
+import sessionbuddy.wrappers.granularobjects.LatestSetDetails;
 import sessionbuddy.wrappers.granularobjects.LatestSettingDetails;
 import sessionbuddy.wrappers.granularobjects.LatestTuneDetails;
 import sessionbuddy.wrappers.granularobjects.RecordingDetails;
@@ -24,7 +25,9 @@ import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperDiscussions;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperSessions;
+import sessionbuddy.wrappers.jsonresponse.LatestWrapperSets;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTunes;
+import sessionbuddy.wrappers.resultsets.LatestSearchSets;
 import sessionbuddy.wrappers.resultsets.LatestSearchTunes;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 import sessionbuddy.wrappers.resultsets.SearchResultSessions;
@@ -504,6 +507,95 @@ public class LatestSearch extends Search
 			}
 		}
 	
+		/**
+		 * Retrieves a list of the most popular tunes on thesession.org, i.e. those that have been added to the most user tunebooks.
+		 * 
+		 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+		 * @return an ArrayList of LatestSearchSets objects
+		 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+		 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+		 */
+		public ArrayList<LatestSearchSets> getLatestSets(int resultsPerPage) throws IllegalArgumentException, IOException
+			{
+			try
+				{
+				// Validate that a number between 1-50 has been provided as the resultsPerPage value
+				validateResultsPerPageCount(resultsPerPage);
+		
+				// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
+				HttpRequestor searcher = new HttpRequestor();
+
+				String response = searcher.submitSetRequest(resultsPerPage);
+								
+				// Parse the returned JSON into a wrapper class to allow access to all elements
+				JsonResponseParser jsonParser = new JsonResponseParser(response);
+				LatestWrapperSets parsedResults = jsonParser.parseResponse(LatestWrapperSets.class);
+									
+				// This will hold each individual search result entry
+				ArrayList<LatestSearchSets> resultSet = new ArrayList<LatestSearchSets>();
+				
+				resultSet = populateSetSearchResult(parsedResults);
+				
+				return resultSet;
+				}
+			
+			catch (IllegalArgumentException e)
+				{
+				throw new IllegalArgumentException(e.getMessage());
+				}
+		
+			catch(IOException e)
+				{
+				throw new IOException(e.getMessage());
+				}
+			}
+		
+		
+		/**
+		 * An alternative version of getLatestSearchSets, allowing the caller to specify a page number within the JSON reponse from the API
+		 * 
+		 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+		 * @param pageNumber specifies the page to be retrieved, where a result set spans multiple pages
+		 * @return an ArrayList of LatestSearchSets objects
+		 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+		 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+		 */
+		public ArrayList<LatestSearchSets> getLatestSearchSets(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+			{
+			try
+				{
+				// Validate that a number between 1-50 has been provided as the resultsPerPage value
+				validateResultsPerPageCount(resultsPerPage);
+		
+				// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
+				HttpRequestor searcher = new HttpRequestor();
+				
+				String response = searcher.submitSetRequest(resultsPerPage, pageNumber);
+					
+				// Parse the returned JSON into a wrapper class to allow access to all elements
+				JsonResponseParser jsonParser = new JsonResponseParser(response);
+				LatestWrapperSets parsedResults = jsonParser.parseResponse(LatestWrapperSets.class);
+									
+				// This will hold each individual search result entry
+				ArrayList<LatestSearchSets> resultSet = new ArrayList<LatestSearchSets>();
+				
+				resultSet = populateSetSearchResult(parsedResults);
+				
+				return resultSet;
+				}
+			
+			catch (IllegalArgumentException e)
+				{
+				throw new IllegalArgumentException(e.getMessage());
+				}
+		
+			catch(IOException e)
+				{
+				throw new IOException(e.getMessage());
+				}
+			}
+		
+	
 	
 	/**
 	 * Helper method to gather and parse the response to a keyword search for a tune
@@ -700,4 +792,40 @@ public class LatestSearch extends Search
 		// Return the set of results that has been collected
 		return resultSet;
 		}	
+	
+	/**
+	 * Helper method to gather and parse the response to a search for user-added sets of tunes
+	 * 
+	 * @param parsedResults a LatestWrapperSets object that has already been created and populated
+	 * @return an ArrayList of LatestSearchSets objects
+	 * 
+	 * @author Colman
+	 * @since 2018-02-17
+	 */
+	private ArrayList<LatestSearchSets> populateSetSearchResult(LatestWrapperSets parsedResults)
+		{
+		ArrayList <LatestSearchSets> resultSet = new ArrayList <LatestSearchSets>();
+		
+		//Find out how many pages are in the response, to facilitate looping through multiple pages
+		pageCount = Integer.parseInt(parsedResults.pages);
+			
+		// Loop as many times as the count of tunes in the result set:
+		for(int i = 0; i < parsedResults.sets.length; i++)
+			{
+			// Extract the required elements from each individual search result in the JSON response
+			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
+			LatestSetDetails details = new LatestSetDetails(parsedResults.sets[i].id, StringCleaner.cleanString(parsedResults.sets[i].name) , parsedResults.sets[i].url, parsedResults.sets[i].date);
+			User submitter = new User(Integer.toString(parsedResults.sets[i].member.id), StringCleaner.cleanString(parsedResults.sets[i].member.name), parsedResults.sets[i].member.url);
+			
+			// Instantiate a LatestSearchSets object & populate it
+			LatestSearchSets currentResult = new LatestSearchSets(details, submitter);
+			
+			// Add the LatestSearchSets object to the ArrayList to be returned to the caller
+			resultSet.add(currentResult);
+			}
+		
+		// Return the fully populated ArrayList
+		return resultSet;
+		}
+	
 	}
