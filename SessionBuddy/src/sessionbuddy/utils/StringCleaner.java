@@ -62,7 +62,7 @@ public class StringCleaner
 	                i += 1;
 	            	}
 	            
-	            // Handle three different ways an apostrophe may be rendered in the response
+	            // Handle four different ways an apostrophe may be rendered in the response
 	            else if (inputString.startsWith("&apos;", i))
 	            	{
 	                outputString.append('\'');
@@ -81,6 +81,12 @@ public class StringCleaner
 	                i += 5;
 	            	}
 	            
+	            else if (inputString.startsWith("&#8217;", i))
+	            	{
+	                outputString.append('\'');
+	                i += 7;
+	            	}
+		            
 	            // Handle three ways double quotes might be rendered in the response
 	            else if (inputString.startsWith("&quot;", i))
 	            	{
