@@ -4,7 +4,7 @@ package sessionbuddy.utils;
  * Unescapes XML entities in a string
  * 
  * @author Colman O'B
- * @since 2017-09-10
+ * @since 2018-02-17
  */
 public class StringCleaner 
 	{

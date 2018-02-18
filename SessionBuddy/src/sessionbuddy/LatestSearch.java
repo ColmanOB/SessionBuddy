@@ -39,7 +39,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
  * Retrieves a list of most-recently added entries in a chosen category - tunes, discussions, recordings, events or sessions.
  * 
  * @author Colman O'B
- * @since 2017-09-02
+ * @since 2018-02-17
  */
 public class LatestSearch extends Search 
 	{
