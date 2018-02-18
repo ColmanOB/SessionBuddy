@@ -507,6 +507,7 @@ public class LatestSearch extends Search
 			}
 		}
 	
+	
 		/**
 		 * Retrieves a list of the most popular tunes on thesession.org, i.e. those that have been added to the most user tunebooks.
 		 * 
@@ -792,6 +793,7 @@ public class LatestSearch extends Search
 		// Return the set of results that has been collected
 		return resultSet;
 		}	
+	
 	
 	/**
 	 * Helper method to gather and parse the response to a search for user-added sets of tunes

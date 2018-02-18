@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import sessionbuddy.MemberContributionSearch;
 import sessionbuddy.wrappers.resultsets.LatestSearchTunes;
 
-// TODO: the field names printed out are not 100% right - investigate and fix!
 
 class Test_RetrieveMemberContributions_Tunes
 	{
