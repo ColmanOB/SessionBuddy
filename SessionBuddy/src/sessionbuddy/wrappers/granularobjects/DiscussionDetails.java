@@ -34,27 +34,10 @@ public class DiscussionDetails
 	 */
 	public String numberOfComments;
 
-
-	/**
-	 * Constructor that populates all fields
-	 * 
-	 * @param discussionID the numeric ID of the discussion in thesession.org database
-	 * @param discussionName the subject line of the discussion
-	 * @param discussionURL the URL of the discussion's page on thesession.org
-	 * @param submittedDate	the date on which the discussion was originally submitted
-	 * @param numberOfComments the current number of comments that make up the discussion
-	 */
-	public DiscussionDetails(String discussionID, String discussionName, String discussionURL, String submittedDate, String numberOfComments)
-		{
-		this.discussionID = discussionID;
-		this.discussionName = discussionName;
-		this.discussionURL = discussionURL;
-		this.submittedDate = submittedDate;
-		this.numberOfComments = numberOfComments;
-		}
 	
 	/**
 	 * Constructor method to use when the number of comments is unknown, e.g. when retrieving a discussion by ID
+	 * or retrieving discussions submitted by a particular user
 	 * 
 	 * @param discussionID the numeric ID of the discussion in thesession.org database
 	 * @param discussionName the subject line of the discussion
@@ -67,6 +50,21 @@ public class DiscussionDetails
 		this.discussionName = discussionName;
 		this.discussionURL = discussionURL;
 		this.submittedDate = submittedDate;
+		}
+	
+	/**
+	 * Constructor that populates all fields
+	 * 
+	 * @param discussionID the numeric ID of the discussion in thesession.org database
+	 * @param discussionName the subject line of the discussion
+	 * @param discussionURL the URL of the discussion's page on thesession.org
+	 * @param submittedDate	the date on which the discussion was originally submitted
+	 * @param numberOfComments the current number of comments that make up the discussion
+	 */
+	public DiscussionDetails(String discussionID, String discussionName, String discussionURL, String submittedDate, String numberOfComments)
+		{
+		this(discussionID, discussionName, discussionURL, submittedDate);
+		this.numberOfComments = numberOfComments;
 		}
 
 	}
