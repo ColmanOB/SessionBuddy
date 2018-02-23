@@ -10,6 +10,7 @@ import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Artist;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
 import sessionbuddy.wrappers.granularobjects.Country;
+import sessionbuddy.wrappers.granularobjects.DiscussionDetails;
 import sessionbuddy.wrappers.granularobjects.EventDetails;
 import sessionbuddy.wrappers.granularobjects.EventSchedule;
 import sessionbuddy.wrappers.granularobjects.LatestSettingDetails;
@@ -19,6 +20,7 @@ import sessionbuddy.wrappers.granularobjects.SessionDetails;
 import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
+import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperDiscussions;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperSessions;
@@ -26,6 +28,7 @@ import sessionbuddy.wrappers.jsonresponse.LatestWrapperTunes;
 import sessionbuddy.wrappers.resultsets.LatestSearchTunes;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 import sessionbuddy.wrappers.resultsets.SearchResultSessions;
+import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
 import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
 
 /**
@@ -268,6 +271,52 @@ public class MemberContributionSearch extends Search
 
 		}
 	
+	/**
+	 * An alternative version of getSessions that allows the caller to specify an individual page within the JSON response
+	 * 
+	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
+	 * @param pageNumber allows you to specify an individual page within the JSON response
+	 * @return an ArrayList of SearchResultSessions objects
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-18
+	 */
+	public ArrayList<SearchResultSessions> getSessions(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException
+		{
+		try
+			{
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitMemberContributionRequest("sessions", userID, resultsPerPage, pageNumber);
+							
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
+							
+			// This will hold each individual search result entry
+			ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
+					
+			resultSet = populateSessionsSearchResult(parsedResults);
+			
+			return resultSet;
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
+			}
+
+		catch (IOException e)
+			{	
+			throw new IOException(e.getMessage());
+			}
+		}
+	
 	
 	/**
 	 * Retrieves a list of events added by a particular member on thesession.org
@@ -361,38 +410,84 @@ public class MemberContributionSearch extends Search
 			}		
 		}	
 	
+	
 	/**
-	 * An alternative version of getSessions that allows the caller to specify an individual page within the JSON response
+	 * Retrieves a list of discussions submitted by a particular user
 	 * 
-	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
-	 * @param pageNumber allows you to specify an individual page within the JSON response
-	 * @return an ArrayList of SearchResultSessions objects
+	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+	 * @return an ArrayList of SearchResultsDiscussion objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
-	 * @since 2018-02-18
+	 * @since 2018-02-23
 	 */
-	public ArrayList<SearchResultSessions> getSessions(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsDiscussions> getDiscussions(int resultsPerPage, int userID) throws IllegalArgumentException, IOException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
+			// Launch a search for a list of latest discussions and store the JSON response as a String
 			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitMemberContributionRequest("sessions", userID, resultsPerPage, pageNumber);
-							
-			// Parse the returned JSON into a wrapper class to allow access to all elements
+			String response = searcher.submitMemberContributionRequest("discussions", userID, resultsPerPage);
+				
+			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
-							
+			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
+
 			// This will hold each individual search result entry
-			ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
-					
-			resultSet = populateSessionsSearchResult(parsedResults);
+			ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
 			
+			resultSet = populateDiscussionsSearchResult(parsedResults);
+				
+			return resultSet;
+			}
+		
+		catch (IllegalArgumentException e)
+			{
+			throw new IllegalArgumentException(e.getMessage());
+			}
+		
+		catch (IOException e)
+			{
+			throw new IOException (e.getMessage());
+			}
+		}
+	
+
+	/**
+	 * An alternative version of getDiscussions(), allowing the caller to specify a page number within the response
+	 * 
+	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+	 * @param pageNumber a specific page within the JSON response
+	 * @return an ArrayList of SearchResultsDiscussion objects
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * 
+	 * @author Colman
+	 * @since 2018-02-23
+	 */
+	public ArrayList<SearchResultsDiscussions> getDiscussions(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException
+		{
+		try
+			{
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+			
+			// Launch a search for a list of latest discussions and store the JSON response as a String
+			HttpRequestor searcher = new HttpRequestor();
+			String response = searcher.submitMemberContributionRequest("discussions", userID, resultsPerPage, pageNumber);
+				
+			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
+			
+			ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
+			
+			resultSet = populateDiscussionsSearchResult(parsedResults);
+				
 			return resultSet;
 			}
 		
@@ -402,7 +497,7 @@ public class MemberContributionSearch extends Search
 			}
 
 		catch (IOException e)
-			{	
+			{
 			throw new IOException(e.getMessage());
 			}
 		}
@@ -566,6 +661,43 @@ public class MemberContributionSearch extends Search
 		
 		// Return the set of results that has been collected
 		return resultSet;
-		}	
+		}
+	
+	
+	/**
+	 * Helper method to gather and parse the response to a search for discussions submitted by a particular user
+	 * 
+	 * @param parsedResults an existing populated KeywordSearchWrapperDiscussions object
+	 * @return an ArrayList of SearchResultsDiscussions objects
+	 * 
+	 * @author Colman
+	 * @since 2018-02-23
+	 */
+	private ArrayList<SearchResultsDiscussions> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
+		{
+		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
+		ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
+		
+		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
+		pageCount = Integer.parseInt(parsedResults.pages);
+			
+		// Loop as many times as the count of recordings in the result set:
+		for(int i = 0; i < (parsedResults.discussions.length); i++)
+			{
+			// Extract the elements from each individual search result in the JSON response
+			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response		
+			DiscussionDetails details = new DiscussionDetails(parsedResults.discussions[i].id, StringCleaner.cleanString(parsedResults.discussions[i].name), parsedResults.discussions[i].url, parsedResults.discussions[i].date);
+			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringCleaner.cleanString(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
+			
+			// Instantiate a DiscussionsSearchResult object & populate it
+			SearchResultsDiscussions currentResult = new SearchResultsDiscussions(details, user);
+			
+			// Add the DiscussionsSearchResult object to the ArrayList to be returned to the caller
+			resultSet.add(currentResult);
+			}
+		
+		// Return the set of results that has been collected
+		return resultSet;
+		}
 	
 	}
