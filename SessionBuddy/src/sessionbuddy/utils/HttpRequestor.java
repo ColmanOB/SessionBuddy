@@ -43,17 +43,13 @@ public class HttpRequestor
 	public String submitItemByIDRequest(String baseCategory, String itemID) throws IOException, MalformedURLException
 		{		
 		try
-			{
-			URL tuneSearchURL; 	// The correctly-formatted URL for the API request
-			String response;	// A string of JSON data retrieved from the API
-			
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			tuneSearchURL = new URL(baseURL + baseCategory + "/" + itemID + "?" + "format=" + dataFormat);
+			{			
+			// Build the URL with all necessary parts to call the API
+			URL requestURL = new URL(baseURL + baseCategory + "/" + itemID + "?" + "format=" + dataFormat);
 			
 			// Call the API using a private helper method and store the response
-			response = getAPIResponse(tuneSearchURL);
+			String response = getAPIResponse(requestURL);
 			
-			// The JSON data returned by the API, stored as a single string
 			return response;
 			} 
 		
@@ -83,14 +79,11 @@ public class HttpRequestor
 		{				
 		try 
 			{	
-			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
-			String response;	// A string of JSON data returned from the API
-			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			tuneSearchURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			URL requestURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
 			// Call the API using a private helper method and store the response
-			response = getAPIResponse(tuneSearchURL);
+			String response = getAPIResponse(requestURL);
 			
 			return response;
 			}
@@ -121,14 +114,11 @@ public class HttpRequestor
 		{		
 		try 
 			{
-			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
-			String response;	// A string of JSON data returned from the API
-			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			tuneSearchURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			URL requestURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
 			
 			// Call the API using a private helper method and store the response
-			response = getAPIResponse(tuneSearchURL);
+			String response = getAPIResponse(requestURL);
 			
 			return response;
 			}
@@ -160,17 +150,14 @@ public class HttpRequestor
 		{				
 		try 
 			{
-			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
-			String response;	// A string of JSON data returned from the API
-			
 			// Clean up the search terms provided by the user
 			String searchTermsFormatted = formatSearchTerms(searchTermsInput);
 			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			tuneSearchURL = new URL(baseURL + baseCategory + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			URL requestURL = new URL(baseURL + baseCategory + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
 			// Call the API using a private helper method and store the response
-			response = getAPIResponse(tuneSearchURL);
+			String response = getAPIResponse(requestURL);
 			
 			return response;
 			}
@@ -205,16 +192,14 @@ public class HttpRequestor
 		{		
 		try 
 			{
-			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
-			String response;	// A string of JSON data returned from the API
-			
 			// Clean up the search terms provided by the user using a private helper method
 			String searchTermsFormatted = formatSearchTerms(searchTermsInput);
 		
 			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
-			tuneSearchURL = new URL(baseURL + baseCategory  + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			URL requestURL = new URL(baseURL + baseCategory  + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			
 			// Call the API using a private helper method and store the response
-			response = getAPIResponse(tuneSearchURL);
+			String response = getAPIResponse(requestURL);
 			
 			// This is the full JSON response from the API, as a single string
 			return response;
@@ -248,21 +233,11 @@ public class HttpRequestor
 		{			
 		try 
 			{		
-			String response;	// A string of JSON data returned from the API
-			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + latLonOperator + latitude + "," + longitude + radiusOperator + radius + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			URL requestURL = new URL(baseURL + baseCategory + "/" + latLonOperator + latitude + "," + longitude + radiusOperator + radius + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
-			// Use the URL.buildConnection() method to create the HTTPS connection
-			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
-			
-			// Store the JSON response from the API
-			response = captureResponse(connectionToURL);
-			
-			// We have our search results.  Close the connection to https://thesession.org
-			connectionToURL.disconnect();		
-			
-			// Return the API response as one long string of JSON data
+			String response = getAPIResponse(requestURL);
+						
 			return response;
 			} 
 		
@@ -295,17 +270,12 @@ public class HttpRequestor
 		{			
 		try 
 			{
-			String response;	// A string of JSON data returned from the API
-			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL tuneSearchURL = new URL(baseURL + baseCategory + "/" + latLonOperator + latitude + "," + longitude + radiusOperator + radius + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			URL requestURL = new URL(baseURL + baseCategory + "/" + latLonOperator + latitude + "," + longitude + radiusOperator + radius + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
 
-			// Use the buildConnection helper method to create the HTTPS connection
-			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
-			
 			// Store the response from the API
-			response = captureResponse(connectionToURL);
-			
+			String response = getAPIResponse(requestURL);
+						
 			// Return the API response as one long string of JSON data
 			return response;
 			} 
@@ -334,15 +304,11 @@ public class HttpRequestor
 	public String submitPopularRequest(int resultsPerPage) throws IOException, MalformedURLException
 		{				
 		try 
-			{	
-			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
-			String response;	// A string of JSON data returned from the API
-			
+			{				
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			tuneSearchURL = new URL(baseURL + "tunes" + "/" + popularOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			URL requestURL = new URL(baseURL + "tunes" + "/" + popularOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
-			// Call the API using a private helper method and store the response
-			response = getAPIResponse(tuneSearchURL);
+			String response = getAPIResponse(requestURL);
 			
 			return response;
 			}
@@ -372,14 +338,10 @@ public class HttpRequestor
 		{		
 		try 
 			{
-			URL tuneSearchURL; 	// The correctly-formatted URL for performing the tune search
-			String response;	// A string of JSON data returned from the API
-			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			tuneSearchURL = new URL(baseURL + "tunes" + "/" + popularOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			URL requestURL = new URL(baseURL + "tunes" + "/" + popularOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
 			
-			// Call the API using a private helper method and store the response
-			response = getAPIResponse(tuneSearchURL);
+			String response = getAPIResponse(requestURL);
 			
 			return response;
 			}
@@ -408,14 +370,10 @@ public class HttpRequestor
 		{				
 		try 
 			{	
-			URL setSearchURL; 	// The correctly-formatted URL for retrieving the list of sets
-			String response;	// A string of JSON data returned from the API
-			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			setSearchURL = new URL(baseURL + "tunes" + "/" + setsOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			URL requestURL = new URL(baseURL + "tunes" + "/" + setsOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
 			
-			// Call the API using a private helper method and store the response
-			response = getAPIResponse(setSearchURL);
+			String response = getAPIResponse(requestURL);
 			
 			return response;
 			}
@@ -444,15 +402,11 @@ public class HttpRequestor
 	public String submitSetRequest(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{		
 		try 
-			{
-			URL setSearchURL; 	// The correctly-formatted URL for retrieving the list of sets
-			String response;	// A string of JSON data returned from the API
-			
+			{			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			setSearchURL = new URL(baseURL + "tunes" + "/" + setsOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			URL requestURL = new URL(baseURL + "tunes" + "/" + setsOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
 			
-			// Call the API using a private helper method and store the response
-			response = getAPIResponse(setSearchURL);
+			String response = getAPIResponse(requestURL);
 			
 			return response;
 			}
@@ -483,17 +437,10 @@ public class HttpRequestor
 		{				
 		try 
 			{	
-			URL memberContributionURL; 	// The correctly-formatted URL for performing the tune search
-			String response;	// A string of JSON data returned from the API
-			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			memberContributionURL = new URL(baseURL + memberOperator + "/" + userID + "/" + baseCategory + "?format=" + dataFormat + "&perpage=" + resultsPerPage);
-			
-			// Debug code
-			System.out.println(memberContributionURL);
-			
-			// Call the API using a private helper method and store the response
-			response = getAPIResponse(memberContributionURL);
+			URL requestURL = new URL(baseURL + memberOperator + "/" + userID + "/" + baseCategory + "?format=" + dataFormat + "&perpage=" + resultsPerPage);
+
+			String response = getAPIResponse(requestURL);
 			
 			return response;
 			}
@@ -523,15 +470,11 @@ public class HttpRequestor
 	public String submitMemberContributionRequest(String baseCategory, int userID, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
 		{		
 		try 
-			{
-			URL memberContributionURL; 	// The correctly-formatted URL for performing the tune search
-			String response;	// A string of JSON data returned from the API
-			
+			{			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			memberContributionURL = new URL(baseURL + memberOperator + "/" + userID + "/" + baseCategory + "?format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			URL requestURL = new URL(baseURL + memberOperator + "/" + userID + "/" + baseCategory + "?format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
 			
-			// Call the API using a private helper method and store the response
-			response = getAPIResponse(memberContributionURL);
+			String response = getAPIResponse(requestURL);
 			
 			return response;
 			}
@@ -559,10 +502,8 @@ public class HttpRequestor
 		{		
 		try 
 			{
-			HttpURLConnection connectionToURL;
-			
 			// Make the HTTP(S) connection to thesession.org
-			connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
+			HttpURLConnection connectionToURL = (HttpURLConnection) tuneSearchURL.openConnection();
 			
 			// Set parameters for the HTTPS connection
 			connectionToURL.setRequestMethod("GET");
@@ -644,14 +585,12 @@ public class HttpRequestor
 	private String getAPIResponse(URL tuneSearchURL) throws MalformedURLException, IOException
 		{	
 		try
-			{
-			String response;	// A string of JSON data returned from the API
-			
+			{			
 			// Create the HTTPS connection
 			HttpURLConnection connectionToURL =  buildConnection(tuneSearchURL);
 				
 			// Store the response from the API as a String
-			response = captureResponse(connectionToURL);
+			String response = captureResponse(connectionToURL);
 			
 			// We have our search results and can close the connection to the API.
 			connectionToURL.disconnect();		
@@ -669,6 +608,5 @@ public class HttpRequestor
 			{
 			throw new IOException(e.getMessage());
 			}
-		}
-	
+		}	
 	}
