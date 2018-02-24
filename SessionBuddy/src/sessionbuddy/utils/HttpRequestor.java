@@ -3,9 +3,11 @@ package sessionbuddy.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 		
 /**
@@ -565,11 +567,12 @@ public class HttpRequestor
 	 * 
 	 * @param searchTerms a string containing the user's search terms, may contain spaces
 	 * @return a String with any spaces replaced with '+' characters
+	 * @throws UnsupportedEncodingException 
 	 */
-	private String formatSearchTerms(String searchTerms)
+	private String formatSearchTerms(String searchTerms) throws UnsupportedEncodingException
 		{
 		// The session.org API requires the + character between search terms in the URL
-		String formattedSearchTerms = searchTerms.replace(" ","+"); 
+		String formattedSearchTerms = URLEncoder.encode(searchTerms, "UTF-8");
 		
 		return formattedSearchTerms;
 		}
