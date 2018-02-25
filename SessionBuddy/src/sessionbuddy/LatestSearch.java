@@ -62,10 +62,9 @@ public class LatestSearch extends Search
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-
-			// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLatestRequest("tunes", resultsPerPage);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitLatestRequest("tunes", resultsPerPage);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -116,9 +115,7 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLatestRequest("tunes", resultsPerPage, pageNumber);
+			String response = HttpRequestor.submitLatestRequest("tunes", resultsPerPage, pageNumber);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -169,8 +166,7 @@ public class LatestSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of latest discussions and store the JSON response as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLatestRequest("discussions", resultsPerPage);
+			String response = HttpRequestor.submitLatestRequest("discussions", resultsPerPage);
 				
 			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -221,9 +217,7 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of latest discussions and store the JSON response as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLatestRequest("discussions", resultsPerPage, pageNumber);
+			String response = HttpRequestor.submitLatestRequest("discussions", resultsPerPage, pageNumber);
 				
 			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -273,8 +267,7 @@ public class LatestSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of most recently submitted recordings and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLatestRequest("recordings", resultsPerPage);
+			String response = HttpRequestor.submitLatestRequest("recordings", resultsPerPage);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -325,9 +318,7 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted recordings and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLatestRequest("recordings", resultsPerPage, pageNumber);
+			String response = HttpRequestor.submitLatestRequest("recordings", resultsPerPage, pageNumber);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -378,8 +369,7 @@ public class LatestSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLatestRequest("sessions", resultsPerPage);
+			String response = HttpRequestor.submitLatestRequest("sessions", resultsPerPage);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -431,9 +421,7 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLatestRequest("sessions", resultsPerPage, pageNumber);
+			String response = HttpRequestor.submitLatestRequest("sessions", resultsPerPage, pageNumber);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -484,8 +472,7 @@ public class LatestSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of most recently submitted events and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLatestRequest("events", resultsPerPage);
+			String response = HttpRequestor.submitLatestRequest("events", resultsPerPage);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -535,10 +522,8 @@ public class LatestSearch extends Search
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-			
-			// Launch a search for a list of most recently submitted events and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLatestRequest("events", resultsPerPage, pageNumber);
+
+			String response = HttpRequestor.submitLatestRequest("events", resultsPerPage, pageNumber);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -585,10 +570,8 @@ public class LatestSearch extends Search
 				// Validate that a number between 1-50 has been provided as the resultsPerPage value
 				validateResultsPerPageCount(resultsPerPage);
 		
-				// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-				HttpRequestor searcher = new HttpRequestor();
-
-				String response = searcher.submitSetRequest(resultsPerPage);
+				// Launch a search for a list of most recently submitted sets and store the JSON that is returned as a String
+				String response = HttpRequestor.submitSetRequest(resultsPerPage);
 								
 				// Parse the returned JSON into a wrapper class to allow access to all elements
 				JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -636,10 +619,8 @@ public class LatestSearch extends Search
 				// Validate that a number between 1-50 has been provided as the resultsPerPage value
 				validateResultsPerPageCount(resultsPerPage);
 		
-				// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-				HttpRequestor searcher = new HttpRequestor();
-				
-				String response = searcher.submitSetRequest(resultsPerPage, pageNumber);
+				// Launch a search for a list of most recently submitted sets and store the JSON that is returned as a String
+				String response = HttpRequestor.submitSetRequest(resultsPerPage, pageNumber);
 					
 				// Parse the returned JSON into a wrapper class to allow access to all elements
 				JsonResponseParser jsonParser = new JsonResponseParser(response);

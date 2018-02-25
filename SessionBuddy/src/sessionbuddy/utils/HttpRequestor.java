@@ -77,7 +77,7 @@ public class HttpRequestor
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
 	 * @throws URISyntaxException 
 	 */
-	public String submitLatestRequest(String baseCategory, int resultsPerPage) throws IOException, MalformedURLException, URISyntaxException
+	public static String submitLatestRequest(String baseCategory, int resultsPerPage) throws IOException, MalformedURLException, URISyntaxException
 		{				
 		try 
 			{	
@@ -118,7 +118,7 @@ public class HttpRequestor
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
 	 * @throws URISyntaxException 
 	 */
-	public String submitLatestRequest(String baseCategory, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException, URISyntaxException
+	public static String submitLatestRequest(String baseCategory, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException, URISyntaxException
 		{		
 		try 
 			{
@@ -380,7 +380,7 @@ public class HttpRequestor
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
 	 * @throws URISyntaxException 
 	 */
-	public String submitSetRequest(int resultsPerPage) throws IOException, MalformedURLException, URISyntaxException
+	public static String submitSetRequest(int resultsPerPage) throws IOException, MalformedURLException, URISyntaxException
 		{				
 		try 
 			{	
@@ -419,7 +419,7 @@ public class HttpRequestor
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
 	 * @throws URISyntaxException 
 	 */
-	public String submitSetRequest(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException, URISyntaxException
+	public static String submitSetRequest(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException, URISyntaxException
 		{		
 		try 
 			{			
@@ -523,7 +523,7 @@ public class HttpRequestor
 	 * @return the HTTPS connection to the API, from which the API response can be read
 	 * @throws IOException if there is a problem setting up the connection or reading data from it
 	 */
-	private HttpURLConnection buildConnection(URL tuneSearchURL) throws IOException
+	private static HttpURLConnection buildConnection(URL tuneSearchURL) throws IOException
 		{		
 		try 
 			{
@@ -558,7 +558,7 @@ public class HttpRequestor
 	 * @return a String containing either the entire JSON response from the API, or a specific page of the response
 	 * @throws IOException if there is a problem setting up the connection or reading data from it
 	 */
-	private String captureResponse(HttpURLConnection connectionToURL) throws IOException
+	private static String captureResponse(HttpURLConnection connectionToURL) throws IOException
 		{
 		try
 			{
@@ -608,7 +608,7 @@ public class HttpRequestor
 	 * @return the entire JSON response to the API query, returned as a single String
 	 * @throws IOException if there was a problem establishing the connection to the API or reading a response
 	 */
-	private String getAPIResponse(URL tuneSearchURL) throws MalformedURLException, IOException
+	private static String getAPIResponse(URL tuneSearchURL) throws MalformedURLException, IOException
 		{	
 		try
 			{			

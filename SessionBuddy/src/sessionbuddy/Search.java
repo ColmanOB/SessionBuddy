@@ -18,7 +18,7 @@ public class Search
 	 * @return true if a valid number of results per page has been provided (i.e. 1 - 50)
 	 * @throws IllegalArgumentException if a value of zero or less, or a value of more than 50 was provided
 	 */
-	protected boolean validateResultsPerPageCount(int resultsPerPage) throws IllegalArgumentException 
+	protected static boolean validateResultsPerPageCount(int resultsPerPage) throws IllegalArgumentException 
 		{
 		if (resultsPerPage <= 0)
 			{
