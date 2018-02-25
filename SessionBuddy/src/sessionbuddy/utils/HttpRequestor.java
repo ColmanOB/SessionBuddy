@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -24,9 +25,7 @@ public class HttpRequestor
 	private static final String dataFormat = "json";
 	private static final String baseURL = "https://thesession.org/"; 
 	private static final String searchOperator = "search?q=";
-	private static final String latestOperator = "new?";
 	private static final String popularOperator = "popular?";
-	private static final String setsOperator = "sets?";
 	private static final String memberOperator = "members";
 	private static final String latLonOperator = "nearby?latlon=";
 	private static final String radiusOperator = "&radius=";
@@ -48,7 +47,7 @@ public class HttpRequestor
 			{			
 			// Build the URL with all necessary parts to call the API
 			URL requestURL = new URL(baseURL + baseCategory + "/" + itemID + "?" + "format=" + dataFormat);
-			
+
 			// Call the API using a private helper method and store the response
 			String response = getAPIResponse(requestURL);
 			
@@ -76,13 +75,14 @@ public class HttpRequestor
 	 * @return the JSON response from the API as a String
 	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 * @throws URISyntaxException 
 	 */
-	public String submitLatestRequest(String baseCategory, int resultsPerPage) throws IOException, MalformedURLException
+	public String submitLatestRequest(String baseCategory, int resultsPerPage) throws IOException, MalformedURLException, URISyntaxException
 		{				
 		try 
 			{	
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			URL requestURL = UrlBuilder.buildURL(baseCategory, "new", resultsPerPage);
 			
 			// Call the API using a private helper method and store the response
 			String response = getAPIResponse(requestURL);
@@ -98,6 +98,11 @@ public class HttpRequestor
 		catch (IOException e) 
 			{
 			throw new IOException(e.getMessage());
+			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 			}
 		}
 	
@@ -111,13 +116,14 @@ public class HttpRequestor
 	 * @return the JSON response from the API as a String
 	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 * @throws URISyntaxException 
 	 */
-	public String submitLatestRequest(String baseCategory, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public String submitLatestRequest(String baseCategory, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException, URISyntaxException
 		{		
 		try 
 			{
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = new URL(baseURL + baseCategory + "/" + latestOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			URL requestURL = UrlBuilder.buildURL(baseCategory, "new", resultsPerPage, pageNumber);
 			
 			// Call the API using a private helper method and store the response
 			String response = getAPIResponse(requestURL);
@@ -133,6 +139,11 @@ public class HttpRequestor
 		catch (IOException e) 
 			{
 			throw new IOException(e.getMessage());
+			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 			}
 		}
 	
@@ -367,14 +378,15 @@ public class HttpRequestor
 	 * @return the JSON response from the API as a String
 	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 * @throws URISyntaxException 
 	 */
-	public String submitSetRequest(int resultsPerPage) throws IOException, MalformedURLException
+	public String submitSetRequest(int resultsPerPage) throws IOException, MalformedURLException, URISyntaxException
 		{				
 		try 
 			{	
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = new URL(baseURL + "tunes" + "/" + setsOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
-			
+			URL requestURL = UrlBuilder.buildURL("tunes", "sets", resultsPerPage);
+					
 			String response = getAPIResponse(requestURL);
 			
 			return response;
@@ -388,6 +400,11 @@ public class HttpRequestor
 		catch (IOException e) 
 			{
 			throw new IOException(e.getMessage());
+			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 			}
 		}
 	
@@ -400,13 +417,14 @@ public class HttpRequestor
 	 * @return the JSON response from the API as a String
 	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 * @throws URISyntaxException 
 	 */
-	public String submitSetRequest(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public String submitSetRequest(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException, URISyntaxException
 		{		
 		try 
 			{			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = new URL(baseURL + "tunes" + "/" + setsOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			URL requestURL = UrlBuilder.buildURL("tunes", "sets", resultsPerPage, pageNumber);
 			
 			String response = getAPIResponse(requestURL);
 			
@@ -421,6 +439,11 @@ public class HttpRequestor
 		catch (IOException e) 
 			{
 			throw new IOException(e.getMessage());
+			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 			}
 		}
 	

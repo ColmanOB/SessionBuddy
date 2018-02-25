@@ -1,6 +1,7 @@
 package example_usage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.LatestSearch;
@@ -10,7 +11,7 @@ import sessionbuddy.wrappers.resultsets.LatestSearchTunes;
 
 class Test_RetrieveLatest_Tunes_with_Pagination
 	{
-	public static void main(String[] args)
+	public static void main(String[] args) throws URISyntaxException
 	   {
 		try
 			{

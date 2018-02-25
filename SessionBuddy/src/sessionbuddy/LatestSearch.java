@@ -1,6 +1,7 @@
 package sessionbuddy;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
@@ -52,9 +53,10 @@ public class LatestSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
+	 * @throws URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<LatestSearchTunes> getLatestTunes(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<LatestSearchTunes> getLatestTunes(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -86,6 +88,11 @@ public class LatestSearch extends Search
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 		
 
@@ -99,9 +106,10 @@ public class LatestSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
+	 * @throws URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<LatestSearchTunes> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<LatestSearchTunes> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -133,6 +141,11 @@ public class LatestSearch extends Search
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -145,9 +158,10 @@ public class LatestSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
+	 * @throws URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<SearchResultsDiscussions> getLatestDiscussions(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsDiscussions> getLatestDiscussions(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -179,6 +193,11 @@ public class LatestSearch extends Search
 			{
 			throw new IOException (e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 
@@ -192,9 +211,10 @@ public class LatestSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
+	 * @throws URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<SearchResultsDiscussions> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsDiscussions> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -225,6 +245,11 @@ public class LatestSearch extends Search
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -237,9 +262,10 @@ public class LatestSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
+	 * @throws URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<SearchResultsRecordings> getLatestRecordings(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsRecordings> getLatestRecordings(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -271,6 +297,11 @@ public class LatestSearch extends Search
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -284,9 +315,10 @@ public class LatestSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
+	 * @throws URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<SearchResultsRecordings> getLatestRecordings(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsRecordings> getLatestRecordings(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -318,6 +350,11 @@ public class LatestSearch extends Search
 			{
 			throw new IOException (e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 
@@ -330,9 +367,10 @@ public class LatestSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
+	 * @throws URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<SearchResultSessions> getLatestSessions(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultSessions> getLatestSessions(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -364,6 +402,11 @@ public class LatestSearch extends Search
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 
 		}
 	
@@ -378,9 +421,10 @@ public class LatestSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
+	 * @throws URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<SearchResultSessions> getLatestSessions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultSessions> getLatestSessions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -412,6 +456,11 @@ public class LatestSearch extends Search
 			{	
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 		
 	
@@ -424,9 +473,10 @@ public class LatestSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
+	 * @throws URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<SearchResultEvents> getLatestEvents(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultEvents> getLatestEvents(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -458,6 +508,11 @@ public class LatestSearch extends Search
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -471,9 +526,10 @@ public class LatestSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
+	 * @throws URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<SearchResultEvents> getLatestEvents(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultEvents> getLatestEvents(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -505,6 +561,11 @@ public class LatestSearch extends Search
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -515,8 +576,9 @@ public class LatestSearch extends Search
 		 * @return an ArrayList of LatestSearchSets objects
 		 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 		 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+		 * @throws URISyntaxException 
 		 */
-		public ArrayList<LatestSearchSets> getLatestSets(int resultsPerPage) throws IllegalArgumentException, IOException
+		public ArrayList<LatestSearchSets> getLatestSets(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 			{
 			try
 				{
@@ -549,6 +611,11 @@ public class LatestSearch extends Search
 				{
 				throw new IOException(e.getMessage());
 				}
+			
+			catch (URISyntaxException e)
+				{
+				throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+				}
 			}
 		
 		
@@ -560,8 +627,9 @@ public class LatestSearch extends Search
 		 * @return an ArrayList of LatestSearchSets objects
 		 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 		 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+		 * @throws URISyntaxException 
 		 */
-		public ArrayList<LatestSearchSets> getLatestSearchSets(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+		public ArrayList<LatestSearchSets> getLatestSearchSets(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 			{
 			try
 				{
@@ -593,6 +661,11 @@ public class LatestSearch extends Search
 			catch(IOException e)
 				{
 				throw new IOException(e.getMessage());
+				}
+			
+			catch (URISyntaxException e)
+				{
+				throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 				}
 			}
 		

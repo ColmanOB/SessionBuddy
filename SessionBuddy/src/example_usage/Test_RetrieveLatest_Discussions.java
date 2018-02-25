@@ -1,6 +1,7 @@
 package example_usage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.LatestSearch;
@@ -18,7 +19,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
 class Test_RetrieveLatest_Discussions
 
 {
-public static void main(String[] args)
+public static void main(String[] args) throws URISyntaxException
    {
 	// Set the search parameters
 	int resultsPerPage = 50;
