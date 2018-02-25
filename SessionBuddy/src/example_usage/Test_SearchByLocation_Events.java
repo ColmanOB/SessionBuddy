@@ -1,6 +1,7 @@
 package example_usage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.LocationSearch;
@@ -9,7 +10,7 @@ import sessionbuddy.wrappers.resultsets.LocationResultEvents;
 
 public class Test_SearchByLocation_Events
 	{
-	public static void main(String[] args)
+	public static void main(String[] args) throws RuntimeException, URISyntaxException
 	   {
 		// Set the search parameters
 		String latitude= "53.3498";

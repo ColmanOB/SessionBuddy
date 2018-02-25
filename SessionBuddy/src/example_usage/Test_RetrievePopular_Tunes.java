@@ -1,6 +1,7 @@
 package example_usage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.PopularSearch;
@@ -9,7 +10,7 @@ import sessionbuddy.wrappers.resultsets.PopularTunes;
 
 class Test_RetrievePopular_Tunes
 	{
-	public static void main(String[] args)
+	public static void main(String[] args) throws URISyntaxException
 	   {
 		try
 			{

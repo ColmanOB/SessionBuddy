@@ -1,6 +1,7 @@
 package sessionbuddy;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
@@ -50,8 +51,9 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<SearchResultTunes> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultTunes> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -59,8 +61,7 @@ public class KeywordSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of matching tunes and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage);
+			String response = HttpRequestor.submitSearchRequest("tunes", searchTerms, resultsPerPage);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -89,6 +90,11 @@ public class KeywordSearch extends Search
 			{
 			throw new IllegalStateException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -102,8 +108,9 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<SearchResultTunes> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultTunes> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -111,8 +118,7 @@ public class KeywordSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of matching tunes and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitSearchRequest("tunes", searchTerms, resultsPerPage, pageNumber);
+			String response = HttpRequestor.submitSearchRequest("tunes", searchTerms, resultsPerPage, pageNumber);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -141,6 +147,11 @@ public class KeywordSearch extends Search
 			{
 			throw new IllegalStateException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 
 	/**
@@ -152,8 +163,9 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<SearchResultsDiscussions> searchDiscussions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultsDiscussions> searchDiscussions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -161,8 +173,7 @@ public class KeywordSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of matching discussions and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage);
+			String response = HttpRequestor.submitSearchRequest("discussions", searchTerms, resultsPerPage);
 				
 			// Create a DiscussionSearchParser and DiscussionSearchResultWrapper to parse the raw JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -191,6 +202,11 @@ public class KeywordSearch extends Search
 			{
 			throw new IllegalStateException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 			
 	
@@ -205,8 +221,9 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<SearchResultsDiscussions> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultsDiscussions> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -214,8 +231,7 @@ public class KeywordSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of matching discussions, specifying the page number in the result set, and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitSearchRequest("discussions", searchTerms, resultsPerPage, pageNumber);
+			String response = HttpRequestor.submitSearchRequest("discussions", searchTerms, resultsPerPage, pageNumber);
 			
 			// Prepare the classes needed to parse the the JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -244,6 +260,11 @@ public class KeywordSearch extends Search
 			{
 			throw new IllegalStateException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -256,8 +277,9 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<SearchResultEvents> searchEvents(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultEvents> searchEvents(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -265,8 +287,7 @@ public class KeywordSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of matching events and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitSearchRequest("events", searchTerms, resultsPerPage);
+			String response = HttpRequestor.submitSearchRequest("events", searchTerms, resultsPerPage);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -294,6 +315,11 @@ public class KeywordSearch extends Search
 		catch (IllegalStateException e)
 			{
 			throw new IllegalStateException(e.getMessage());
+			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 			}
 		}
 	
@@ -308,8 +334,9 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<SearchResultEvents> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultEvents> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -317,8 +344,7 @@ public class KeywordSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitSearchRequest("events",searchTerms, resultsPerPage,pageNumber);
+			String response = HttpRequestor.submitSearchRequest("events",searchTerms, resultsPerPage,pageNumber);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -347,6 +373,11 @@ public class KeywordSearch extends Search
 			{
 			throw new IllegalStateException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -359,8 +390,9 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<SearchResultsRecordings> searchRecordings(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultsRecordings> searchRecordings(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -368,8 +400,7 @@ public class KeywordSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitSearchRequest("recordings", searchTerms, resultsPerPage);
+			String response = HttpRequestor.submitSearchRequest("recordings", searchTerms, resultsPerPage);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -399,7 +430,10 @@ public class KeywordSearch extends Search
 			throw new IllegalStateException(e.getMessage());
 			}
 		
-		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -413,8 +447,9 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<SearchResultsRecordings> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultsRecordings> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -422,8 +457,7 @@ public class KeywordSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitSearchRequest("recordings",searchTerms, resultsPerPage,pageNumber);
+			String response = HttpRequestor.submitSearchRequest("recordings",searchTerms, resultsPerPage,pageNumber);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -452,6 +486,11 @@ public class KeywordSearch extends Search
 			{
 			throw new IllegalStateException(e.getMessage());
 			}	
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -464,8 +503,9 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<SearchResultSessions> searchSessions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultSessions> searchSessions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -473,8 +513,7 @@ public class KeywordSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of matching sessions and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitSearchRequest("sessions", searchTerms, resultsPerPage);
+			String response = HttpRequestor.submitSearchRequest("sessions", searchTerms, resultsPerPage);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -504,6 +543,11 @@ public class KeywordSearch extends Search
 			{
 			throw new IllegalStateException(e.getMessage());
 			}	
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -517,8 +561,9 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<SearchResultSessions> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<SearchResultSessions> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -526,8 +571,7 @@ public class KeywordSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			
 			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitSearchRequest("sessions",searchTerms, resultsPerPage,pageNumber);
+			String response = HttpRequestor.submitSearchRequest("sessions",searchTerms, resultsPerPage,pageNumber);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -556,6 +600,11 @@ public class KeywordSearch extends Search
 		catch (IllegalStateException e)
 			{
 			throw new IllegalStateException(e.getMessage());
+			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 			}
 		}
 	

@@ -1,6 +1,7 @@
 package sessionbuddy;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
@@ -38,11 +39,11 @@ public class LocationSearch extends Search
 	 * @param radius defines a radius (in kilometres) around the coordinates to be included in the search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of SessionsByLocationResult objects
-	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
+	 * @throws RuntimeException 
 	 */
-	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IOException, RuntimeException, URISyntaxException
 		{
 		try
 			{
@@ -51,8 +52,7 @@ public class LocationSearch extends Search
 			validateCoordinates(latitude, longitude, radius);
 		
 			// Launch a search for a list of sessions in the geographic area specified, and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage);
+			String response = HttpRequestor.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -80,6 +80,11 @@ public class LocationSearch extends Search
 			{
 			throw new IllegalStateException(e.getMessage());
 			}	
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	/** 
@@ -94,8 +99,9 @@ public class LocationSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -104,8 +110,7 @@ public class LocationSearch extends Search
 			validateCoordinates(latitude, longitude, radius);
 		
 			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage, pageNumber);
+			String response = HttpRequestor.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage, pageNumber);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -133,6 +138,11 @@ public class LocationSearch extends Search
 			{
 			throw new IllegalStateException(e.getMessage());
 			}	
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -144,11 +154,11 @@ public class LocationSearch extends Search
 	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of EventsByLocationResult objects
-	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
+	 * @throws RuntimeException 
 	 */
-	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException
+	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IOException, RuntimeException, URISyntaxException
 		{
 		try
 			{
@@ -157,8 +167,7 @@ public class LocationSearch extends Search
 			validateCoordinates(latitude, longitude, radius);
 	
 			// Launch a search for a list of matching events and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage);
+			String response = HttpRequestor.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -186,6 +195,11 @@ public class LocationSearch extends Search
 			{
 			throw new IllegalStateException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -201,8 +215,9 @@ public class LocationSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -211,8 +226,7 @@ public class LocationSearch extends Search
 			validateCoordinates(latitude, longitude, radius);
 	
 			// Launch a search for a list of matching events and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage, pageNumber);
+			String response = HttpRequestor.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage, pageNumber);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -234,6 +248,11 @@ public class LocationSearch extends Search
 		catch(IOException e)
 			{
 			throw new IOException(e.getMessage());
+			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 			}
 		}
 	
@@ -326,7 +345,7 @@ public class LocationSearch extends Search
 	 * @return true if the provided coordinates are a valid latitude and longitude, and the radius is less than 1000Km
 	 * @throws IllegalArgumentException if an invalid number is provided for either the latitude, longitude or radius
 	 */
-	private boolean validateCoordinates(String latitude, String longitude, String radius) throws IllegalArgumentException
+	private static boolean validateCoordinates(String latitude, String longitude, String radius) throws IllegalArgumentException
 		{	
 		// Specify a set of rules defining valid coordinates
 		final float MIN_LATITUDE = Float.valueOf("-90.0000");

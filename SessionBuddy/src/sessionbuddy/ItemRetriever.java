@@ -2,6 +2,7 @@ package sessionbuddy;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
@@ -54,14 +55,14 @@ public class ItemRetriever
 	 * @return an ItemResultRecording object with the details of the chosen recording
 	 * @throws IllegalStateException if there is a problem parsing the JSON from the API into the expected structure
 	 * @throws IOException if there is a problem with the HTTPS request to the API
+	 * @throws URISyntaxException 
 	 */
-	public ItemResultRecording getRecordingByID(String recordingID) throws IllegalStateException, IOException
+	public ItemResultRecording getRecordingByID(String recordingID) throws IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Make the API call using the the recording ID and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitItemByIDRequest("recordings", recordingID);
+			String response = HttpRequestor.submitItemByIDRequest("recordings", recordingID);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -134,6 +135,11 @@ public class ItemRetriever
 			{
 			throw new IllegalStateException(e.getMessage());
 			}			
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 
@@ -145,15 +151,14 @@ public class ItemRetriever
 	 * @return an ItemResultDiscussion object with the details of the chosen discussion
 	 * @throws IllegalStateException if there is a problem parsing the JSON from the API into the expected structure
 	 * @throws IOException if there is a problem with the HTTPS request to the API
+	 * @throws URISyntaxException 
 	 */
-	public ItemResultDiscussion getDiscussionByID(String discussionID) throws IllegalStateException, IOException
+	public ItemResultDiscussion getDiscussionByID(String discussionID) throws IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
-			HttpRequestor searcher = new HttpRequestor();
-			
 			// Make the API call using the the discussion ID and store the JSON that is returned as a String
-			String response = searcher.submitItemByIDRequest("discussions", discussionID);
+			String response = HttpRequestor.submitItemByIDRequest("discussions", discussionID);
 			
 			// Parse the returned JSON into a pre-defined wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -202,6 +207,11 @@ public class ItemRetriever
 			{
 			throw new IllegalStateException(e.getMessage());
 			}	
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 
@@ -213,14 +223,14 @@ public class ItemRetriever
 	 * @return an ItemResultTune object with the details of the chosen tune
 	 * @throws IllegalStateException if there is a problem parsing the JSON from the API into the expected structure
 	 * @throws IOException if there is a problem with the HTTPS request to the API
+	 * @throws URISyntaxException 
 	 */
-	public ItemResultTune getTuneByID(String tuneID) throws IllegalStateException, IOException
+	public ItemResultTune getTuneByID(String tuneID) throws IllegalStateException, IOException, URISyntaxException
 		{		
 		try
 			{
 			// Make the API call using the tune ID and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitItemByIDRequest("tunes", tuneID);
+			String response = HttpRequestor.submitItemByIDRequest("tunes", tuneID);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -297,6 +307,11 @@ public class ItemRetriever
 			throw new IllegalStateException(e.getMessage());
 			}	
 		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
+		
 		}
 	
 	
@@ -308,14 +323,14 @@ public class ItemRetriever
 	 * @return an ItemResultSession object with the details of the chosen session
 	 * @throws IllegalStateException if there is a problem parsing the JSON from the API into the expected structure
 	 * @throws IOException if there is a problem with the HTTPS request to the API
+	 * @throws URISyntaxException 
 	 */
-	public ItemResultSession getSessionByID(String sessionID) throws IllegalStateException, IOException
+	public ItemResultSession getSessionByID(String sessionID) throws IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Make the API call using the the discussion ID and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitItemByIDRequest("sessions", sessionID);
+			String response = HttpRequestor.submitItemByIDRequest("sessions", sessionID);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -376,6 +391,11 @@ public class ItemRetriever
 			{
 			throw new IllegalStateException(e.getMessage());
 			}	
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 
@@ -387,15 +407,14 @@ public class ItemRetriever
 	 * @return an ItemResultRecording object with the details of the chosen recording
 	 * @throws IllegalStateException if there is a problem parsing the JSON from the API into the expected structure
 	 * @throws IOException if there is a problem with the HTTPS request to the API
+	 * @throws URISyntaxException 
 	 */
-	public ItemResultEvent getEventByID(String eventID) throws IllegalStateException, IOException
+	public ItemResultEvent getEventByID(String eventID) throws IllegalStateException, IOException, URISyntaxException
 		{		
 		try
 			{
 			// Make the API call using the the event ID and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response;
-			response = searcher.submitItemByIDRequest("events", eventID);
+			String response = HttpRequestor.submitItemByIDRequest("events", eventID);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -448,6 +467,11 @@ public class ItemRetriever
 			{
 			throw new IllegalStateException(e.getMessage());
 			}	
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	}
 

@@ -3,12 +3,15 @@ package sessionbuddy.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 		
 /**
@@ -24,13 +27,8 @@ public class HttpRequestor
 	// Define a few constants used in building the URLs for querying the API
 	private static final String dataFormat = "json";
 	private static final String baseURL = "https://thesession.org/"; 
-	private static final String searchOperator = "search?q=";
-	private static final String popularOperator = "popular?";
 	private static final String memberOperator = "members";
-	private static final String latLonOperator = "nearby?latlon=";
-	private static final String radiusOperator = "&radius=";
 	
-
 	/**
 	 * Retrieves details of an individual item using its unique ID from thesession.org.
 	 * The item may be a tune, discussion, recording, session or event.
@@ -40,13 +38,14 @@ public class HttpRequestor
 	 * @return the JSON response from the API as a String
 	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 * @throws URISyntaxException 
 	 */
-	public String submitItemByIDRequest(String baseCategory, String itemID) throws IOException, MalformedURLException
+	public static String submitItemByIDRequest(String baseCategory, String itemID) throws IOException, MalformedURLException, URISyntaxException
 		{		
 		try
 			{			
 			// Build the URL with all necessary parts to call the API
-			URL requestURL = new URL(baseURL + baseCategory + "/" + itemID + "?" + "format=" + dataFormat);
+			URL requestURL = UrlBuilder.buildURL(baseCategory, itemID);
 
 			// Call the API using a private helper method and store the response
 			String response = getAPIResponse(requestURL);
@@ -62,6 +61,11 @@ public class HttpRequestor
 		catch(IOException e)
 			{
 			throw new IOException(e.getMessage());
+			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 			}
 		}
 		
@@ -153,21 +157,23 @@ public class HttpRequestor
 	 * The category may be tunes, discussions, recordings, sessions or events.
 	 * 
 	 * @param baseCategory the category of information to be retrieved, i.e. tunes, discussions, sessions, recordings or events
-	 * @param searchTermsInput searchTermsInput the search terms collected from the user, as a single string
+	 * @param searchTerms searchTerms the search terms collected from the user, as a single string
 	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
 	 * @return the JSON response from the API as a String
 	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 * @throws URISyntaxException 
 	 */
-	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage) throws IOException, MalformedURLException
+	public static String submitSearchRequest(String baseCategory, String searchTerms, int resultsPerPage) throws IOException, MalformedURLException, URISyntaxException
 		{				
 		try 
 			{
 			// Clean up the search terms provided by the user
-			String searchTermsFormatted = formatSearchTerms(searchTermsInput);
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
 			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = new URL(baseURL + baseCategory + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			URL requestURL = UrlBuilder.buildURL(baseCategory, "search", queryParams, resultsPerPage);
 			
 			// Call the API using a private helper method and store the response
 			String response = getAPIResponse(requestURL);
@@ -184,32 +190,38 @@ public class HttpRequestor
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 		
-	
 		
 	/**
-	 * An alternative to the submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage) method.
+	 * An alternative to the submitSearchRequest(String baseCategory, String searchTerms, int resultsPerPage) method.
 	 * Intended to be used when handling a result set with multiple pages.
 	 * Allows a specific page number within the results to be specified.
 	 * 
 	 * @param baseCategory the category of information to be retrieved, i.e. tunes, discussions, sessions, recordings or events
-	 * @param searchTermsInput searchTermsInput the search terms collected from the user, as a single string
+	 * @param searchTerms searchTerms the search terms collected from the user, as a single string
 	 * @param resultsPerPage the number of search results to be returned per page, up to a maximum of 50
 	 * @param pageNumber an individual page number within a paginated JSON response
 	 * @return the JSON response from the API as a String
 	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 * @throws URISyntaxException 
 	 */
-	public String submitSearchRequest(String baseCategory, String searchTermsInput, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public static String submitSearchRequest(String baseCategory, String searchTerms, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException, URISyntaxException
 		{		
 		try 
 			{
-			// Clean up the search terms provided by the user using a private helper method
-			String searchTermsFormatted = formatSearchTerms(searchTermsInput);
+			// Clean up the search terms provided by the user
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
 		
 			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
-			URL requestURL = new URL(baseURL + baseCategory  + "/" + searchOperator + searchTermsFormatted + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			URL requestURL = UrlBuilder.buildURL(baseCategory, "search", queryParams, resultsPerPage, pageNumber);
 			
 			// Call the API using a private helper method and store the response
 			String response = getAPIResponse(requestURL);
@@ -227,6 +239,11 @@ public class HttpRequestor
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -241,14 +258,19 @@ public class HttpRequestor
 	 * @return the JSON response from the API as a String
 	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 * @throws URISyntaxException 
 	 */
-	public String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage) throws RuntimeException, MalformedURLException
+	public static String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage) throws RuntimeException, MalformedURLException, URISyntaxException
 		{			
 		try 
 			{		
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = new URL(baseURL + baseCategory + "/" + latLonOperator + latitude + "," + longitude + radiusOperator + radius + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage);
-			
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
+			queryParams.add(new BasicNameValuePair("radius", radius));
+		
+			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
+			URL requestURL = UrlBuilder.buildURL(baseCategory, "nearby", queryParams, resultsPerPage);
+	
 			String response = getAPIResponse(requestURL);
 						
 			return response;
@@ -262,6 +284,11 @@ public class HttpRequestor
 		catch (IOException e) 
 			{
 			throw new RuntimeException(e.getMessage());
+			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 			}
 		}
 
@@ -278,14 +305,20 @@ public class HttpRequestor
 	 * @return the JSON response from the API as a String
 	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 * @throws URISyntaxException 
 	 */
-	public String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public static String submitLocationRequest(String baseCategory, String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IOException, MalformedURLException, URISyntaxException
 		{			
 		try 
 			{
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = new URL(baseURL + baseCategory + "/" + latLonOperator + latitude + "," + longitude + radiusOperator + radius + "&" + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
-
+			// Assemble the query parameters for the URL
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
+			queryParams.add(new BasicNameValuePair("radius", radius));
+		
+			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
+			URL requestURL = UrlBuilder.buildURL(baseCategory, "nearby", queryParams, resultsPerPage, pageNumber);
+			
 			// Store the response from the API
 			String response = getAPIResponse(requestURL);
 						
@@ -302,6 +335,11 @@ public class HttpRequestor
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -313,13 +351,14 @@ public class HttpRequestor
 	 * @return the JSON response from the API as a String
 	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 * @throws URISyntaxException 
 	 */
-	public String submitPopularRequest(int resultsPerPage) throws IOException, MalformedURLException
+	public static String submitPopularRequest(int resultsPerPage) throws IOException, MalformedURLException, URISyntaxException
 		{				
 		try 
 			{				
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = new URL(baseURL + "tunes" + "/" + popularOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage);
+			URL requestURL = UrlBuilder.buildURL("tunes", "popular", resultsPerPage);
 			
 			String response = getAPIResponse(requestURL);
 			
@@ -334,6 +373,11 @@ public class HttpRequestor
 		catch (IOException e) 
 			{
 			throw new IOException(e.getMessage());
+			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 			}
 		}
 	
@@ -346,13 +390,14 @@ public class HttpRequestor
 	 * @return the JSON response from the API as a String
 	 * @throws IOException if a problem was encountered setting up the connection or reading the API response
 	 * @throws MalformedURLException if an invalid URL has somehow been constructed
+	 * @throws URISyntaxException 
 	 */
-	public String submitPopularRequest(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException
+	public static String submitPopularRequest(int resultsPerPage, int pageNumber) throws IOException, MalformedURLException, URISyntaxException
 		{		
 		try 
 			{
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = new URL(baseURL + "tunes" + "/" + popularOperator + "format=" + dataFormat + "&perpage=" + resultsPerPage + "&page=" + pageNumber);
+			URL requestURL = UrlBuilder.buildURL("tunes", "popular", resultsPerPage, pageNumber);
 			
 			String response = getAPIResponse(requestURL);
 			
@@ -367,6 +412,11 @@ public class HttpRequestor
 		catch (IOException e) 
 			{
 			throw new IOException(e.getMessage());
+			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
 			}
 		}
 	
@@ -583,23 +633,7 @@ public class HttpRequestor
 			throw new IOException(e.getMessage());
 			}		
 		}
-	
-	
-	/**
-	 * A helper method to format the search terms so that any spaces are replaced with '+' characters, as required by the API
-	 * 
-	 * @param searchTerms a string containing the user's search terms, may contain spaces
-	 * @return a String with any spaces replaced with '+' characters
-	 * @throws UnsupportedEncodingException 
-	 */
-	private String formatSearchTerms(String searchTerms) throws UnsupportedEncodingException
-		{
-		// The session.org API requires the + character between search terms in the URL
-		String formattedSearchTerms = URLEncoder.encode(searchTerms, "UTF-8");
 		
-		return formattedSearchTerms;
-		}
-	
 	
 	/**
 	 * Makes a HTTP connection to the API with the requested data in the URL, and get the response data

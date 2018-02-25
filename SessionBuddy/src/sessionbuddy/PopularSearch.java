@@ -1,6 +1,7 @@
 package sessionbuddy;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
@@ -27,8 +28,9 @@ public class PopularSearch extends Search
 	 * @return an ArrayList of PopularTunes objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<PopularTunes> getPopularTunes(int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<PopularTunes> getPopularTunes(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -36,9 +38,7 @@ public class PopularSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 	
 			// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-
-			String response = searcher.submitPopularRequest(resultsPerPage);
+			String response = HttpRequestor.submitPopularRequest(resultsPerPage);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -61,6 +61,11 @@ public class PopularSearch extends Search
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -72,8 +77,9 @@ public class PopularSearch extends Search
 	 * @return an ArrayList of PopularTunes objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException 
 	 */
-	public ArrayList<PopularTunes> getPopularTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<PopularTunes> getPopularTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -81,9 +87,7 @@ public class PopularSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 	
 			// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			
-			String response = searcher.submitPopularRequest(resultsPerPage, pageNumber);
+			String response = HttpRequestor.submitPopularRequest(resultsPerPage, pageNumber);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -106,6 +110,11 @@ public class PopularSearch extends Search
 			{
 			throw new IOException(e.getMessage());
 			}
+		
+		catch (URISyntaxException e)
+			{
+			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			}
 		}
 	
 	
@@ -127,7 +136,7 @@ public class PopularSearch extends Search
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
-			PopularTuneDetails details = new PopularTuneDetails(parsedResults.tunes[i].id, parsedResults.tunes[i].name, parsedResults.tunes[i].url, parsedResults.tunes[i].date, parsedResults.tunes[i].type, parsedResults.tunes[i].tunebooks);
+			PopularTuneDetails details = new PopularTuneDetails(parsedResults.tunes[i].id, StringCleaner.cleanString(parsedResults.tunes[i].name), parsedResults.tunes[i].url, parsedResults.tunes[i].date, parsedResults.tunes[i].type, parsedResults.tunes[i].tunebooks);
 			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringCleaner.cleanString(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
 			
 			// Instantiate a PopularTunes object & populate it

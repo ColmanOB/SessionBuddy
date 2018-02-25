@@ -1,6 +1,7 @@
 package example_usage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.KeywordSearch;
@@ -8,7 +9,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 
 public class Test_KeywordSearch_Events_with_Pagination
 {
-public static void main(String[] args)
+public static void main(String[] args) throws URISyntaxException
    {
 	// Set the search parameters
 	String searchTerms = "Dublin";

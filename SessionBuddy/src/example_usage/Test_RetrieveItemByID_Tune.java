@@ -1,13 +1,14 @@
 package example_usage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import sessionbuddy.ItemRetriever;
 import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
 public class Test_RetrieveItemByID_Tune 
 {
-	public static void main(String[] args)
+	public static void main(String[] args) throws URISyntaxException
 		{
 		
 		try
