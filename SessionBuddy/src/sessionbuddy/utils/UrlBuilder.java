@@ -8,9 +8,14 @@ import java.util.List;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.NameValuePair;
 
+// TODO: Refactor this class to avoid the 'telescoping constructor' problem
 /**
+ * Performs the final assembly of the URL that will be used to access the API.
+ * 
+ * This previously used a 'hand-rolled' implementation, but now uses the Apache httpclient instead.
+ * 
  * @author Colman
- *
+ * @since 2018-02-25
  */
 public class UrlBuilder 
 	{
