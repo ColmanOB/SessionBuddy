@@ -2,11 +2,13 @@ package sessionbuddy;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonResponseParser;
 import sessionbuddy.utils.StringCleaner;
+import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.PopularTuneDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.jsonresponse.PopularWrapperTunes;
@@ -17,7 +19,7 @@ import sessionbuddy.wrappers.resultsets.PopularTunes;
  * Retrieves the current most popular tunes, i.e. those that have been added to the largest number of user tunebooks on thesession.org
  * 
  * @author Colman
- * @since 2018-02-10
+ * @since 2018-03-04
  */
 public class PopularSearch extends Search
 	{
@@ -37,8 +39,9 @@ public class PopularSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 	
-			// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-			String response = HttpRequestor.submitPopularRequest(resultsPerPage);
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("tunes", "popular", resultsPerPage);
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -52,22 +55,11 @@ public class PopularSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-	
-		catch(IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
-	
 	
 	/**
 	 * An alternative version of getPopularTunes, allowing the caller to specify a page number within the JSON reponse from the API
@@ -86,9 +78,10 @@ public class PopularSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 	
-			// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-			String response = HttpRequestor.submitPopularRequest(resultsPerPage, pageNumber);
-				
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("tunes", "popular", resultsPerPage, pageNumber);
+			String response = HttpRequestor.submitRequest(requestURL);
+			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
 			PopularWrapperTunes parsedResults = jsonParser.parseResponse(PopularWrapperTunes.class);
@@ -101,19 +94,9 @@ public class PopularSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-	
-		catch(IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	

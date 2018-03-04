@@ -2,11 +2,17 @@ package sessionbuddy;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonResponseParser;
 import sessionbuddy.utils.StringCleaner;
+import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
 import sessionbuddy.wrappers.granularobjects.Country;
@@ -27,7 +33,7 @@ import sessionbuddy.wrappers.resultsets.LocationResultSessions;
  * To use this feature, first create a new LocationSearch object, then call one of its methods to perform the actual search.
  * 
  * @author Colman
- * @since 2017-08-26
+ * @since 2017-03-04
  */
 public class LocationSearch extends Search
 	{
@@ -43,7 +49,7 @@ public class LocationSearch extends Search
 	 * @throws URISyntaxException 
 	 * @throws RuntimeException 
 	 */
-	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IOException, RuntimeException, URISyntaxException
+	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
 		{
 		try
 			{
@@ -51,8 +57,16 @@ public class LocationSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
 		
-			// Launch a search for a list of sessions in the geographic area specified, and store the JSON that is returned as a String
-			String response = HttpRequestor.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage);
+			// Assemble the query parameters for the URL
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
+			queryParams.add(new BasicNameValuePair("radius", radius));
+		
+			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
+			URL requestURL = UrlBuilder.buildURL("sessions", "nearby", queryParams, resultsPerPage);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -66,24 +80,9 @@ public class LocationSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch(IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}	
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -101,17 +100,25 @@ public class LocationSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException 
 	 */
-	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
 		{
 		try
 			{
 			// Validate the user input
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
+
+			// Assemble the query parameters for the URL
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
+			queryParams.add(new BasicNameValuePair("radius", radius));
 		
-			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-			String response = HttpRequestor.submitLocationRequest("sessions", latitude, longitude, radius, resultsPerPage, pageNumber);
-				
+			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
+			URL requestURL = UrlBuilder.buildURL("sessions", "nearby", queryParams, resultsPerPage, pageNumber);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
+			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
 			LocationSearchWrapperSessions parsedResults = jsonParser.parseResponse(LocationSearchWrapperSessions.class);
@@ -124,24 +131,9 @@ public class LocationSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-	
-		catch(IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}	
-		
-		catch(IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}	
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -158,7 +150,7 @@ public class LocationSearch extends Search
 	 * @throws URISyntaxException 
 	 * @throws RuntimeException 
 	 */
-	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IOException, RuntimeException, URISyntaxException
+	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
 		{
 		try
 			{
@@ -166,8 +158,16 @@ public class LocationSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
 	
-			// Launch a search for a list of matching events and store the JSON that is returned as a String
-			String response = HttpRequestor.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage);
+			// Assemble the query parameters for the URL
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
+			queryParams.add(new BasicNameValuePair("radius", radius));
+		
+			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
+			URL requestURL = UrlBuilder.buildURL("events", "nearby", queryParams, resultsPerPage);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -181,24 +181,9 @@ public class LocationSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-	
-		catch(IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch(IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -217,7 +202,7 @@ public class LocationSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException 
 	 */
-	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
 		{
 		try
 			{
@@ -225,9 +210,17 @@ public class LocationSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
 	
-			// Launch a search for a list of matching events and store the JSON that is returned as a String
-			String response = HttpRequestor.submitLocationRequest("events", latitude, longitude, radius, resultsPerPage, pageNumber);
-				
+			// Assemble the query parameters for the URL
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
+			queryParams.add(new BasicNameValuePair("radius", radius));
+		
+			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
+			URL requestURL = UrlBuilder.buildURL("events", "nearby", queryParams, resultsPerPage, pageNumber);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
+			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
 			LocationSearchWrapperEvents parsedResults = jsonParser.parseResponse(LocationSearchWrapperEvents.class);
@@ -240,19 +233,9 @@ public class LocationSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-	
-		catch(IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	

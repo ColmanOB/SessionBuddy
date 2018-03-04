@@ -2,11 +2,13 @@ package sessionbuddy;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonResponseParser;
 import sessionbuddy.utils.StringCleaner;
+import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Artist;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
@@ -63,8 +65,11 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("tunes", "new", resultsPerPage);
+			
 			// Perform the API query and capture the response
-			String response = HttpRequestor.submitLatestRequest("tunes", resultsPerPage);
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -78,19 +83,9 @@ public class LatestSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-	
-		catch(IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 		
@@ -115,7 +110,11 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			String response = HttpRequestor.submitLatestRequest("tunes", resultsPerPage, pageNumber);
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("tunes", "new", resultsPerPage, pageNumber);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -129,19 +128,9 @@ public class LatestSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -165,8 +154,11 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of latest discussions and store the JSON response as a String
-			String response = HttpRequestor.submitLatestRequest("discussions", resultsPerPage);
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("discussions", "new", resultsPerPage);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -180,19 +172,9 @@ public class LatestSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException (e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -217,7 +199,11 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			String response = HttpRequestor.submitLatestRequest("discussions", resultsPerPage, pageNumber);
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("discussions", "new", resultsPerPage, pageNumber);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -230,19 +216,9 @@ public class LatestSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -266,9 +242,12 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted recordings and store the JSON that is returned as a String
-			String response = HttpRequestor.submitLatestRequest("recordings", resultsPerPage);
-							
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("recordings", "new", resultsPerPage);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
+			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
 			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
@@ -281,19 +260,9 @@ public class LatestSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}	
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -318,8 +287,12 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			String response = HttpRequestor.submitLatestRequest("recordings", resultsPerPage, pageNumber);
-							
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("recordings", "new", resultsPerPage, pageNumber);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
+			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
 			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
@@ -332,19 +305,9 @@ public class LatestSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-	
-		catch (IOException e)
-			{
-			throw new IOException (e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -368,8 +331,11 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
-			String response = HttpRequestor.submitLatestRequest("sessions", resultsPerPage);
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("sessions", "new", resultsPerPage);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -383,21 +349,10 @@ public class LatestSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
+			throw ex;
 			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
-			}
-
 		}
 	
 	
@@ -421,7 +376,11 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			String response = HttpRequestor.submitLatestRequest("sessions", resultsPerPage, pageNumber);
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("sessions", "new", resultsPerPage, pageNumber);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -435,19 +394,9 @@ public class LatestSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-
-		catch (IOException e)
-			{	
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 		
@@ -471,8 +420,11 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted events and store the JSON that is returned as a String
-			String response = HttpRequestor.submitLatestRequest("events", resultsPerPage);
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("events", "new", resultsPerPage);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -486,19 +438,9 @@ public class LatestSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -523,7 +465,11 @@ public class LatestSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 
-			String response = HttpRequestor.submitLatestRequest("events", resultsPerPage, pageNumber);
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("events", "new", resultsPerPage, pageNumber);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -537,19 +483,9 @@ public class LatestSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -563,43 +499,36 @@ public class LatestSearch extends Search
 		 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 		 * @throws URISyntaxException 
 		 */
-		public ArrayList<LatestSearchSets> getLatestSets(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<LatestSearchSets> getLatestSets(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+		{
+		try
 			{
-			try
-				{
-				// Validate that a number between 1-50 has been provided as the resultsPerPage value
-				validateResultsPerPageCount(resultsPerPage);
-		
-				// Launch a search for a list of most recently submitted sets and store the JSON that is returned as a String
-				String response = HttpRequestor.submitSetRequest(resultsPerPage);
-								
-				// Parse the returned JSON into a wrapper class to allow access to all elements
-				JsonResponseParser jsonParser = new JsonResponseParser(response);
-				LatestWrapperSets parsedResults = jsonParser.parseResponse(LatestWrapperSets.class);
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
+	
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("tunes", "sets", resultsPerPage);
+				
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
+							
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			LatestWrapperSets parsedResults = jsonParser.parseResponse(LatestWrapperSets.class);
 									
-				// This will hold each individual search result entry
-				ArrayList<LatestSearchSets> resultSet = new ArrayList<LatestSearchSets>();
+			// This will hold each individual search result entry
+			ArrayList<LatestSearchSets> resultSet = new ArrayList<LatestSearchSets>();
 				
-				resultSet = populateSetSearchResult(parsedResults);
+			resultSet = populateSetSearchResult(parsedResults);
 				
-				return resultSet;
-				}
-			
-			catch (IllegalArgumentException e)
-				{
-				throw new IllegalArgumentException(e.getMessage());
-				}
-		
-			catch(IOException e)
-				{
-				throw new IOException(e.getMessage());
-				}
-			
-			catch (URISyntaxException e)
-				{
-				throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
-				}
+			return resultSet;
 			}
+			
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
+			{
+			throw ex;
+			}
+		}
 		
 		
 		/**
@@ -619,8 +548,11 @@ public class LatestSearch extends Search
 				// Validate that a number between 1-50 has been provided as the resultsPerPage value
 				validateResultsPerPageCount(resultsPerPage);
 		
-				// Launch a search for a list of most recently submitted sets and store the JSON that is returned as a String
-				String response = HttpRequestor.submitSetRequest(resultsPerPage, pageNumber);
+				// Build the URL with all necessary parameters to perform a search via thesession.org API
+				URL requestURL = UrlBuilder.buildURL("tunes", "sets", resultsPerPage, pageNumber);
+				
+				// Perform the API query and capture the response
+				String response = HttpRequestor.submitRequest(requestURL);
 					
 				// Parse the returned JSON into a wrapper class to allow access to all elements
 				JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -634,19 +566,9 @@ public class LatestSearch extends Search
 				return resultSet;
 				}
 			
-			catch (IllegalArgumentException e)
+			catch (IllegalArgumentException | IOException | URISyntaxException ex)
 				{
-				throw new IllegalArgumentException(e.getMessage());
-				}
-		
-			catch(IOException e)
-				{
-				throw new IOException(e.getMessage());
-				}
-			
-			catch (URISyntaxException e)
-				{
-				throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+				throw ex;
 				}
 			}
 		
@@ -675,7 +597,7 @@ public class LatestSearch extends Search
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 			LatestSettingDetails details = new LatestSettingDetails(parsedResults.settings[i].id, parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].date);
 			User submitter = new User(Integer.toString(parsedResults.settings[i].member.id), StringCleaner.cleanString(parsedResults.settings[i].member.name), parsedResults.settings[i].member.url);
-			LatestTuneDetails settingDetails = new LatestTuneDetails( Integer.toString(parsedResults.settings[i].tune.id), parsedResults.settings[i].tune.name, parsedResults.settings[i].tune.url );
+			LatestTuneDetails settingDetails = new LatestTuneDetails( Integer.toString(parsedResults.settings[i].tune.id), StringCleaner.cleanString(parsedResults.settings[i].tune.name), parsedResults.settings[i].tune.url );
 			
 			// Instantiate a TunesSearchResult object & populate it
 			LatestSearchTunes currentResult = new LatestSearchTunes(details, submitter, settingDetails);

@@ -1,11 +1,14 @@
 package sessionbuddy;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonResponseParser;
 import sessionbuddy.utils.StringCleaner;
+import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Artist;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
@@ -31,11 +34,12 @@ import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
 import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
 
+// TODO: Fix up JavaDoc comments
 /**
  * Retrieves a list of member contributions in a chosen category - tunes, discussions, recordings, events, sessions or sets.
  * 
  * @author Colman O'B
- * @since 2018-02-17
+ * @since 2018-03-04
  */
 public class MemberContributionSearch extends Search 
 	{
@@ -48,18 +52,21 @@ public class MemberContributionSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * 
 	 * @author Colman
+	 * @throws URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<LatestSearchTunes> getTunes(int userID, int resultsPerPage) throws IllegalArgumentException, IOException
+	public ArrayList<LatestSearchTunes> getTunes(int userID, int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-
-			// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitMemberContributionRequest("tunes", userID, resultsPerPage);
+			
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL(userID, "tunes", resultsPerPage);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -73,15 +80,11 @@ public class MemberContributionSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
+			throw ex;
 			}
 	
-		catch(IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
 		}
 		
 
@@ -91,22 +94,20 @@ public class MemberContributionSearch extends Search
 	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
 	 * @param pageNumber a specific page within the JSON response
 	 * @return an ArrayList of LatestSearchTunes objects
-	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * 
 	 * @author Colman
+	 * @throws IllegalArgumentException, IOException, URISyntaxException 
 	 * @since 2018-02-10
 	 */
-	public ArrayList<LatestSearchTunes> getTunes(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<LatestSearchTunes> getTunes(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted tunes and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitMemberContributionRequest("tunes", userID, resultsPerPage, pageNumber);
+			URL requestURL = UrlBuilder.buildURL(userID, "tunes", resultsPerPage, pageNumber);
+			
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -120,14 +121,9 @@ public class MemberContributionSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
+			throw ex;
 			}
 		}
 	
@@ -143,16 +139,18 @@ public class MemberContributionSearch extends Search
 	 * @author Colman
 	 * @since 2018-02-18
 	 */
-	public ArrayList<SearchResultsRecordings> getRecordings(int resultsPerPage, int userID) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsRecordings> getRecordings(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted recordings and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitMemberContributionRequest("recordings", userID, resultsPerPage);
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL(userID, "recordings", resultsPerPage);
+						
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -166,14 +164,9 @@ public class MemberContributionSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}	
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
+			throw ex;
 			}
 		}
 	
@@ -190,16 +183,18 @@ public class MemberContributionSearch extends Search
 	 * @author Colman
 	 * @since 2018-02-18
 	 */
-	public ArrayList<SearchResultsRecordings> getRecordings(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsRecordings> getRecordings(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted recordings and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitMemberContributionRequest("recordings", userID, resultsPerPage, pageNumber);
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL(userID, "recordings", resultsPerPage, pageNumber);
+				
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -213,14 +208,9 @@ public class MemberContributionSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-	
-		catch (IOException e)
-			{
-			throw new IOException (e.getMessage());
+			throw ex;
 			}
 		}
 	
@@ -236,16 +226,18 @@ public class MemberContributionSearch extends Search
 	 * @author Colman
 	 * @since 2018-02-18
 	 */
-	public ArrayList<SearchResultSessions> getSessions(int resultsPerPage, int userID) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultSessions> getSessions(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-			
-			// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitMemberContributionRequest("sessions", userID, resultsPerPage);
+						
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL(userID, "sessions", resultsPerPage);
+						
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -259,14 +251,9 @@ public class MemberContributionSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
+			throw ex;
 			}
 
 		}
@@ -283,16 +270,18 @@ public class MemberContributionSearch extends Search
 	 * @author Colman
 	 * @since 2018-02-18
 	 */
-	public ArrayList<SearchResultSessions> getSessions(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultSessions> getSessions(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted sessions and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitMemberContributionRequest("sessions", userID, resultsPerPage, pageNumber);
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL(userID, "sessions", resultsPerPage, pageNumber);
+						
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -306,14 +295,9 @@ public class MemberContributionSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-
-		catch (IOException e)
-			{	
-			throw new IOException(e.getMessage());
+			throw ex;
 			}
 		}
 	
@@ -329,16 +313,18 @@ public class MemberContributionSearch extends Search
 	 * @author Colman
 	 * @since 2018-02-18
 	 */
-	public ArrayList<SearchResultEvents> getEvents(int resultsPerPage, int userID) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultEvents> getEvents(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of most recently submitted events and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitMemberContributionRequest("events", userID, resultsPerPage);
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL(userID, "events", resultsPerPage);
+						
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -352,14 +338,9 @@ public class MemberContributionSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
+			throw ex;
 			}
 		}
 	
@@ -376,16 +357,18 @@ public class MemberContributionSearch extends Search
 	 * @author Colman
 	 * @since 2018-02-18
 	 */
-	public ArrayList<SearchResultEvents> getEvents(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultEvents> getEvents(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-			
-			// Launch a search for a list of most recently submitted events and store the JSON that is returned as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitMemberContributionRequest("events", userID, resultsPerPage, pageNumber);
+
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL(userID, "events", resultsPerPage, pageNumber);
+						
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -399,15 +382,10 @@ public class MemberContributionSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
+			throw ex;
 			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}		
 		}	
 	
 	
@@ -422,16 +400,18 @@ public class MemberContributionSearch extends Search
 	 * @author Colman
 	 * @since 2018-02-23
 	 */
-	public ArrayList<SearchResultsDiscussions> getDiscussions(int resultsPerPage, int userID) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsDiscussions> getDiscussions(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of latest discussions and store the JSON response as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitMemberContributionRequest("discussions", userID, resultsPerPage);
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL(userID, "discussions", resultsPerPage);
+						
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -445,14 +425,9 @@ public class MemberContributionSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException (e.getMessage());
+			throw ex;
 			}
 		}
 	
@@ -469,16 +444,18 @@ public class MemberContributionSearch extends Search
 	 * @author Colman
 	 * @since 2018-02-23
 	 */
-	public ArrayList<SearchResultsDiscussions> getDiscussions(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException
+	public ArrayList<SearchResultsDiscussions> getDiscussions(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-			
-			// Launch a search for a list of latest discussions and store the JSON response as a String
-			HttpRequestor searcher = new HttpRequestor();
-			String response = searcher.submitMemberContributionRequest("discussions", userID, resultsPerPage, pageNumber);
+	
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL(userID, "discussions", resultsPerPage, pageNumber);
+						
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -491,14 +468,9 @@ public class MemberContributionSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
+			throw ex;
 			}
 		}
 	

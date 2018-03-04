@@ -1,6 +1,7 @@
 package example_usage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.MemberContributionSearch;
@@ -9,7 +10,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
 
 class Test_RetrieveMemberContributions_Recordings
 	{
-	public static void main(String[] args)
+	public static void main(String[] args) throws URISyntaxException
 	   {
 		try
 			{

@@ -1,13 +1,14 @@
 package sessionbuddy;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonResponseParser;
 import sessionbuddy.utils.StringCleaner;
+import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Artist;
 import sessionbuddy.wrappers.granularobjects.Comment;
@@ -57,12 +58,15 @@ public class ItemRetriever
 	 * @throws IOException if there is a problem with the HTTPS request to the API
 	 * @throws URISyntaxException 
 	 */
-	public ItemResultRecording getRecordingByID(String recordingID) throws IllegalStateException, IOException, URISyntaxException
+	public ItemResultRecording getRecordingByID(String recordingID) throws IOException, IllegalStateException, URISyntaxException
 		{
 		try
 			{
-			// Make the API call using the the recording ID and store the JSON that is returned as a String
-			String response = HttpRequestor.submitItemByIDRequest("recordings", recordingID);
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL("recordings", recordingID);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -121,24 +125,9 @@ public class ItemRetriever
 			return finalResult;
 			}
 		
-		catch (MalformedURLException e)
+		catch (IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}			
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -157,8 +146,11 @@ public class ItemRetriever
 		{
 		try
 			{
-			// Make the API call using the the discussion ID and store the JSON that is returned as a String
-			String response = HttpRequestor.submitItemByIDRequest("discussions", discussionID);
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL("discussions", discussionID);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a pre-defined wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -193,24 +185,9 @@ public class ItemRetriever
 			return finalResult;
 			}
 		
-		catch (MalformedURLException e)
+		catch (IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IOException(e.getMessage());
-			}
-			
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}	
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -229,8 +206,11 @@ public class ItemRetriever
 		{		
 		try
 			{
-			// Make the API call using the tune ID and store the JSON that is returned as a String
-			String response = HttpRequestor.submitItemByIDRequest("tunes", tuneID);
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL("tunes", tuneID);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -292,26 +272,10 @@ public class ItemRetriever
 			return finalResult;
 			}
 		
-		catch (MalformedURLException e)
+		catch (IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IOException(e.getMessage());
+			throw ex;
 			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}	
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}	
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
-			}
-		
 		}
 	
 	
@@ -329,8 +293,11 @@ public class ItemRetriever
 		{
 		try
 			{
-			// Make the API call using the the discussion ID and store the JSON that is returned as a String
-			String response = HttpRequestor.submitItemByIDRequest("sessions", sessionID);
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL("sessions", sessionID);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -377,24 +344,9 @@ public class ItemRetriever
 			return finalResult;
 			}			
 		
-		catch (MalformedURLException e)
+		catch (IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}	
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -413,8 +365,11 @@ public class ItemRetriever
 		{		
 		try
 			{
-			// Make the API call using the the event ID and store the JSON that is returned as a String
-			String response = HttpRequestor.submitItemByIDRequest("events", eventID);
+			// Construct the URL required to query the API
+			URL requestURL = UrlBuilder.buildURL("events", eventID);
+			
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -453,24 +408,9 @@ public class ItemRetriever
 			return finalResult;
 			}
 			
-		catch (MalformedURLException e)
+		catch (IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}	
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}	
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	}

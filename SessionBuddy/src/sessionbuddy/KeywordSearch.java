@@ -2,11 +2,17 @@ package sessionbuddy;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonResponseParser;
 import sessionbuddy.utils.StringCleaner;
+import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Artist;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
@@ -37,7 +43,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
  * To use this feature, first create a new KeywordSearch object, then call one of its methods to perform the actual search.
  * 
  * @author Colman O'B
- * @since 2017-09-06
+ * @since 2018-03-04
  *
  */
 public class KeywordSearch extends Search
@@ -59,10 +65,17 @@ public class KeywordSearch extends Search
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+
+			// Parse the search terms provided by the user
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
 			
-			// Launch a search for a list of matching tunes and store the JSON that is returned as a String
-			String response = HttpRequestor.submitSearchRequest("tunes", searchTerms, resultsPerPage);
-				
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("tunes", "search", queryParams, resultsPerPage);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
+
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
 			KeywordSearchWrapperTunes parsedResults = jsonParser.parseResponse(KeywordSearchWrapperTunes.class);
@@ -76,24 +89,9 @@ public class KeywordSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-	
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -117,8 +115,15 @@ public class KeywordSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of matching tunes and store the JSON that is returned as a String
-			String response = HttpRequestor.submitSearchRequest("tunes", searchTerms, resultsPerPage, pageNumber);
+			// Parse the search terms provided by the user
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("tunes", "search", queryParams, resultsPerPage, pageNumber);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -133,24 +138,9 @@ public class KeywordSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 
@@ -172,8 +162,15 @@ public class KeywordSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of matching discussions and store the JSON that is returned as a String
-			String response = HttpRequestor.submitSearchRequest("discussions", searchTerms, resultsPerPage);
+			// Parse the search terms provided by the user
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("discussions", "search", queryParams, resultsPerPage);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Create a DiscussionSearchParser and DiscussionSearchResultWrapper to parse the raw JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -188,24 +185,9 @@ public class KeywordSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}		
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 			
@@ -230,8 +212,15 @@ public class KeywordSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of matching discussions, specifying the page number in the result set, and store the JSON that is returned as a String
-			String response = HttpRequestor.submitSearchRequest("discussions", searchTerms, resultsPerPage, pageNumber);
+			// Parse the search terms provided by the user
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("discussions", "search", queryParams, resultsPerPage, pageNumber);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Prepare the classes needed to parse the the JSON
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -246,24 +235,9 @@ public class KeywordSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -286,8 +260,15 @@ public class KeywordSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of matching events and store the JSON that is returned as a String
-			String response = HttpRequestor.submitSearchRequest("events", searchTerms, resultsPerPage);
+			// Parse the search terms provided by the user
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("events", "search", queryParams, resultsPerPage);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -301,25 +282,10 @@ public class KeywordSearch extends Search
 			
 			return resultSet;
 			}
-		
-		catch (IllegalArgumentException e)
+			
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -342,9 +308,16 @@ public class KeywordSearch extends Search
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
+
+			// Parse the search terms provided by the user
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
 			
-			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-			String response = HttpRequestor.submitSearchRequest("events",searchTerms, resultsPerPage,pageNumber);
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("events", "search", queryParams, resultsPerPage, pageNumber);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -359,24 +332,9 @@ public class KeywordSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -399,8 +357,15 @@ public class KeywordSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-			String response = HttpRequestor.submitSearchRequest("recordings", searchTerms, resultsPerPage);
+			// Parse the search terms provided by the user
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("recordings", "search", queryParams, resultsPerPage);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -415,24 +380,9 @@ public class KeywordSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -456,8 +406,15 @@ public class KeywordSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-			String response = HttpRequestor.submitSearchRequest("recordings",searchTerms, resultsPerPage,pageNumber);
+			// Parse the search terms provided by the user
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("recordings", "search", queryParams, resultsPerPage, pageNumber);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -472,24 +429,9 @@ public class KeywordSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}	
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -512,8 +454,15 @@ public class KeywordSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of matching sessions and store the JSON that is returned as a String
-			String response = HttpRequestor.submitSearchRequest("sessions", searchTerms, resultsPerPage);
+			// Parse the search terms provided by the user
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("sessions", "search", queryParams, resultsPerPage);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -529,24 +478,9 @@ public class KeywordSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}	
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	
@@ -570,8 +504,15 @@ public class KeywordSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Launch a search for a list of matching recordings and store the JSON that is returned as a String
-			String response = HttpRequestor.submitSearchRequest("sessions",searchTerms, resultsPerPage,pageNumber);
+			// Parse the search terms provided by the user
+			List<NameValuePair> queryParams = new ArrayList<>();
+			queryParams.add(new BasicNameValuePair("q", searchTerms));
+			
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("sessions", "search", queryParams, resultsPerPage, pageNumber);
+			
+			// Call the API and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			JsonResponseParser jsonParser = new JsonResponseParser(response);
@@ -587,24 +528,9 @@ public class KeywordSearch extends Search
 			return resultSet;
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
 			{
-			throw new IllegalArgumentException(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			throw new IOException(e.getMessage());
-			}
-	
-		catch (IllegalStateException e)
-			{
-			throw new IllegalStateException(e.getMessage());
-			}
-		
-		catch (URISyntaxException e)
-			{
-			throw new URISyntaxException(e.getInput(), e.getReason(), e.getIndex());
+			throw ex;
 			}
 		}
 	

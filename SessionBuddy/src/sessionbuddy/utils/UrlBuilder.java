@@ -137,4 +137,48 @@ public class UrlBuilder
 		
 		return builder.build().toURL();
 		}
+	
+	
+	/**
+	 * @param userID
+	 * @param dataCategory
+	 * @param itemsPerPage
+	 * @return
+	 * @throws MalformedURLException
+	 * @throws URISyntaxException
+	 */
+	public static URL buildURL(int userID, String dataCategory, int itemsPerPage) throws MalformedURLException, URISyntaxException
+		{
+		URIBuilder builder = new URIBuilder()
+				.setScheme(PROTOCOL)
+				.setHost(HOST)
+				.setPath("Members/" + Integer.toString(userID) + "/" + dataCategory)
+				.addParameter(FORMAT_SPECIFIER, FORMAT)
+				.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage));
+		
+		return builder.build().toURL();
+		}
+	
+	
+	/**
+	 * @param userID
+	 * @param dataCategory
+	 * @param itemsPerPage
+	 * @param pageNumber
+	 * @return
+	 * @throws MalformedURLException
+	 * @throws URISyntaxException
+	 */
+	public static URL buildURL(int userID, String dataCategory, int itemsPerPage, int pageNumber) throws MalformedURLException, URISyntaxException
+		{
+		URIBuilder builder = new URIBuilder()
+				.setScheme(PROTOCOL)
+				.setHost(HOST)
+				.setPath("Members/" + Integer.toString(userID) + "/" + dataCategory)
+				.addParameter(FORMAT_SPECIFIER, FORMAT)
+				.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage))
+				.addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(pageNumber));
+		
+		return builder.build().toURL();
+		}
 	}
