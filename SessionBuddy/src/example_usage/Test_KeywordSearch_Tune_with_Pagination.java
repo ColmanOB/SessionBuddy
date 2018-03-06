@@ -18,12 +18,12 @@ public class Test_KeywordSearch_Tune_with_Pagination
 		int pageNumber = 2;
 		
 		// Instantiate a KeywordSearch object
-		KeywordSearch search = new KeywordSearch();
+		KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 		
 		try
 			{
 			// Call the searchTunes method of KeywordSearch and pass in the search parameters
-			ArrayList<SearchResultTunes> resultSet = search.searchTunes(searchTerms, resultsPerPage, pageNumber);
+			ArrayList<SearchResultTunes> resultSet = search.searchTunes();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

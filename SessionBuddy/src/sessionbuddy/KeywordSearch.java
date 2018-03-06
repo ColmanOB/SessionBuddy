@@ -48,6 +48,22 @@ import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
  */
 public class KeywordSearch extends Search
 	{
+	String searchTerms = null;
+	Integer resultsPerPage = 0;
+	Integer pageNumber = 0;
+	
+	public KeywordSearch(String searchTerms, int resultsPerPage, int pageNumber)
+		{
+		this(searchTerms, resultsPerPage);
+		this.pageNumber= pageNumber;
+		}
+	
+	public KeywordSearch(String searchTerms, int resultsPerPage)
+		{
+		this.searchTerms = searchTerms;
+		this.resultsPerPage = resultsPerPage;
+		}
+	
 	/**
 	 * Searches the API for a list of tunes matching a specific set of search terms
 	 * 
@@ -57,7 +73,10 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultTunes> searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -97,6 +116,8 @@ public class KeywordSearch extends Search
 	
 	
 	/**
+	 * Need to update these comments
+	 * 
 	 * An alternative version of searchTunes(String searchTerms, int resultsPerPage) allowing the caller to specify an individual page number within a paginated JSON response.
 	 * 
 	 * @param searchTerms A string containing the search terms entered by the user
@@ -106,9 +127,12 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
-	public ArrayList<SearchResultTunes> searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+	public ArrayList<SearchResultTunes> searchTunes() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -120,7 +144,20 @@ public class KeywordSearch extends Search
 			queryParams.add(new BasicNameValuePair("q", searchTerms));
 			
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = UrlBuilder.buildURL("tunes", "search", queryParams, resultsPerPage, pageNumber);
+			URL requestURL;
+			
+			if (pageNumber > 0)
+				{
+				requestURL = UrlBuilder.buildURL("tunes", "search", queryParams, resultsPerPage, pageNumber);
+				}
+			else if (pageNumber == 0)		
+				{
+				requestURL = UrlBuilder.buildURL("tunes", "search", queryParams, resultsPerPage);
+				}
+			else
+				{
+				throw new IllegalArgumentException("Page number must be an integer value > 0");
+				}
 			
 			// Call the API and capture the response
 			String response = HttpRequestor.submitRequest(requestURL);
@@ -153,7 +190,10 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsDiscussions> searchDiscussions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -203,7 +243,10 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsDiscussions> searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -251,7 +294,10 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultEvents> searchEvents(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -300,7 +346,10 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultEvents> searchEvents(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -348,7 +397,10 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsRecordings> searchRecordings(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -397,7 +449,10 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsRecordings> searchRecordings(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -445,7 +500,10 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultSessions> searchSessions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -495,7 +553,10 @@ public class KeywordSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultSessions> searchSessions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{

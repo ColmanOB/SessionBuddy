@@ -46,6 +46,8 @@ import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
  */
 public class LatestSearch extends Search 
 	{
+	
+	
 	/**
 	 * Retrieves the most recently added tunes/settings on thesession.org, most recent first
 	 * 
@@ -53,10 +55,10 @@ public class LatestSearch extends Search
 	 * @return an ArrayList of LatestSearchTunes objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @throws URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<LatestSearchTunes> getLatestTunes(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -98,10 +100,10 @@ public class LatestSearch extends Search
 	 * @return an ArrayList of LatestSearchTunes objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @throws URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<LatestSearchTunes> getLatestTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -142,10 +144,10 @@ public class LatestSearch extends Search
 	 * @return an ArrayList of SearchResultsDiscussion objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @throws URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsDiscussions> getLatestDiscussions(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -187,10 +189,10 @@ public class LatestSearch extends Search
 	 * @return an ArrayList of SearchResultsDiscussion objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @throws URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsDiscussions> getLatestDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -230,10 +232,10 @@ public class LatestSearch extends Search
 	 * @return an ArrayList of SearchResultsRecordings objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @throws URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsRecordings> getLatestRecordings(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -275,10 +277,10 @@ public class LatestSearch extends Search
 	 * @return an ArrayList of SearchResultsRecordings objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @throws URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsRecordings> getLatestRecordings(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -319,10 +321,10 @@ public class LatestSearch extends Search
 	 * @return an ArrayList of SearchResultSessions objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @throws URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultSessions> getLatestSessions(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -364,10 +366,10 @@ public class LatestSearch extends Search
 	 * @return an ArrayList of SearchResultSessions objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @throws URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultSessions> getLatestSessions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -408,10 +410,10 @@ public class LatestSearch extends Search
 	 * @return an ArrayList of SearchResultEvents objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @throws URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultEvents> getLatestEvents(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -453,10 +455,10 @@ public class LatestSearch extends Search
 	 * @return an ArrayList of SearchResultEvents objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @throws URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultEvents> getLatestEvents(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -490,15 +492,18 @@ public class LatestSearch extends Search
 		}
 	
 	
-		/**
-		 * Retrieves a list of the most popular tunes on thesession.org, i.e. those that have been added to the most user tunebooks.
-		 * 
-		 * @param resultsPerPage the number of results that should be returned per page in the JSON response
-		 * @return an ArrayList of LatestSearchSets objects
-		 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-		 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-		 * @throws URISyntaxException 
-		 */
+	/**
+	 * Retrieves a list of the most popular tunes on thesession.org, i.e. those that have been added to the most user tunebooks.
+	 * 
+	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+	 * @return an ArrayList of LatestSearchSets objects
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
+	 */
 	public ArrayList<LatestSearchSets> getLatestSets(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
@@ -531,48 +536,50 @@ public class LatestSearch extends Search
 		}
 		
 		
-		/**
-		 * An alternative version of getLatestSearchSets, allowing the caller to specify a page number within the JSON reponse from the API
-		 * 
-		 * @param resultsPerPage the number of results that should be returned per page in the JSON response
-		 * @param pageNumber specifies the page to be retrieved, where a result set spans multiple pages
-		 * @return an ArrayList of LatestSearchSets objects
-		 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-		 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-		 * @throws URISyntaxException 
-		 */
-		public ArrayList<LatestSearchSets> getLatestSearchSets(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+	/**
+	 * An alternative version of getLatestSearchSets, allowing the caller to specify a page number within the JSON reponse from the API
+	 * 
+	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+	 * @param pageNumber specifies the page to be retrieved, where a result set spans multiple pages
+	 * @return an ArrayList of LatestSearchSets objects
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
+	 */
+	public ArrayList<LatestSearchSets> getLatestSearchSets(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+		{
+		try
 			{
-			try
-				{
-				// Validate that a number between 1-50 has been provided as the resultsPerPage value
-				validateResultsPerPageCount(resultsPerPage);
+			// Validate that a number between 1-50 has been provided as the resultsPerPage value
+			validateResultsPerPageCount(resultsPerPage);
 		
-				// Build the URL with all necessary parameters to perform a search via thesession.org API
-				URL requestURL = UrlBuilder.buildURL("tunes", "sets", resultsPerPage, pageNumber);
+			// Build the URL with all necessary parameters to perform a search via thesession.org API
+			URL requestURL = UrlBuilder.buildURL("tunes", "sets", resultsPerPage, pageNumber);
 				
-				// Perform the API query and capture the response
-				String response = HttpRequestor.submitRequest(requestURL);
-					
-				// Parse the returned JSON into a wrapper class to allow access to all elements
-				JsonResponseParser jsonParser = new JsonResponseParser(response);
-				LatestWrapperSets parsedResults = jsonParser.parseResponse(LatestWrapperSets.class);
+			// Perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(requestURL);
+				
+			// Parse the returned JSON into a wrapper class to allow access to all elements
+			JsonResponseParser jsonParser = new JsonResponseParser(response);
+			LatestWrapperSets parsedResults = jsonParser.parseResponse(LatestWrapperSets.class);
 									
-				// This will hold each individual search result entry
-				ArrayList<LatestSearchSets> resultSet = new ArrayList<LatestSearchSets>();
+			// This will hold each individual search result entry
+			ArrayList<LatestSearchSets> resultSet = new ArrayList<LatestSearchSets>();
 				
-				resultSet = populateSetSearchResult(parsedResults);
+			resultSet = populateSetSearchResult(parsedResults);
 				
-				return resultSet;
-				}
-			
-			catch (IllegalArgumentException | IOException | URISyntaxException ex)
-				{
-				throw ex;
-				}
+			return resultSet;
 			}
+			
+		catch (IllegalArgumentException | IOException | URISyntaxException ex)
+			{
+			throw ex;
+			}
+		}
 		
-	
 	
 	/**
 	 * Helper method to gather and parse the response to a keyword search for a tune

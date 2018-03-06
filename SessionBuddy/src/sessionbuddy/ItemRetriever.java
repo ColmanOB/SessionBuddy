@@ -54,11 +54,13 @@ public class ItemRetriever
 	 * 
 	 * @param recordingID the numeric ID of the recording on thesession.org, typically known from a previous search
 	 * @return an ItemResultRecording object with the details of the chosen recording
-	 * @throws IllegalStateException if there is a problem parsing the JSON from the API into the expected structure
-	 * @throws IOException if there is a problem with the HTTPS request to the API
-	 * @throws URISyntaxException 
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
-	public ItemResultRecording getRecordingByID(String recordingID) throws IOException, IllegalStateException, URISyntaxException
+	public ItemResultRecording getRecordingByID(String recordingID) throws IOException, URISyntaxException
 		{
 		try
 			{
@@ -125,7 +127,7 @@ public class ItemRetriever
 			return finalResult;
 			}
 		
-		catch (IOException | IllegalStateException | URISyntaxException ex)
+		catch (IOException | URISyntaxException ex)
 			{
 			throw ex;
 			}
@@ -138,11 +140,10 @@ public class ItemRetriever
 	 * 
 	 * @param discussionID the numeric ID of the discussion on thesession.org, typically known from a previous search
 	 * @return an ItemResultDiscussion object with the details of the chosen discussion
-	 * @throws IllegalStateException if there is a problem parsing the JSON from the API into the expected structure
 	 * @throws IOException if there is a problem with the HTTPS request to the API
 	 * @throws URISyntaxException 
 	 */
-	public ItemResultDiscussion getDiscussionByID(String discussionID) throws IllegalStateException, IOException, URISyntaxException
+	public ItemResultDiscussion getDiscussionByID(String discussionID) throws IOException, URISyntaxException
 		{
 		try
 			{
@@ -185,7 +186,7 @@ public class ItemRetriever
 			return finalResult;
 			}
 		
-		catch (IOException | IllegalStateException | URISyntaxException ex)
+		catch (IOException | URISyntaxException ex)
 			{
 			throw ex;
 			}
@@ -198,11 +199,10 @@ public class ItemRetriever
 	 * 
 	 * @param tuneID the numeric ID of the tune on thesession.org, typically known from a previous search
 	 * @return an ItemResultTune object with the details of the chosen tune
-	 * @throws IllegalStateException if there is a problem parsing the JSON from the API into the expected structure
 	 * @throws IOException if there is a problem with the HTTPS request to the API
 	 * @throws URISyntaxException 
 	 */
-	public ItemResultTune getTuneByID(String tuneID) throws IllegalStateException, IOException, URISyntaxException
+	public ItemResultTune getTuneByID(String tuneID) throws IOException, URISyntaxException
 		{		
 		try
 			{
@@ -272,7 +272,7 @@ public class ItemRetriever
 			return finalResult;
 			}
 		
-		catch (IOException | IllegalStateException | URISyntaxException ex)
+		catch (IOException | URISyntaxException ex)
 			{
 			throw ex;
 			}
@@ -285,11 +285,13 @@ public class ItemRetriever
 	 * 
 	 * @param sessionID the numeric ID of the session on thesession.org, typically known from a previous search
 	 * @return an ItemResultSession object with the details of the chosen session
-	 * @throws IllegalStateException if there is a problem parsing the JSON from the API into the expected structure
 	 * @throws IOException if there is a problem with the HTTPS request to the API
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
-	public ItemResultSession getSessionByID(String sessionID) throws IllegalStateException, IOException, URISyntaxException
+	public ItemResultSession getSessionByID(String sessionID) throws IOException, URISyntaxException
 		{
 		try
 			{
@@ -344,7 +346,7 @@ public class ItemRetriever
 			return finalResult;
 			}			
 		
-		catch (IOException | IllegalStateException | URISyntaxException ex)
+		catch (IOException | URISyntaxException ex)
 			{
 			throw ex;
 			}
@@ -357,11 +359,13 @@ public class ItemRetriever
 	 * 
 	 * @param eventID the numeric ID of the event on thesession.org, typically known from a previous search
 	 * @return an ItemResultRecording object with the details of the chosen recording
-	 * @throws IllegalStateException if there is a problem parsing the JSON from the API into the expected structure
 	 * @throws IOException if there is a problem with the HTTPS request to the API
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
-	public ItemResultEvent getEventByID(String eventID) throws IllegalStateException, IOException, URISyntaxException
+	public ItemResultEvent getEventByID(String eventID) throws IOException, URISyntaxException
 		{		
 		try
 			{
@@ -408,7 +412,7 @@ public class ItemRetriever
 			return finalResult;
 			}
 			
-		catch (IOException | IllegalStateException | URISyntaxException ex)
+		catch (IOException | URISyntaxException ex)
 			{
 			throw ex;
 			}

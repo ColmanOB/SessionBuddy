@@ -14,7 +14,8 @@ import com.google.gson.JsonSyntaxException;
 
 public class JsonResponseParser 
 	{
-	private String jsonResponse; // A page of JSON data retrieved from thesession.org
+	// A page of JSON data retrieved from thesession.org
+	private String jsonResponse; 
 	
 	/**
 	 * Constructor that takes a string of JSON data as its only argument

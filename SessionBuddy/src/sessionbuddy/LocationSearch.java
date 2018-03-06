@@ -46,8 +46,10 @@ public class LocationSearch extends Search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of SessionsByLocationResult objects
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
-	 * @throws RuntimeException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
 		{
@@ -98,7 +100,10 @@ public class LocationSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
 		{
@@ -147,8 +152,10 @@ public class LocationSearch extends Search
 	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of EventsByLocationResult objects
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
-	 * @throws RuntimeException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-05
 	 */
 	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
 		{
@@ -200,7 +207,10 @@ public class LocationSearch extends Search
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
+	 * @author Colman
+	 * @since 2018-03-04
 	 */
 	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
 		{

@@ -50,10 +50,10 @@ public class MemberContributionSearch extends Search
 	 * @return an ArrayList of LatestSearchTunes objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @throws URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<LatestSearchTunes> getTunes(int userID, int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -94,9 +94,12 @@ public class MemberContributionSearch extends Search
 	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
 	 * @param pageNumber a specific page within the JSON response
 	 * @return an ArrayList of LatestSearchTunes objects
+	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+	 * 
 	 * @author Colman
-	 * @throws IllegalArgumentException, IOException, URISyntaxException 
-	 * @since 2018-02-10
+	 * @since 2018-03-04
 	 */
 	public ArrayList<LatestSearchTunes> getTunes(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -135,9 +138,10 @@ public class MemberContributionSearch extends Search
 	 * @return an ArrayList of SearchResultsRecordings objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-02-18
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsRecordings> getRecordings(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -179,9 +183,10 @@ public class MemberContributionSearch extends Search
 	 * @return an ArrayList of SearchResultsRecordings objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-02-18
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsRecordings> getRecordings(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -222,9 +227,10 @@ public class MemberContributionSearch extends Search
 	 * @return an ArrayList of SearchResultSessions objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-02-18
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultSessions> getSessions(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -266,9 +272,10 @@ public class MemberContributionSearch extends Search
 	 * @return an ArrayList of SearchResultSessions objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-02-18
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultSessions> getSessions(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -309,9 +316,10 @@ public class MemberContributionSearch extends Search
 	 * @return an ArrayList of SearchResultEvents objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-02-18
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultEvents> getEvents(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -353,9 +361,10 @@ public class MemberContributionSearch extends Search
 	 * @return an ArrayList of SearchResultEvents objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-02-18
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultEvents> getEvents(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -396,9 +405,10 @@ public class MemberContributionSearch extends Search
 	 * @return an ArrayList of SearchResultsDiscussion objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-02-23
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsDiscussions> getDiscussions(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -440,9 +450,10 @@ public class MemberContributionSearch extends Search
 	 * @return an ArrayList of SearchResultsDiscussion objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-02-23
+	 * @since 2018-03-04
 	 */
 	public ArrayList<SearchResultsDiscussions> getDiscussions(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{

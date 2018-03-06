@@ -10,7 +10,7 @@ import org.apache.http.NameValuePair;
 
 // TODO: Refactor this class to avoid the 'telescoping constructor' problem
 /**
- * Performs the final assembly of the URL that will be used to access the API.
+ * Assembles the URL that will be used to access the API.
  * 
  * This previously used a 'hand-rolled' implementation, but now uses the Apache httpclient instead.
  * 

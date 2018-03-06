@@ -16,7 +16,7 @@ import sessionbuddy.wrappers.resultsets.PopularTunes;
 
 
 /**
- * Retrieves the current most popular tunes, i.e. those that have been added to the largest number of user tunebooks on thesession.org
+ * Retrieves the current most popular tunes, i.e. those that have been added to the largest number of user tune books on thesession.org
  * 
  * @author Colman
  * @since 2018-03-04
@@ -30,7 +30,7 @@ public class PopularSearch extends Search
 	 * @return an ArrayList of PopularTunes objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 */
 	public ArrayList<PopularTunes> getPopularTunes(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -69,7 +69,7 @@ public class PopularSearch extends Search
 	 * @return an ArrayList of PopularTunes objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 */
 	public ArrayList<PopularTunes> getPopularTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
 		{

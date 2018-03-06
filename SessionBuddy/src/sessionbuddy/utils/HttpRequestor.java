@@ -10,7 +10,7 @@ import java.net.URL;
 /**
  * Submits a HTTPS GET request to the API at https://thesession.org, using a URL in the format required by the API.
  * The JSON response is captured as a String and returned to the caller.
- * A standard user of this library should never have to instantiate an object of this class directly - it is essentially a 'helper' class used by several other classes in the 'main' package.
+ * A standard user of this library should never have to instantiate an object of this class directly - it is essentially a 'helper' class.
  * 
  * @author Colman O'B
  * @since 2018-03-04
@@ -22,7 +22,7 @@ public class HttpRequestor
 	
 	
 	/**
-	 * Submits a request to thesession.org API, using the URL passed in as an argument
+	 * Submits a request to thesession.org API, where the URL passed in as an argument is the URL pointing to the desired API resource
 	 * 
 	 * @param requestURL A URL pointing to specific resource on thesession.org as per https://thesession.org/api
 	 * @return The entire JSON response retrieved from the API, as a String
@@ -35,6 +35,7 @@ public class HttpRequestor
 			// Call the API using a private helper method and capture the response
 			String response = getAPIResponse(requestURL);
 			
+			// Return the JSON response retrieved from the API as a String
 			return response;
 			} 
 		
