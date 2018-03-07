@@ -18,7 +18,7 @@ public class Test_KeywordSearch_Recordings
 		int resultsPerPage = 50;
 		
 		// Instantiate a KeywordSearch object
-		KeywordSearch search = new KeywordSearch();
+		KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 		
 		// Create a structure to hold the response from the API
 		ArrayList<SearchResultsRecordings> resultSet;
@@ -26,7 +26,7 @@ public class Test_KeywordSearch_Recordings
 		try 
 			{
 			// Call the searchRecordings method of the KeywordSearch object
-			resultSet = search.searchRecordings(searchTerms, resultsPerPage);
+			resultSet = search.searchRecordings();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

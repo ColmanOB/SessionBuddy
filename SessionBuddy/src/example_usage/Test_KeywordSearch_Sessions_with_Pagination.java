@@ -19,12 +19,12 @@ public class Test_KeywordSearch_Sessions_with_Pagination
 		int pageNumber = 2;
 		
 		// Instantiate a KeywordSearch object
-		KeywordSearch search = new KeywordSearch();
+		KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 		
 		try
 			{
 			// Perform the search by calling the searchSessions method and passing in the search parameters
-			ArrayList<SearchResultSessions> resultSet = search.searchSessions(searchTerms, resultsPerPage, pageNumber);
+			ArrayList<SearchResultSessions> resultSet = search.searchSessions();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

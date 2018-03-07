@@ -18,12 +18,12 @@ public class Test_KeywordSearch_Sessions
 		int resultsPerPage = 50;
 		
 		// Instantiate a KeywordSearch object
-		KeywordSearch search = new KeywordSearch();
+		KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 		
 		try
 			{
 			// Perform the search by calling the searchSessions method and passing in the search parameters
-			ArrayList<SearchResultSessions> resultSet = search.searchSessions(searchTerms, resultsPerPage);
+			ArrayList<SearchResultSessions> resultSet = search.searchSessions();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

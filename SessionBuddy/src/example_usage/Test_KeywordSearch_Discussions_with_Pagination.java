@@ -30,12 +30,12 @@ public class Test_KeywordSearch_Discussions_with_Pagination
 		ArrayList<SearchResultsDiscussions> resultSet;
 		
 		// Instantiate a KeywordSearch object
-		KeywordSearch search = new KeywordSearch();
+		KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 		
 		try
 			{
 			// Pass in the search parameters
-			resultSet = search.searchDiscussions(searchTerms, resultsPerPage, pageNumber);
+			resultSet = search.searchDiscussions();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

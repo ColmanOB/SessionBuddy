@@ -14,9 +14,9 @@ public static void main(String[] args) throws URISyntaxException
 	// Set the search parameters
 	String searchTerms = "Dublin";
 	int resultsPerPage = 50;
-	
+
 	// Instantiate a KeywordSearch object
-	KeywordSearch search = new KeywordSearch();
+	KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 	
 	// Create a structure to hold the response from the API
 	ArrayList<SearchResultEvents> resultSet;
@@ -24,7 +24,7 @@ public static void main(String[] args) throws URISyntaxException
 	try 
 		{
 		// Call the searchEvents method on the KeywordSearch object
-		resultSet = search.searchEvents(searchTerms, resultsPerPage);
+		resultSet = search.searchEvents();
 		
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
