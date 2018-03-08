@@ -26,12 +26,12 @@ public static void main(String[] args) throws URISyntaxException
 	ArrayList<SearchResultsDiscussions> resultSet;
 	
 	// Instantiate a RetrieveLatest object
-	LatestSearch search = new LatestSearch();
+	LatestSearch search = new LatestSearch(resultsPerPage);
 	
 	try
 		{
 		// Pass in the search parameters
-		resultSet = search.getLatestDiscussions(resultsPerPage);
+		resultSet = search.getLatestDiscussions();
 		
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)

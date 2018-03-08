@@ -27,12 +27,12 @@ public static void main(String[] args) throws URISyntaxException
 	int pageNumber = 2;
 	
 	// Instantiate a RetrieveLatest object
-	LatestSearch search = new LatestSearch();
+	LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
 	
 	try
 		{
 		// Pass in the search parameters
-		resultSet = search.getLatestDiscussions(resultsPerPage, pageNumber);
+		resultSet = search.getLatestDiscussions();
 		
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)

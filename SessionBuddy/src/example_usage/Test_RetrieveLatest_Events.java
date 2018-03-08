@@ -22,10 +22,10 @@ class Test_RetrieveLatest_Events
 			ArrayList<SearchResultEvents> resultSet;
 			
 			// Instantiate a LatestSearch object
-			LatestSearch search = new LatestSearch();
+			LatestSearch search = new LatestSearch(resultsPerPage);
 		
 			// Pass in the number of results to be returned per page
-			resultSet = search.getLatestEvents(resultsPerPage);
+			resultSet = search.getLatestEvents();
 			
 			// Loop through the results and print attributes of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

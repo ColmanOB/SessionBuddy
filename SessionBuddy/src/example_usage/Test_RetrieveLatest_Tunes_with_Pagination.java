@@ -17,12 +17,13 @@ class Test_RetrieveLatest_Tunes_with_Pagination
 			{
 			// Set the search parameters
 			int resultsPerPage = 50;
+			int pageNumber = 2;
 			
 			// Instantiate a LatestSearch object
-			LatestSearch search = new LatestSearch();
+			LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
 			
 			// Perform the search by calling the getLatestTunes method on the LatestSearch object
-			ArrayList<LatestSearchTunes> resultSet = search.getLatestTunes(resultsPerPage);
+			ArrayList<LatestSearchTunes> resultSet = search.getLatestTunes();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

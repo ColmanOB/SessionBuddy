@@ -21,10 +21,10 @@ class Test_RetrieveLatest_Sessions
 			ArrayList<SearchResultSessions> resultSet;
 			
 			// Instantiate a LatestSearch object
-			LatestSearch search = new LatestSearch();
+			LatestSearch search = new LatestSearch(resultsPerPage);
 				
 			// Perform the search by calling the getLatestSessions method of the LatestSearch object
-			resultSet = search.getLatestSessions(resultsPerPage);
+			resultSet = search.getLatestSessions();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import sessionbuddy.LatestSearch;
+import sessionbuddy.SetSearch;
 import sessionbuddy.wrappers.resultsets.LatestSearchSets;
 
 
@@ -18,10 +18,10 @@ class Test_RetrieveLatest_Sets
 			int resultsPerPage = 50;
 			
 			// Instantiate a PopularSearch object
-			LatestSearch search = new LatestSearch();
+			SetSearch search = new SetSearch(resultsPerPage);
 			
 			// Perform the search by calling the getLatestTunes method on the PopularSearch object
-			ArrayList<LatestSearchSets> resultSet = search.getLatestSets(resultsPerPage);
+			ArrayList<LatestSearchSets> resultSet = search.getLatestSets();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
