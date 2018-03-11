@@ -22,8 +22,8 @@ class Test_RetrieveLatest_Tunes_with_Pagination
 			// Instantiate a LatestSearch object
 			LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
 			
-			// Perform the search by calling the getLatestTunes method on the LatestSearch object
-			ArrayList<LatestSearchTunes> resultSet = search.getLatestTunes();
+			// Perform the search by calling the listTunes method on the LatestSearch object
+			ArrayList<LatestSearchTunes> resultSet = search.listTunes();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
@@ -46,17 +46,7 @@ class Test_RetrieveLatest_Tunes_with_Pagination
 				}
 		   	}
 		
-		catch (IllegalArgumentException e)
-			{
-			System.out.println(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			System.out.println(e.getMessage());
-			}
-		
-		catch (IOException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			System.out.println(e.getMessage());
 			}

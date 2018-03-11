@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import sessionbuddy.LatestSearch;
 import sessionbuddy.wrappers.resultsets.LatestSearchTunes;
 
-// TODO: the field names printed out are not 100% right - investigate and fix!
 
 class Test_RetrieveLatest_Tunes
 	{
@@ -22,7 +21,7 @@ class Test_RetrieveLatest_Tunes
 			LatestSearch search = new LatestSearch(resultsPerPage);
 			
 			// Perform the search by calling the getLatestTunes method on the LatestSearch object
-			ArrayList<LatestSearchTunes> resultSet = search.getLatestTunes();
+			ArrayList<LatestSearchTunes> resultSet = search.listTunes();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
@@ -45,17 +44,7 @@ class Test_RetrieveLatest_Tunes
 				}
 		   	}
 		
-		catch (IllegalArgumentException e)
-			{
-			System.out.println(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			System.out.println(e.getMessage());
-			}
-		
-		catch (IOException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			System.out.println(e.getMessage());
 			}

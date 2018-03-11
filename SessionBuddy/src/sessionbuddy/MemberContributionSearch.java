@@ -1,6 +1,7 @@
 package sessionbuddy;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -39,102 +40,93 @@ import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
  * Retrieves a list of member contributions in a chosen category - tunes, discussions, recordings, events, sessions or sets.
  * 
  * @author Colman O'B
- * @since 2018-03-04
+ * @since 2018-03-11
  */
 public class MemberContributionSearch extends Search 
 	{
 	/**
-	 * Retrieves the most recently added tunes/settings on thesession.org, most recent first
+	 * The ID number of the user in question within thesession.org database
+	 */
+	private int userID = 0;
+	
+	/**
+	 * The number of individual search results that should be returned per page in the JSON response from the API
+	 */
+	private int resultsPerPage = 0;
+	
+	/**
+	 * When dealing with a JSON response containing multiple pages, this specifies a particular page
+	 */
+	private int pageNumber = 0;
+	
+	
+	/**
+	 * Constructor where pagination is not required and you only want to see the first page of the API response
 	 * 
-	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
+	 * @param userID The numeric ID of the user in question in thesession.org database
+	 * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
+	 */
+	public MemberContributionSearch(int userID, int resultsPerPage)
+		{
+		this.userID = userID;
+		this.resultsPerPage = resultsPerPage;
+		}
+	
+	
+	/**
+	 * Constructor for cases where you need to specify an individual page in the API response
+	 * 
+	 * @param userID The numeric ID of the user in question in thesession.org database
+	 * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
+	 * @param pageNumber Specifies a particular page number within the JSON response
+	 */
+	public MemberContributionSearch(int userID, int resultsPerPage, int pageNumber)
+		{
+		this(userID, resultsPerPage);
+		this.pageNumber= pageNumber;
+		}
+	
+	
+	/**
+	 * Retrieves the tunes/settings added by a particular member on thesession.org, most recent first
+	 * 
 	 * @return an ArrayList of LatestSearchTunes objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-04
+	 * @since 2018-03-11
 	 */
-	public ArrayList<LatestSearchTunes> getTunes(int userID, int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<LatestSearchTunes> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-			
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL(userID, "tunes", resultsPerPage);
-			
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+	
+			// Compose the URL, perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("tunes"));
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			LatestWrapperTunes parsedResults = jsonParser.parseResponse(LatestWrapperTunes.class);
+			LatestWrapperTunes parsedResults = JsonResponseParser.parseResponse(response, LatestWrapperTunes.class);
 								
 			// This will hold each individual search result entry
-			ArrayList<LatestSearchTunes> resultSet = new ArrayList<LatestSearchTunes>();
-			
-			resultSet = populateTunesSearchResult(parsedResults);
-			
-			return resultSet;
-			}
-		
-		catch (IllegalArgumentException | IOException | URISyntaxException ex)
-			{
-			throw ex;
-			}
-	
-		}
-		
+			ArrayList<LatestSearchTunes> resultSet = populateTunesSearchResult(parsedResults);
 
-	/**
-	 * An alternative version of getLatestTunes(), allowing the caller to specify a particular page in the response
-	 * 
-	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
-	 * @param pageNumber a specific page within the JSON response
-	 * @return an ArrayList of LatestSearchTunes objects
-	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-	 * 
-	 * @author Colman
-	 * @since 2018-03-04
-	 */
-	public ArrayList<LatestSearchTunes> getTunes(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
-		{
-		try
-			{
-			// Validate that a number between 1-50 has been provided as the resultsPerPage value
-			validateResultsPerPageCount(resultsPerPage);
-			
-			URL requestURL = UrlBuilder.buildURL(userID, "tunes", resultsPerPage, pageNumber);
-			
-			String response = HttpRequestor.submitRequest(requestURL);
-							
-			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			LatestWrapperTunes parsedResults = jsonParser.parseResponse(LatestWrapperTunes.class);
-							
-			// This will hold each individual search result entry
-			ArrayList<LatestSearchTunes> resultSet = new ArrayList<LatestSearchTunes>();
-			
-			resultSet = populateTunesSearchResult(parsedResults);
-			
 			return resultSet;
 			}
 		
 		catch (IllegalArgumentException | IOException | URISyntaxException ex)
 			{
 			throw ex;
-			}
+			}	
 		}
-	
+		
 	
 	/**
 	 * Retrieves a list of recordings added by a particular user on thesession.org, with the most recent results first
 	 * 
-	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
 	 * @return an ArrayList of SearchResultsRecordings objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
@@ -143,27 +135,21 @@ public class MemberContributionSearch extends Search
 	 * @author Colman
 	 * @since 2018-03-04
 	 */
-	public ArrayList<SearchResultsRecordings> getRecordings(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultsRecordings> listRecordings() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-			
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL(userID, "recordings", resultsPerPage);
 						
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Compose the URL, perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("recordings"));
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
+			KeywordSearchWrapperRecordings parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperRecordings.class);
 							
-			// This will hold each individual search result entry
-			ArrayList<SearchResultsRecordings> resultSet = new ArrayList<SearchResultsRecordings>();
-			
-			resultSet = populateRecordingsSearchResult(parsedResults);
+			// This holds each individual search result entry
+			ArrayList<SearchResultsRecordings> resultSet = populateRecordingsSearchResult(parsedResults);
 			
 			return resultSet;
 			}
@@ -174,130 +160,33 @@ public class MemberContributionSearch extends Search
 			}
 		}
 	
-	
-	/**
-	 * An alternative version of the getRecordings method, allowing the caller to specify a particular page within the JSON response
-	 * 
-	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
-	 * @param pageNumber allows you to specify an individual page within the JSON response
-	 * @return an ArrayList of SearchResultsRecordings objects
-	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-	 * 
-	 * @author Colman
-	 * @since 2018-03-04
-	 */
-	public ArrayList<SearchResultsRecordings> getRecordings(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
-		{
-		try
-			{
-			// Validate that a number between 1-50 has been provided as the resultsPerPage value
-			validateResultsPerPageCount(resultsPerPage);
-			
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL(userID, "recordings", resultsPerPage, pageNumber);
-				
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
-							
-			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
-					
-			// This will hold each individual search result entry
-			ArrayList<SearchResultsRecordings> resultSet = new ArrayList<SearchResultsRecordings>();
-			
-			resultSet = populateRecordingsSearchResult(parsedResults);
-			
-			return resultSet;
-			}
-		
-		catch (IllegalArgumentException | IOException | URISyntaxException ex)
-			{
-			throw ex;
-			}
-		}
-	
-	
-	/**
-	 * Retrieves session listings added by a particular member
-	 * 
-	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
-	 * @return an ArrayList of SearchResultSessions objects
-	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-	 * 
-	 * @author Colman
-	 * @since 2018-03-04
-	 */
-	public ArrayList<SearchResultSessions> getSessions(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
-		{
-		try
-			{
-			// Validate that a number between 1-50 has been provided as the resultsPerPage value
-			validateResultsPerPageCount(resultsPerPage);
-						
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL(userID, "sessions", resultsPerPage);
-						
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
-							
-			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
-							
-			// This will hold each individual search result entry
-			ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
-					
-			resultSet = populateSessionsSearchResult(parsedResults);
-			
-			return resultSet;
-			}
-		
-		catch (IllegalArgumentException | IOException | URISyntaxException ex)
-			{
-			throw ex;
-			}
-
-		}
 	
 	/**
 	 * An alternative version of getSessions that allows the caller to specify an individual page within the JSON response
 	 * 
-	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
-	 * @param pageNumber allows you to specify an individual page within the JSON response
 	 * @return an ArrayList of SearchResultSessions objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-04
+	 * @since 2018-03-11
 	 */
-	public ArrayList<SearchResultSessions> getSessions(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultSessions> listSessions() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL(userID, "sessions", resultsPerPage, pageNumber);
-						
 			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			String response = HttpRequestor.submitRequest(composeURL("sessions"));
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
+			KeywordSearchWrapperSessions parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperSessions.class);
 							
 			// This will hold each individual search result entry
-			ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
-					
-			resultSet = populateSessionsSearchResult(parsedResults);
+			ArrayList<SearchResultSessions> resultSet = populateSessionsSearchResult(parsedResults);
 			
 			return resultSet;
 			}
@@ -312,36 +201,29 @@ public class MemberContributionSearch extends Search
 	/**
 	 * Retrieves a list of events added by a particular member on thesession.org
 	 * 
-	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
 	 * @return an ArrayList of SearchResultEvents objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-04
+	 * @since 2018-03-11
 	 */
-	public ArrayList<SearchResultEvents> getEvents(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultEvents> listEvents() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-			
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL(userID, "events", resultsPerPage);
 						
 			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			String response = HttpRequestor.submitRequest(composeURL("events"));
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperEvents parsedResults = jsonParser.parseResponse(KeywordSearchWrapperEvents.class);
+			KeywordSearchWrapperEvents parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperEvents.class);
 							
 			// This will hold each individual search result entry
-			ArrayList<SearchResultEvents> resultSet = new ArrayList <SearchResultEvents>();
-			
-			resultSet = populateEventsSearchResult(parsedResults);
+			ArrayList<SearchResultEvents> resultSet = populateEventsSearchResult(parsedResults);
 			
 			return resultSet;
 			}
@@ -351,130 +233,34 @@ public class MemberContributionSearch extends Search
 			throw ex;
 			}
 		}
-	
-	
-	/**
-	 * An alternative version of getLatestEvents that allows the caller to specify an idividual page within the JSON response
-	 * 
-	 * @param resultsPerPage the number of results you want to be returned per page in the JSON response
-	 * @param pageNumber allows you to specify an individual page within the JSON response
-	 * @return an ArrayList of SearchResultEvents objects
-	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-	 * 
-	 * @author Colman
-	 * @since 2018-03-04
-	 */
-	public ArrayList<SearchResultEvents> getEvents(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
-		{
-		try
-			{
-			// Validate that a number between 1-50 has been provided as the resultsPerPage value
-			validateResultsPerPageCount(resultsPerPage);
-
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL(userID, "events", resultsPerPage, pageNumber);
-						
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
-							
-			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperEvents parsedResults = jsonParser.parseResponse(KeywordSearchWrapperEvents.class);
-							
-			// This will hold each individual search result entry
-			ArrayList<SearchResultEvents> resultSet = new ArrayList <SearchResultEvents>();
-			
-			resultSet = populateEventsSearchResult(parsedResults);
-			
-			return resultSet;
-			}
 		
-		catch (IllegalArgumentException | IOException | URISyntaxException ex)
-			{
-			throw ex;
-			}
-		}	
-	
 	
 	/**
 	 * Retrieves a list of discussions submitted by a particular user
 	 * 
-	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
 	 * @return an ArrayList of SearchResultsDiscussion objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-04
+	 * @since 2018-03-11
 	 */
-	public ArrayList<SearchResultsDiscussions> getDiscussions(int resultsPerPage, int userID) throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultsDiscussions> listDiscussions() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL(userID, "discussions", resultsPerPage);
-						
 			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			String response = HttpRequestor.submitRequest(composeURL("discussions"));
 				
 			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
+			KeywordSearchWrapperDiscussions parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
 
 			// This will hold each individual search result entry
-			ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
-			
-			resultSet = populateDiscussionsSearchResult(parsedResults);
-				
-			return resultSet;
-			}
-		
-		catch (IllegalArgumentException | IOException | URISyntaxException ex)
-			{
-			throw ex;
-			}
-		}
-	
-
-	/**
-	 * An alternative version of getDiscussions(), allowing the caller to specify a page number within the response
-	 * 
-	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
-	 * @param pageNumber a specific page within the JSON response
-	 * @return an ArrayList of SearchResultsDiscussion objects
-	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-	 * 
-	 * @author Colman
-	 * @since 2018-03-04
-	 */
-	public ArrayList<SearchResultsDiscussions> getDiscussions(int resultsPerPage, int userID, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
-		{
-		try
-			{
-			// Validate that a number between 1-50 has been provided as the resultsPerPage value
-			validateResultsPerPageCount(resultsPerPage);
-	
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL(userID, "discussions", resultsPerPage, pageNumber);
-						
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
-				
-			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
-			
-			ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
-			
-			resultSet = populateDiscussionsSearchResult(parsedResults);
+			ArrayList<SearchResultsDiscussions> resultSet = populateDiscussionsSearchResult(parsedResults);
 				
 			return resultSet;
 			}
@@ -681,6 +467,40 @@ public class MemberContributionSearch extends Search
 		
 		// Return the set of results that has been collected
 		return resultSet;
+		}
+	
+	/**
+	 * A helper method used to put the URL together to query the API at thesession.org
+	 * 
+	 * @param dataCategory The category of data to be queried, e.g. tunes, discussions, events etc.
+	 * @return A URL specifying a particular resource from thesession.org API
+	 * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
+	 * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
+	 */
+	private URL composeURL(String dataCategory) throws MalformedURLException, URISyntaxException
+		{
+		// Build the URL with all necessary parameters to perform a search via thesession.org API
+		URL requestURL;
+				
+		// If a particular page within the response from the API is specified:
+		if (pageNumber > 0)
+			{
+			requestURL = UrlBuilder.buildURL(userID, dataCategory, resultsPerPage, pageNumber);
+			}
+		
+		// If no page is specified
+		else if (pageNumber == 0)		
+			{
+			requestURL = UrlBuilder.buildURL(userID, dataCategory, resultsPerPage);
+			}
+		
+		// If anything other than a positive integer was specified as the page number
+		else
+			{
+			throw new IllegalArgumentException("Page number must be an integer value greater than zero");
+			}
+		
+		return requestURL;
 		}
 	
 	}

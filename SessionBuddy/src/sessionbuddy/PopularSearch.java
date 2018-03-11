@@ -19,7 +19,7 @@ import sessionbuddy.wrappers.resultsets.PopularTunes;
  * Retrieves the current most popular tunes, i.e. those that have been added to the largest number of user tune books on thesession.org
  * 
  * @author Colman
- * @since 2018-03-04
+ * @since 2018-03-11
  */
 public class PopularSearch extends Search
 	{
@@ -44,8 +44,7 @@ public class PopularSearch extends Search
 			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			PopularWrapperTunes parsedResults = jsonParser.parseResponse(PopularWrapperTunes.class);
+			PopularWrapperTunes parsedResults = JsonResponseParser.parseResponse(response, PopularWrapperTunes.class);
 								
 			// This will hold each individual search result entry
 			ArrayList<PopularTunes> resultSet = new ArrayList<PopularTunes>();
@@ -83,8 +82,7 @@ public class PopularSearch extends Search
 			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			PopularWrapperTunes parsedResults = jsonParser.parseResponse(PopularWrapperTunes.class);
+			PopularWrapperTunes parsedResults = JsonResponseParser.parseResponse(response, PopularWrapperTunes.class);
 								
 			// This will hold each individual search result entry
 			ArrayList<PopularTunes> resultSet = new ArrayList<PopularTunes>();

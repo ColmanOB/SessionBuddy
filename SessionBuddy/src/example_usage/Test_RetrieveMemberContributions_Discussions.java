@@ -24,15 +24,14 @@ public static void main(String[] args) throws URISyntaxException
 	// Set the search parameters
 	int resultsPerPage = 50;
 	int userID = 1;
-	ArrayList<SearchResultsDiscussions> resultSet;
 	
 	// Instantiate a RetrieveLatest object
-	MemberContributionSearch search = new MemberContributionSearch();
+	MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage);
 	
 	try
 		{
 		// Pass in the search parameters
-		resultSet = search.getDiscussions(resultsPerPage, userID);
+		ArrayList<SearchResultsDiscussions> resultSet = search.listDiscussions();
 		
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
@@ -53,15 +52,10 @@ public static void main(String[] args) throws URISyntaxException
 			}
 		}
 	
-	catch (IllegalArgumentException e)
+	catch (IllegalArgumentException | IOException e)
 		// Catch any cases where an invalid number of results per page has been specified
 		{
 		System.out.println(e.getMessage());
 		}	
-
-	catch (IOException e)
-		{
-		System.out.println(e.getMessage());
-		}
    	}
 }

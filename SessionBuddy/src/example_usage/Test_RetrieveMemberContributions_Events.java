@@ -18,15 +18,12 @@ class Test_RetrieveMemberContributions_Events
 			// Set the search parameters
 			int resultsPerPage = 50;
 			int userID = 1;
-			
-			// Create a structure to store the response
-			ArrayList<SearchResultEvents> resultSet;
-			
+
 			// Instantiate a MemberContributionSearch object
-			MemberContributionSearch search = new MemberContributionSearch();
+			MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage);
 		
-			// Pass in the number of results to be returned per page
-			resultSet = search.getEvents(resultsPerPage, userID);
+			// Call the listEvents() method on the MemberContributionSearch object
+			ArrayList<SearchResultEvents> resultSet = search.listEvents();
 			
 			// Loop through the results and print attributes of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
@@ -58,17 +55,7 @@ class Test_RetrieveMemberContributions_Events
 				}
 			}
 		
-		catch (IllegalArgumentException e)
-			{
-			System.out.println(e.getMessage());
-			}	
-		
-		catch (IllegalStateException e)
-			{
-			System.out.println(e.getMessage());
-			}	
-	
-		catch (IOException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			System.out.println(e.getMessage());
 			}	

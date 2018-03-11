@@ -35,7 +35,7 @@ public class UrlBuilder
 	 * @throws MalformedURLException
 	 * @throws URISyntaxException
 	 */
-	public static URL buildURL(String dataCategory, String itemID) throws MalformedURLException, URISyntaxException
+	public static URL buildURL(String dataCategory, int itemID) throws MalformedURLException, URISyntaxException
 		{
 		URIBuilder builder = new URIBuilder()
 				.setScheme(PROTOCOL)

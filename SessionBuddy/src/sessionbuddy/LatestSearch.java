@@ -40,19 +40,19 @@ import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
  * Retrieves a list of most-recently added entries in a chosen category - tunes, discussions, recordings, events or sessions.
  * 
  * @author Colman O'B
- * @since 2018-03-08
+ * @since 2018-03-11
  */
 public class LatestSearch extends Search 
 	{
 	/**
 	 * The number of individual search results that should be returned per page in the JSON response from the API
 	 */
-	int resultsPerPage = 0;
+	private int resultsPerPage = 0;
 	
 	/**
 	 * When dealing with a JSON response containing multiple pages, this specifies a particular page
 	 */
-	int pageNumber = 0;
+	private int pageNumber = 0;
 	
 	
 	/**
@@ -87,29 +87,23 @@ public class LatestSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-08
+	 * @since 2018-03-11
 	 */
-	public ArrayList<LatestSearchTunes> getLatestTunes() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<LatestSearchTunes> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = composeURL("tunes");
-			
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Perform the API query, using a helper method to create the URL, and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("tunes"));
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			LatestWrapperTunes parsedResults = jsonParser.parseResponse(LatestWrapperTunes.class);
+			LatestWrapperTunes parsedResults = JsonResponseParser.parseResponse(response, LatestWrapperTunes.class);
 								
-			// This will hold each individual search result entry
-			ArrayList<LatestSearchTunes> resultSet = new ArrayList<LatestSearchTunes>();
-			
-			resultSet = populateTunesSearchResult(parsedResults);
+			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
+			ArrayList<LatestSearchTunes> resultSet = populateTunesSearchResult(parsedResults);
 			
 			return resultSet;
 			}
@@ -132,28 +126,22 @@ public class LatestSearch extends Search
 	 * @author Colman
 	 * @since 2018-03-04
 	 */
-	public ArrayList<SearchResultsDiscussions> getLatestDiscussions() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultsDiscussions> listDiscussions() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = composeURL("discussions");
-			
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Perform the API query, using a helper method to create the URL, and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("discussions"));
 				
 			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
+			KeywordSearchWrapperDiscussions parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
 
-			// This will hold each individual search result entry
-			ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
-			
-			resultSet = populateDiscussionsSearchResult(parsedResults);
-				
+			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
+			ArrayList<SearchResultsDiscussions> resultSet = populateDiscussionsSearchResult(parsedResults);
+
 			return resultSet;
 			}
 		
@@ -173,29 +161,23 @@ public class LatestSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-04
+	 * @since 2018-03-11
 	 */
-	public ArrayList<SearchResultsRecordings> getLatestRecordings() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultsRecordings> listRecordings() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = composeURL("recordings");
-			
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Perform the API query, using a helper method to create the URL, and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("recordings"));
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
+			KeywordSearchWrapperRecordings parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperRecordings.class);
 							
-			// This will hold each individual search result entry
-			ArrayList<SearchResultsRecordings> resultSet = new ArrayList<SearchResultsRecordings>();
-			
-			resultSet = populateRecordingsSearchResult(parsedResults);
+			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
+			ArrayList<SearchResultsRecordings> resultSet = populateRecordingsSearchResult(parsedResults);
 			
 			return resultSet;
 			}
@@ -218,27 +200,21 @@ public class LatestSearch extends Search
 	 * @author Colman
 	 * @since 2018-03-08
 	 */
-	public ArrayList<SearchResultSessions> getLatestSessions() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultSessions> listSessions() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-			
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = composeURL("sessions");
-			
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+
+			// Perform the API query, using a helper method to create the URL, and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("sessions"));
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
+			KeywordSearchWrapperSessions parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperSessions.class);
 							
-			// This will hold each individual search result entry
-			ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
-					
-			resultSet = populateSessionsSearchResult(parsedResults);
+			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
+			ArrayList<SearchResultSessions> resultSet = populateSessionsSearchResult(parsedResults);
 			
 			return resultSet;
 			}
@@ -259,29 +235,23 @@ public class LatestSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-08
+	 * @since 2018-03-11
 	 */
-	public ArrayList<SearchResultEvents> getLatestEvents() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultEvents> listEvents() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = composeURL("events");
-			
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Perform the API query, using a helper method to create the URL, and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("events"));
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperEvents parsedResults = jsonParser.parseResponse(KeywordSearchWrapperEvents.class);
+			KeywordSearchWrapperEvents parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperEvents.class);
 							
-			// This will hold each individual search result entry
-			ArrayList<SearchResultEvents> resultSet = new ArrayList <SearchResultEvents>();
-			
-			resultSet = populateEventsSearchResult(parsedResults);
+			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
+			ArrayList<SearchResultEvents> resultSet = populateEventsSearchResult(parsedResults);
 			
 			return resultSet;
 			}

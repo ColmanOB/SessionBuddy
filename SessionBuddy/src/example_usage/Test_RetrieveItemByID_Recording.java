@@ -11,17 +11,17 @@ public class Test_RetrieveItemByID_Recording
 	public static void main(String[] args) throws URISyntaxException
 		{
 		// Set the search parameters
-		String recordingID = "666";
+		int recordingID = 666;
 		
 		// Instantiate an ItemRetriever object
-		ItemRetriever search = new ItemRetriever();
+		ItemRetriever search = new ItemRetriever(recordingID);
 		
 		// Instantiate an object to hold the response from the API
 		ItemResultRecording resultSet;
 		
 		try 
 			{
-			resultSet = search.getRecordingByID(recordingID);
+			resultSet = search.getRecording();
 			// Print out attributes of the Recording as a whole:
 			System.out.println("Recording ID: " + resultSet.recordingDetails.recordingID);
 			System.out.println("Recording Title: " + resultSet.recordingDetails.recordingName);

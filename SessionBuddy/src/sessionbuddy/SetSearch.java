@@ -17,10 +17,10 @@ import sessionbuddy.wrappers.resultsets.LatestSearchSets;
 
 
 /**
- * Retrieves a list of most-recently added entries in a chosen category - tunes, discussions, recordings, events or sessions.
+ * Retrieves a list of user-added sets of tunes
  * 
  * @author Colman O'B
- * @since 2018-03-08
+ * @since 2018-03-11
  */
 public class SetSearch extends Search 
 	{
@@ -58,7 +58,7 @@ public class SetSearch extends Search
 		this.pageNumber= pageNumber;
 		}
 		
-	/*
+	/**
 	 * Retrieves a list of the most popular tunes on thesession.org, i.e. those that have been added to the most user tunebooks.
 	 * 
 	 * @return an ArrayList of LatestSearchSets objects
@@ -69,22 +69,18 @@ public class SetSearch extends Search
 	 * @author Colman
 	 * @since 2018-03-04
 	 */
-	public ArrayList<LatestSearchSets> getLatestSets() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<LatestSearchSets> listSets() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-	
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = composeURL();
-				
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+
+			// Build the URL using a helper method and pass it in to the HttpRequstor.submitRequest(URL) method to call the API
+			String response = HttpRequestor.submitRequest(composeURL());
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			LatestWrapperSets parsedResults = jsonParser.parseResponse(LatestWrapperSets.class);
+			LatestWrapperSets parsedResults = JsonResponseParser.parseResponse(response, LatestWrapperSets.class);
 									
 			// This will hold each individual search result entry
 			ArrayList<LatestSearchSets> resultSet = new ArrayList<LatestSearchSets>();

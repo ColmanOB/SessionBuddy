@@ -17,11 +17,11 @@ class Test_RetrieveLatest_Sets
 			// Set the search parameters
 			int resultsPerPage = 50;
 			
-			// Instantiate a PopularSearch object
+			// Instantiate a SetSearch object
 			SetSearch search = new SetSearch(resultsPerPage);
 			
-			// Perform the search by calling the getLatestTunes method on the PopularSearch object
-			ArrayList<LatestSearchSets> resultSet = search.getLatestSets();
+			// Perform the search by calling the listSets method on the SetSearch object
+			ArrayList<LatestSearchSets> resultSet = search.listSets();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
@@ -40,19 +40,9 @@ class Test_RetrieveLatest_Sets
 				}
 		   	}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			System.out.println(e.getMessage());
 			}
-		
-		catch (IllegalStateException e)
-			{
-			System.out.println(e.getMessage());
-			}
-		
-		catch (IOException e)
-			{
-			System.out.println(e.getMessage());
-			}
-	   }
+	   	}
 	}

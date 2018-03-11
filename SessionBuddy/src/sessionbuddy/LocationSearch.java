@@ -1,6 +1,7 @@
 package sessionbuddy;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,95 +39,90 @@ import sessionbuddy.wrappers.resultsets.LocationResultSessions;
 public class LocationSearch extends Search
 	{
 	/**
-	 * Queries the API for a list of sessions within a specified radius of a particular latitude and longitude
-	 * 
-	 * @param latitude a latitude value between -90 to 90
-	 * @param longitude a longitude value between -180 to 180
-	 * @param radius defines a radius (in kilometres) around the coordinates to be included in the search
-	 * @param resultsPerPage the number of results you want returned per page in the JSON response
-	 * @return an ArrayList of SessionsByLocationResult objects
-	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-	 * 
-	 * @author Colman
-	 * @since 2018-03-04
+	 * The number of individual search results that should be returned per page in the JSON response from the API
 	 */
-	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
+	int resultsPerPage = 0;
+	
+	/**
+	 * When dealing with a JSON response containing multiple pages, this specifies a particular page
+	 */
+	int pageNumber = 0;
+	
+	/**
+	 * Specifies a particular latitude coordinate
+	 */
+	String latitude = null;
+	
+	/**
+	 * Specifies a particular longitude coordinate
+	 */
+	String longitude = null;
+	
+	/**
+	 * Specifies a radius in kilometers around the latitude & longitude coordinates
+	 */
+	String radius = null;
+	
+	
+	/**
+	 * Constructor where pagination is not required and you only want to see the first page of the API response
+	 *
+	 * @param latitude
+	 * @param longitude
+	 * @param radius
+	 * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
+	 */
+	public LocationSearch(String latitude, String longitude, String radius, int resultsPerPage)
 		{
-		try
-			{
-			// Validate the user input
-			validateResultsPerPageCount(resultsPerPage);
-			validateCoordinates(latitude, longitude, radius);
-		
-			// Assemble the query parameters for the URL
-			List<NameValuePair> queryParams = new ArrayList<>();
-			queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
-			queryParams.add(new BasicNameValuePair("radius", radius));
-		
-			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
-			URL requestURL = UrlBuilder.buildURL("sessions", "nearby", queryParams, resultsPerPage);
-			
-			// Call the API and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
-				
-			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			LocationSearchWrapperSessions parsedResults = jsonParser.parseResponse(LocationSearchWrapperSessions.class);
-				
-			// This will hold each individual search result entry
-			ArrayList<LocationResultSessions> resultSet = new ArrayList <LocationResultSessions>();
-			
-			resultSet = populateSessionsByLocationResult(parsedResults);
-			
-			return resultSet;
-			}
-		
-		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
-			{
-			throw ex;
-			}
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.radius = radius;
+		this.resultsPerPage = resultsPerPage;
 		}
 	
-	/** 
-	 * Alternative version of searchSessionsByLocation(), allowing a page number to be specified within a paginated JSON response.
+	
+	/**
+	 * Constructor for cases where you need to specify an individual page in the API response
 	 * 
-	 * @param latitude a latitude value between -90 to 90
-	 * @param longitude a longitude value between -180 to 180
-	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
-	 * @param resultsPerPage the number of results you want returned per page in the JSON response
-	 * @param pageNumber a specific page within a multi-page JSON response
+	 * @param latitude
+	 * @param longitude
+	 * @param radius
+	 * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
+	 * @param pageNumber Specifies a particular page number within the JSON response
+	 */
+	public LocationSearch(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber)
+		{
+		this(latitude, longitude, radius, resultsPerPage);
+		this.pageNumber= pageNumber;
+		}
+	
+	
+	/**
+	 * Queries the API for a list of sessions within a specified radius of a particular latitude and longitude
+	 * 
 	 * @return an ArrayList of SessionsByLocationResult objects
-	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-04
+	 * @since 2018-03-11
 	 */
-	public ArrayList<LocationResultSessions> searchSessionsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
+	public ArrayList<LocationResultSessions> searchSessions() throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
 		{
 		try
 			{
 			// Validate the user input
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
-
-			// Assemble the query parameters for the URL
-			List<NameValuePair> queryParams = new ArrayList<>();
-			queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
-			queryParams.add(new BasicNameValuePair("radius", radius));
 		
-			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
-			URL requestURL = UrlBuilder.buildURL("sessions", "nearby", queryParams, resultsPerPage, pageNumber);
+			// Use a helper method to put the URL together to query the API
+			URL requestURL = composeURL("sessions");
 			
 			// Call the API and capture the response
 			String response = HttpRequestor.submitRequest(requestURL);
-			
+				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			LocationSearchWrapperSessions parsedResults = jsonParser.parseResponse(LocationSearchWrapperSessions.class);
+			LocationSearchWrapperSessions parsedResults = JsonResponseParser.parseResponse(response, LocationSearchWrapperSessions.class);
 				
 			// This will hold each individual search result entry
 			ArrayList<LocationResultSessions> resultSet = new ArrayList <LocationResultSessions>();
@@ -146,18 +142,14 @@ public class LocationSearch extends Search
 	/**
 	 * Queries the API for a list of events within a specified radius of a particular latitude and longitude
 	 * 
-	 * @param latitude a latitude value between -90 to 90
-	 * @param longitude a longitude value between -180 to 180
-	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
-	 * @param resultsPerPage the number of results you want returned per page in the JSON response
 	 * @return an ArrayList of EventsByLocationResult objects
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-05
+	 * @since 2018-03-11
 	 */
-	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
+	public ArrayList<LocationResultEvents> searchEvents() throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
 		{
 		try
 			{
@@ -165,20 +157,14 @@ public class LocationSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
 	
-			// Assemble the query parameters for the URL
-			List<NameValuePair> queryParams = new ArrayList<>();
-			queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
-			queryParams.add(new BasicNameValuePair("radius", radius));
-		
-			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
-			URL requestURL = UrlBuilder.buildURL("events", "nearby", queryParams, resultsPerPage);
+			// Use a helper method to put the URL together to query the API
+			URL requestURL = composeURL("events");
 			
 			// Call the API and capture the response
 			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			LocationSearchWrapperEvents parsedResults = jsonParser.parseResponse(LocationSearchWrapperEvents.class);
+			LocationSearchWrapperEvents parsedResults = JsonResponseParser.parseResponse(response, LocationSearchWrapperEvents.class);
 				
 			// This will hold each individual search result entry
 			ArrayList<LocationResultEvents> resultSet = new ArrayList <LocationResultEvents>();
@@ -193,62 +179,7 @@ public class LocationSearch extends Search
 			throw ex;
 			}
 		}
-	
-	
-	/**
-	 * Alternative version of searchEventsByLocation, allowing an individual page to be specified within a paginated JSON response
-	 * 
-	 * @param latitude a latitude value between -90 to 90
-	 * @param longitude a longitude value between -180 to 180
-	 * @param radius defines a radius (in kilometers) around the coordinates to be included in the search
-	 * @param resultsPerPage the number of results you want returned per page in the JSON response
-	 * @param pageNumber specifies an individual page within a paginated JSON response
-	 * @return an ArrayList of EventsByLocationResult objects
-	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
-	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-	 * 
-	 * @author Colman
-	 * @since 2018-03-04
-	 */
-	public ArrayList<LocationResultEvents> searchEventsByLocation(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
-		{
-		try
-			{
-			// Validate the user input
-			validateResultsPerPageCount(resultsPerPage);
-			validateCoordinates(latitude, longitude, radius);
-	
-			// Assemble the query parameters for the URL
-			List<NameValuePair> queryParams = new ArrayList<>();
-			queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
-			queryParams.add(new BasicNameValuePair("radius", radius));
-		
-			// Build the URL with all necessary parameters to perform a search via thesession.org API, specifying the page number
-			URL requestURL = UrlBuilder.buildURL("events", "nearby", queryParams, resultsPerPage, pageNumber);
-			
-			// Call the API and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
-			
-			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			LocationSearchWrapperEvents parsedResults = jsonParser.parseResponse(LocationSearchWrapperEvents.class);
-				
-			// This will hold each individual search result entry
-			ArrayList<LocationResultEvents> resultSet = new ArrayList <LocationResultEvents>();
-			
-			resultSet = populateEventsByLocationResult(parsedResults);
-			
-			return resultSet;
-			}
-		
-		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
-			{
-			throw ex;
-			}
-		}
-	
+
 	
 	/**
 	 * Helper method to gather and parse the response to a location-based search for sessions
@@ -370,6 +301,45 @@ public class LocationSearch extends Search
 		
 		// Otherwise conclude that the input coordinates are valid
 		else return true;	
+		}
+	
+	/**
+	 * A helper method used to put the URL together to query the API at thesession.org
+	 * 
+	 * @param dataCategory The category of data to be queried, e.g. tunes, discussions, events etc.
+	 * @return A URL specifying a particular resource from thesession.org API
+	 * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
+	 * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
+	 */
+	private URL composeURL(String dataCategory) throws MalformedURLException, URISyntaxException
+		{
+		// Build the URL with all necessary parameters to perform a search via thesession.org API
+		URL requestURL;
+		
+		// Assemble the query parameters for the URL
+		List<NameValuePair> queryParams = new ArrayList<>();
+		queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
+		queryParams.add(new BasicNameValuePair("radius", radius));
+				
+		// If a particular page within the response from the API is specified:
+		if (pageNumber > 0)
+			{
+			requestURL = UrlBuilder.buildURL(dataCategory, "nearby", queryParams, resultsPerPage, pageNumber);
+			}
+		
+		// If no page is specified
+		else if (pageNumber == 0)		
+			{
+			requestURL = UrlBuilder.buildURL(dataCategory, "nearby", queryParams, resultsPerPage);
+			}
+		
+		// If anything other than a positive integer was specified as the page number
+		else
+			{
+			throw new IllegalArgumentException("Page number must be an integer value greater than zero");
+			}
+		
+		return requestURL;
 		}
 	
 }

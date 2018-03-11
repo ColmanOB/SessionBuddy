@@ -13,7 +13,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
  * This class does not test the iteration through multiple pages of JSON search results
  * 
  * @author Colman
- * @since 2017-08-13
+ * @since 2018-03-11
  */
 
 class Test_RetrieveLatest_Discussions
@@ -23,15 +23,14 @@ public static void main(String[] args) throws URISyntaxException
    {
 	// Set the search parameters
 	int resultsPerPage = 50;
-	ArrayList<SearchResultsDiscussions> resultSet;
-	
+
 	// Instantiate a RetrieveLatest object
 	LatestSearch search = new LatestSearch(resultsPerPage);
 	
 	try
 		{
-		// Pass in the search parameters
-		resultSet = search.getLatestDiscussions();
+		// Call the listDiscussions() method on the LatestSearch object
+		ArrayList<SearchResultsDiscussions> resultSet = search.listDiscussions();
 		
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
@@ -50,15 +49,9 @@ public static void main(String[] args) throws URISyntaxException
 			}
 		}
 	
-	catch (IllegalArgumentException e)
-		// Catch any cases where an invalid number of results per page has been specified
+	catch (IllegalArgumentException | IOException e)
 		{
 		System.out.println(e.getMessage());
 		}	
-
-	catch (IOException e)
-		{
-		System.out.println(e.getMessage());
-		}
    	}
 }

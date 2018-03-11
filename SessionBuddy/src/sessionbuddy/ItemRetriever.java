@@ -38,6 +38,8 @@ import sessionbuddy.wrappers.resultsets.ItemResultSession;
 import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
 // TODO: Refactor the methods in this class - they are all far too long. Extract some code to 'helper' methods
+// TODO: Needs a composeURL() helper method
+// TODO: Add fields and constructors to initialise them
 
 /**
  * Retrieves the data for a single item from the session.org.  The item may be a tune, discussion, recording, session or event.
@@ -47,6 +49,20 @@ import sessionbuddy.wrappers.resultsets.ItemResultTune;
  */
 public class ItemRetriever 
 	{
+	/**
+	 * The numeric identifier in thesession.org database for the item to be retrieved
+	 */
+	private int itemID;
+	
+	/**
+	 * Constructor where pagination is not required and you only want to see the first page of the API response
+	 * 
+	 * @param itemID Specifies the numeric identifier in thesession.org database of the resource to be retrieved
+	 */
+	public ItemRetriever(int itemID)
+		{
+		this.itemID = itemID;
+		}
 	
 	/**
 	 * Gets the details of an individual recording based on its numeric ID in thesession.org.
@@ -58,21 +74,20 @@ public class ItemRetriever
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-04
+	 * @since 2018-03-11
 	 */
-	public ItemResultRecording getRecordingByID(String recordingID) throws IOException, URISyntaxException
+	public ItemResultRecording getRecording() throws IOException, URISyntaxException
 		{
 		try
 			{
 			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL("recordings", recordingID);
+			URL requestURL = UrlBuilder.buildURL("recordings", itemID);
 			
 			// Perform the API query and capture the response
 			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			ItemWrapperRecording parsedResults = jsonParser.parseResponse(ItemWrapperRecording.class);
+			ItemWrapperRecording parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperRecording.class);
 			
 			// Extract each element from the recording entry in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -154,8 +169,7 @@ public class ItemRetriever
 			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a pre-defined wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			ItemWrapperDiscussion parsedResults = jsonParser.parseResponse(ItemWrapperDiscussion.class);
+			ItemWrapperDiscussion parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperDiscussion.class);
 		
 			// Extract each element from the tune entry in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -213,8 +227,7 @@ public class ItemRetriever
 			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			ItemWrapperTune parsedResults = jsonParser.parseResponse(ItemWrapperTune.class);
+			ItemWrapperTune parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperTune.class);
 		
 			// Extract each element from the tune entry in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -289,7 +302,7 @@ public class ItemRetriever
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-04
+	 * @since 2018-03-11
 	 */
 	public ItemResultSession getSessionByID(String sessionID) throws IOException, URISyntaxException
 		{
@@ -302,8 +315,7 @@ public class ItemRetriever
 			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			ItemWrapperSession parsedResults = jsonParser.parseResponse(ItemWrapperSession.class);
+			ItemWrapperSession parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperSession.class);
 		
 			// Extract each element from the tune entry in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -376,8 +388,7 @@ public class ItemRetriever
 			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			ItemWrapperEvent parsedResults = jsonParser.parseResponse(ItemWrapperEvent.class);
+			ItemWrapperEvent parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperEvent.class);
 		
 			// Extract each element from the tune entry in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response

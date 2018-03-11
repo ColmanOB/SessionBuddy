@@ -19,40 +19,31 @@ public class Test_SearchByLocation_Sessions
 		int resultsPerPage = 50;
 		
 		try
-		{
-		// Instantiate a TheSessionAPISearcher object
-		LocationSearch search = new LocationSearch();
-		
-		// Pass in the search parameters
-		ArrayList<LocationResultSessions> resultSet = search.searchSessionsByLocation(latitude, longitude, radius, resultsPerPage);
-		
-		// Loop through the results and print each attribute of each individual result in the set
-		for (int i = 0; i < resultSet.size(); i++)
 			{
-			System.out.println(resultSet.get(i).details.sessionID);
-			System.out.println(resultSet.get(i).details.sessionURL);
-			System.out.println(resultSet.get(i).details.submittedDate);	
-					
-			System.out.println(resultSet.get(i).user.userID);
-			System.out.println(resultSet.get(i).user.userName);
-			System.out.println(resultSet.get(i).user.userURL);
+			// Instantiate a LocationSearch object
+			LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage);
 			
-			System.out.println("\n");
+			// Call the searchSessions method on the LocationSearch object
+			ArrayList<LocationResultSessions> resultSet = search.searchSessions();
+			
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				System.out.println(resultSet.get(i).details.sessionID);
+				System.out.println(resultSet.get(i).details.sessionURL);
+				System.out.println(resultSet.get(i).details.submittedDate);	
+						
+				System.out.println(resultSet.get(i).user.userID);
+				System.out.println(resultSet.get(i).user.userName);
+				System.out.println(resultSet.get(i).user.userURL);
+				
+				System.out.println("\n");
+				}
+		   	}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
+			{
+			e.printStackTrace();
 			}
 	   	}
-		
-		catch (IllegalArgumentException e)
-			{
-			e.printStackTrace();
-			}
-		
-		catch (IllegalStateException e)
-			{
-			e.printStackTrace();
-			}
-		
-		catch (IOException e)
-			{e.printStackTrace();
-			}
-	   }
 	}

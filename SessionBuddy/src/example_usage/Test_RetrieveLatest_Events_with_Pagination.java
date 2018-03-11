@@ -18,15 +18,12 @@ class Test_RetrieveLatest_Events_with_Pagination
 			// Set the search parameters
 			int resultsPerPage = 2;
 			int pageNumber = 2;
-			
-			// Create a structure to store the response
-			ArrayList<SearchResultEvents> resultSet;
-			
+
 			// Instantiate a LatestSearch object
 			LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
 		
-			// Pass in the number of results to be returned per page
-			resultSet = search.getLatestEvents();
+			// Call the listEvents() method on the LatestSearch object
+			ArrayList<SearchResultEvents> resultSet = search.listEvents();
 			
 			// Loop through the results and print attributes of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
@@ -58,17 +55,7 @@ class Test_RetrieveLatest_Events_with_Pagination
 				}
 			}
 		
-		catch (IllegalArgumentException e)
-			{
-			System.out.println(e.getMessage());
-			}	
-		
-		catch (IllegalStateException e)
-			{
-			System.out.println(e.getMessage());
-			}	
-	
-		catch (IOException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			System.out.println(e.getMessage());
 			}	

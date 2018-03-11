@@ -17,15 +17,12 @@ class Test_RetrieveLatest_Sessions_with_Pagination
 			// Specify the number of results to be returned per page
 			int resultsPerPage = 2;
 			int pageNumber = 2;
-			
-			// Set up a structure to store the data in the response
-			ArrayList<SearchResultSessions> resultSet;
-			
+
 			// Instantiate a LatestSearch object
 			LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
 				
 			// Perform the search by calling the getLatestSessions method of the LatestSearch object
-			resultSet = search.getLatestSessions();
+			ArrayList<SearchResultSessions> resultSet = search.listSessions();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
@@ -50,17 +47,7 @@ class Test_RetrieveLatest_Sessions_with_Pagination
 				}
 			}
 		
-		catch (IllegalArgumentException e)
-			{
-			System.out.println(e.getMessage());
-			}	
-		
-		catch (IllegalStateException e)
-			{
-			System.out.println(e.getMessage());
-			}	
-		
-		catch (IOException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			System.out.println(e.getMessage());
 			}	

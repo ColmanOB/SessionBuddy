@@ -17,15 +17,12 @@ class Test_RetrieveMemberContributions_Sessions
 			// Specify the number of results to be returned per page
 			int resultsPerPage = 50;
 			int userID = 1;
-			
-			// Set up a structure to store the data in the response
-			ArrayList<SearchResultSessions> resultSet;
-			
+
 			// Instantiate a MemberContributionSearch object
-			MemberContributionSearch search = new MemberContributionSearch();
+			MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage);
 				
-			// Perform the search by calling the getLatestSessions method of the MemberContributionSearch object
-			resultSet = search.getSessions(resultsPerPage, userID);
+			// Perform the search by calling the listtSessions method of the MemberContributionSearch object
+			ArrayList<SearchResultSessions> resultSet = search.listSessions();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
@@ -50,17 +47,7 @@ class Test_RetrieveMemberContributions_Sessions
 				}
 			}
 		
-		catch (IllegalArgumentException e)
-			{
-			System.out.println(e.getMessage());
-			}	
-		
-		catch (IllegalStateException e)
-			{
-			System.out.println(e.getMessage());
-			}	
-		
-		catch (IOException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			System.out.println(e.getMessage());
 			}	

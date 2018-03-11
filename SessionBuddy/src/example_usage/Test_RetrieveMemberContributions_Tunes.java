@@ -19,10 +19,10 @@ class Test_RetrieveMemberContributions_Tunes
 			int resultsPerPage = 50;
 			
 			// Instantiate a LatestSearch object
-			MemberContributionSearch search = new MemberContributionSearch();
+			MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage);
 			
 			// Perform the search by calling the getLatestTunes method on the LatestSearch object
-			ArrayList<LatestSearchTunes> resultSet = search.getTunes(userID, resultsPerPage);
+			ArrayList<LatestSearchTunes> resultSet = search.listTunes();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
@@ -45,17 +45,7 @@ class Test_RetrieveMemberContributions_Tunes
 				}
 		   	}
 		
-		catch (IllegalArgumentException e)
-			{
-			System.out.println(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			System.out.println(e.getMessage());
-			}
-		
-		catch (IOException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			System.out.println(e.getMessage());
 			}

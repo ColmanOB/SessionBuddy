@@ -57,12 +57,12 @@ public class KeywordSearch extends Search
 	/**
 	 * The number of individual search results that should be returned per page in the JSON response from the API
 	 */
-	int resultsPerPage = 0;
+	private int resultsPerPage = 0;
 	
 	/**
 	 * When dealing with a JSON response containing multiple pages, this specifies a particular page
 	 */
-	int pageNumber = 0;
+	private int pageNumber = 0;
 	
 	
 	/**
@@ -102,7 +102,7 @@ public class KeywordSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-07
+	 * @since 2018-03-11
 	 */
 	public ArrayList<SearchResultTunes> searchTunes() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -111,21 +111,14 @@ public class KeywordSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Use a helper method to Build the URL necessary to perform a search via thesession.org API
-			URL requestURL = composeURL("tunes");
-			
-			// Call the API and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Perform the API query, using a helper method to create the URL, and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("tunes"));
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperTunes parsedResults = jsonParser.parseResponse(KeywordSearchWrapperTunes.class);
-			
-			// Set up the structure that will hold the parsed response from the API
-			ArrayList<SearchResultTunes> resultSet = new ArrayList<SearchResultTunes>();
-			
-			// Use a private helper method to populate the ArrayList of TunesSearchResult objects
-			resultSet = populateTunesSearchResult(parsedResults);
+			KeywordSearchWrapperTunes parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperTunes.class);
+
+			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
+			ArrayList<SearchResultTunes> resultSet = populateTunesSearchResult(parsedResults);
 			
 			return resultSet;
 			}
@@ -156,21 +149,14 @@ public class KeywordSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Put together the URL needed to query the API
-			URL requestURL = composeURL("discussions");
-			
-			// Call the API and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Perform the API query, using a helper method to create the URL, and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("discussions"));
 			
 			// Prepare the classes needed to parse the the JSON
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperDiscussions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperDiscussions.class);
+			KeywordSearchWrapperDiscussions parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
 			
-			// This will hold each individual search result entry
-			ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
-			
-			// Use a private helper method to populate the ArrayList of DiscussionsSearchResult objects
-			resultSet = populateDiscussionsSearchResult(parsedResults);
+			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
+			ArrayList<SearchResultsDiscussions> resultSet = populateDiscussionsSearchResult(parsedResults);
 			
 			return resultSet;
 			}
@@ -192,7 +178,7 @@ public class KeywordSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-07
+	 * @since 2018-03-11
 	 */
 	public ArrayList<SearchResultEvents> searchEvents() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -200,21 +186,15 @@ public class KeywordSearch extends Search
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-			
-			URL requestURL = composeURL("events");
-			
-			// Call the API and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+
+			// Perform the API query, using a helper method to create the URL, and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("events"));
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperEvents parsedResults = jsonParser.parseResponse(KeywordSearchWrapperEvents.class);
+			KeywordSearchWrapperEvents parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperEvents.class);
 				
-			// This will hold each individual search result entry
-			ArrayList<SearchResultEvents> resultSet = new ArrayList <SearchResultEvents>();
-			
-			// Use a private helper method to populate the ArrayList of EventsSearchResult objects
-			resultSet = populateEventsSearchResult(parsedResults);
+			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
+			ArrayList<SearchResultEvents> resultSet = populateEventsSearchResult(parsedResults);
 			
 			return resultSet;
 			}
@@ -245,21 +225,14 @@ public class KeywordSearch extends Search
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
 			
-			// Use a helper method to build the URL required to query the API
-			URL requestURL = composeURL("recordings");
-			
-			// Call the API and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Perform the API query, using a helper method to create the URL, and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("recordings"));
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperRecordings parsedResults = jsonParser.parseResponse(KeywordSearchWrapperRecordings.class);
+			KeywordSearchWrapperRecordings parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperRecordings.class);
 				
-			// This will hold each individual search result entry
-			ArrayList<SearchResultsRecordings> resultSet = new ArrayList <SearchResultsRecordings>();
-			
-			// Use a private helper method to populate the ArrayList of RecordingsSearchResult objects
-			resultSet = populateRecordingsSearchResult(parsedResults);
+			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
+			ArrayList<SearchResultsRecordings> resultSet = populateRecordingsSearchResult(parsedResults);
 			
 			return resultSet;
 			}
@@ -291,23 +264,16 @@ public class KeywordSearch extends Search
 			{
 			// Validate that a number between 1-50 has been provided as the resultsPerPage value
 			validateResultsPerPageCount(resultsPerPage);
-			
-			// Use a helper method to build the URL needed to query the API
-			URL requestURL = composeURL("sessions");
-			
-			// Call the API and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+
+			// Perform the API query, using a helper method to create the URL, and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("sessions"));
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			JsonResponseParser jsonParser = new JsonResponseParser(response);
-			KeywordSearchWrapperSessions parsedResults = jsonParser.parseResponse(KeywordSearchWrapperSessions.class);
+			KeywordSearchWrapperSessions parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperSessions.class);
 			
-			// This will hold each individual search result entry
-			ArrayList<SearchResultSessions> resultSet = new ArrayList <SearchResultSessions>();
-					
-			// Use a private helper method to populate the ArrayList of SessionsSearchResult objects
-			resultSet = populateSessionsSearchResult(parsedResults);
-
+			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
+			ArrayList<SearchResultSessions> resultSet = populateSessionsSearchResult(parsedResults);
+			
 			// Return the set of results that has been collected
 			return resultSet;
 			}

@@ -23,7 +23,6 @@ public static void main(String[] args) throws URISyntaxException
    {
 	// Set the search parameters
 	int resultsPerPage = 2;
-	ArrayList<SearchResultsDiscussions> resultSet;
 	int pageNumber = 2;
 	
 	// Instantiate a RetrieveLatest object
@@ -32,7 +31,7 @@ public static void main(String[] args) throws URISyntaxException
 	try
 		{
 		// Pass in the search parameters
-		resultSet = search.getLatestDiscussions();
+		ArrayList<SearchResultsDiscussions> resultSet = search.listDiscussions();
 		
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
@@ -51,15 +50,9 @@ public static void main(String[] args) throws URISyntaxException
 			}
 		}
 	
-	catch (IllegalArgumentException e)
-		// Catch any cases where an invalid number of results per page has been specified
+	catch (IllegalArgumentException | IOException e)
 		{
 		System.out.println(e.getMessage());
 		}	
-
-	catch (IOException e)
-		{
-		System.out.println(e.getMessage());
-		}
    	}
 }

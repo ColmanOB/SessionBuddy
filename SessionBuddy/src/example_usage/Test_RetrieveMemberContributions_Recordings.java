@@ -18,14 +18,11 @@ class Test_RetrieveMemberContributions_Recordings
 			int resultsPerPage = 50;
 			int userID = 1;
 			
-			// Set up a structure to hold the response data
-			ArrayList<SearchResultsRecordings> resultSet;
-			
 			// Instantiate a MemberContributionSearch object
-			MemberContributionSearch search = new MemberContributionSearch();
+			MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage);
 			
-			// Call the getRecordings method, passing in the number of results to be returned per page
-			resultSet = search.getRecordings(resultsPerPage, userID);
+			// Call the listRecordings method on the MemberContributionSearch object
+			ArrayList<SearchResultsRecordings> resultSet = search.listRecordings();
 				
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
@@ -47,20 +44,9 @@ class Test_RetrieveMemberContributions_Recordings
 				}
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			System.out.println(e.getMessage());
 			}	
-		
-		catch (IllegalStateException e)
-			{
-			System.out.println(e.getMessage());
-			}
-	
-		catch (IOException e)
-			{
-			System.out.println(e.getMessage());
-			}
-		
 	   	}
 	}
