@@ -70,12 +70,7 @@ public class Test_RetrieveItemByID_Recording
 				} 
 			}
 			
-			catch (IOException e) 
-				{
-				e.printStackTrace();
-				}
-		
-			catch (IllegalStateException e)
+			catch (IOException | IllegalStateException e) 
 				{
 				e.printStackTrace();
 				}

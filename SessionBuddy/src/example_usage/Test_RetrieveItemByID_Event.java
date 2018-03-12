@@ -13,13 +13,13 @@ public class Test_RetrieveItemByID_Event
 		try
 			{
 			// Set the parameter, i.e. the ID number of the event to be retrieved
-			String eventID = "2";
+			int eventID = 2;
 			
 			// Instantiate a ItemRetriever object
-			ItemRetriever search = new ItemRetriever();
+			ItemRetriever search = new ItemRetriever(eventID);
 			
-			// Perform the search and pass in the identifier for the event we want to retrieve
-			ItemResultEvent resultSet = search.getEventByID(eventID);
+			// Call the getEvent() method on the ItemRetriever object
+			ItemResultEvent resultSet = search.getEvent();
 			
 			System.out.println("Event ID: " + resultSet.eventDetails.eventID);
 			System.out.println("Event Name: " + resultSet.eventDetails.eventName);
@@ -61,17 +61,7 @@ public class Test_RetrieveItemByID_Event
 				}
 			}
 		
-		catch(IllegalArgumentException e)
-			{
-			e.printStackTrace();
-			}
-		
-		catch(IllegalStateException e)
-			{
-			e.printStackTrace();
-			}
-		
-		catch(IOException e)
+		catch(IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			e.printStackTrace();
 			}

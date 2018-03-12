@@ -12,14 +12,11 @@ public class Test_RetrieveItemByID_Discussion
 		{
 		try
 			{
-			// Set the search parameters
-			String discussionID = "666";
+			// Instantiate a RetrieveItem object & set the search parameters
+			ItemRetriever search = new ItemRetriever(666);
 			
-			// Instantiate a RetrieveItem object
-			ItemRetriever search = new ItemRetriever();
-			
-			// Pass in the parameters for the discussion we want to retrieve
-			ItemResultDiscussion resultSet = search.getDiscussionByID(discussionID);
+			// Call the getDiscussion method on the ItemRetriever object
+			ItemResultDiscussion resultSet = search.getDiscussion();
 			
 			// Print out attributes of the discussion as a whole:
 			System.out.println("Discussion ID: " + resultSet.discussionDetails.discussionID);
@@ -54,17 +51,7 @@ public class Test_RetrieveItemByID_Discussion
 				}
 			}
 		
-		catch (IllegalArgumentException e)
-			{
-			e.printStackTrace();
-			}
-		
-		catch (IllegalStateException e)
-			{
-			e.printStackTrace();
-			}
-		
-		catch (IOException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException  e)
 			{
 			e.printStackTrace();
 			}

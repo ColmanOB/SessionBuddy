@@ -1,6 +1,7 @@
 package sessionbuddy;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,14 +39,12 @@ import sessionbuddy.wrappers.resultsets.ItemResultSession;
 import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
 // TODO: Refactor the methods in this class - they are all far too long. Extract some code to 'helper' methods
-// TODO: Needs a composeURL() helper method
-// TODO: Add fields and constructors to initialise them
 
 /**
  * Retrieves the data for a single item from the session.org.  The item may be a tune, discussion, recording, session or event.
  * 
  * @author Colman
- * @since 2017-09-19
+ * @since 2018-03-12
  */
 public class ItemRetriever 
 	{
@@ -68,23 +67,19 @@ public class ItemRetriever
 	 * Gets the details of an individual recording based on its numeric ID in thesession.org.
 	 * This gets details of the track listing, the tunes on each track, the comments on the recording's page on thesession.org and more.
 	 * 
-	 * @param recordingID the numeric ID of the recording on thesession.org, typically known from a previous search
 	 * @return an ItemResultRecording object with the details of the chosen recording
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-11
+	 * @since 2018-03-12
 	 */
 	public ItemResultRecording getRecording() throws IOException, URISyntaxException
 		{
 		try
 			{
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL("recordings", itemID);
-			
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Construct the URL required to query the API, perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("recordings"));
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			ItemWrapperRecording parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperRecording.class);
@@ -158,15 +153,12 @@ public class ItemRetriever
 	 * @throws IOException if there is a problem with the HTTPS request to the API
 	 * @throws URISyntaxException 
 	 */
-	public ItemResultDiscussion getDiscussionByID(String discussionID) throws IOException, URISyntaxException
+	public ItemResultDiscussion getDiscussion() throws IOException, URISyntaxException
 		{
 		try
 			{
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL("discussions", discussionID);
-			
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Construct the URL required to query the API, perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("discussions"));
 			
 			// Parse the returned JSON into a pre-defined wrapper class to allow access to all elements
 			ItemWrapperDiscussion parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperDiscussion.class);
@@ -211,20 +203,16 @@ public class ItemRetriever
 	 * Gets the details of an individual tune based on its numeric ID in thesession.org.
 	 * This gets several items of metadata relating to the tune, as well as any alternative settings, and a list of comments on the tune's page.
 	 * 
-	 * @param tuneID the numeric ID of the tune on thesession.org, typically known from a previous search
 	 * @return an ItemResultTune object with the details of the chosen tune
 	 * @throws IOException if there is a problem with the HTTPS request to the API
 	 * @throws URISyntaxException 
 	 */
-	public ItemResultTune getTuneByID(String tuneID) throws IOException, URISyntaxException
+	public ItemResultTune getTune() throws IOException, URISyntaxException
 		{		
 		try
 			{
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL("tunes", tuneID);
-			
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Construct the URL required to query the API, perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("tunes"));
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			ItemWrapperTune parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperTune.class);
@@ -296,7 +284,6 @@ public class ItemRetriever
 	 * Gets the details of an individual session based on its numeric ID in thesession.org.
 	 * This gets several items of metadata relating to the session, as well as the comments on the session's page.
 	 * 
-	 * @param sessionID the numeric ID of the session on thesession.org, typically known from a previous search
 	 * @return an ItemResultSession object with the details of the chosen session
 	 * @throws IOException if there is a problem with the HTTPS request to the API
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
@@ -304,15 +291,12 @@ public class ItemRetriever
 	 * @author Colman
 	 * @since 2018-03-11
 	 */
-	public ItemResultSession getSessionByID(String sessionID) throws IOException, URISyntaxException
+	public ItemResultSession getSession() throws IOException, URISyntaxException
 		{
 		try
 			{
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL("sessions", sessionID);
-			
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Construct the URL required to query the API, perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("sessions"));
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			ItemWrapperSession parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperSession.class);
@@ -369,23 +353,19 @@ public class ItemRetriever
 	 * Gets the details of an individual event based on its numeric ID in thesession.org.
 	 * This gets several items of metadata relating to the event, as well as the comments on the event's page.
 	 * 
-	 * @param eventID the numeric ID of the event on thesession.org, typically known from a previous search
 	 * @return an ItemResultRecording object with the details of the chosen recording
 	 * @throws IOException if there is a problem with the HTTPS request to the API
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-04
+	 * @since 2018-03-12
 	 */
-	public ItemResultEvent getEventByID(String eventID) throws IOException, URISyntaxException
+	public ItemResultEvent getEvent() throws IOException, URISyntaxException
 		{		
 		try
 			{
-			// Construct the URL required to query the API
-			URL requestURL = UrlBuilder.buildURL("events", eventID);
-			
-			// Perform the API query and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Construct the URL required to query the API, perform the API query and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("events"));
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			ItemWrapperEvent parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperEvent.class);
@@ -427,6 +407,23 @@ public class ItemRetriever
 			{
 			throw ex;
 			}
+		}
+	
+	
+	/**
+	 * A helper method used to put the URL together to query the API at thesession.org
+	 * 
+	 * @param dataCategory The category of data to be queried, e.g. tunes, discussions, events etc.
+	 * @return A URL specifying a particular resource from thesession.org API
+	 * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
+	 * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
+	 */
+	private URL composeURL(String dataCategory) throws MalformedURLException, URISyntaxException
+		{
+		// Build the URL with all necessary parameters to perform a search via thesession.org API
+		URL requestURL = UrlBuilder.buildURL(dataCategory, itemID);
+		
+		return requestURL;
 		}
 	}
 
