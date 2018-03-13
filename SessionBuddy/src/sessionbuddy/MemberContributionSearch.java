@@ -35,7 +35,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
 import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
 
-// TODO: Fix up JavaDoc comments
+
 /**
  * Retrieves a list of member contributions in a chosen category - tunes, discussions, recordings, events, sessions or sets.
  * 
@@ -162,7 +162,7 @@ public class MemberContributionSearch extends Search
 	
 	
 	/**
-	 * An alternative version of getSessions that allows the caller to specify an individual page within the JSON response
+	 * Retrieves a list of sessions added by a particular user on thesession.org, with the most recent results first
 	 * 
 	 * @return an ArrayList of SearchResultSessions objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
@@ -468,6 +468,7 @@ public class MemberContributionSearch extends Search
 		// Return the set of results that has been collected
 		return resultSet;
 		}
+	
 	
 	/**
 	 * A helper method used to put the URL together to query the API at thesession.org

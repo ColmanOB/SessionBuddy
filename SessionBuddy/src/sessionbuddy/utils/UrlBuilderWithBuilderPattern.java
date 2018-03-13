@@ -8,8 +8,7 @@ import java.util.List;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.NameValuePair;
 
-// TODO: Refactor this class to avoid the 'telescoping constructor' problem
-// There has to be a more elegant way to contruct a URL
+// TODO: Refactor this class to use the builder pattern, and see if this class becomes a better alternative to the current UrlBuilder class
 
 /**
  * Assembles the URL that will be used to access the API.
@@ -17,9 +16,9 @@ import org.apache.http.NameValuePair;
  * This previously used a 'hand-rolled' implementation, but now uses the Apache httpclient instead.
  * 
  * @author Colman
- * @since 2018-02-25
+ * @since 2018-03-13
  */
-public class UrlBuilder 
+public class UrlBuilderWithBuilderPattern 
 	{
 	// Declaring a few constants that are unlikely to change, at least not frequently
 	private static final String PROTOCOL = "https";
@@ -29,6 +28,14 @@ public class UrlBuilder
 	private static final String ITEMS_PER_PAGE_SPECIFIER = "perpage";
 	private static final String PAGE_NUMBER_SPECIFIER = "page";
 	
+	private String dataCategory = null;
+	private String requestType = null;
+	private String latitute = null;
+	private String longitude = null;
+	
+	private int itemID = 0;
+	private int itemsPerPage = 0;
+	private int radius = 0;
 	
 	/**
 	 * @param dataCategory
