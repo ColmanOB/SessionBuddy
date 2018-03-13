@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import sessionbuddy.utils.HttpRequestor;
-import sessionbuddy.utils.JsonResponseParser;
+import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.Area;
@@ -122,7 +122,7 @@ public class LocationSearch extends Search
 			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			LocationSearchWrapperSessions parsedResults = JsonResponseParser.parseResponse(response, LocationSearchWrapperSessions.class);
+			LocationSearchWrapperSessions parsedResults = JsonParser.parseResponse(response, LocationSearchWrapperSessions.class);
 				
 			// This will hold each individual search result entry
 			ArrayList<LocationResultSessions> resultSet = new ArrayList <LocationResultSessions>();
@@ -164,7 +164,7 @@ public class LocationSearch extends Search
 			String response = HttpRequestor.submitRequest(requestURL);
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			LocationSearchWrapperEvents parsedResults = JsonResponseParser.parseResponse(response, LocationSearchWrapperEvents.class);
+			LocationSearchWrapperEvents parsedResults = JsonParser.parseResponse(response, LocationSearchWrapperEvents.class);
 				
 			// This will hold each individual search result entry
 			ArrayList<LocationResultEvents> resultSet = new ArrayList <LocationResultEvents>();

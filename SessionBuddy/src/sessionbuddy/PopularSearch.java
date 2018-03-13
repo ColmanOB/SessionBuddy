@@ -6,7 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
-import sessionbuddy.utils.JsonResponseParser;
+import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.PopularTuneDetails;
@@ -44,7 +44,7 @@ public class PopularSearch extends Search
 			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			PopularWrapperTunes parsedResults = JsonResponseParser.parseResponse(response, PopularWrapperTunes.class);
+			PopularWrapperTunes parsedResults = JsonParser.parseResponse(response, PopularWrapperTunes.class);
 								
 			// This will hold each individual search result entry
 			ArrayList<PopularTunes> resultSet = new ArrayList<PopularTunes>();
@@ -82,7 +82,7 @@ public class PopularSearch extends Search
 			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			PopularWrapperTunes parsedResults = JsonResponseParser.parseResponse(response, PopularWrapperTunes.class);
+			PopularWrapperTunes parsedResults = JsonParser.parseResponse(response, PopularWrapperTunes.class);
 								
 			// This will hold each individual search result entry
 			ArrayList<PopularTunes> resultSet = new ArrayList<PopularTunes>();

@@ -13,13 +13,13 @@ public class Test_RetrieveItemByID_Session
 		try
 			{
 			// Set the parameters, i.e. the ID number of the session we want to retrieve
-			String sessionID = "6264";
+			int sessionID = 6264;
 	
 			// Instantiate an ItemRetriever object
-			ItemRetriever search = new ItemRetriever();
+			ItemRetriever search = new ItemRetriever(sessionID);
 			
-			// Perform the search, passing in the parameters for the session we want to retrieve
-			ItemResultSession resultSet = search.getSessionByID(sessionID);
+			// Perform the search
+			ItemResultSession resultSet = search.getSession();
 			
 			System.out.println("Session ID: " + resultSet.sessionDetails.sessionID);
 			System.out.println("Session URL: " + resultSet.sessionDetails.sessionURL);
@@ -51,19 +51,9 @@ public class Test_RetrieveItemByID_Session
 				}
 			}
 		
-		catch(IllegalArgumentException e)
+		catch(IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			e.printStackTrace();
 			}
-		
-		catch(IllegalStateException e)
-			{
-			e.printStackTrace();
-			}
-		
-		catch(IOException e)
-			{
-			e.printStackTrace();
-			}	
 		}
 	}

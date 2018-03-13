@@ -7,20 +7,19 @@ import sessionbuddy.ItemRetriever;
 import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
 public class Test_RetrieveItemByID_Tune 
-{
+	{
 	public static void main(String[] args) throws URISyntaxException
-		{
-		
+		{	
 		try
 			{
 			// Set the search parameters
-			String tuneID = "2";		
+			int tuneID = 2;		
 			
 			// Instantiate a RetrieveItem object
-			ItemRetriever search = new ItemRetriever();
+			ItemRetriever search = new ItemRetriever(tuneID);
 			
-			// Pass in the parameters for the tune we want to retrieve
-			ItemResultTune resultSet = search.getTuneByID(tuneID);
+			// Perform the search
+			ItemResultTune resultSet = search.getTune();
 			
 			// Retrieve all the general tune details
 			System.out.println("Tune ID: " + resultSet.tuneDetails.tuneID);
@@ -64,21 +63,9 @@ public class Test_RetrieveItemByID_Tune
 				}
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			e.printStackTrace();
 			}
-		
-		catch (IllegalStateException e)
-			{
-			e.printStackTrace();
-			}
-		
-		catch (IOException e)
-			{
-			e.printStackTrace();
-			}
-		
 		}
-
-}
+	}

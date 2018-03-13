@@ -12,7 +12,7 @@ import com.google.gson.JsonSyntaxException;
  * @since 2018-03-11
  */
 
-public class JsonResponseParser 
+public class JsonParser 
 	{		
 	
 	/**

@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import sessionbuddy.utils.HttpRequestor;
-import sessionbuddy.utils.JsonResponseParser;
+import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.Area;
@@ -115,7 +115,7 @@ public class KeywordSearch extends Search
 			String response = HttpRequestor.submitRequest(composeURL("tunes"));
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			KeywordSearchWrapperTunes parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperTunes.class);
+			KeywordSearchWrapperTunes parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperTunes.class);
 
 			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
 			ArrayList<SearchResultTunes> resultSet = populateTunesSearchResult(parsedResults);
@@ -153,7 +153,7 @@ public class KeywordSearch extends Search
 			String response = HttpRequestor.submitRequest(composeURL("discussions"));
 			
 			// Prepare the classes needed to parse the the JSON
-			KeywordSearchWrapperDiscussions parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
+			KeywordSearchWrapperDiscussions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
 			
 			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
 			ArrayList<SearchResultsDiscussions> resultSet = populateDiscussionsSearchResult(parsedResults);
@@ -191,7 +191,7 @@ public class KeywordSearch extends Search
 			String response = HttpRequestor.submitRequest(composeURL("events"));
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			KeywordSearchWrapperEvents parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperEvents.class);
+			KeywordSearchWrapperEvents parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperEvents.class);
 				
 			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
 			ArrayList<SearchResultEvents> resultSet = populateEventsSearchResult(parsedResults);
@@ -229,7 +229,7 @@ public class KeywordSearch extends Search
 			String response = HttpRequestor.submitRequest(composeURL("recordings"));
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			KeywordSearchWrapperRecordings parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperRecordings.class);
+			KeywordSearchWrapperRecordings parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperRecordings.class);
 				
 			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
 			ArrayList<SearchResultsRecordings> resultSet = populateRecordingsSearchResult(parsedResults);
@@ -269,7 +269,7 @@ public class KeywordSearch extends Search
 			String response = HttpRequestor.submitRequest(composeURL("sessions"));
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			KeywordSearchWrapperSessions parsedResults = JsonResponseParser.parseResponse(response, KeywordSearchWrapperSessions.class);
+			KeywordSearchWrapperSessions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperSessions.class);
 			
 			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
 			ArrayList<SearchResultSessions> resultSet = populateSessionsSearchResult(parsedResults);

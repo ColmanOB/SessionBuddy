@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
-import sessionbuddy.utils.JsonResponseParser;
+import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.Area;
@@ -82,7 +82,7 @@ public class ItemRetriever
 			String response = HttpRequestor.submitRequest(composeURL("recordings"));
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			ItemWrapperRecording parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperRecording.class);
+			ItemWrapperRecording parsedResults = JsonParser.parseResponse(response, ItemWrapperRecording.class);
 			
 			// Extract each element from the recording entry in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -161,7 +161,7 @@ public class ItemRetriever
 			String response = HttpRequestor.submitRequest(composeURL("discussions"));
 			
 			// Parse the returned JSON into a pre-defined wrapper class to allow access to all elements
-			ItemWrapperDiscussion parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperDiscussion.class);
+			ItemWrapperDiscussion parsedResults = JsonParser.parseResponse(response, ItemWrapperDiscussion.class);
 		
 			// Extract each element from the tune entry in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -215,7 +215,7 @@ public class ItemRetriever
 			String response = HttpRequestor.submitRequest(composeURL("tunes"));
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			ItemWrapperTune parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperTune.class);
+			ItemWrapperTune parsedResults = JsonParser.parseResponse(response, ItemWrapperTune.class);
 		
 			// Extract each element from the tune entry in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -299,7 +299,7 @@ public class ItemRetriever
 			String response = HttpRequestor.submitRequest(composeURL("sessions"));
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			ItemWrapperSession parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperSession.class);
+			ItemWrapperSession parsedResults = JsonParser.parseResponse(response, ItemWrapperSession.class);
 		
 			// Extract each element from the tune entry in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
@@ -368,7 +368,7 @@ public class ItemRetriever
 			String response = HttpRequestor.submitRequest(composeURL("events"));
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			ItemWrapperEvent parsedResults = JsonResponseParser.parseResponse(response, ItemWrapperEvent.class);
+			ItemWrapperEvent parsedResults = JsonParser.parseResponse(response, ItemWrapperEvent.class);
 		
 			// Extract each element from the tune entry in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response

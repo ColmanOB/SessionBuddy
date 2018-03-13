@@ -71,6 +71,13 @@ public class StringCleanerTest
 		}
 	
 	@Test
+	public void testDecodeApostrophe_4() 
+		{
+		// Test that the sequence "&#8217;" is replaced by an apostrophe
+		assertEquals("Text ' Text", StringCleaner.cleanString("Text &#8217; Text"));
+		}
+	
+	@Test
 	public void testUnescapedApostropheIsUnchanged() 
 		{
 		// Test that an unescaped apostrophe on its own is passed through unchanged

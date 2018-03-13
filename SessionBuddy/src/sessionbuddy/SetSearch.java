@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
-import sessionbuddy.utils.JsonResponseParser;
+import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.LatestSetDetails;
@@ -80,7 +80,7 @@ public class SetSearch extends Search
 			String response = HttpRequestor.submitRequest(composeURL());
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
-			LatestWrapperSets parsedResults = JsonResponseParser.parseResponse(response, LatestWrapperSets.class);
+			LatestWrapperSets parsedResults = JsonParser.parseResponse(response, LatestWrapperSets.class);
 									
 			// This will hold each individual search result entry
 			ArrayList<LatestSearchSets> resultSet = new ArrayList<LatestSearchSets>();
