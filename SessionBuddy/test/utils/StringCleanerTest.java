@@ -12,7 +12,7 @@ import sessionbuddy.utils.StringCleaner;
  * This is complicated somewhat in that the API at thesession.org is not consistent with how XML entities are escaped.
  * 
  * @author Colman
- * @since 2017-10-10
+ * @since 2018-03-13
  */
 public class StringCleanerTest 
 	{
