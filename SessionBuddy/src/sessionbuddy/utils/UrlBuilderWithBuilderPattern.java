@@ -28,14 +28,12 @@ public class UrlBuilderWithBuilderPattern
 	private static final String ITEMS_PER_PAGE_SPECIFIER = "perpage";
 	private static final String PAGE_NUMBER_SPECIFIER = "page";
 	
-	private String dataCategory = null;
-	private String requestType = null;
-	private String latitute = null;
-	private String longitude = null;
-	
-	private int itemID = 0;
+
+	private String path = null;
+	private List<NameValuePair> queryParameters = null;
 	private int itemsPerPage = 0;
-	private int radius = 0;
+	private int pageNumber = 0;
+	
 	
 	/**
 	 * @param dataCategory
