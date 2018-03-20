@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.KeywordSearch;
+import sessionbuddy.KeywordSearch_withBuilder;
 import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
 
 /**
@@ -30,7 +31,7 @@ public class Test_KeywordSearch_Discussions_with_Pagination
 		ArrayList<SearchResultsDiscussions> resultSet;
 		
 		// Instantiate a KeywordSearch object
-		KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+		KeywordSearch_withBuilder search = new KeywordSearch_withBuilder(searchTerms, resultsPerPage, pageNumber);
 		
 		try
 			{

@@ -5,8 +5,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
-import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URIBuilder;
 
 // TODO: Refactor this class to use the builder pattern, and see if this class becomes a better alternative to the current UrlBuilder class
 
@@ -28,164 +28,118 @@ public class UrlBuilderWithBuilderPattern
 	private static final String ITEMS_PER_PAGE_SPECIFIER = "perpage";
 	private static final String PAGE_NUMBER_SPECIFIER = "page";
 	
-
 	private String path = null;
 	private List<NameValuePair> queryParameters = null;
 	private int itemsPerPage = 0;
 	private int pageNumber = 0;
-	
-	
-	/**
-	 * @param dataCategory
-	 * @param itemID
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws URISyntaxException
-	 */
-	public static URL buildURL(String dataCategory, int itemID) throws MalformedURLException, URISyntaxException
-		{
-		URIBuilder builder = new URIBuilder()
-				.setScheme(PROTOCOL)
-				.setHost(HOST)
-				.setPath(dataCategory + "/" + itemID)
-				.addParameter(FORMAT_SPECIFIER, FORMAT);
 
-		return builder.build().toURL();
-		}
-	
-	
-	/**
-	 * @param dataCategory
-	 * @param requestType
-	 * @param itemsPerPage
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws URISyntaxException
-	 */
-	public static URL buildURL(String dataCategory, String requestType, int itemsPerPage) throws MalformedURLException, URISyntaxException
+	public class Builder
 		{
-		URIBuilder builder = new URIBuilder()
-				.setScheme(PROTOCOL)
-				.setHost(HOST)
-				.setPath(dataCategory + "/" + requestType)
-				.addParameter(FORMAT_SPECIFIER, FORMAT)
-				.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage));
-		
-		return builder.build().toURL();
-		}
+		private UrlBuilderWithBuilderPattern apiURL = new UrlBuilderWithBuilderPattern();
+
+	    public Builder path(String path) 
+	    	{
+	        apiURL.setPath(path);
+	        return this;
+	      	}
+	    
+	    public Builder queryParameters(List<NameValuePair> queryParameters) 
+	    	{
+	        apiURL.setQueryParameters(queryParameters);
+	        return this;
+	      	}
+	    
+	    public Builder itemsPerPage(int itemsPerPage) 
+	    	{
+	        apiURL.setItemsPerPage(itemsPerPage);
+	        return this;
+	      	}
+		    
+	    public Builder pageNumber(int pageNumber) 
+	    	{
+	        apiURL.setPageNumber(pageNumber);
+	        return this;
+	      	}
+	    
+	    public URL build() 
+	    	{
+	    	try
+		    	{
+	    		URL apiURL;
+	    		
+	    		if (queryParameters != null && pageNumber == 0)
+		    		{
+					URIBuilder builder = new URIBuilder()
+							.setScheme(PROTOCOL)
+							.setHost(HOST)
+							.setPath(getPath())
+							.addParameters(getQueryParameters())
+							.addParameter(FORMAT_SPECIFIER, FORMAT)
+							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage));
+					
+					apiURL = builder.build().toURL();
+		    		}
+	    		
+	    		else if (queryParameters != null && pageNumber > 0)
+	    			{
+					URIBuilder builder = new URIBuilder()
+							.setScheme(PROTOCOL)
+							.setHost(HOST)
+							.setPath(getPath())
+							.addParameters(getQueryParameters())
+							.addParameter(FORMAT_SPECIFIER, FORMAT)
+							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage))
+							.addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(pageNumber));
+					
+					apiURL = builder.build().toURL();
+	    			}
+				
+	    		else apiURL = null; // This line needs to be removed when class is fully developed
+	    		
+	    		System.out.println(apiURL.toString());
+	    		
+	    		return apiURL;   		
+		    	}
+	    	catch (MalformedURLException | URISyntaxException ex)
+	    		{
+	    		throw new IllegalArgumentException(ex.getMessage());
+	    		}
+	    	}
+	   }
+
 	
-	
-	/**
-	 * @param dataCategory
-	 * @param requestType
-	 * @param itemsPerPage
-	 * @param pageNumber
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws URISyntaxException
-	 */
-	public static URL buildURL(String dataCategory, String requestType, int itemsPerPage, int pageNumber) throws MalformedURLException, URISyntaxException
+	// Getters and setters
+	public List<NameValuePair> getQueryParameters() 
 		{
-		URIBuilder builder = new URIBuilder()
-				.setScheme(PROTOCOL)
-				.setHost(HOST)
-				.setPath(dataCategory + "/" + requestType)
-				.addParameter(FORMAT_SPECIFIER, FORMAT)
-				.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage))
-				.addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(pageNumber));
-		
-		return builder.build().toURL();
+		return queryParameters;
 		}
+
+	public void setQueryParameters(List<NameValuePair> queryParameters) {
+		this.queryParameters = queryParameters;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public int getItemsPerPage() {
+		return itemsPerPage;
+	}
+
+	public void setItemsPerPage(int itemsPerPage) {
+		this.itemsPerPage = itemsPerPage;
+	}
+
+	public int getPageNumber() {
+		return pageNumber;
+	}
+
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
+	}
 	
-	
-	/**
-	 * @param dataCategory
-	 * @param requestType
-	 * @param queryParameters
-	 * @param itemsPerPage
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws URISyntaxException
-	 */
-	public static URL buildURL(String dataCategory, String requestType, List<NameValuePair> queryParameters, int itemsPerPage) throws MalformedURLException, URISyntaxException
-		{
-		URIBuilder builder = new URIBuilder()
-				.setScheme(PROTOCOL)
-				.setHost(HOST)
-				.setPath(dataCategory + "/" + requestType)
-				.addParameters(queryParameters)
-				.addParameter(FORMAT_SPECIFIER, FORMAT)
-				.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage));
-		
-		return builder.build().toURL();
-		}
-	
-	
-	/**
-	 * @param dataCategory
-	 * @param requestType
-	 * @param queryParameters
-	 * @param itemsPerPage
-	 * @param pageNumber
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws URISyntaxException
-	 */
-	public static URL buildURL(String dataCategory, String requestType, List<NameValuePair> queryParameters, int itemsPerPage, int pageNumber) throws MalformedURLException, URISyntaxException
-		{
-		URIBuilder builder = new URIBuilder()
-				.setScheme(PROTOCOL)
-				.setHost(HOST)
-				.setPath(dataCategory + "/" + requestType)
-				.addParameters(queryParameters)
-				.addParameter(FORMAT_SPECIFIER, FORMAT)
-				.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage))
-				.addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(pageNumber));
-		
-		return builder.build().toURL();
-		}
-	
-	
-	/**
-	 * @param userID
-	 * @param dataCategory
-	 * @param itemsPerPage
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws URISyntaxException
-	 */
-	public static URL buildURL(int userID, String dataCategory, int itemsPerPage) throws MalformedURLException, URISyntaxException
-		{
-		URIBuilder builder = new URIBuilder()
-				.setScheme(PROTOCOL)
-				.setHost(HOST)
-				.setPath("Members/" + Integer.toString(userID) + "/" + dataCategory)
-				.addParameter(FORMAT_SPECIFIER, FORMAT)
-				.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage));
-		
-		return builder.build().toURL();
-		}
-	
-	
-	/**
-	 * @param userID
-	 * @param dataCategory
-	 * @param itemsPerPage
-	 * @param pageNumber
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws URISyntaxException
-	 */
-	public static URL buildURL(int userID, String dataCategory, int itemsPerPage, int pageNumber) throws MalformedURLException, URISyntaxException
-		{
-		URIBuilder builder = new URIBuilder()
-				.setScheme(PROTOCOL)
-				.setHost(HOST)
-				.setPath("Members/" + Integer.toString(userID) + "/" + dataCategory)
-				.addParameter(FORMAT_SPECIFIER, FORMAT)
-				.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage))
-				.addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(pageNumber));
-		
-		return builder.build().toURL();
-		}
 	}

@@ -10,7 +10,7 @@ package sessionbuddy;
 public class Search 
 	{
 	protected int pageCount = 0; // Keeps track of how many pages are in a multi-page JSON response
-
+	
 	/**
 	 * Helper method to validate that the user has specified a value between 1-50 for the results per page
 	 * 
