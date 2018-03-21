@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import sessionbuddy.KeywordSearch_withBuilder;
+import sessionbuddy.KeywordSearch;
 import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
 
 /**
@@ -29,7 +29,7 @@ public class Test_KeywordSearch_Discussions
 		ArrayList<SearchResultsDiscussions> resultSet;
 		
 		// Instantiate a KeywordSearch object
-		KeywordSearch_withBuilder search = new KeywordSearch_withBuilder(searchTerms, resultsPerPage);
+		KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 		
 		try
 			{

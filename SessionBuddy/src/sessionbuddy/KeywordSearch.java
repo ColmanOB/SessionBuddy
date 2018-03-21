@@ -13,7 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
-import sessionbuddy.utils.UrlBuilder;
+import sessionbuddy.utils.UrlBuilderWithBuilderPattern;
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Artist;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
@@ -476,19 +476,31 @@ public class KeywordSearch extends Search
 		List<NameValuePair> queryParams = new ArrayList<>();
 		queryParams.add(new BasicNameValuePair("q", searchTerms));
 				
-		// Build the URL with all necessary parameters to perform a search via thesession.org API
-		URL requestURL;
-				
+		URL requestURL;	
+		
 		// If a particular page within the response from the API is specified:
 		if (pageNumber > 0)
 			{
-			requestURL = UrlBuilder.buildURL(dataCategory, "search", queryParams, resultsPerPage, pageNumber);
+			UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+			
+			requestURL = builder.new Builder()
+					.path(dataCategory + "/" + "search")
+					.queryParameters(queryParams)
+					.itemsPerPage(resultsPerPage)
+					.pageNumber(pageNumber)
+					.build();
 			}
 		
 		// If no page is specified
 		else if (pageNumber == 0)		
 			{
-			requestURL = UrlBuilder.buildURL(dataCategory, "search", queryParams, resultsPerPage);
+			UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+			
+			requestURL = builder.new Builder()
+					.path(dataCategory + "/" + "search")
+					.queryParameters(queryParams)
+					.itemsPerPage(resultsPerPage)
+					.build();
 			}
 		
 		// If anything other than a positive integer was specified as the page number

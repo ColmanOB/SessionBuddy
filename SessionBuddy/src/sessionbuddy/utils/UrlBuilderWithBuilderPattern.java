@@ -65,41 +65,36 @@ public class UrlBuilderWithBuilderPattern
 	    	{
 	    	try
 		    	{
-	    		URL apiURL;
-	    		
-	    		if (queryParameters != null && pageNumber == 0)
-		    		{
+	    		if (apiURL.queryParameters != null && apiURL.pageNumber == 0)
+		    		{ 
 					URIBuilder builder = new URIBuilder()
 							.setScheme(PROTOCOL)
 							.setHost(HOST)
-							.setPath(getPath())
-							.addParameters(getQueryParameters())
+							.setPath(apiURL.getPath())
+							.addParameters(apiURL.queryParameters)
 							.addParameter(FORMAT_SPECIFIER, FORMAT)
 							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage));
 					
-					apiURL = builder.build().toURL();
+					return builder.build().toURL();
 		    		}
 	    		
-	    		else if (queryParameters != null && pageNumber > 0)
+	    		 else if (apiURL.queryParameters != null && apiURL.pageNumber > 0)
 	    			{
 					URIBuilder builder = new URIBuilder()
 							.setScheme(PROTOCOL)
 							.setHost(HOST)
-							.setPath(getPath())
-							.addParameters(getQueryParameters())
+							.setPath(apiURL.getPath())
+							.addParameters(apiURL.getQueryParameters())
 							.addParameter(FORMAT_SPECIFIER, FORMAT)
-							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage))
-							.addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(pageNumber));
+							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiURL.itemsPerPage))
+							.addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiURL.pageNumber));
 					
-					apiURL = builder.build().toURL();
+					return builder.build().toURL();
 	    			}
-				
-	    		else apiURL = null; // This line needs to be removed when class is fully developed
 	    		
-	    		System.out.println(apiURL.toString());
-	    		
-	    		return apiURL;   		
+	    		 else return null; // This line needs to be removed when class is fully developed	
 		    	}
+	    	
 	    	catch (MalformedURLException | URISyntaxException ex)
 	    		{
 	    		throw new IllegalArgumentException(ex.getMessage());
@@ -114,32 +109,38 @@ public class UrlBuilderWithBuilderPattern
 		return queryParameters;
 		}
 
-	public void setQueryParameters(List<NameValuePair> queryParameters) {
+	public void setQueryParameters(List<NameValuePair> queryParameters) 
+		{
 		this.queryParameters = queryParameters;
-	}
+		}
 
-	public String getPath() {
+	public String getPath() 
+		{
 		return path;
-	}
+		}
 
-	public void setPath(String path) {
+	public void setPath(String path) 
+		{
 		this.path = path;
-	}
+		}
 
-	public int getItemsPerPage() {
+	public int getItemsPerPage() 
+		{
 		return itemsPerPage;
-	}
+		}
 
-	public void setItemsPerPage(int itemsPerPage) {
+	public void setItemsPerPage(int itemsPerPage) 
+		{
 		this.itemsPerPage = itemsPerPage;
-	}
+		}
 
-	public int getPageNumber() {
+	public int getPageNumber() 
+		{
 		return pageNumber;
-	}
+		}
 
-	public void setPageNumber(int pageNumber) {
+	public void setPageNumber(int pageNumber) 
+		{
 		this.pageNumber = pageNumber;
-	}
-	
+		}
 	}
