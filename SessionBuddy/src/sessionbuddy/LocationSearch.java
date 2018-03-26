@@ -13,7 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
-import sessionbuddy.utils.UrlBuilder;
+import sessionbuddy.utils.UrlBuilderWithBuilderPattern;
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
 import sessionbuddy.wrappers.granularobjects.Country;
@@ -34,7 +34,7 @@ import sessionbuddy.wrappers.resultsets.LocationResultSessions;
  * To use this feature, first create a new LocationSearch object, then call one of its methods to perform the actual search.
  * 
  * @author Colman
- * @since 2017-03-04
+ * @since 2017-03-26
  */
 public class LocationSearch extends Search
 	{
@@ -303,6 +303,7 @@ public class LocationSearch extends Search
 		else return true;	
 		}
 	
+	
 	/**
 	 * A helper method used to put the URL together to query the API at thesession.org
 	 * 
@@ -310,7 +311,7 @@ public class LocationSearch extends Search
 	 * @return A URL specifying a particular resource from thesession.org API
 	 * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
 	 * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
-	 */
+	 */	
 	private URL composeURL(String dataCategory) throws MalformedURLException, URISyntaxException
 		{
 		// Build the URL with all necessary parameters to perform a search via thesession.org API
@@ -320,17 +321,30 @@ public class LocationSearch extends Search
 		List<NameValuePair> queryParams = new ArrayList<>();
 		queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
 		queryParams.add(new BasicNameValuePair("radius", radius));
-				
+		
 		// If a particular page within the response from the API is specified:
 		if (pageNumber > 0)
 			{
-			requestURL = UrlBuilder.buildURL(dataCategory, "nearby", queryParams, resultsPerPage, pageNumber);
+			UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+			
+			requestURL = builder.new Builder()
+					.path(dataCategory + "/" + "nearby")
+					.queryParameters(queryParams)
+					.itemsPerPage(resultsPerPage)
+					.pageNumber(pageNumber)
+					.build();
 			}
 		
 		// If no page is specified
 		else if (pageNumber == 0)		
 			{
-			requestURL = UrlBuilder.buildURL(dataCategory, "nearby", queryParams, resultsPerPage);
+			UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+			
+			requestURL = builder.new Builder()
+					.path(dataCategory + "/" + "nearby")
+					.queryParameters(queryParams)
+					.itemsPerPage(resultsPerPage)
+					.build();
 			}
 		
 		// If anything other than a positive integer was specified as the page number
@@ -341,5 +355,4 @@ public class LocationSearch extends Search
 		
 		return requestURL;
 		}
-	
-}
+	}

@@ -18,7 +18,7 @@ class Test_RetrievePopular_Tunes
 			int resultsPerPage = 50;
 			
 			// Instantiate a PopularSearch object
-			PopularSearch search = new PopularSearch();
+			PopularSearch search = new PopularSearch(10);
 			
 			// Perform the search by calling the getLatestTunes method on the PopularSearch object
 			ArrayList<PopularTunes> resultSet = search.getPopularTunes(resultsPerPage);

@@ -65,6 +65,7 @@ public class UrlBuilderWithBuilderPattern
 	    	{
 	    	try
 		    	{
+	    		// In the case of KeywordSearch or LocationSearch where no page number is specified
 	    		if (apiURL.queryParameters != null && apiURL.pageNumber == 0)
 		    		{ 
 					URIBuilder builder = new URIBuilder()
@@ -78,6 +79,7 @@ public class UrlBuilderWithBuilderPattern
 					return builder.build().toURL();
 		    		}
 	    		
+	    		// In the case of KeywordSearch or LocationSearch where a page number is specified
 	    		 else if (apiURL.queryParameters != null && apiURL.pageNumber > 0)
 	    			{
 					URIBuilder builder = new URIBuilder()
@@ -91,6 +93,33 @@ public class UrlBuilderWithBuilderPattern
 					
 					return builder.build().toURL();
 	    			}
+	    		
+	    		// In the case of LatestSearch & MemberContributionSearch where a page number is specified
+	    		 else if (apiURL.queryParameters == null && apiURL.pageNumber > 0)
+	    			{
+					URIBuilder builder = new URIBuilder()
+							.setScheme(PROTOCOL)
+							.setHost(HOST)
+							.setPath(apiURL.getPath())
+							.addParameter(FORMAT_SPECIFIER, FORMAT)
+							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiURL.itemsPerPage))
+							.addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiURL.pageNumber));
+					
+					return builder.build().toURL();
+	    			}
+	    		
+	    		// In the case of LatestSearch & MemberContributionSearch where no page number is specified
+	    		 else if (apiURL.queryParameters == null && apiURL.pageNumber == 0)
+		    		{ 
+					URIBuilder builder = new URIBuilder()
+							.setScheme(PROTOCOL)
+							.setHost(HOST)
+							.setPath(apiURL.getPath())
+							.addParameter(FORMAT_SPECIFIER, FORMAT)
+							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage));
+					
+					return builder.build().toURL();
+		    		}
 	    		
 	    		 else return null; // This line needs to be removed when class is fully developed	
 		    	}

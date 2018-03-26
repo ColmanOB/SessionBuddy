@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
-import sessionbuddy.utils.UrlBuilder;
+import sessionbuddy.utils.UrlBuilderWithBuilderPattern;
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Artist;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
@@ -482,17 +482,28 @@ public class MemberContributionSearch extends Search
 		{
 		// Build the URL with all necessary parameters to perform a search via thesession.org API
 		URL requestURL;
-				
+		
 		// If a particular page within the response from the API is specified:
 		if (pageNumber > 0)
 			{
-			requestURL = UrlBuilder.buildURL(userID, dataCategory, resultsPerPage, pageNumber);
+			UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+			
+			requestURL = builder.new Builder()
+					.path("members" + "/" + userID + "/" + dataCategory)
+					.itemsPerPage(resultsPerPage)
+					.pageNumber(pageNumber)
+					.build();
 			}
 		
 		// If no page is specified
 		else if (pageNumber == 0)		
 			{
-			requestURL = UrlBuilder.buildURL(userID, dataCategory, resultsPerPage);
+			UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+			
+			requestURL = builder.new Builder()
+					.path("members" + "/" + userID + "/" + dataCategory)
+					.itemsPerPage(resultsPerPage)
+					.build();
 			}
 		
 		// If anything other than a positive integer was specified as the page number
@@ -502,6 +513,5 @@ public class MemberContributionSearch extends Search
 			}
 		
 		return requestURL;
-		}
-	
+		}	
 	}

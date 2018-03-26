@@ -1,6 +1,7 @@
 package sessionbuddy;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,12 +9,13 @@ import java.util.ArrayList;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
-import sessionbuddy.utils.UrlBuilder;
+import sessionbuddy.utils.UrlBuilderWithBuilderPattern;
 import sessionbuddy.wrappers.granularobjects.PopularTuneDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.jsonresponse.PopularWrapperTunes;
 import sessionbuddy.wrappers.resultsets.PopularTunes;
 
+//TODO: change the two main methods to one single method
 
 /**
  * Retrieves the current most popular tunes, i.e. those that have been added to the largest number of user tune books on thesession.org
@@ -23,6 +25,38 @@ import sessionbuddy.wrappers.resultsets.PopularTunes;
  */
 public class PopularSearch extends Search
 	{
+	/**
+	 * The number of individual search results that should be returned per page in the JSON response from the API
+	 */
+	private int resultsPerPage = 0;
+	
+	/**
+	 * When dealing with a JSON response containing multiple pages, this specifies a particular page
+	 */
+	private int pageNumber = 0;
+	
+	/**
+	 * Constructor where pagination is not required and you only want to see the first page of the API response
+	 * 
+	 * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
+	 */
+	public PopularSearch(int resultsPerPage)
+		{
+		this.resultsPerPage = resultsPerPage;
+		}
+	
+	/**
+	 * Constructor for cases where you need to specify an individual page in the API response
+	 * 
+	 * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
+	 * @param pageNumber Specifies a particular page number within the JSON response
+	 */
+	public PopularSearch(int resultsPerPage, int pageNumber)
+		{
+		this(resultsPerPage);
+		this.pageNumber= pageNumber;
+		}
+	
 	/**
 	 * Retrieves a list of the most popular tunes on thesession.org, i.e. those that have been added to the most user tunebooks.
 	 * 
@@ -40,7 +74,7 @@ public class PopularSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 	
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = UrlBuilder.buildURL("tunes", "popular", resultsPerPage);
+			URL requestURL = composeURL();
 			String response = HttpRequestor.submitRequest(requestURL);
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
@@ -78,7 +112,7 @@ public class PopularSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 	
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = UrlBuilder.buildURL("tunes", "popular", resultsPerPage, pageNumber);
+			URL requestURL = composeURL();
 			String response = HttpRequestor.submitRequest(requestURL);
 			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
@@ -130,4 +164,41 @@ public class PopularSearch extends Search
 		// Return the fully populated ArrayList
 		return resultSet;
 		}
+	
+	private URL composeURL() throws MalformedURLException, URISyntaxException
+	{
+	// Build the URL with all necessary parameters to perform a search via thesession.org API
+	URL requestURL;
+	
+	// If a particular page within the response from the API is specified:
+	if (pageNumber > 0)
+		{
+		UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+		
+		requestURL = builder.new Builder()
+				.path("tunes" + "/" + "popular")
+				.itemsPerPage(resultsPerPage)
+				.pageNumber(pageNumber)
+				.build();
+		}
+	
+	// If no page is specified
+	else if (pageNumber == 0)		
+		{
+		UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+		
+		requestURL = builder.new Builder()
+				.path("tunes" + "/" + "popular")
+				.itemsPerPage(resultsPerPage)
+				.build();
+		}
+	
+	// If anything other than a positive integer was specified as the page number
+	else
+		{
+		throw new IllegalArgumentException("Page number must be an integer value greater than zero");
+		}
+	
+	return requestURL;
+	}
 	}
