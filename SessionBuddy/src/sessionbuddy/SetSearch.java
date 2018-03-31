@@ -20,7 +20,7 @@ import sessionbuddy.wrappers.resultsets.LatestSearchSets;
  * Retrieves a list of user-added sets of tunes
  * 
  * @author Colman O'B
- * @since 2018-03-11
+ * @since 2018-03-30
  */
 public class SetSearch extends Search 
 	{
@@ -136,7 +136,6 @@ public class SetSearch extends Search
 	/**
 	 * A helper method used to put the URL together to query the API at thesession.org
 	 * 
-	 * @param dataCategory The category of data to be queried, e.g. tunes, discussions, events etc.
 	 * @return A URL specifying a particular resource from thesession.org API
 	 * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
 	 * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
@@ -145,17 +144,28 @@ public class SetSearch extends Search
 		{
 		// Build the URL with all necessary parameters to perform a search via thesession.org API
 		URL requestURL;
-				
+		
 		// If a particular page within the response from the API is specified:
 		if (pageNumber > 0)
 			{
-			requestURL = UrlBuilder.buildURL("tunes", "sets", resultsPerPage, pageNumber);
+			UrlBuilder builder = new UrlBuilder();
+			
+			requestURL = builder.new Builder()
+					.path("tunes" + "/" + "sets")
+					.itemsPerPage(resultsPerPage)
+					.pageNumber(pageNumber)
+					.build();
 			}
 		
 		// If no page is specified
 		else if (pageNumber == 0)		
 			{
-			requestURL = UrlBuilder.buildURL("tunes", "sets", resultsPerPage);
+			UrlBuilder builder = new UrlBuilder();
+			
+			requestURL = builder.new Builder()
+					.path("tunes" + "/" + "sets")
+					.itemsPerPage(resultsPerPage)
+					.build();
 			}
 		
 		// If anything other than a positive integer was specified as the page number

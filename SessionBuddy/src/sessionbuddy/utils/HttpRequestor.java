@@ -13,7 +13,7 @@ import java.net.URL;
  * A standard user of this library should never have to instantiate an object of this class directly - it is essentially a 'helper' class.
  * 
  * @author Colman O'B
- * @since 2018-03-04
+ * @since 2018-03-30
  */
 public class HttpRequestor
 	{	
@@ -32,11 +32,8 @@ public class HttpRequestor
 		{		
 		try
 			{			
-			// Call the API using a private helper method and capture the response
-			String response = getAPIResponse(requestURL);
-			
-			// Return the JSON response retrieved from the API as a String
-			return response;
+			// Call the API using a private helper method and return the response
+			return getAPIResponse(requestURL);
 			} 
 		
 		catch (IOException ex) 

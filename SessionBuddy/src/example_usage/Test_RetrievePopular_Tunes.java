@@ -16,12 +16,13 @@ class Test_RetrievePopular_Tunes
 			{
 			// Set the search parameters
 			int resultsPerPage = 50;
+			int pageNumber = 2;
 			
 			// Instantiate a PopularSearch object
-			PopularSearch search = new PopularSearch(10);
+			PopularSearch search = new PopularSearch(resultsPerPage, pageNumber);
 			
-			// Perform the search by calling the getLatestTunes method on the PopularSearch object
-			ArrayList<PopularTunes> resultSet = search.getPopularTunes(resultsPerPage);
+			// Perform the search by calling the getTunes method on the PopularSearch object
+			ArrayList<PopularTunes> resultSet = search.getTunes();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

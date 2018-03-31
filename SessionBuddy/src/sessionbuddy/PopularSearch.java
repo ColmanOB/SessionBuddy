@@ -9,19 +9,18 @@ import java.util.ArrayList;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
-import sessionbuddy.utils.UrlBuilderWithBuilderPattern;
+import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.PopularTuneDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.jsonresponse.PopularWrapperTunes;
 import sessionbuddy.wrappers.resultsets.PopularTunes;
 
-//TODO: change the two main methods to one single method
 
 /**
  * Retrieves the current most popular tunes, i.e. those that have been added to the largest number of user tune books on thesession.org
  * 
  * @author Colman
- * @since 2018-03-11
+ * @since 2018-03-30
  */
 public class PopularSearch extends Search
 	{
@@ -57,6 +56,7 @@ public class PopularSearch extends Search
 		this.pageNumber= pageNumber;
 		}
 	
+	
 	/**
 	 * Retrieves a list of the most popular tunes on thesession.org, i.e. those that have been added to the most user tunebooks.
 	 * 
@@ -66,7 +66,7 @@ public class PopularSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 */
-	public ArrayList<PopularTunes> getPopularTunes(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<PopularTunes> getTunes() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -77,44 +77,6 @@ public class PopularSearch extends Search
 			URL requestURL = composeURL();
 			String response = HttpRequestor.submitRequest(requestURL);
 							
-			// Parse the returned JSON into a wrapper class to allow access to all elements
-			PopularWrapperTunes parsedResults = JsonParser.parseResponse(response, PopularWrapperTunes.class);
-								
-			// This will hold each individual search result entry
-			ArrayList<PopularTunes> resultSet = new ArrayList<PopularTunes>();
-			
-			resultSet = populateTunesSearchResult(parsedResults);
-			
-			return resultSet;
-			}
-		
-		catch (IllegalArgumentException | IOException | URISyntaxException ex)
-			{
-			throw ex;
-			}
-		}
-	
-	/**
-	 * An alternative version of getPopularTunes, allowing the caller to specify a page number within the JSON reponse from the API
-	 * 
-	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
-	 * @param pageNumber specifies the page to be retrieved, where a result set spans multiple pages
-	 * @return an ArrayList of PopularTunes objects
-	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
-	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
-	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-	 */
-	public ArrayList<PopularTunes> getPopularTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
-		{
-		try
-			{
-			// Validate that a number between 1-50 has been provided as the resultsPerPage value
-			validateResultsPerPageCount(resultsPerPage);
-	
-			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = composeURL();
-			String response = HttpRequestor.submitRequest(requestURL);
-			
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			PopularWrapperTunes parsedResults = JsonParser.parseResponse(response, PopularWrapperTunes.class);
 								
@@ -165,40 +127,48 @@ public class PopularSearch extends Search
 		return resultSet;
 		}
 	
+	
+	/**
+	 * A helper method used to put the URL together to query the API at thesession.org
+	 * 
+	 * @return A URL specifying a particular resource from thesession.org API
+	 * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
+	 * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
+	 */
 	private URL composeURL() throws MalformedURLException, URISyntaxException
-	{
-	// Build the URL with all necessary parameters to perform a search via thesession.org API
-	URL requestURL;
-	
-	// If a particular page within the response from the API is specified:
-	if (pageNumber > 0)
 		{
-		UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+		// Build the URL with all necessary parameters to perform a search via thesession.org API
+		URL requestURL;
 		
-		requestURL = builder.new Builder()
-				.path("tunes" + "/" + "popular")
-				.itemsPerPage(resultsPerPage)
-				.pageNumber(pageNumber)
-				.build();
-		}
-	
-	// If no page is specified
-	else if (pageNumber == 0)		
-		{
-		UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+		// If a particular page within the response from the API is specified:
+		if (pageNumber > 0)
+			{
+			UrlBuilder builder = new UrlBuilder();
+			
+			requestURL = builder.new Builder()
+					.path("tunes" + "/" + "popular")
+					.itemsPerPage(resultsPerPage)
+					.pageNumber(pageNumber)
+					.build();
+			}
 		
-		requestURL = builder.new Builder()
-				.path("tunes" + "/" + "popular")
-				.itemsPerPage(resultsPerPage)
-				.build();
+		// If no page is specified
+		else if (pageNumber == 0)		
+			{
+			UrlBuilder builder = new UrlBuilder();
+			
+			requestURL = builder.new Builder()
+					.path("tunes" + "/" + "popular")
+					.itemsPerPage(resultsPerPage)
+					.build();
+			}
+		
+		// If anything other than a positive integer was specified as the page number
+		else
+			{
+			throw new IllegalArgumentException("Page number must be an integer value greater than zero");
+			}
+		
+		return requestURL;
 		}
-	
-	// If anything other than a positive integer was specified as the page number
-	else
-		{
-		throw new IllegalArgumentException("Page number must be an integer value greater than zero");
-		}
-	
-	return requestURL;
-	}
 	}

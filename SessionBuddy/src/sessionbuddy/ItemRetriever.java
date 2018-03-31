@@ -44,7 +44,7 @@ import sessionbuddy.wrappers.resultsets.ItemResultTune;
  * Retrieves the data for a single item from the session.org.  The item may be a tune, discussion, recording, session or event.
  * 
  * @author Colman
- * @since 2018-03-12
+ * @since 2018-03-30
  */
 public class ItemRetriever 
 	{
@@ -421,7 +421,13 @@ public class ItemRetriever
 	private URL composeURL(String dataCategory) throws MalformedURLException, URISyntaxException
 		{
 		// Build the URL with all necessary parameters to perform a search via thesession.org API
-		URL requestURL = UrlBuilder.buildURL(dataCategory, itemID);
+		URL requestURL;
+		
+		UrlBuilder builder = new UrlBuilder();
+			
+		requestURL = builder.new Builder()
+				.path(dataCategory + "/" + itemID)
+				.build();
 		
 		return requestURL;
 		}

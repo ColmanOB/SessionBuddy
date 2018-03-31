@@ -13,7 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
-import sessionbuddy.utils.UrlBuilderWithBuilderPattern;
+import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Artist;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
@@ -481,7 +481,7 @@ public class KeywordSearch extends Search
 		// If a particular page within the response from the API is specified:
 		if (pageNumber > 0)
 			{
-			UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+			UrlBuilder builder = new UrlBuilder();
 			
 			requestURL = builder.new Builder()
 					.path(dataCategory + "/" + "search")
@@ -494,7 +494,7 @@ public class KeywordSearch extends Search
 		// If no page is specified
 		else if (pageNumber == 0)		
 			{
-			UrlBuilderWithBuilderPattern builder = new UrlBuilderWithBuilderPattern();
+			UrlBuilder builder = new UrlBuilder();
 			
 			requestURL = builder.new Builder()
 					.path(dataCategory + "/" + "search")
