@@ -33,8 +33,44 @@ public class UrlBuilderTest
 				.pageNumber(pageNumber)
 				.build();
 		
-		// Test that the sequence "&amp;" is replaced by a single ampersand
 		assertEquals("https://thesession.org/discussions/search?q=wig+glue&format=json&perpage=5&page=2", requestURL.toString());
+		}
+	
+	@Test
+	public void testKeywordSearchURLWithoutPagination() 
+		{
+		UrlBuilder builder = new UrlBuilder();
+		
+		String searchTerms = "wig glue";
+		//int resultsPerPage = 5;
+		List<NameValuePair> queryParams = new ArrayList<>();
+		queryParams.add(new BasicNameValuePair("q", searchTerms));
+		
+		URL requestURL = builder.new Builder()
+				.path("discussions" + "/" + "search")
+				.queryParameters(queryParams)
+				.build();
+		
+		assertEquals("https://thesession.org/discussions/search?q=wig+glue&format=json", requestURL.toString());
+		} 
+	
+	@Test
+	public void testKeywordSearchURLWithoutPaginationWithItemsPerPage() 
+		{
+		UrlBuilder builder = new UrlBuilder();
+		
+		String searchTerms = "wig glue";
+		int resultsPerPage = 5;
+		List<NameValuePair> queryParams = new ArrayList<>();
+		queryParams.add(new BasicNameValuePair("q", searchTerms));
+		
+		URL requestURL = builder.new Builder()
+				.path("discussions" + "/" + "search")
+				.queryParameters(queryParams)
+				.itemsPerPage(resultsPerPage)
+				.build();
+		
+		assertEquals("https://thesession.org/discussions/search?q=wig+glue&format=json&perpage=5", requestURL.toString());
 		}
 
 	}

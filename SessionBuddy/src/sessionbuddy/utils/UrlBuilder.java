@@ -65,15 +65,28 @@ public class UrlBuilder
 	    	try
 		    	{
 	    		// In the case of KeywordSearch or LocationSearch where no page number is specified
-	    		if (apiURL.queryParameters != null && apiURL.pageNumber == 0)
+	    		if (apiURL.queryParameters != null && apiURL.pageNumber == 0 && apiURL.itemsPerPage == 0)
 		    		{ 
 					URIBuilder builder = new URIBuilder()
 							.setScheme(PROTOCOL)
 							.setHost(HOST)
 							.setPath(apiURL.getPath())
 							.addParameters(apiURL.queryParameters)
+							.addParameter(FORMAT_SPECIFIER, FORMAT);
+					
+					return builder.build().toURL();
+		    		}
+	    		
+	    		// In the case of KeywordSearch or LocationSearch where no page number is specified, but items per page are specified
+	    		else if (apiURL.queryParameters != null && apiURL.pageNumber == 0 && apiURL.itemsPerPage > 0)
+		    		{ 
+					URIBuilder builder = new URIBuilder()
+							.setScheme(PROTOCOL)
+							.setHost(HOST)
+							.setPath(apiURL.getPath())
+							.addParameters(apiURL.getQueryParameters())
 							.addParameter(FORMAT_SPECIFIER, FORMAT)
-							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage));
+							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiURL.getItemsPerPage()));
 					
 					return builder.build().toURL();
 		    		}
@@ -115,7 +128,7 @@ public class UrlBuilder
 							.setHost(HOST)
 							.setPath(apiURL.getPath())
 							.addParameter(FORMAT_SPECIFIER, FORMAT)
-							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(itemsPerPage));
+							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiURL.itemsPerPage));
 					
 					return builder.build().toURL();
 		    		}
