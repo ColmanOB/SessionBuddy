@@ -45,10 +45,12 @@ public class Search
 	 */
 	protected int getPageCount() throws IllegalStateException
 		{
+		
 		if (pageCount == 0)
 			{
 			throw new IllegalStateException("Page counter has not been initialised");
 			}
+		
 		else 
 			return pageCount;
 		}

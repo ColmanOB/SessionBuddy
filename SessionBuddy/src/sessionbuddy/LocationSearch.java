@@ -34,7 +34,7 @@ import sessionbuddy.wrappers.resultsets.LocationResultSessions;
  * To use this feature, first create a new LocationSearch object, then call one of its methods to perform the actual search.
  * 
  * @author Colman
- * @since 2017-03-26
+ * @since 2018-04-01
  */
 public class LocationSearch extends Search
 	{
@@ -114,22 +114,15 @@ public class LocationSearch extends Search
 			// Validate the user input
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
-		
-			// Use a helper method to put the URL together to query the API
-			URL requestURL = composeURL("sessions");
-			
-			// Call the API and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+
+			// Use a helper method to put the URL together to query the API and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("sessions"));
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			LocationSearchWrapperSessions parsedResults = JsonParser.parseResponse(response, LocationSearchWrapperSessions.class);
 				
-			// This will hold each individual search result entry
-			ArrayList<LocationResultSessions> resultSet = new ArrayList <LocationResultSessions>();
-			
-			resultSet = populateSessionsByLocationResult(parsedResults);
-			
-			return resultSet;
+			// Parse the data from the wrapper into an ArrayList of LocationResultSessions objects
+			return populateSessionsByLocationResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
@@ -147,7 +140,7 @@ public class LocationSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-11
+	 * @since 2018-04-01
 	 */
 	public ArrayList<LocationResultEvents> searchEvents() throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
 		{
@@ -157,21 +150,14 @@ public class LocationSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 			validateCoordinates(latitude, longitude, radius);
 	
-			// Use a helper method to put the URL together to query the API
-			URL requestURL = composeURL("events");
-			
-			// Call the API and capture the response
-			String response = HttpRequestor.submitRequest(requestURL);
+			// Use a helper method to put the URL together to query the API and capture the response
+			String response = HttpRequestor.submitRequest(composeURL("events"));
 				
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			LocationSearchWrapperEvents parsedResults = JsonParser.parseResponse(response, LocationSearchWrapperEvents.class);
 				
-			// This will hold each individual search result entry
-			ArrayList<LocationResultEvents> resultSet = new ArrayList <LocationResultEvents>();
-			
-			resultSet = populateEventsByLocationResult(parsedResults);
-			
-			return resultSet;
+			// Parse the data from the wrapper into an ArrayList of LocationResultEvents objects
+			return populateEventsByLocationResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)

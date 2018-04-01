@@ -74,18 +74,13 @@ public class PopularSearch extends Search
 			validateResultsPerPageCount(resultsPerPage);
 	
 			// Build the URL with all necessary parameters to perform a search via thesession.org API
-			URL requestURL = composeURL();
-			String response = HttpRequestor.submitRequest(requestURL);
+			String response = HttpRequestor.submitRequest(composeURL());
 							
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			PopularWrapperTunes parsedResults = JsonParser.parseResponse(response, PopularWrapperTunes.class);
 								
-			// This will hold each individual search result entry
-			ArrayList<PopularTunes> resultSet = new ArrayList<PopularTunes>();
-			
-			resultSet = populateTunesSearchResult(parsedResults);
-			
-			return resultSet;
+			// Create and return an ArrayList of PopularTunes objects to store the search results
+			return populateTunesSearchResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | URISyntaxException ex)

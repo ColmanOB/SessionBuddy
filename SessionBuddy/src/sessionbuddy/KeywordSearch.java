@@ -138,7 +138,7 @@ public class KeywordSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-01
+	 * @since 2018-04-01
 	 */
 	public ArrayList<SearchResultsDiscussions> searchDiscussions() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{

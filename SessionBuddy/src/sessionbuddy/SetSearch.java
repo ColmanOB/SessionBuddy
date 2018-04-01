@@ -20,7 +20,7 @@ import sessionbuddy.wrappers.resultsets.LatestSearchSets;
  * Retrieves a list of user-added sets of tunes
  * 
  * @author Colman O'B
- * @since 2018-03-30
+ * @since 2018-04-01
  */
 public class SetSearch extends Search 
 	{
@@ -67,7 +67,7 @@ public class SetSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-04
+	 * @since 2018-04-01
 	 */
 	public ArrayList<LatestSearchSets> listSets() throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -82,12 +82,8 @@ public class SetSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			LatestWrapperSets parsedResults = JsonParser.parseResponse(response, LatestWrapperSets.class);
 									
-			// This will hold each individual search result entry
-			ArrayList<LatestSearchSets> resultSet = new ArrayList<LatestSearchSets>();
-				
-			resultSet = populateSetSearchResult(parsedResults);
-				
-			return resultSet;
+			// Put the data from the wrapper object into an ArrayList of LatestSearchSets				
+			return populateSetSearchResult(parsedResults);
 			}
 			
 		catch (IllegalArgumentException | IOException | URISyntaxException ex)

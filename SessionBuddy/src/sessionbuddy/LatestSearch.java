@@ -40,7 +40,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
  * Retrieves a list of most-recently added entries in a chosen category - tunes, discussions, recordings, events or sessions.
  * 
  * @author Colman O'B
- * @since 2018-03-11
+ * @since 2018-04-01
  */
 public class LatestSearch extends Search 
 	{
@@ -86,7 +86,7 @@ public class LatestSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-11
+	 * @since 2018-04-01
 	 */
 	public ArrayList<LatestSearchTunes> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -101,10 +101,8 @@ public class LatestSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			LatestWrapperTunes parsedResults = JsonParser.parseResponse(response, LatestWrapperTunes.class);
 								
-			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
-			ArrayList<LatestSearchTunes> resultSet = populateTunesSearchResult(parsedResults);
-			
-			return resultSet;
+			// Create an ArrayList of LatestSearchTunes objects to hold the parsed response from the API, and populate it with a helper method
+			return populateTunesSearchResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | URISyntaxException ex)
@@ -123,7 +121,7 @@ public class LatestSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-04
+	 * @since 2018-04-01
 	 */
 	public ArrayList<SearchResultsDiscussions> listDiscussions() throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -138,10 +136,8 @@ public class LatestSearch extends Search
 			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
 			KeywordSearchWrapperDiscussions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
 
-			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
-			ArrayList<SearchResultsDiscussions> resultSet = populateDiscussionsSearchResult(parsedResults);
-
-			return resultSet;
+			// Create an ArrayList of SearchResultsDiscussions objects to hold the parsed response from the API, and populate it with a helper method
+			return populateDiscussionsSearchResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | URISyntaxException ex)
@@ -160,7 +156,7 @@ public class LatestSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-11
+	 * @since 2018-04-01
 	 */
 	public ArrayList<SearchResultsRecordings> listRecordings() throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -175,10 +171,8 @@ public class LatestSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			KeywordSearchWrapperRecordings parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperRecordings.class);
 							
-			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
-			ArrayList<SearchResultsRecordings> resultSet = populateRecordingsSearchResult(parsedResults);
-			
-			return resultSet;
+			// Create an ArrayList of SearchResultsRecordings to hold the parsed response from the API, and populate it with a helper method
+			return populateRecordingsSearchResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | URISyntaxException ex)
@@ -197,7 +191,7 @@ public class LatestSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-08
+	 * @since 2018-04-01
 	 */
 	public ArrayList<SearchResultSessions> listSessions() throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -212,10 +206,8 @@ public class LatestSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			KeywordSearchWrapperSessions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperSessions.class);
 							
-			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
-			ArrayList<SearchResultSessions> resultSet = populateSessionsSearchResult(parsedResults);
-			
-			return resultSet;
+			// Create an ArrayList of SearchResultSessions to hold the parsed response from the API, and populate it with a helper method
+			return populateSessionsSearchResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | URISyntaxException ex)
@@ -234,7 +226,7 @@ public class LatestSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-11
+	 * @since 2018-04-01
 	 */
 	public ArrayList<SearchResultEvents> listEvents() throws IllegalArgumentException, IOException, URISyntaxException
 		{
@@ -249,10 +241,8 @@ public class LatestSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			KeywordSearchWrapperEvents parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperEvents.class);
 							
-			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
-			ArrayList<SearchResultEvents> resultSet = populateEventsSearchResult(parsedResults);
-			
-			return resultSet;
+			// Create an ArrayList of SearchResultEvents objects to hold the parsed response from the API, and populate it with a helper method
+			return populateEventsSearchResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | URISyntaxException ex)
