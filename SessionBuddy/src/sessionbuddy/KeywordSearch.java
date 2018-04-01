@@ -102,7 +102,7 @@ public class KeywordSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-11
+	 * @since 2018-04-01
 	 */
 	public ArrayList<SearchResultTunes> searchTunes() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -117,10 +117,8 @@ public class KeywordSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			KeywordSearchWrapperTunes parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperTunes.class);
 
-			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
-			ArrayList<SearchResultTunes> resultSet = populateTunesSearchResult(parsedResults);
-			
-			return resultSet;
+			// Create an ArrayList of SearchResultTunes objects to hold the parsed response from the API, and populate it with a helper method
+			return populateTunesSearchResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
@@ -140,7 +138,7 @@ public class KeywordSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-07
+	 * @since 2018-03-01
 	 */
 	public ArrayList<SearchResultsDiscussions> searchDiscussions() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -155,10 +153,8 @@ public class KeywordSearch extends Search
 			// Prepare the classes needed to parse the the JSON
 			KeywordSearchWrapperDiscussions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
 			
-			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
-			ArrayList<SearchResultsDiscussions> resultSet = populateDiscussionsSearchResult(parsedResults);
-			
-			return resultSet;
+			// Create an ArrayList of SearchResultDiscussions to hold the parsed response from the API, and populate it with a helper method
+			return populateDiscussionsSearchResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
@@ -178,7 +174,7 @@ public class KeywordSearch extends Search
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
-	 * @since 2018-03-11
+	 * @since 2018-04-01
 	 */
 	public ArrayList<SearchResultEvents> searchEvents() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
@@ -193,10 +189,8 @@ public class KeywordSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			KeywordSearchWrapperEvents parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperEvents.class);
 				
-			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
-			ArrayList<SearchResultEvents> resultSet = populateEventsSearchResult(parsedResults);
-			
-			return resultSet;
+			// Create an ArrayList of SearchResultEvents objects to hold the parsed response from the API, and populate it with a helper method
+			return populateEventsSearchResult(parsedResults);
 			}
 			
 		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
@@ -231,10 +225,8 @@ public class KeywordSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			KeywordSearchWrapperRecordings parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperRecordings.class);
 				
-			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
-			ArrayList<SearchResultsRecordings> resultSet = populateRecordingsSearchResult(parsedResults);
-			
-			return resultSet;
+			// Create an ArrayList of SearchResultsRecordings to hold the parsed response from the API, and populate it with a helper method
+			return populateRecordingsSearchResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
@@ -271,11 +263,8 @@ public class KeywordSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			KeywordSearchWrapperSessions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperSessions.class);
 			
-			// Create an ArrayList to hold the parsed response from the API, and populate it with a helper method
-			ArrayList<SearchResultSessions> resultSet = populateSessionsSearchResult(parsedResults);
-			
-			// Return the set of results that has been collected
-			return resultSet;
+			// Create an ArrayList of SearchResultSessions objects to hold the parsed response from the API, and populate it with a helper method
+			return populateSessionsSearchResult(parsedResults);
 			}
 		
 		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)

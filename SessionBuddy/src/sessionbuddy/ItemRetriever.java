@@ -38,7 +38,6 @@ import sessionbuddy.wrappers.resultsets.ItemResultRecording;
 import sessionbuddy.wrappers.resultsets.ItemResultSession;
 import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
-// TODO: Refactor the methods in this class - they are all far too long. Extract some code to 'helper' methods
 
 /**
  * Retrieves the data for a single item from the session.org.  The item may be a tune, discussion, recording, session or event.
