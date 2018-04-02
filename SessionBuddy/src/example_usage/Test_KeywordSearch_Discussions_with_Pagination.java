@@ -1,7 +1,6 @@
 package example_usage;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.KeywordSearch;
@@ -19,23 +18,20 @@ import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
 public class Test_KeywordSearch_Discussions_with_Pagination
 	{
 	
-	public static void main(String[] args) throws IllegalStateException, URISyntaxException
+	public static void main(String[] args) throws Exception
 	   {
 		// Set the search parameters
 		String searchTerms = "Humours";
 		int resultsPerPage = 2;
 		int pageNumber = 1;
 		
-		// Create a structure to hold the data from the response
-		ArrayList<SearchResultsDiscussions> resultSet;
-		
-		// Instantiate a KeywordSearch object
-		KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
-		
 		try
 			{
-			// Pass in the search parameters
-			resultSet = search.searchDiscussions();
+			// Instantiate a KeywordSearch object
+			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+			
+			// Invoke the searchDiscussions method on the KeywordSearch object
+			ArrayList<SearchResultsDiscussions> resultSet = search.searchDiscussions();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
@@ -53,14 +49,9 @@ public class Test_KeywordSearch_Discussions_with_Pagination
 				}
 			}
 		
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException | IOException ex)
 			{
-			System.out.println(e.getMessage());
+			throw ex;
 			}	
-		
-		catch (IOException e)
-			{
-			System.out.println(e.getMessage());
-			}
 	   	}
 	}
