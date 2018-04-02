@@ -120,6 +120,18 @@ public class UrlBuilder
 					return builder.build().toURL();
 	    			}
 	    		
+	    		// In the case of ItemRetriever, which doesn't have page number or items per page options
+	    		 else if (apiURL.queryParameters == null && apiURL.pageNumber == 0 && apiURL.itemsPerPage == 0)
+		    		{ 
+					URIBuilder builder = new URIBuilder()
+							.setScheme(PROTOCOL)
+							.setHost(HOST)
+							.setPath(apiURL.getPath())
+							.addParameter(FORMAT_SPECIFIER, FORMAT);
+					
+					return builder.build().toURL();
+		    		}
+	    		
 	    		// In the case of LatestSearch & MemberContributionSearch where no page number is specified
 	    		 else if (apiURL.queryParameters == null && apiURL.pageNumber == 0)
 		    		{ 
@@ -129,18 +141,6 @@ public class UrlBuilder
 							.setPath(apiURL.getPath())
 							.addParameter(FORMAT_SPECIFIER, FORMAT)
 							.addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiURL.itemsPerPage));
-					
-					return builder.build().toURL();
-		    		}
-	    		
-	    		// In the case of ItemRetriever, which doesn't have page number or items per page options
-	    		 else if (apiURL.queryParameters == null && apiURL.pageNumber == 0 && apiURL.itemsPerPage == 0)
-		    		{ 
-					URIBuilder builder = new URIBuilder()
-							.setScheme(PROTOCOL)
-							.setHost(HOST)
-							.setPath(apiURL.getPath())
-							.addParameter(FORMAT_SPECIFIER, FORMAT);
 					
 					return builder.build().toURL();
 		    		}
