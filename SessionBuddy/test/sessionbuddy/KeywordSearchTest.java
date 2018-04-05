@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
+import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 import sessionbuddy.wrappers.resultsets.SearchResultTunes;
 import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
+import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
 
 public class KeywordSearchTest 
 	{
@@ -285,6 +287,204 @@ public class KeywordSearchTest
 				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
 				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
 				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
+		}
+	
+	@Test
+	public void testSearchRecordingsWithoutPagination() 
+		{
+		// Set the search parameters
+		String searchTerms = "Humours";
+		int resultsPerPage = 10;
+	
+		try
+			{
+			// Instantiate a KeywordSearch object
+			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
+			
+			// Call the KeywordSearch.searchDiscussions() method and store the result
+			ArrayList<SearchResultsRecordings> resultSet = search.searchRecordings();
+			
+			// Loop through the results and ensure each field of each object is set to a non-null value
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				// Tune metadata
+				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingName, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingDate, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingURL, is(notNullValue()));
+				
+				// Artist details
+				assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
+				
+				// User details
+				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
+		}
+	
+	@Test
+	public void testSearchRecordingsWithPagination() 
+		{
+		// Set the search parameters
+		String searchTerms = "Humours";
+		int resultsPerPage = 3;
+		int pageNumber = 2;
+	
+		try
+			{
+			// Instantiate a KeywordSearch object
+			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+			
+			// Call the KeywordSearch.searchDiscussions() method and store the result
+			ArrayList<SearchResultsRecordings> resultSet = search.searchRecordings();
+			
+			// Loop through the results and ensure each field of each object is set to a non-null value
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				// Tune metadata
+				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingName, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingDate, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingURL, is(notNullValue()));
+				
+				// Artist details
+				assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
+				
+				// User details
+				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
+		}
+	
+	@Test
+	public void testSearchSessionsWithoutPagination() 
+		{
+		// Set the search parameters
+		String searchTerms = "London";
+		int resultsPerPage = 5;
+	
+		try
+			{
+			// Instantiate a KeywordSearch object
+			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
+			
+			// Call the KeywordSearch.searchDiscussions() method and store the result
+			ArrayList<SearchResultSessions> resultSet = search.searchSessions();
+			
+			// Loop through the results and ensure each field of each object is set to a non-null value
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				// Session metadata
+				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+
+				// User details
+				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+				
+				// Coordinates details
+				assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+				assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+				
+				// Venue details
+				assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+				
+				// Town/city details
+				assertThat(resultSet.get(i).town.townID, is(notNullValue()));
+				assertThat(resultSet.get(i).town.townName, is(notNullValue()));
+				
+				// Area details
+				assertThat(resultSet.get(i).area.areaID, is(notNullValue()));
+				assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
+				
+				// Country details
+				assertThat(resultSet.get(i).country.countryID, is(notNullValue()));
+				assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
+		}
+	
+	@Test
+	public void testSearchSessionsWithPagination() 
+		{
+		// Set the search parameters
+		String searchTerms = "London";
+		int resultsPerPage = 5;
+		int pageNumber = 1;
+	
+		try
+			{
+			// Instantiate a KeywordSearch object
+			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+			
+			// Call the KeywordSearch.searchDiscussions() method and store the result
+			ArrayList<SearchResultSessions> resultSet = search.searchSessions();
+			
+			// Loop through the results and ensure each field of each object is set to a non-null value
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				// Session metadata
+				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+
+				// User details
+				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+				
+				// Coordinates details
+				assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+				assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+				
+				// Venue details
+				assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+				
+				// Town/city details
+				assertThat(resultSet.get(i).town.townID, is(notNullValue()));
+				assertThat(resultSet.get(i).town.townName, is(notNullValue()));
+				
+				// Area details
+				assertThat(resultSet.get(i).area.areaID, is(notNullValue()));
+				assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
+				
+				// Country details
+				assertThat(resultSet.get(i).country.countryID, is(notNullValue()));
+				assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
 				}
 			}
 		
