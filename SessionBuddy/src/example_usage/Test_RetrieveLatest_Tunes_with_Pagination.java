@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.LatestSearch;
-import sessionbuddy.wrappers.resultsets.LatestSearchTunes;
+import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
 // TODO: the field names printed out are not 100% right - investigate and fix!
 
@@ -23,7 +23,7 @@ class Test_RetrieveLatest_Tunes_with_Pagination
 			LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
 			
 			// Perform the search by calling the listTunes method on the LatestSearch object
-			ArrayList<LatestSearchTunes> resultSet = search.listTunes();
+			ArrayList<SearchResultTunesLatest> resultSet = search.listTunes();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

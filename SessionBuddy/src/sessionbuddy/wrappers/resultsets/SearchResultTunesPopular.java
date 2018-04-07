@@ -10,7 +10,7 @@ import sessionbuddy.wrappers.granularobjects.User;
  * @since 2018-01-28
  *
  */
-public class PopularTunes 
+public class SearchResultTunesPopular 
 	{
 	/**
 	 * Details of the tune
@@ -28,7 +28,7 @@ public class PopularTunes
 	 * @param tuneDetails a PopularTuneDetails object that has already been populated
 	 * @param submitter a User object populated with the details of the submitter
 	 */
-	public PopularTunes(PopularTuneDetails tuneDetails, User submitter)
+	public SearchResultTunesPopular(PopularTuneDetails tuneDetails, User submitter)
 		{
 		this.tuneDetails = tuneDetails;
 		this.submitter = submitter;

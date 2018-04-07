@@ -31,8 +31,8 @@ import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperSessions;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperSets;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTunes;
-import sessionbuddy.wrappers.resultsets.LatestSearchSets;
-import sessionbuddy.wrappers.resultsets.LatestSearchTunes;
+import sessionbuddy.wrappers.resultsets.SearchResultSets;
+import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
@@ -93,7 +93,7 @@ public class MemberContributionSearch extends Search
 	/**
 	 * Retrieves the tunes/settings added by a particular member on thesession.org, most recent first
 	 * 
-	 * @return an ArrayList of LatestSearchTunes objects
+	 * @return an ArrayList of SearchResultTunesLatest objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
@@ -101,7 +101,7 @@ public class MemberContributionSearch extends Search
 	 * @author Colman
 	 * @since 2018-04-01
 	 */
-	public ArrayList<LatestSearchTunes> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultTunesLatest> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -114,7 +114,7 @@ public class MemberContributionSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			LatestWrapperTunes parsedResults = JsonParser.parseResponse(response, LatestWrapperTunes.class);
 								
-			// Create an ArrayList of LatestSearchTunes objects to hold each individual search result entry, and return the ArrayList
+			// Create an ArrayList of SearchResultTunesLatest objects to hold each individual search result entry, and return the ArrayList
 			return populateTunesSearchResult(parsedResults);
 			}
 		
@@ -268,7 +268,7 @@ public class MemberContributionSearch extends Search
 	/**
 	 * Retrieves a list of sets of tunes put together by the user
 	 * 
-	 * @return an ArrayList of LatestSearchSets objects
+	 * @return an ArrayList of SearchResultSets objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
@@ -276,7 +276,7 @@ public class MemberContributionSearch extends Search
 	 * @author Colman
 	 * @since 2018-04-01
 	 */
-	public ArrayList<LatestSearchSets> listSets() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultSets> listSets() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -289,7 +289,7 @@ public class MemberContributionSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			LatestWrapperSets parsedResults = JsonParser.parseResponse(response, LatestWrapperSets.class);
 									
-			// Put the data from the wrapper object into an ArrayList of LatestSearchSets				
+			// Put the data from the wrapper object into an ArrayList of SearchResultSets				
 			return populateSetSearchResult(parsedResults);
 			}
 			
@@ -304,14 +304,14 @@ public class MemberContributionSearch extends Search
 	 * Helper method to gather and parse the response to a keyword search for a tune
 	 * 
 	 * @param parsedResults a LatestWrapperTunes object that has already been created and populated
-	 * @return an ArrayList of LatestSearchTunes objects
+	 * @return an ArrayList of SearchResultTunesLatest objects
 	 * 
 	 * @author Colman
 	 * @since 2018-02-10
 	 */
-	private ArrayList<LatestSearchTunes> populateTunesSearchResult(LatestWrapperTunes parsedResults)
+	private ArrayList<SearchResultTunesLatest> populateTunesSearchResult(LatestWrapperTunes parsedResults)
 		{
-		ArrayList <LatestSearchTunes> resultSet = new ArrayList <LatestSearchTunes>();
+		ArrayList <SearchResultTunesLatest> resultSet = new ArrayList <SearchResultTunesLatest>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -326,7 +326,7 @@ public class MemberContributionSearch extends Search
 			LatestTuneDetails settingDetails = new LatestTuneDetails( Integer.toString(parsedResults.settings[i].tune.id), parsedResults.settings[i].tune.name, parsedResults.settings[i].tune.url );
 			
 			// Instantiate a TunesSearchResult object & populate it
-			LatestSearchTunes currentResult = new LatestSearchTunes(details, submitter, settingDetails);
+			SearchResultTunesLatest currentResult = new SearchResultTunesLatest(details, submitter, settingDetails);
 			
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -502,14 +502,14 @@ public class MemberContributionSearch extends Search
 	 * Helper method to gather and parse the response to a search for user-added sets of tunes
 	 * 
 	 * @param parsedResults a LatestWrapperSets object that has already been created and populated
-	 * @return an ArrayList of LatestSearchSets objects
+	 * @return an ArrayList of SearchResultSets objects
 	 * 
 	 * @author Colman
 	 * @since 2018-02-17
 	 */
-	private ArrayList<LatestSearchSets> populateSetSearchResult(LatestWrapperSets parsedResults)
+	private ArrayList<SearchResultSets> populateSetSearchResult(LatestWrapperSets parsedResults)
 		{
-		ArrayList <LatestSearchSets> resultSet = new ArrayList <LatestSearchSets>();
+		ArrayList <SearchResultSets> resultSet = new ArrayList <SearchResultSets>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -522,10 +522,10 @@ public class MemberContributionSearch extends Search
 			LatestSetDetails details = new LatestSetDetails(parsedResults.sets[i].id, StringCleaner.cleanString(parsedResults.sets[i].name) , parsedResults.sets[i].url, parsedResults.sets[i].date);
 			User submitter = new User(Integer.toString(parsedResults.sets[i].member.id), StringCleaner.cleanString(parsedResults.sets[i].member.name), parsedResults.sets[i].member.url);
 			
-			// Instantiate a LatestSearchSets object & populate it
-			LatestSearchSets currentResult = new LatestSearchSets(details, submitter);
+			// Instantiate a SearchResultSets object & populate it
+			SearchResultSets currentResult = new SearchResultSets(details, submitter);
 			
-			// Add the LatestSearchSets object to the ArrayList to be returned to the caller
+			// Add the SearchResultSets object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
 			}
 		

@@ -11,7 +11,7 @@ import sessionbuddy.wrappers.granularobjects.User;
  * @since 2018-01-28
  *
  */
-public class LatestSearchTunes 
+public class SearchResultTunesLatest 
 	{
 	/**
 	 * Details of the tune setting
@@ -35,7 +35,7 @@ public class LatestSearchTunes
 	 * @param submitter a User object populated with the details of the submitter
 	 * @param tuneDetails a LatestTuneDetails object that has already been populated
 	 */
-	public LatestSearchTunes(LatestSettingDetails settingDetails, User submitter, LatestTuneDetails tuneDetails)
+	public SearchResultTunesLatest(LatestSettingDetails settingDetails, User submitter, LatestTuneDetails tuneDetails)
 		{
 		this.settingDetails = settingDetails;
 		this.submitter = submitter;

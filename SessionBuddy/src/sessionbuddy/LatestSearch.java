@@ -29,7 +29,7 @@ import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperSessions;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTunes;
-import sessionbuddy.wrappers.resultsets.LatestSearchTunes;
+import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
@@ -80,7 +80,7 @@ public class LatestSearch extends Search
 	/**
 	 * Retrieves the most recently added tunes/settings on thesession.org, most recent first
 	 * 
-	 * @return an ArrayList of LatestSearchTunes objects
+	 * @return an ArrayList of SearchResultTunesLatest objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
@@ -88,7 +88,7 @@ public class LatestSearch extends Search
 	 * @author Colman
 	 * @since 2018-04-01
 	 */
-	public ArrayList<LatestSearchTunes> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultTunesLatest> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -101,7 +101,7 @@ public class LatestSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			LatestWrapperTunes parsedResults = JsonParser.parseResponse(response, LatestWrapperTunes.class);
 								
-			// Create an ArrayList of LatestSearchTunes objects to hold the parsed response from the API, and populate it with a helper method
+			// Create an ArrayList of SearchResultTunesLatest objects to hold the parsed response from the API, and populate it with a helper method
 			return populateTunesSearchResult(parsedResults);
 			}
 		
@@ -256,14 +256,14 @@ public class LatestSearch extends Search
 	 * Helper method to gather and parse the response to a keyword search for a tune
 	 * 
 	 * @param parsedResults a LatestWrapperTunes object that has already been created and populated
-	 * @return an ArrayList of LatestSearchTunes objects
+	 * @return an ArrayList of SearchResultTunesLatest objects
 	 * 
 	 * @author Colman
 	 * @since 2018-02-10
 	 */
-	private ArrayList<LatestSearchTunes> populateTunesSearchResult(LatestWrapperTunes parsedResults)
+	private ArrayList<SearchResultTunesLatest> populateTunesSearchResult(LatestWrapperTunes parsedResults)
 		{
-		ArrayList <LatestSearchTunes> resultSet = new ArrayList <LatestSearchTunes>();
+		ArrayList <SearchResultTunesLatest> resultSet = new ArrayList <SearchResultTunesLatest>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -278,7 +278,7 @@ public class LatestSearch extends Search
 			LatestTuneDetails settingDetails = new LatestTuneDetails( Integer.toString(parsedResults.settings[i].tune.id), StringCleaner.cleanString(parsedResults.settings[i].tune.name), parsedResults.settings[i].tune.url );
 			
 			// Instantiate a TunesSearchResult object & populate it
-			LatestSearchTunes currentResult = new LatestSearchTunes(details, submitter, settingDetails);
+			SearchResultTunesLatest currentResult = new SearchResultTunesLatest(details, submitter, settingDetails);
 			
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);

@@ -13,7 +13,7 @@ import sessionbuddy.utils.UrlBuilder;
 import sessionbuddy.wrappers.granularobjects.PopularTuneDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.jsonresponse.PopularWrapperTunes;
-import sessionbuddy.wrappers.resultsets.PopularTunes;
+import sessionbuddy.wrappers.resultsets.SearchResultTunesPopular;
 
 
 /**
@@ -61,12 +61,12 @@ public class PopularSearch extends Search
 	 * Retrieves a list of the most popular tunes on thesession.org, i.e. those that have been added to the most user tunebooks.
 	 * 
 	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
-	 * @return an ArrayList of PopularTunes objects
+	 * @return an ArrayList of SearchResultTunesPopular objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 */
-	public ArrayList<PopularTunes> getTunes() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultTunesPopular> getTunes() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -79,7 +79,7 @@ public class PopularSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			PopularWrapperTunes parsedResults = JsonParser.parseResponse(response, PopularWrapperTunes.class);
 								
-			// Create and return an ArrayList of PopularTunes objects to store the search results
+			// Create and return an ArrayList of SearchResultTunesPopular objects to store the search results
 			return populateTunesSearchResult(parsedResults);
 			}
 		
@@ -94,11 +94,11 @@ public class PopularSearch extends Search
 	 * Helper method to gather and parse the response to a search for popular tunes
 	 * 
 	 * @param parsedResults a PopularWrapperTunes object that has already been created an populated
-	 * @return an ArrayList of PopularTunes objects
+	 * @return an ArrayList of SearchResultTunesPopular objects
 	 */
-	private ArrayList<PopularTunes> populateTunesSearchResult(PopularWrapperTunes parsedResults)
+	private ArrayList<SearchResultTunesPopular> populateTunesSearchResult(PopularWrapperTunes parsedResults)
 		{
-		ArrayList <PopularTunes> resultSet = new ArrayList <PopularTunes>();
+		ArrayList <SearchResultTunesPopular> resultSet = new ArrayList <SearchResultTunesPopular>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -111,8 +111,8 @@ public class PopularSearch extends Search
 			PopularTuneDetails details = new PopularTuneDetails(parsedResults.tunes[i].id, StringCleaner.cleanString(parsedResults.tunes[i].name), parsedResults.tunes[i].url, parsedResults.tunes[i].date, parsedResults.tunes[i].type, parsedResults.tunes[i].tunebooks);
 			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringCleaner.cleanString(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
 			
-			// Instantiate a PopularTunes object & populate it
-			PopularTunes currentResult = new PopularTunes(details, submitter);
+			// Instantiate a SearchResultTunesPopular object & populate it
+			SearchResultTunesPopular currentResult = new SearchResultTunesPopular(details, submitter);
 			
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);

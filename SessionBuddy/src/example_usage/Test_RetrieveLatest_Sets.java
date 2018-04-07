@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.SetSearch;
-import sessionbuddy.wrappers.resultsets.LatestSearchSets;
+import sessionbuddy.wrappers.resultsets.SearchResultSets;
 
 
 class Test_RetrieveLatest_Sets
@@ -21,7 +21,7 @@ class Test_RetrieveLatest_Sets
 			SetSearch search = new SetSearch(resultsPerPage);
 			
 			// Perform the search by calling the listSets method on the SetSearch object
-			ArrayList<LatestSearchSets> resultSet = search.listSets();
+			ArrayList<SearchResultSets> resultSet = search.listSets();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
