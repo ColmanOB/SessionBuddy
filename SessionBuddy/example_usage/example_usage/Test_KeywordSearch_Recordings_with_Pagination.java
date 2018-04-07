@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.KeywordSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
+import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
 
 
 public class Test_KeywordSearch_Recordings_with_Pagination
@@ -22,7 +22,7 @@ public class Test_KeywordSearch_Recordings_with_Pagination
 		KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 		
 		// Create a structure to hold the response from the API
-		ArrayList<SearchResultsRecordings> resultSet;
+		ArrayList<SearchResultRecordings> resultSet;
 		
 		try 
 			{

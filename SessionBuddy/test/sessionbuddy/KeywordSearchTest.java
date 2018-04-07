@@ -13,8 +13,8 @@ import org.junit.Test;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 import sessionbuddy.wrappers.resultsets.SearchResultTunes;
-import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
-import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
+import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
+import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
 
 public class KeywordSearchTest 
 	{
@@ -32,7 +32,7 @@ public class KeywordSearchTest
 			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 			
 			// Call the KeywordSearch.searchDiscussions() method and store the result
-			ArrayList<SearchResultsDiscussions> resultSet = search.searchDiscussions();
+			ArrayList<SearchResultDiscussions> resultSet = search.searchDiscussions();
 			
 			// Loop through the results and ensure each field of each object is set to a non-null value
 			for (int i = 0; i < resultSet.size(); i++)
@@ -71,7 +71,7 @@ public class KeywordSearchTest
 			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 			
 			// Call the KeywordSearch.searchDiscussions() method and store the result
-			ArrayList<SearchResultsDiscussions> resultSet = search.searchDiscussions();
+			ArrayList<SearchResultDiscussions> resultSet = search.searchDiscussions();
 			
 			// Loop through the results and ensure each field of each object is set to a non-null value
 			for (int i = 0; i < resultSet.size(); i++)
@@ -309,7 +309,7 @@ public class KeywordSearchTest
 			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 			
 			// Call the KeywordSearch.searchDiscussions() method and store the result
-			ArrayList<SearchResultsRecordings> resultSet = search.searchRecordings();
+			ArrayList<SearchResultRecordings> resultSet = search.searchRecordings();
 			
 			// Loop through the results and ensure each field of each object is set to a non-null value
 			for (int i = 0; i < resultSet.size(); i++)
@@ -352,7 +352,7 @@ public class KeywordSearchTest
 			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 			
 			// Call the KeywordSearch.searchDiscussions() method and store the result
-			ArrayList<SearchResultsRecordings> resultSet = search.searchRecordings();
+			ArrayList<SearchResultRecordings> resultSet = search.searchRecordings();
 			
 			// Loop through the results and ensure each field of each object is set to a non-null value
 			for (int i = 0; i < resultSet.size(); i++)
@@ -486,6 +486,32 @@ public class KeywordSearchTest
 				assertThat(resultSet.get(i).country.countryID, is(notNullValue()));
 				assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
 				}
+			}
+		
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
+		}
+	
+	@Test
+	public void testSearchSessionsWithPaginationWithNoResults() 
+		{
+		// Set the search parameters, using values that we know will produce no search results
+		String searchTerms = "London";
+		int resultsPerPage = 50;
+		int pageNumber = 20;
+	
+		try
+			{
+			// Instantiate a KeywordSearch object
+			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+			
+			// Call the KeywordSearch.searchDiscussions() method and store the result
+			ArrayList<SearchResultSessions> resultSet = search.searchSessions();
+			
+			// Check that the ArrayList of SearchResultSessions objects is zero
+			assertThat(resultSet.size(), is(0));
 			}
 		
 		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)

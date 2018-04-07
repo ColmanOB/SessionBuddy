@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.MemberContributionSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
+import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
 
 
 class Test_RetrieveMemberContributions_Recordings
@@ -22,7 +22,7 @@ class Test_RetrieveMemberContributions_Recordings
 			MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage);
 			
 			// Call the listRecordings method on the MemberContributionSearch object
-			ArrayList<SearchResultsRecordings> resultSet = search.listRecordings();
+			ArrayList<SearchResultRecordings> resultSet = search.listRecordings();
 				
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

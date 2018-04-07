@@ -10,7 +10,7 @@ import sessionbuddy.wrappers.granularobjects.User;
  * @author Colman O'B
  * @since 2017-01-28
  */
-public class SearchResultsDiscussions 
+public class SearchResultDiscussions 
 	{
 	/**
 	 * General details of the discussion
@@ -29,7 +29,7 @@ public class SearchResultsDiscussions
 	 * @param user a User object populated with details of the discussion submitter
 	 * 
 	 */
-	public SearchResultsDiscussions(DiscussionDetails details, User user)
+	public SearchResultDiscussions(DiscussionDetails details, User user)
 		{
 		this.details = details;
 		this.user = user;

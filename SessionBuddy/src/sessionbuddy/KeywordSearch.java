@@ -35,8 +35,8 @@ import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperTunes;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 import sessionbuddy.wrappers.resultsets.SearchResultTunes;
-import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
-import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
+import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
+import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
 
 
 /**
@@ -140,7 +140,7 @@ public class KeywordSearch extends Search
 	 * @author Colman
 	 * @since 2018-04-01
 	 */
-	public ArrayList<SearchResultsDiscussions> searchDiscussions() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+	public ArrayList<SearchResultDiscussions> searchDiscussions() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -212,7 +212,7 @@ public class KeywordSearch extends Search
 	 * @author Colman
 	 * @since 2018-03-07
 	 */
-	public ArrayList<SearchResultsRecordings> searchRecordings() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+	public ArrayList<SearchResultRecordings> searchRecordings() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -225,7 +225,7 @@ public class KeywordSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			KeywordSearchWrapperRecordings parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperRecordings.class);
 				
-			// Create an ArrayList of SearchResultsRecordings to hold the parsed response from the API, and populate it with a helper method
+			// Create an ArrayList of SearchResultRecordings to hold the parsed response from the API, and populate it with a helper method
 			return populateRecordingsSearchResult(parsedResults);
 			}
 		
@@ -313,10 +313,10 @@ public class KeywordSearch extends Search
 	 * @param parsedResults an existing populated DiscussionsSearchResultWrapper object
 	 * @return an ArrayList of DiscussionsSearchResult objects
 	 */
-	private ArrayList<SearchResultsDiscussions> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
+	private ArrayList<SearchResultDiscussions> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
 		{
 		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
-		ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
+		ArrayList<SearchResultDiscussions> resultSet = new ArrayList <SearchResultDiscussions>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -330,7 +330,7 @@ public class KeywordSearch extends Search
 			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringCleaner.cleanString(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
 			
 			// Instantiate a DiscussionsSearchResult object & populate it
-			SearchResultsDiscussions currentResult = new SearchResultsDiscussions(details, user);
+			SearchResultDiscussions currentResult = new SearchResultDiscussions(details, user);
 			
 			// Add the DiscussionsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -386,9 +386,9 @@ public class KeywordSearch extends Search
 	 * @param parsedResults a RecordingsSearchResultWrapper object that has already been populated
 	 * @return an ArrayList of RecordingsSearchResult objects
 	 */
-	private ArrayList<SearchResultsRecordings> populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)	
+	private ArrayList<SearchResultRecordings> populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)	
 		{
-		ArrayList<SearchResultsRecordings> resultSet = new ArrayList <SearchResultsRecordings>();
+		ArrayList<SearchResultRecordings> resultSet = new ArrayList <SearchResultRecordings>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -403,7 +403,7 @@ public class KeywordSearch extends Search
 			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringCleaner.cleanString(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].artist.url);
 			
 			// Instantiate a RecordingsSearchResult object & populate it
-			SearchResultsRecordings currentResult = new SearchResultsRecordings(details, user, artist);
+			SearchResultRecordings currentResult = new SearchResultRecordings(details, user, artist);
 			
 			// Add the RecordingsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);

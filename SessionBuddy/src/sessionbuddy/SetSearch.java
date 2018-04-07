@@ -59,7 +59,7 @@ public class SetSearch extends Search
 		}
 		
 	/**
-	 * Retrieves a list of the most popular tunes on thesession.org, i.e. those that have been added to the most user tunebooks.
+	 * Retrieves a list of the most recent sets of tunes added by users on thesession.org
 	 * 
 	 * @return an ArrayList of LatestSearchSets objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page

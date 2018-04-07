@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.MemberContributionSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
+import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
 
 /**
  * Example usage of the searchDiscussions method of RetrieveLatest class to search thesession.org API for a discussion based on a set of search terms, and store the results.
@@ -31,7 +31,7 @@ public static void main(String[] args) throws URISyntaxException
 	try
 		{
 		// Pass in the search parameters
-		ArrayList<SearchResultsDiscussions> resultSet = search.listDiscussions();
+		ArrayList<SearchResultDiscussions> resultSet = search.listDiscussions();
 		
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)

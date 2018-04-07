@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import sessionbuddy.KeywordSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
+import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
 
 /**
  * Example usage of the searchDiscussions method of KeywordSearch class to search thesession.org API for a discussion based on a set of search terms, and store the results.
@@ -21,9 +21,9 @@ public class Test_KeywordSearch_Discussions_with_Pagination
 	public static void main(String[] args) throws Exception
 	   {
 		// Set the search parameters
-		String searchTerms = "Humours";
-		int resultsPerPage = 2;
-		int pageNumber = 1;
+		String searchTerms = "Wig glue";
+		int resultsPerPage = 40;
+		int pageNumber = 2;
 		
 		try
 			{
@@ -31,8 +31,13 @@ public class Test_KeywordSearch_Discussions_with_Pagination
 			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 			
 			// Invoke the searchDiscussions method on the KeywordSearch object
-			ArrayList<SearchResultsDiscussions> resultSet = search.searchDiscussions();
+			ArrayList<SearchResultDiscussions> resultSet = search.searchDiscussions();
 			
+			if (resultSet.size() == 0)
+				{
+				System.out.println("No results retrieved");
+				}
+				
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{

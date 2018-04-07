@@ -32,8 +32,8 @@ import sessionbuddy.wrappers.jsonresponse.LatestWrapperTunes;
 import sessionbuddy.wrappers.resultsets.LatestSearchTunes;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 import sessionbuddy.wrappers.resultsets.SearchResultSessions;
-import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
-import sessionbuddy.wrappers.resultsets.SearchResultsRecordings;
+import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
+import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
 
 
 /**
@@ -123,7 +123,7 @@ public class LatestSearch extends Search
 	 * @author Colman
 	 * @since 2018-04-01
 	 */
-	public ArrayList<SearchResultsDiscussions> listDiscussions() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultDiscussions> listDiscussions() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -136,7 +136,7 @@ public class LatestSearch extends Search
 			// Instantiate a DiscussionSearchParser and DiscussionSearchResultWrapper needed to handle the raw JSON
 			KeywordSearchWrapperDiscussions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
 
-			// Create an ArrayList of SearchResultsDiscussions objects to hold the parsed response from the API, and populate it with a helper method
+			// Create an ArrayList of SearchResultDiscussions objects to hold the parsed response from the API, and populate it with a helper method
 			return populateDiscussionsSearchResult(parsedResults);
 			}
 		
@@ -150,7 +150,7 @@ public class LatestSearch extends Search
 	/**
 	 * Retrieves a list of recently added recordings on thesession.org, with the most recent results first
 	 * 
-	 * @return an ArrayList of SearchResultsRecordings objects
+	 * @return an ArrayList of SearchResultRecordings objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
@@ -158,7 +158,7 @@ public class LatestSearch extends Search
 	 * @author Colman
 	 * @since 2018-04-01
 	 */
-	public ArrayList<SearchResultsRecordings> listRecordings() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultRecordings> listRecordings() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{
@@ -171,7 +171,7 @@ public class LatestSearch extends Search
 			// Parse the returned JSON into a wrapper class to allow access to all elements
 			KeywordSearchWrapperRecordings parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperRecordings.class);
 							
-			// Create an ArrayList of SearchResultsRecordings to hold the parsed response from the API, and populate it with a helper method
+			// Create an ArrayList of SearchResultRecordings to hold the parsed response from the API, and populate it with a helper method
 			return populateRecordingsSearchResult(parsedResults);
 			}
 		
@@ -293,15 +293,15 @@ public class LatestSearch extends Search
 	 * Helper method to gather and parse the response to a search for the latest discussions
 	 * 
 	 * @param parsedResults an existing populated KeywordSearchWrapperDiscussions object
-	 * @return an ArrayList of SearchResultsDiscussions objects
+	 * @return an ArrayList of SearchResultDiscussions objects
 	 * 
 	 * @author Colman
 	 * @since 2018-02-10
 	 */
-	private ArrayList<SearchResultsDiscussions> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
+	private ArrayList<SearchResultDiscussions> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
 		{
 		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
-		ArrayList<SearchResultsDiscussions> resultSet = new ArrayList <SearchResultsDiscussions>();
+		ArrayList<SearchResultDiscussions> resultSet = new ArrayList <SearchResultDiscussions>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -315,7 +315,7 @@ public class LatestSearch extends Search
 			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringCleaner.cleanString(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
 			
 			// Instantiate a DiscussionsSearchResult object & populate it
-			SearchResultsDiscussions currentResult = new SearchResultsDiscussions(details, user);
+			SearchResultDiscussions currentResult = new SearchResultDiscussions(details, user);
 			
 			// Add the DiscussionsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
@@ -330,15 +330,15 @@ public class LatestSearch extends Search
 	 * Helper method to gather and parse the response to a search for the latest recordings
 	 * 
 	 * @param parsedResults an existing KeywordSearchWrapperRecordings object that has already been populated
-	 * @return an ArrayList of SearchResultsRecordings objects
+	 * @return an ArrayList of SearchResultRecordings objects
 	 * 
 	 * @author Colman
 	 * @since 2018-02-10
 	 */
-	private ArrayList<SearchResultsRecordings> populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)
+	private ArrayList<SearchResultRecordings> populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)
 		{
 		// Use a TunesSearchParser to parse the raw JSON into a usable structure using Gson
-		ArrayList<SearchResultsRecordings> resultSet = new ArrayList <SearchResultsRecordings>();
+		ArrayList<SearchResultRecordings> resultSet = new ArrayList <SearchResultRecordings>();
 		
 		//Find out how many pages are in the response, to facilitate looping through multiple pages if needed
 		pageCount = Integer.parseInt(parsedResults.pages);
@@ -353,7 +353,7 @@ public class LatestSearch extends Search
 			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringCleaner.cleanString(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].url);
 			
 			// Instantiate a RecordingsSearchResult object & populate it
-			SearchResultsRecordings currentResult = new SearchResultsRecordings(details, submitter, artist);
+			SearchResultRecordings currentResult = new SearchResultRecordings(details, submitter, artist);
 						
 			// Add the RecordingsSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);

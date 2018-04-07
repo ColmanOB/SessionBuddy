@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.KeywordSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultsDiscussions;
+import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
 
 /**
  * Example usage of the searchDiscussions method of KeywordSearch class to search thesession.org API for a discussion based on a set of search terms, and store the results.
@@ -31,7 +31,7 @@ public class Test_KeywordSearch_Discussions
 			KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 			
 			// Create a structure to hold the data from the response
-			ArrayList<SearchResultsDiscussions> resultSet = search.searchDiscussions();
+			ArrayList<SearchResultDiscussions> resultSet = search.searchDiscussions();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
