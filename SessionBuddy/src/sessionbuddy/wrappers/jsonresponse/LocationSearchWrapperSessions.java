@@ -24,7 +24,7 @@ public class LocationSearchWrapperSessions
 	 */
 	public class sessionsList
 		{
-		public String id;	// ID for the session within thesession.org
+		public int id;	// ID for the session within thesession.org
 		public String url;	// URL of the sessions's page on thesession.org
 		public SubmitterDetails member; // Details of thesession.org user who submitted the session
 		public String date;	// Date on which the session was submitted

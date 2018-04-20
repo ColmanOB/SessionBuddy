@@ -19,7 +19,7 @@ public class ItemWrapperDiscussion
 	/**
 	 * ID of the discussion in thesession.org database
 	 */
-	public String id;
+	public int id;
 	
 	/**
 	 * Subject line of the discussion

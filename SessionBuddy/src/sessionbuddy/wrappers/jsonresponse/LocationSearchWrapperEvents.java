@@ -24,7 +24,7 @@ public class LocationSearchWrapperEvents
 	 */
 	public class eventsList
 		{
-		public String id;	// ID for the event within thesession.org
+		public int id;	// ID for the event within thesession.org
 		public String name;	// Name of the event
 		public String url;	// URL of the events's page on thesession.org
 		public SubmitterDetails member; // Details of thesession.org user who submitted the session

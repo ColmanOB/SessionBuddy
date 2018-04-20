@@ -24,7 +24,7 @@ public class KeywordSearchWrapperEvents
 	 */
 	public class EventsList
 		{
-		public String id;		// ID for the event within thesession.org database
+		public int id;		// ID for the event within thesession.org database
 		public String name;		// Name of the event
 		public String url;		// URL of the event's page on thesession.org
 		public SubmitterDetails member; // Details of thesession.org user who submitted the event

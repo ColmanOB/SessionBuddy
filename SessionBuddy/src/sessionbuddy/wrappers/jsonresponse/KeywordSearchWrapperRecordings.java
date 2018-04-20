@@ -24,7 +24,7 @@ public class KeywordSearchWrapperRecordings
 	 */
 	public class recordingsList
 		{
-		public String id;	// ID of the recording within thesession.org
+		public int id;	// ID of the recording within thesession.org
 		public String name;	// The recording title
 		public String url;	// URL of the recording's page on thesession.org
 		public String date;	// Date the recording was submitted

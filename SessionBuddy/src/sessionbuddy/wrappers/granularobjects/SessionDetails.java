@@ -11,7 +11,7 @@ public class SessionDetails
 	/**
 	 * Numeric ID of the session in thesession.org database
 	 */
-	public String sessionID;
+	public int sessionID;
 	
 	/**
 	 * URL of the session's page on thesession.org
@@ -30,7 +30,7 @@ public class SessionDetails
 	 * @param sessionURL URL of the session's page on thesession.org
 	 * @param submittedDate date the session was originally submitted
 	 */
-	public SessionDetails(String sessionID, String sessionURL, String submittedDate)
+	public SessionDetails(int sessionID, String sessionURL, String submittedDate)
 		{
 		this.sessionID = sessionID;
 		this.sessionURL = sessionURL;

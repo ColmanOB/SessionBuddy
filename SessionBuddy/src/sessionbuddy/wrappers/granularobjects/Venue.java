@@ -11,7 +11,7 @@ public class Venue
 	/**
 	 * A unique numeric identifier given to each venue in thesession.org database
 	 */
-	public String venueID;
+	public int venueID;
 	
 	/**
 	 * The venue's name, as stored in thesession.org database
@@ -42,7 +42,7 @@ public class Venue
 	 * @param venueEmail The venue's email address, if present
 	 * @param venueWebsite The venue's website / social media page, if present
 	 */
-	public Venue(String venueID, String venueName, String venuePhone, String venueEmail, String venueWebsite)
+	public Venue(int venueID, String venueName, String venuePhone, String venueEmail, String venueWebsite)
 		{
 		this.venueID = venueID;
 		this.venueName = venueName;

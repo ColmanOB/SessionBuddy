@@ -14,9 +14,11 @@ import sessionbuddy.utils.HttpRequestor;
 public class HttpRequestorTest 
 	{
 	// A simple test to ensure that HttpRequestor returns a JSON response containing some expected text
+	// Requires an internet connection, or the API call will fail
+	// This test is not concerned with constructing a URL - a 'known good' URL is passed in
 	
 	@Test
-	public void test() 
+	public void testHttpResponse() 
 		{
 		// A known good URL that should retrieve the details of the tune with ID 2, i.e. The Bucks of Oranmore
 		String urlAsText = "https://thesession.org/tunes/2?format=json";

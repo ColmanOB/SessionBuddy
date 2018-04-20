@@ -11,7 +11,7 @@ public class Town
 	/**
 	 * A unique town identifier assigned to each town in thesession.org database
 	 */
-	public String townID;
+	public int townID;
 	
 	/**
 	 * The name of a town in thesession.org database
@@ -24,7 +24,7 @@ public class Town
 	 * @param townID A unique town identifier assigned to each town in thesession.org database
 	 * @param townName The name of a town in thesession.org database
 	 */
-	public Town(String townID, String townName)
+	public Town(int townID, String townName)
 		{
 		this.townID = townID;
 		this.townName = townName;

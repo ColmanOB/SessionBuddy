@@ -44,7 +44,7 @@ public class KeywordSearchWrapperDiscussions
 		/**
 		 * ID of the discussion within thesession.org
 		 */
-		public String id;
+		public int id;
 		
 		/**
 		 * Discussion's title

@@ -11,7 +11,7 @@ public class EventDetails
 	/**
 	 * Numeric ID of the event in thesession.org database
 	 */
-	public String eventID;
+	public int eventID;
 	
 	/**
 	 * Name of the event
@@ -37,7 +37,7 @@ public class EventDetails
 	 * @param eventURL URL of the event's page on thesession.org
 	 * @param submittedDate	date the event was submitted to thesession.org
 	 */
-	public EventDetails(String eventID, String eventName, String eventURL, String submittedDate)
+	public EventDetails(int eventID, String eventName, String eventURL, String submittedDate)
 		{
 		this.eventID = eventID;
 		this.eventName = eventName;

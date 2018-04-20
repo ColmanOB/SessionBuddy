@@ -26,7 +26,7 @@ public class PopularWrapperTunes
 	 */
 	public class TuneDetails 
 		{
-		public String id;		// ID for the setting in thesession.org database
+		public int id;		// ID for the setting in thesession.org database
 		public String name;		// The tune's title
 		public String url;		// URL of the tune's page on thesession.org
 		public SubmitterDetails member; // Details of user who submitted the setting

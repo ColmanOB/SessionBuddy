@@ -11,7 +11,7 @@ public class Country
 	/**
 	 * A unique numeric ID assigned to each country in thesession.org database
 	 */
-	public String countryID;
+	public int countryID;
 	
 	/**
 	 * A country name, as stored in thesession.org database
@@ -24,7 +24,7 @@ public class Country
 	 * @param countryID A unique country identifier assigned to each country in thesession.org database
 	 * @param countryName The name of a country in thesession.org database
 	 */
-	public Country(String countryID, String countryName)
+	public Country(int countryID, String countryName)
 		{
 		this.countryID = countryID;
 		this.countryName = countryName;

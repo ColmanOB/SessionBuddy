@@ -17,7 +17,7 @@ public class ItemWrapperTune
 	/**
 	 * ID of the tune in thesession.org database
 	 */
-	public String id;
+	public int id;
 	
 	/**
 	 * Name of the tune

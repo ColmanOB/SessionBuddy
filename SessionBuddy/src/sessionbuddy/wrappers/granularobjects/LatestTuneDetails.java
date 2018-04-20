@@ -11,7 +11,7 @@ public class LatestTuneDetails
 	/**
 	 * A numeric ID for the tune in thesession.org database
 	 */
-	public String tuneID;
+	public int tuneID;
 	
 	/**
 	 * The name of the tune in thesession.org database
@@ -31,7 +31,7 @@ public class LatestTuneDetails
 	 * @param tuneName The name of the tune in thesession.org database
 	 * @param tuneURL The URL of the tune's page on thesession.org website
 	 */
-	public LatestTuneDetails(String tuneID, String tuneName, String tuneURL)
+	public LatestTuneDetails(int tuneID, String tuneName, String tuneURL)
 		{
 		this.tuneID = tuneID;
 		this.tuneName = tuneName;

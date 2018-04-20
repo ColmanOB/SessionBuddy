@@ -11,7 +11,7 @@ public class Artist
 	/**
 	 * A unique numeric identifier assigned to the recording artist / group in thesession.org database
 	 */
-	public String artistID;
+	public int artistID;
 	
 	/**
 	 * The recording artist/band name as stored in thesession.org database
@@ -30,7 +30,7 @@ public class Artist
 	 * @param artistName The recording artist/band name as stored in thesession.org database
 	 * @param artistPageURL The URL of the artist's profile page on thesession.org
 	 */
-	public Artist(String artistID, String artistName, String artistPageURL)
+	public Artist(int artistID, String artistName, String artistPageURL)
 		{
 		this.artistID = artistID;
 		this.artistName = artistName;

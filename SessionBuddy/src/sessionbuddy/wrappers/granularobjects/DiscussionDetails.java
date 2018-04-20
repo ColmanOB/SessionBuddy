@@ -12,7 +12,7 @@ public class DiscussionDetails
 	/**
 	 * The numeric ID of the discussion in thesession.org database
 	 */
-	public String discussionID;
+	public int discussionID;
 	
 	/**
 	 * The title / subject line of the discussion
@@ -44,7 +44,7 @@ public class DiscussionDetails
 	 * @param discussionURL the URL of the discussion's page on thesession.org
 	 * @param submittedDate	the date on which the discussion was originally submitted
 	 */
-	public DiscussionDetails(String discussionID, String discussionName, String discussionURL, String submittedDate)
+	public DiscussionDetails(int discussionID, String discussionName, String discussionURL, String submittedDate)
 		{
 		this.discussionID = discussionID;
 		this.discussionName = discussionName;
@@ -61,7 +61,7 @@ public class DiscussionDetails
 	 * @param submittedDate	the date on which the discussion was originally submitted
 	 * @param numberOfComments the current number of comments that make up the discussion
 	 */
-	public DiscussionDetails(String discussionID, String discussionName, String discussionURL, String submittedDate, String numberOfComments)
+	public DiscussionDetails(int discussionID, String discussionName, String discussionURL, String submittedDate, String numberOfComments)
 		{
 		this(discussionID, discussionName, discussionURL, submittedDate);
 		this.numberOfComments = numberOfComments;

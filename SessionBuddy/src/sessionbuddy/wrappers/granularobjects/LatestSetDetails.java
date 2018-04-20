@@ -8,7 +8,7 @@ package sessionbuddy.wrappers.granularobjects;
  */
 public class LatestSetDetails 
 	{
-	public String setID;	// A numeric ID for the tune in thesession.org database
+	public int setID;	// A numeric ID for the tune in thesession.org database
 	public String setName;	// The name of the set in thesession.org database
 	public String setURL;	// The URL of the set's page on thesession.org website
 	public String setDate; 	// The date the set was added to thesession.org
@@ -21,7 +21,7 @@ public class LatestSetDetails
 	 * @param setURL The URL of the set's page on thesession.org website
 	 * @param setDate The date on which the set was added to thesession.org
 	 */
-	public LatestSetDetails(String setID, String setName, String setURL, String setDate)
+	public LatestSetDetails(int setID, String setName, String setURL, String setDate)
 		{
 		this.setID = setID;
 		this.setName = setName;

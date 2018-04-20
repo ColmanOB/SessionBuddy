@@ -12,7 +12,7 @@ public class Area
 	/**
 	 * A numeric identifier in thesession.org database for the particular geographic area 
 	 */
-	public String areaID;
+	public int areaID;
 	
 	/**
 	 * The name of the geographic area
@@ -25,7 +25,7 @@ public class Area
 	 * @param areaID A unique area identifier assigned to each area in thesession.org database
 	 * @param areaName The name of an area in thesession.org database
 	 */
-	public Area(String areaID, String areaName)
+	public Area(int areaID, String areaName)
 		{
 		this.areaID = areaID;
 		this.areaName = areaName;

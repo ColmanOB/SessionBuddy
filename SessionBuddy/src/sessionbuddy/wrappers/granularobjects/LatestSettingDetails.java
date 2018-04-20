@@ -13,7 +13,7 @@ public class LatestSettingDetails
 	/**
 	 * A numeric ID for the individual tune setting within thesession.org database
 	 */
-	public String settingID;
+	public int settingID;
 	
 	/**
 	 * The URL for the tune's page, focused on the particular setting in question
@@ -31,7 +31,7 @@ public class LatestSettingDetails
 	public String date;
 
 
-	public LatestSettingDetails(String settingID, String settingURL, String key, String date)
+	public LatestSettingDetails(int settingID, String settingURL, String key, String date)
 		{
 		this.settingID = settingID;
 		this.settingURL = settingURL;

@@ -11,7 +11,7 @@ public class User
 	/**
 	 * A numeric ID for the particular user within thesession.org database.
 	 */
-	public String userID;
+	public int userID;
 	
 	/**
 	 * The person's username / handle on thesession.org, which may be changed by the user
@@ -31,7 +31,7 @@ public class User
 	 * @param userName The user's username in thesession.org database
 	 * @param userURL The URL of the user's profile page on thesession.org
 	 */
-	public User(String userID, String userName, String userURL)
+	public User(int userID, String userName, String userURL)
 		{
 		this.userID = userID;
 		this.userName = userName;

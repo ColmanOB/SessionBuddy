@@ -11,7 +11,7 @@ public class TuneDetails
 	/**
 	 * Numeric identifier of the tune in thesession.org
 	 */
-	public String tuneID;
+	public int tuneID;
 	
 	/**
 	 * Name of the tune
@@ -42,7 +42,7 @@ public class TuneDetails
 	 * @param tuneURL URL of the tune's page on thesession.org
 	 * @param submittedDate Date of original submission of the tune
 	 */
-	public TuneDetails(String tuneID, String tuneTitle, String tuneType, String tuneURL, String submittedDate)
+	public TuneDetails(int tuneID, String tuneTitle, String tuneType, String tuneURL, String submittedDate)
 		{
 		this.tuneID = tuneID;
 		this.tuneTitle = tuneTitle;

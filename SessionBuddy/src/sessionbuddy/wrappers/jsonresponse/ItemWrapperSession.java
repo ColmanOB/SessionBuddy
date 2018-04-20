@@ -17,7 +17,7 @@ public class ItemWrapperSession
 	/**
 	 * ID of the session in thesession.org database
 	 */
-	public String id;
+	public int id;
 	
 	/**
 	 * URL of the session's page in thesession.org

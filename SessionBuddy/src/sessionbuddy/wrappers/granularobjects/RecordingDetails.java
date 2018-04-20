@@ -11,7 +11,7 @@ public class RecordingDetails
 	/**
 	 * Numeric ID of the recording in thesession.org database
 	 */
-	public String recordingID;
+	public int recordingID;
 	
 	/**
 	 * Title of the recording
@@ -36,7 +36,7 @@ public class RecordingDetails
 	 * @param recordingURL the URL of the recording's page on thesession.org
 	 * @param recordingDate	the date the recording was submitted to thesession.org
 	 */
-	public RecordingDetails(String recordingID, String recordingName, String recordingURL, String recordingDate)
+	public RecordingDetails(int recordingID, String recordingName, String recordingURL, String recordingDate)
 		{
 		this.recordingID = recordingID;
 		this.recordingName = recordingName;

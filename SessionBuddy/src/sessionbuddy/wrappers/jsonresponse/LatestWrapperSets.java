@@ -24,7 +24,7 @@ public class LatestWrapperSets
 	 */
 	public class SetDetails
 		{
-		public String id;
+		public int id;
 		public String name;
 		public String url;
 		public String date;

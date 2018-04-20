@@ -232,7 +232,7 @@ public class ItemRetriever
 		RecordingDetails recordingDetails = new RecordingDetails(parsedResults.id, parsedResults.url, StringCleaner.cleanString(parsedResults.name) , parsedResults.date);
 		
 		// Get the details of the member who originally submitted the recording
-		User member = new User(Integer.toString(parsedResults.member.id), StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
+		User member = new User(parsedResults.member.id, StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
 		
 		// Get the details of the recording artist(s)
 		Artist artist = new Artist(parsedResults.artist.id, StringCleaner.cleanString(parsedResults.artist.name), parsedResults.artist.url);
@@ -249,7 +249,7 @@ public class ItemRetriever
 			// Populate the ArrayList of TuneRecord objects
 			for (int j = 0; j < (parsedResults.tracks[i].tunes.length); j++)
 				{		
-				TuneRecord currentTune = new TuneRecord(StringCleaner.cleanString(parsedResults.tracks[i].tunes[j].name), parsedResults.tracks[i].tunes[j].id ,parsedResults.tracks[i].tunes[j].url);
+				TuneRecord currentTune = new TuneRecord(parsedResults.tracks[i].tunes[j].id, StringCleaner.cleanString(parsedResults.tracks[i].tunes[j].name), parsedResults.tracks[i].tunes[j].url);
 				tunesOnTrack.add(currentTune);
 				}
 			
@@ -265,7 +265,7 @@ public class ItemRetriever
 		for(int i = 0; i < (parsedResults.comments.length); i++)
 			{
 			// Populate the User object representing the person who submitted the comment
-			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
+			User commentSubmitter = new User(parsedResults.comments[i].member.id, parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
 			
 			// Populate the Comment object with all information related to the comment, including the user set up above
 			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
@@ -292,7 +292,7 @@ public class ItemRetriever
 		DiscussionDetails discussionDetails = new DiscussionDetails(parsedResults.id, parsedResults.name, parsedResults.url, parsedResults.date);
 		
 		// Get the details of the member who originally submitted the discussion
-		User member = new User(Integer.toString(parsedResults.member.id), StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
+		User member = new User(parsedResults.member.id, StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
 		
 		// Initalise an ArrayList of Comment objects to hold each individual comment within the dicussion
 		ArrayList<Comment> comments = new ArrayList<Comment>();
@@ -301,7 +301,7 @@ public class ItemRetriever
 		for(int i = 0; i < (parsedResults.comments.length); i++)
 			{
 			// Populate the User object representing the person who submitted the comment
-			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
+			User commentSubmitter = new User(parsedResults.comments[i].member.id, parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
 			
 			// Populate the Comment object with all information related to the comment, including the user set up above
 			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
@@ -328,7 +328,7 @@ public class ItemRetriever
 		TuneDetails tuneDetails = new TuneDetails(parsedResults.id, StringCleaner.cleanString(parsedResults.name), parsedResults.type, parsedResults.url, parsedResults.date);
 	
 		// Get the details of the member who originally submitted the tune
-		User member = new User(Integer.toString(parsedResults.member.id), StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
+		User member = new User(parsedResults.member.id, StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
 		
 		String tunebooks = (parsedResults.tunebooks);
 		String recordings = (parsedResults.recordings);
@@ -349,7 +349,7 @@ public class ItemRetriever
 		for(int i = 0; i < (parsedResults.settings.length); i++)
 			{
 			// Populate the User object representing the person who submitted the particular setting
-			User settingSubmitter = new User(Integer.toString(parsedResults.settings[i].member.id), parsedResults.settings[i].member.name, parsedResults.settings[i].member.url);
+			User settingSubmitter = new User(parsedResults.settings[i].member.id, parsedResults.settings[i].member.name, parsedResults.settings[i].member.url);
 			
 			// Populate the TuneSetting object representing information related to a specific setting, including the user set up above
 			TuneSetting currentSetting = new TuneSetting(Integer.parseInt(parsedResults.settings[i].id), parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].abc, settingSubmitter, parsedResults.settings[i].date);
@@ -364,7 +364,7 @@ public class ItemRetriever
 		for(int i = 0; i < (parsedResults.comments.length); i++)
 			{
 			// Populate the User object representing the person who submitted the comment
-			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
+			User commentSubmitter = new User(parsedResults.comments[i].member.id, parsedResults.comments[i].member.name, parsedResults.comments[i].member.url);
 			
 			// Populate the Comment object with all information related to the comment, including the user set up above
 			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
@@ -390,11 +390,11 @@ public class ItemRetriever
 		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 		SessionDetails sessionDetails = new SessionDetails(parsedResults.id, parsedResults.url, parsedResults.date);
 		Coordinates coordinates = new Coordinates(parsedResults.latitude, parsedResults.longitude);
-		User member = new User(Integer.toString(parsedResults.member.id),StringCleaner.cleanString(parsedResults.member.name),parsedResults.member.url);	
-		Venue venue = new Venue(Integer.toString(parsedResults.venue.id), StringCleaner.cleanString(parsedResults.venue.name), parsedResults.venue.telephone, parsedResults.venue.email, parsedResults.venue.web);	
-		Town town = new Town(Integer.toString(parsedResults.town.id), StringCleaner.cleanString(parsedResults.town.name));
-		Area area = new Area(Integer.toString(parsedResults.area.id), StringCleaner.cleanString(parsedResults.area.name));
-		Country country = new Country(Integer.toString(parsedResults.country.id), StringCleaner.cleanString(parsedResults.country.name));		
+		User member = new User(parsedResults.member.id,StringCleaner.cleanString(parsedResults.member.name),parsedResults.member.url);	
+		Venue venue = new Venue(parsedResults.venue.id, StringCleaner.cleanString(parsedResults.venue.name), parsedResults.venue.telephone, parsedResults.venue.email, parsedResults.venue.web);	
+		Town town = new Town(parsedResults.town.id, StringCleaner.cleanString(parsedResults.town.name));
+		Area area = new Area(parsedResults.area.id, StringCleaner.cleanString(parsedResults.area.name));
+		Country country = new Country(parsedResults.country.id, StringCleaner.cleanString(parsedResults.country.name));		
 	
 		// Initialize an ArrayList of Strings to store the schedule, i.e. list of days when the session happens
 		ArrayList<String> schedule = new ArrayList<String>();
@@ -412,7 +412,7 @@ public class ItemRetriever
 		for(int i = 0; i < (parsedResults.comments.length); i++)
 			{
 			// Populate the User object representing the person who submitted the comment
-			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), StringCleaner.cleanString(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
+			User commentSubmitter = new User(parsedResults.comments[i].member.id, StringCleaner.cleanString(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
 			
 			// Populate the Comment object with all information related to the comment, including the user set up above
 			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);
@@ -437,13 +437,13 @@ public class ItemRetriever
 		// Extract each element from the tune entry in the JSON response
 		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 		EventDetails eventDetails = new EventDetails(parsedResults.id, StringCleaner.cleanString(parsedResults.name), parsedResults.url, parsedResults.date);
-		User member = new User(Integer.toString(parsedResults.member.id),StringCleaner.cleanString(parsedResults.member.name),parsedResults.member.url);	
+		User member = new User(parsedResults.member.id,StringCleaner.cleanString(parsedResults.member.name),parsedResults.member.url);	
 		EventSchedule schedule = new EventSchedule(parsedResults.dtstart, parsedResults.dtend);
 		Coordinates coordinates = new Coordinates(parsedResults.latitude, parsedResults.longitude);
-		Venue venue = new Venue(Integer.toString(parsedResults.venue.id), StringCleaner.cleanString(parsedResults.venue.name), parsedResults.venue.telephone, parsedResults.venue.email, parsedResults.venue.web);	
-		Town town = new Town(Integer.toString(parsedResults.town.id), StringCleaner.cleanString(parsedResults.town.name));
-		Area area = new Area(Integer.toString(parsedResults.area.id), StringCleaner.cleanString(parsedResults.area.name));
-		Country country = new Country(Integer.toString(parsedResults.country.id), StringCleaner.cleanString(parsedResults.country.name));		
+		Venue venue = new Venue(parsedResults.venue.id, StringCleaner.cleanString(parsedResults.venue.name), parsedResults.venue.telephone, parsedResults.venue.email, parsedResults.venue.web);	
+		Town town = new Town(parsedResults.town.id, StringCleaner.cleanString(parsedResults.town.name));
+		Area area = new Area(parsedResults.area.id, StringCleaner.cleanString(parsedResults.area.name));
+		Country country = new Country(parsedResults.country.id, StringCleaner.cleanString(parsedResults.country.name));		
 		
 		// Initalise an ArrayList of Comment objects to hold each individual comment within the event
 		ArrayList<Comment> comments = new ArrayList<Comment>();
@@ -452,7 +452,7 @@ public class ItemRetriever
 		for(int i = 0; i < (parsedResults.comments.length); i++)
 			{
 			// Populate the User object representing the person who submitted the comment
-			User commentSubmitter = new User(Integer.toString(parsedResults.comments[i].member.id), StringCleaner.cleanString(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
+			User commentSubmitter = new User(parsedResults.comments[i].member.id, StringCleaner.cleanString(parsedResults.comments[i].member.name), parsedResults.comments[i].member.url);
 			
 			// Populate the Comment object with all information related to the comment, including the user set up above
 			Comment currentComment = new Comment(Integer.parseInt(parsedResults.comments[i].id), parsedResults.comments[i].url, StringCleaner.cleanString(parsedResults.comments[i].subject), StringCleaner.cleanString(parsedResults.comments[i].content), commentSubmitter, parsedResults.comments[i].date);

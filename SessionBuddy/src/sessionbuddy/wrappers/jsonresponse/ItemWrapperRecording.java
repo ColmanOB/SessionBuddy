@@ -19,7 +19,7 @@ public class ItemWrapperRecording
 	/**
 	 * ID of the recording in thesession.org database
 	 */
-	public String id;
+	public int id;
 	
 	/**
 	 * URL of the recording's page in thesession.org
@@ -85,7 +85,7 @@ public class ItemWrapperRecording
 			/**
 			 * ID of the tune in thesession.org
 			 */
-			public String id;
+			public int id;
 			
 			/**
 			 * URL of the tune page
@@ -105,7 +105,7 @@ public class ItemWrapperRecording
 		/**
 		 * ID of the artist in thesession.org
 		 */
-		public String id;
+		public int id;
 		
 		/**
 		 * Name of the tune

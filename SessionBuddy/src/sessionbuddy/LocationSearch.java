@@ -188,11 +188,11 @@ public class LocationSearch extends Search
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 			SessionDetails details = new SessionDetails(parsedResults.sessions[i].id, parsedResults.sessions[i].url, parsedResults.sessions[i].date);
 			Coordinates coordinates = new Coordinates(parsedResults.sessions[i].latitude, parsedResults.sessions[i].longitude);
-			User user = new User(Integer.toString(parsedResults.sessions[i].member.id),StringCleaner.cleanString(parsedResults.sessions[i].member.name),parsedResults.sessions[i].member.url);
-			Venue venue = new Venue(Integer.toString(parsedResults.sessions[i].venue.id), StringCleaner.cleanString(parsedResults.sessions[i].venue.name), parsedResults.sessions[i].venue.telephone, parsedResults.sessions[i].venue.email, parsedResults.sessions[i].venue.web );
-			Town town = new Town(Integer.toString(parsedResults.sessions[i].town.id), StringCleaner.cleanString(parsedResults.sessions[i].town.name));
-			Area area = new Area(Integer.toString(parsedResults.sessions[i].area.id), StringCleaner.cleanString(parsedResults.sessions[i].area.name));
-			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), StringCleaner.cleanString(parsedResults.sessions[i].country.name));
+			User user = new User(parsedResults.sessions[i].member.id, StringCleaner.cleanString(parsedResults.sessions[i].member.name),parsedResults.sessions[i].member.url);
+			Venue venue = new Venue(parsedResults.sessions[i].venue.id, StringCleaner.cleanString(parsedResults.sessions[i].venue.name), parsedResults.sessions[i].venue.telephone, parsedResults.sessions[i].venue.email, parsedResults.sessions[i].venue.web );
+			Town town = new Town(parsedResults.sessions[i].town.id, StringCleaner.cleanString(parsedResults.sessions[i].town.name));
+			Area area = new Area(parsedResults.sessions[i].area.id, StringCleaner.cleanString(parsedResults.sessions[i].area.name));
+			Country country = new Country(parsedResults.sessions[i].country.id, StringCleaner.cleanString(parsedResults.sessions[i].country.name));
 					
 			// Instantiate a SessionsByLocationResult object & populate it
 			LocationResultSessions currentResult = new LocationResultSessions(details, coordinates, user, venue, town, area, country);
@@ -228,11 +228,11 @@ public class LocationSearch extends Search
 			EventDetails details = new EventDetails(parsedResults.events[i].id, StringCleaner.cleanString(parsedResults.events[i].name), parsedResults.events[i].url, parsedResults.events[i].date);
 			EventSchedule schedule = new EventSchedule(parsedResults.events[i].dtstart, parsedResults.events[i].dtend);
 			Coordinates coordinates = new Coordinates(parsedResults.events[i].latitude, parsedResults.events[i].longitude);
-			User user = new User(Integer.toString(parsedResults.events[i].member.id),StringCleaner.cleanString(parsedResults.events[i].member.name),parsedResults.events[i].member.url);
-			Venue venue = new Venue(Integer.toString(parsedResults.events[i].venue.id), StringCleaner.cleanString(parsedResults.events[i].venue.name), parsedResults.events[i].venue.telephone, parsedResults.events[i].venue.email, parsedResults.events[i].venue.web );
-			Town town = new Town(Integer.toString(parsedResults.events[i].town.id), StringCleaner.cleanString(parsedResults.events[i].town.name));
-			Area area = new Area(Integer.toString(parsedResults.events[i].area.id), StringCleaner.cleanString(parsedResults.events[i].area.name));
-			Country country = new Country(Integer.toString(parsedResults.events[i].country.id), StringCleaner.cleanString(parsedResults.events[i].country.name));
+			User user = new User(parsedResults.events[i].member.id, StringCleaner.cleanString(parsedResults.events[i].member.name),parsedResults.events[i].member.url);
+			Venue venue = new Venue(parsedResults.events[i].venue.id, StringCleaner.cleanString(parsedResults.events[i].venue.name), parsedResults.events[i].venue.telephone, parsedResults.events[i].venue.email, parsedResults.events[i].venue.web );
+			Town town = new Town(parsedResults.events[i].town.id, StringCleaner.cleanString(parsedResults.events[i].town.name));
+			Area area = new Area(parsedResults.events[i].area.id, StringCleaner.cleanString(parsedResults.events[i].area.name));
+			Country country = new Country(parsedResults.events[i].country.id, StringCleaner.cleanString(parsedResults.events[i].country.name));
 			
 			// Instantiate a EventsByLocationResult object & populate it
 			LocationResultEvents currentResult = new LocationResultEvents(details, user, schedule, coordinates, venue, town, area, country);

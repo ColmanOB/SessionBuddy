@@ -322,8 +322,8 @@ public class MemberContributionSearch extends Search
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 			LatestSettingDetails details = new LatestSettingDetails(parsedResults.settings[i].id, parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].date);
-			User submitter = new User(Integer.toString(parsedResults.settings[i].member.id), StringCleaner.cleanString(parsedResults.settings[i].member.name), parsedResults.settings[i].member.url);
-			LatestTuneDetails settingDetails = new LatestTuneDetails( Integer.toString(parsedResults.settings[i].tune.id), parsedResults.settings[i].tune.name, parsedResults.settings[i].tune.url );
+			User submitter = new User(parsedResults.settings[i].member.id, StringCleaner.cleanString(parsedResults.settings[i].member.name), parsedResults.settings[i].member.url);
+			LatestTuneDetails settingDetails = new LatestTuneDetails(parsedResults.settings[i].tune.id, parsedResults.settings[i].tune.name, parsedResults.settings[i].tune.url );
 			
 			// Instantiate a TunesSearchResult object & populate it
 			SearchResultTunesLatest currentResult = new SearchResultTunesLatest(details, submitter, settingDetails);
@@ -360,8 +360,8 @@ public class MemberContributionSearch extends Search
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 			RecordingDetails details = new RecordingDetails(parsedResults.recordings[i].id, StringCleaner.cleanString(parsedResults.recordings[i].name), parsedResults.recordings[i].url, parsedResults.recordings[i].date);
-			User submitter = new User(Integer.toString(parsedResults.recordings[i].member.id), StringCleaner.cleanString(parsedResults.recordings[i].member.name), parsedResults.recordings[i].member.url);
-			Artist artist = new Artist(Integer.toString(parsedResults.recordings[i].artist.id), StringCleaner.cleanString(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].url);
+			User submitter = new User(parsedResults.recordings[i].member.id, StringCleaner.cleanString(parsedResults.recordings[i].member.name), parsedResults.recordings[i].member.url);
+			Artist artist = new Artist(parsedResults.recordings[i].artist.id, StringCleaner.cleanString(parsedResults.recordings[i].artist.name), parsedResults.recordings[i].url);
 			
 			// Instantiate a RecordingsSearchResult object & populate it
 			SearchResultRecordings currentResult = new SearchResultRecordings(details, submitter, artist);
@@ -399,11 +399,11 @@ public class MemberContributionSearch extends Search
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 			SessionDetails details = new SessionDetails(parsedResults.sessions[i].id, parsedResults.sessions[i].url, parsedResults.sessions[i].date);
 			Coordinates coordinates = new Coordinates(parsedResults.sessions[i].latitude, parsedResults.sessions[i].longitude);
-			User submitter = new User(Integer.toString(parsedResults.sessions[i].member.id), StringCleaner.cleanString(parsedResults.sessions[i].member.name), parsedResults.sessions[i].member.url);
-			Venue venue = new Venue(Integer.toString(parsedResults.sessions[i].venue.id), StringCleaner.cleanString(parsedResults.sessions[i].venue.name), parsedResults.sessions[i].venue.telephone, parsedResults.sessions[i].venue.email, parsedResults.sessions[i].venue.web);
-			Town town = new Town(Integer.toString(parsedResults.sessions[i].town.id), StringCleaner.cleanString(parsedResults.sessions[i].town.name));
-			Area area = new Area(Integer.toString(parsedResults.sessions[i].area.id), StringCleaner.cleanString(parsedResults.sessions[i].area.name));
-			Country country = new Country(Integer.toString(parsedResults.sessions[i].country.id), StringCleaner.cleanString(parsedResults.sessions[i].country.name));
+			User submitter = new User(parsedResults.sessions[i].member.id, StringCleaner.cleanString(parsedResults.sessions[i].member.name), parsedResults.sessions[i].member.url);
+			Venue venue = new Venue(parsedResults.sessions[i].venue.id, StringCleaner.cleanString(parsedResults.sessions[i].venue.name), parsedResults.sessions[i].venue.telephone, parsedResults.sessions[i].venue.email, parsedResults.sessions[i].venue.web);
+			Town town = new Town(parsedResults.sessions[i].town.id, StringCleaner.cleanString(parsedResults.sessions[i].town.name));
+			Area area = new Area(parsedResults.sessions[i].area.id, StringCleaner.cleanString(parsedResults.sessions[i].area.name));
+			Country country = new Country(parsedResults.sessions[i].country.id, StringCleaner.cleanString(parsedResults.sessions[i].country.name));
 			
 			// Instantiate a SessionsSearchResult object & populate it
 			SearchResultSessions currentResult = new SearchResultSessions(details, coordinates, submitter, venue, town, area, country);
@@ -443,11 +443,11 @@ public class MemberContributionSearch extends Search
 			EventDetails details = new EventDetails(parsedResults.events[i].id, StringCleaner.cleanString(parsedResults.events[i].name), parsedResults.events[i].url, parsedResults.events[i].date);
 			Coordinates coordinates = new Coordinates(parsedResults.events[i].latitude, parsedResults.events[i].longitude);
 			EventSchedule schedule = new EventSchedule(parsedResults.events[i].dtstart, parsedResults.events[i].dtend);
-			User submitter = new User(Integer.toString(parsedResults.events[i].member.id), StringCleaner.cleanString(parsedResults.events[i].member.name), parsedResults.events[i].member.url);
-			Venue venue = new Venue(Integer.toString(parsedResults.events[i].venue.id), StringCleaner.cleanString(parsedResults.events[i].venue.name), parsedResults.events[i].venue.telephone, parsedResults.events[i].venue.email, parsedResults.events[i].venue.web);
-			Town town = new Town(Integer.toString(parsedResults.events[i].town.id), StringCleaner.cleanString(parsedResults.events[i].town.name));
-			Area area = new Area(Integer.toString(parsedResults.events[i].area.id), StringCleaner.cleanString(parsedResults.events[i].area.name));
-			Country country = new Country(Integer.toString(parsedResults.events[i].country.id), StringCleaner.cleanString(parsedResults.events[i].country.name));
+			User submitter = new User(parsedResults.events[i].member.id, StringCleaner.cleanString(parsedResults.events[i].member.name), parsedResults.events[i].member.url);
+			Venue venue = new Venue(parsedResults.events[i].venue.id, StringCleaner.cleanString(parsedResults.events[i].venue.name), parsedResults.events[i].venue.telephone, parsedResults.events[i].venue.email, parsedResults.events[i].venue.web);
+			Town town = new Town(parsedResults.events[i].town.id, StringCleaner.cleanString(parsedResults.events[i].town.name));
+			Area area = new Area(parsedResults.events[i].area.id, StringCleaner.cleanString(parsedResults.events[i].area.name));
+			Country country = new Country(parsedResults.events[i].country.id, StringCleaner.cleanString(parsedResults.events[i].country.name));
 			
 			// Instantiate a EventsSearchResult object & populate it
 			SearchResultEvents currentResult = new SearchResultEvents(details, submitter, schedule, coordinates, venue, town, area, country);
@@ -484,7 +484,7 @@ public class MemberContributionSearch extends Search
 			// Extract the elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response		
 			DiscussionDetails details = new DiscussionDetails(parsedResults.discussions[i].id, StringCleaner.cleanString(parsedResults.discussions[i].name), parsedResults.discussions[i].url, parsedResults.discussions[i].date);
-			User user = new User(Integer.toString(parsedResults.discussions[i].member.id), StringCleaner.cleanString(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
+			User user = new User(parsedResults.discussions[i].member.id, StringCleaner.cleanString(parsedResults.discussions[i].member.name), parsedResults.discussions[i].member.url);
 			
 			// Instantiate a DiscussionsSearchResult object & populate it
 			SearchResultDiscussions currentResult = new SearchResultDiscussions(details, user);
@@ -520,7 +520,7 @@ public class MemberContributionSearch extends Search
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 			LatestSetDetails details = new LatestSetDetails(parsedResults.sets[i].id, StringCleaner.cleanString(parsedResults.sets[i].name) , parsedResults.sets[i].url, parsedResults.sets[i].date);
-			User submitter = new User(Integer.toString(parsedResults.sets[i].member.id), StringCleaner.cleanString(parsedResults.sets[i].member.name), parsedResults.sets[i].member.url);
+			User submitter = new User(parsedResults.sets[i].member.id, StringCleaner.cleanString(parsedResults.sets[i].member.name), parsedResults.sets[i].member.url);
 			
 			// Instantiate a SearchResultSets object & populate it
 			SearchResultSets currentResult = new SearchResultSets(details, submitter);

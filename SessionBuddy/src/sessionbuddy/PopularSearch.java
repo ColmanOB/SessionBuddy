@@ -109,7 +109,7 @@ public class PopularSearch extends Search
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 			PopularTuneDetails details = new PopularTuneDetails(parsedResults.tunes[i].id, StringCleaner.cleanString(parsedResults.tunes[i].name), parsedResults.tunes[i].url, parsedResults.tunes[i].date, parsedResults.tunes[i].type, parsedResults.tunes[i].tunebooks);
-			User submitter = new User(Integer.toString(parsedResults.tunes[i].member.id), StringCleaner.cleanString(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
+			User submitter = new User(parsedResults.tunes[i].member.id, StringCleaner.cleanString(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
 			
 			// Instantiate a SearchResultTunesPopular object & populate it
 			SearchResultTunesPopular currentResult = new SearchResultTunesPopular(details, submitter);

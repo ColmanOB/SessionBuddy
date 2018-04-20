@@ -18,7 +18,7 @@ public class ItemWrapperEvent
 	/**
 	 * Unique ID of the event in theevent.org database
 	 */
-	public String id;
+	public int id;
 	
 	/**
 	 * Event name

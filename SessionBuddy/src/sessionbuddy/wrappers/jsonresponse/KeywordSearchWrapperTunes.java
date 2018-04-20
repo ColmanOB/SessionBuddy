@@ -24,7 +24,7 @@ public class KeywordSearchWrapperTunes
 	 */
 	public class TuneDetails 
 		{
-		public String id;	// ID for the tune in thesession.org database
+		public int id;	// ID for the tune in thesession.org database
 		public String name;	// The tune's name
 		public String url;	// URL of the tune's page on thesession.org
 		public String date;	// Date the tune was submitted

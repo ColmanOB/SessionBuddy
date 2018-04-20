@@ -26,7 +26,7 @@ public class LatestWrapperTunes
 	 */
 	public class SettingDetails 
 		{
-		public String id;		// ID for the setting in thesession.org database
+		public int id;		// ID for the setting in thesession.org database
 		public String url;		// URL of the individual setting on thesession.org
 		public String key; 		// Key of the setting
 		public SubmitterDetails member; // Details of user who submitted the setting

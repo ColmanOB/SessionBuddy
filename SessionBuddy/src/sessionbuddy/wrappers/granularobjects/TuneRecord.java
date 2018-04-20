@@ -9,14 +9,14 @@ package sessionbuddy.wrappers.granularobjects;
 public class TuneRecord 
 	{
 	/**
+	 * The numeric ID of the tune as stored in thesession.org database
+	 */
+	public int tuneID;
+	
+	/**
 	 * The tune's title
 	 */
 	public String tuneName;
-	
-	/**
-	 * The numeric ID of the tune as stored in thesession.org database
-	 */
-	public String tuneID;
 	
 	/**
 	 * The URL of the tune's page on thesession.org
@@ -26,14 +26,14 @@ public class TuneRecord
 	/**
 	 * Constructor that populates all fields
 	 * 
-	 * @param tuneName The tune's title
 	 * @param tuneID The numeric ID of the tune as stored in thesession.org database
+	 * @param tuneName The tune's title
 	 * @param tuneURL The URL of the tune's page on thesession.org
 	 */
-	public TuneRecord(String tuneName, String tuneID, String tuneURL)
+	public TuneRecord(int tuneID, String tuneName, String tuneURL)
 		{
-		this.tuneName = tuneName;
 		this.tuneID = tuneID;
+		this.tuneName = tuneName;
 		this.tuneURL = tuneURL;
 		}
 	}
