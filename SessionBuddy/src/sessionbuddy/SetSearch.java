@@ -10,7 +10,7 @@ import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.UrlBuilder;
-import sessionbuddy.wrappers.granularobjects.LatestSetDetails;
+import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperSets;
 import sessionbuddy.wrappers.resultsets.SearchResultSets;
@@ -114,7 +114,7 @@ public class SetSearch extends Search
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
-			LatestSetDetails details = new LatestSetDetails(parsedResults.sets[i].id, StringCleaner.cleanString(parsedResults.sets[i].name) , parsedResults.sets[i].url, parsedResults.sets[i].date);
+			SetDetails details = new SetDetails(parsedResults.sets[i].id, StringCleaner.cleanString(parsedResults.sets[i].name) , parsedResults.sets[i].url, parsedResults.sets[i].date);
 			User submitter = new User(parsedResults.sets[i].member.id, StringCleaner.cleanString(parsedResults.sets[i].member.name), parsedResults.sets[i].member.url);
 			
 			// Instantiate a SearchResultSets object & populate it

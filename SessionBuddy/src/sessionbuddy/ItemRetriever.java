@@ -26,7 +26,6 @@ import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.TrackListing;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
-import sessionbuddy.wrappers.granularobjects.TuneRecord;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperDiscussion;
@@ -246,12 +245,12 @@ public class ItemRetriever
 		for(int i = 0; i < (parsedResults.tracks.length); i++)
 			{
 			// For each individual track, create an ArrayList of TuneRecord objects
-			ArrayList<TuneRecord> tunesOnTrack = new ArrayList<TuneRecord>();
+			ArrayList<TuneDetails> tunesOnTrack = new ArrayList<TuneDetails>();
 			
 			// Populate the ArrayList of TuneRecord objects
 			for (int j = 0; j < (parsedResults.tracks[i].tunes.length); j++)
 				{		
-				TuneRecord currentTune = new TuneRecord(parsedResults.tracks[i].tunes[j].id, StringCleaner.cleanString(parsedResults.tracks[i].tunes[j].name), parsedResults.tracks[i].tunes[j].url);
+				TuneDetails currentTune = new TuneDetails(parsedResults.tracks[i].tunes[j].id, StringCleaner.cleanString(parsedResults.tracks[i].tunes[j].name), parsedResults.tracks[i].tunes[j].url);
 				tunesOnTrack.add(currentTune);
 				}
 			

@@ -17,7 +17,7 @@ import sessionbuddy.wrappers.granularobjects.Country;
 import sessionbuddy.wrappers.granularobjects.DiscussionDetails;
 import sessionbuddy.wrappers.granularobjects.EventDetails;
 import sessionbuddy.wrappers.granularobjects.EventSchedule;
-import sessionbuddy.wrappers.granularobjects.LatestSetDetails;
+import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.SettingDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.RecordingDetails;
@@ -519,7 +519,7 @@ public class MemberContributionSearch extends Search
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
-			LatestSetDetails details = new LatestSetDetails(parsedResults.sets[i].id, StringCleaner.cleanString(parsedResults.sets[i].name) , parsedResults.sets[i].url, parsedResults.sets[i].date);
+			SetDetails details = new SetDetails(parsedResults.sets[i].id, StringCleaner.cleanString(parsedResults.sets[i].name) , parsedResults.sets[i].url, parsedResults.sets[i].date);
 			User submitter = new User(parsedResults.sets[i].member.id, StringCleaner.cleanString(parsedResults.sets[i].member.name), parsedResults.sets[i].member.url);
 			
 			// Instantiate a SearchResultSets object & populate it

@@ -1,6 +1,6 @@
 package sessionbuddy.wrappers.resultsets;
 
-import sessionbuddy.wrappers.granularobjects.LatestSetDetails;
+import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 
 /**
@@ -15,7 +15,7 @@ public class SearchResultSets
 	/**
 	 * Details of the tune set
 	 */
-	public LatestSetDetails setDetails;
+	public SetDetails setDetails;
 	
 	/**
 	 * Details of the user who submitted the set
@@ -28,7 +28,7 @@ public class SearchResultSets
 	 * @param setDetails a LatestSetDetails object that has already been populated
 	 * @param submitter a User object populated with the details of the submitter
 	 */
-	public SearchResultSets(LatestSetDetails setDetails, User submitter)
+	public SearchResultSets(SetDetails setDetails, User submitter)
 		{
 		this.setDetails = setDetails;
 		this.submitter = submitter;

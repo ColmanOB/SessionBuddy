@@ -11,16 +11,16 @@ import java.util.ArrayList;
 public class TrackListing 
 	{
 	/**
-	 * An ArrayList of TuneRecord objects, one for each tune on the track
+	 * An ArrayList of TuneDetails objects, one for each tune on the track
 	 */
-	public ArrayList<TuneRecord> tunes;
+	public ArrayList<TuneDetails> tunes;
 
 	/**
 	 * Constructor that populates all fields
 	 * 
-	 * @param tunes An ArrayList of TuneRecord objects
+	 * @param tunes An ArrayList of TuneDetails objects
 	 */
-	public TrackListing(ArrayList<TuneRecord> tunes)
+	public TrackListing(ArrayList<TuneDetails> tunes)
 		{
 		this.tunes = tunes;
 		}
