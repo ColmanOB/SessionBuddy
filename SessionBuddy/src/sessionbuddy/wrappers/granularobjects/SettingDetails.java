@@ -31,6 +31,14 @@ public class SettingDetails
 	public String date;
 
 
+	/**
+	 * Constructor used to set all fields
+	 * 
+	 * @param settingID A numeric ID for the individual tune setting within thesession.org database
+	 * @param settingURL The URL for the tune's page, focused on the particular setting in question
+	 * @param key The key of the setting
+	 * @param date The date on which the setting was submitted to thesession.org
+	 */
 	public SettingDetails(int settingID, String settingURL, String key, String date)
 		{
 		this.settingID = settingID;

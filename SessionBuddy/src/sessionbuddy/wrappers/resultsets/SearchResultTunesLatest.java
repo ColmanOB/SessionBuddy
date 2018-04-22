@@ -1,7 +1,7 @@
 package sessionbuddy.wrappers.resultsets;
 
 import sessionbuddy.wrappers.granularobjects.SettingDetails;
-import sessionbuddy.wrappers.granularobjects.LatestTuneDetails;
+import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 
 /**
@@ -26,7 +26,7 @@ public class SearchResultTunesLatest
 	/**
 	 * Details of the tune to which the setting belongs
 	 */
-	public LatestTuneDetails tuneDetails;
+	public TuneDetails tuneDetails;
 
 	/**
 	 * Constructor 
@@ -35,7 +35,7 @@ public class SearchResultTunesLatest
 	 * @param submitter a User object populated with the details of the submitter
 	 * @param tuneDetails a LatestTuneDetails object that has already been populated
 	 */
-	public SearchResultTunesLatest(SettingDetails settingDetails, User submitter, LatestTuneDetails tuneDetails)
+	public SearchResultTunesLatest(SettingDetails settingDetails, User submitter, TuneDetails tuneDetails)
 		{
 		this.settingDetails = settingDetails;
 		this.submitter = submitter;

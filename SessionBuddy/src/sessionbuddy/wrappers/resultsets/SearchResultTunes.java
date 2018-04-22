@@ -1,6 +1,6 @@
 package sessionbuddy.wrappers.resultsets;
 
-import sessionbuddy.wrappers.granularobjects.TuneDetails;
+import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.User;
 
 /**
@@ -16,7 +16,7 @@ public class SearchResultTunes
 	/**
 	 * Attributes of the tune itself
 	 */
-	public TuneDetails details;
+	public TuneDetailsWithDate details;
 	
 	/**
 	 * Attributes of the user who submitted the tune
@@ -29,7 +29,7 @@ public class SearchResultTunes
 	 * @param details an already-populated TuneDetails object
 	 * @param submitter an already-populated User object
 	 */
-	public SearchResultTunes(TuneDetails details, User submitter)
+	public SearchResultTunes(TuneDetailsWithDate details, User submitter)
 		{
 		this.details = details;
 		this.submitter = submitter;

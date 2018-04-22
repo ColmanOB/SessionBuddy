@@ -47,12 +47,12 @@ public class ItemWrapperTune
 	/**
 	 * Number of user's personal tunebooks on thesession.org to which the tune has been added
 	 */
-	public String tunebooks;
+	public int tunebooks;
 	
 	/**
 	 * The number of recordings in theession.org database with a tune of this name
 	 */
-	public String recordings;
+	public int recordings;
 	
 	/**
 	 * Known alternative names for the tune

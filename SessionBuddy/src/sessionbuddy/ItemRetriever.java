@@ -25,6 +25,7 @@ import sessionbuddy.wrappers.granularobjects.SettingDetailsWithAbc;
 import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.TrackListing;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
+import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.TuneRecord;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
@@ -324,15 +325,22 @@ public class ItemRetriever
 	 */
 	private ItemResultTune populateTuneResult(ItemWrapperTune parsedResults)
 		{
-		// Extract each element from the tune entry in the JSON response
-		// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
-		TuneDetails tuneDetails = new TuneDetails(parsedResults.id, StringCleaner.cleanString(parsedResults.name), parsedResults.type, parsedResults.url, parsedResults.date);
+		// Extract each element from the tune entry in the JSON response. StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
+		
+		// Get the basic set of tune details
+		TuneDetails tuneDetails = new TuneDetails(parsedResults.id, StringCleaner.cleanString(parsedResults.name), parsedResults.url);
+		
+		// Get the tune type and date of submission
+		TuneDetailsWithDate tuneDetailsWithDate = new TuneDetailsWithDate(tuneDetails, parsedResults.type, parsedResults.date);
 	
 		// Get the details of the member who originally submitted the tune
 		User member = new User(parsedResults.member.id, StringCleaner.cleanString(parsedResults.member.name), parsedResults.member.url);
 		
-		String tunebooks = (parsedResults.tunebooks);
-		String recordings = (parsedResults.recordings);
+		// Get the number of user tunebooks to which this tune has been added
+		int tunebooks = (parsedResults.tunebooks);
+		
+		// Get the number of recordings containing a tune by this name
+		int recordings = (parsedResults.recordings);
 		
 		// Initialize an ArrayList of Strings to store the list of alternative titles for the tune
 		ArrayList<String> aliases = new ArrayList<String>();
@@ -352,9 +360,10 @@ public class ItemRetriever
 			// Populate the User object representing the person who submitted the particular setting
 			User settingSubmitter = new User(parsedResults.settings[i].member.id, parsedResults.settings[i].member.name, parsedResults.settings[i].member.url);
 			
+			// Populate the basic details of the setting
 			SettingDetails currentSettingDetails = new SettingDetails(parsedResults.settings[i].id, parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].date);
 					
-			// Populate the TuneSetting object representing information related to a specific setting, including the user set up above
+			// Populate the SettingDetailsWithAbc object, adding the abc notation of the tune and the details of the user to the setting details 
 			SettingDetailsWithAbc currentSetting = new SettingDetailsWithAbc(currentSettingDetails, parsedResults.settings[i].abc, settingSubmitter);
 			
 			settings.add(currentSetting);				
@@ -376,7 +385,7 @@ public class ItemRetriever
 			}
 			
 		// Instantiate a TuneByIDResult object & populate it with the details captured above
-		ItemResultTune finalResult = new ItemResultTune(tuneDetails, member, tunebooks, recordings, aliases, settings, comments);
+		ItemResultTune finalResult = new ItemResultTune(tuneDetailsWithDate, member, tunebooks, recordings, aliases, settings, comments);
 			
 		// Return the set of results that has been collected
 		return finalResult;

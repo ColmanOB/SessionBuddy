@@ -238,10 +238,10 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Tune metadata
-				assertThat(resultSet.get(i).details.tuneID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.tuneTitle, is(notNullValue()));
+				assertThat(resultSet.get(i).details.tuneDetails.tuneID, is(notNullValue()));
+				assertThat(resultSet.get(i).details.tuneDetails.tuneName, is(notNullValue()));
 				assertThat(resultSet.get(i).details.tuneType, is(notNullValue()));
-				assertThat(resultSet.get(i).details.tuneURL, is(notNullValue()));
+				assertThat(resultSet.get(i).details.tuneDetails.tuneURL, is(notNullValue()));
 				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
 				
 				// User details
@@ -277,10 +277,10 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Tune metadata
-				assertThat(resultSet.get(i).details.tuneID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.tuneTitle, is(notNullValue()));
+				assertThat(resultSet.get(i).details.tuneDetails.tuneID, is(notNullValue()));
+				assertThat(resultSet.get(i).details.tuneDetails.tuneName, is(notNullValue()));
 				assertThat(resultSet.get(i).details.tuneType, is(notNullValue()));
-				assertThat(resultSet.get(i).details.tuneURL, is(notNullValue()));
+				assertThat(resultSet.get(i).details.tuneDetails.tuneURL, is(notNullValue()));
 				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
 				
 				// User details

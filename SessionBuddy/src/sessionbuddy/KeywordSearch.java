@@ -25,6 +25,7 @@ import sessionbuddy.wrappers.granularobjects.RecordingDetails;
 import sessionbuddy.wrappers.granularobjects.SessionDetails;
 import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
+import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperDiscussions;
@@ -292,7 +293,8 @@ public class KeywordSearch extends Search
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
-			TuneDetails details = new TuneDetails(parsedResults.tunes[i].id, StringCleaner.cleanString(parsedResults.tunes[i].name), parsedResults.tunes[i].type, parsedResults.tunes[i].url, parsedResults.tunes[i].date);
+			TuneDetails tuneDetails = new TuneDetails(parsedResults.tunes[i].id, StringCleaner.cleanString(parsedResults.tunes[i].name), parsedResults.tunes[i].url);
+			TuneDetailsWithDate details = new TuneDetailsWithDate(tuneDetails, parsedResults.tunes[i].type, parsedResults.tunes[i].date);
 			User submitter = new User(parsedResults.tunes[i].member.id, StringCleaner.cleanString(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
 						
 			// Instantiate a TunesSearchResult object & populate it

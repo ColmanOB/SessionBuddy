@@ -1,7 +1,7 @@
 package sessionbuddy.wrappers.granularobjects;
 
 /**
- * Represents the set of metadata associated with a tune from thesession.org database
+ * Represents the tune to which a setting belongs, in the result set when retrieving the list of latest tunes (i.e. latest settings)
  * 
  * @author Colman O'B
  * @since 2017-12-29
@@ -9,45 +9,32 @@ package sessionbuddy.wrappers.granularobjects;
 public class TuneDetails 
 	{
 	/**
-	 * Numeric identifier of the tune in thesession.org
+	 * A numeric ID for the tune in thesession.org database
 	 */
 	public int tuneID;
 	
 	/**
-	 * Name of the tune
+	 * The name of the tune in thesession.org database
 	 */
-	public String tuneTitle;
+	public String tuneName;
 	
 	/**
-	 * Tune type, i.e. jig, reel etc.
-	 */
-	public String tuneType;
-	
-	/**
-	 * URL of the tune's page on thesession.org
+	 * The URL of the tune's page on thesession.org website
 	 */
 	public String tuneURL;
-	
-	/**
-	 * Date of original submission of the tune
-	 */
-	public String submittedDate;
+
 
 	/**
-	 * Constructor method that populates all fields
+	 * Constructor that populates all fields
 	 * 
-	 * @param tuneID Numeric identifier of the tune in thesession.org
-	 * @param tuneTitle Name of the tune
-	 * @param tuneType Tune type, i.e. jig, reel etc.
-	 * @param tuneURL URL of the tune's page on thesession.org
-	 * @param submittedDate Date of original submission of the tune
+	 * @param tuneID A numeric ID for the tune in thesession.org database
+	 * @param tuneName The name of the tune in thesession.org database
+	 * @param tuneURL The URL of the tune's page on thesession.org website
 	 */
-	public TuneDetails(int tuneID, String tuneTitle, String tuneType, String tuneURL, String submittedDate)
+	public TuneDetails(int tuneID, String tuneName, String tuneURL)
 		{
 		this.tuneID = tuneID;
-		this.tuneTitle = tuneTitle;
-		this.tuneType = tuneType;
+		this.tuneName = tuneName;
 		this.tuneURL = tuneURL;
-		this.submittedDate = submittedDate;
 		}
 	}

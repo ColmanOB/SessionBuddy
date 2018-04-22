@@ -18,7 +18,7 @@ import sessionbuddy.wrappers.granularobjects.DiscussionDetails;
 import sessionbuddy.wrappers.granularobjects.EventDetails;
 import sessionbuddy.wrappers.granularobjects.EventSchedule;
 import sessionbuddy.wrappers.granularobjects.SettingDetails;
-import sessionbuddy.wrappers.granularobjects.LatestTuneDetails;
+import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.RecordingDetails;
 import sessionbuddy.wrappers.granularobjects.SessionDetails;
 import sessionbuddy.wrappers.granularobjects.Town;
@@ -275,7 +275,7 @@ public class LatestSearch extends Search
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
 			SettingDetails details = new SettingDetails(parsedResults.settings[i].id, parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].date);
 			User submitter = new User(parsedResults.settings[i].member.id, StringCleaner.cleanString(parsedResults.settings[i].member.name), parsedResults.settings[i].member.url);
-			LatestTuneDetails settingDetails = new LatestTuneDetails(parsedResults.settings[i].tune.id, StringCleaner.cleanString(parsedResults.settings[i].tune.name), parsedResults.settings[i].tune.url );
+			TuneDetails settingDetails = new TuneDetails(parsedResults.settings[i].tune.id, StringCleaner.cleanString(parsedResults.settings[i].tune.name), parsedResults.settings[i].tune.url );
 			
 			// Instantiate a TunesSearchResult object & populate it
 			SearchResultTunesLatest currentResult = new SearchResultTunesLatest(details, submitter, settingDetails);

@@ -27,9 +27,12 @@ class Test_RetrievePopular_Tunes
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				System.out.println("Tune ID: " + resultSet.get(i).tuneDetails.tuneID);
-				System.out.println("Tune Name: " + resultSet.get(i).tuneDetails.tuneName);
+				System.out.println("Tune ID: " + resultSet.get(i).tuneDetails.tuneDetails.tuneDetails.tuneID);
+				System.out.println("Tune Name: " + resultSet.get(i).tuneDetails.tuneDetails.tuneDetails.tuneName);
+				System.out.println("Tune URL: " + resultSet.get(i).tuneDetails.tuneDetails.tuneDetails.tuneURL);
 				System.out.println("No. of Tunebooks: "+ resultSet.get(i).tuneDetails.tunebooks);
+				System.out.println("Date Submitted: "+ resultSet.get(i).tuneDetails.tuneDetails.submittedDate);
+				System.out.println("Tune Type: "+ resultSet.get(i).tuneDetails.tuneDetails.tuneType);
 
 				System.out.println("User ID: " + resultSet.get(i).submitter.userID);
 				System.out.println("User Name: " + resultSet.get(i).submitter.userName);

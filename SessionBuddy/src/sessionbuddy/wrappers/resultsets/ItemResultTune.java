@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import sessionbuddy.wrappers.granularobjects.Comment;
 import sessionbuddy.wrappers.granularobjects.SettingDetailsWithAbc;
-import sessionbuddy.wrappers.granularobjects.TuneDetails;
+import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.User;
 
 /**
@@ -18,7 +18,7 @@ public class ItemResultTune
 	/**
 	 * Metadata relating to the tune
 	 */
-	public TuneDetails tuneDetails;
+	public TuneDetailsWithDate tuneDetails;
 	
 	/**
 	 * Details of the user who submitted the tune
@@ -28,12 +28,12 @@ public class ItemResultTune
 	/**
 	 * Number of user tunebooks to which this tune has been added
 	 */
-	public String tunebooks;
+	public int tunebooks;
 	
 	/**
 	 * Number of recordings with a tune of this name
 	 */
-	public String recordings;
+	public int recordings;
 	
 	/**
 	 * Alternative titles for the tune
@@ -61,7 +61,7 @@ public class ItemResultTune
 	 * @param settings a list of different settings of the tune
 	 * @param comments a list of comments on the tune's page on thesession.org
 	 */
-	public ItemResultTune(TuneDetails tuneDetails, User member, String tunebooks, String recordings, ArrayList<String> aliases, ArrayList<SettingDetailsWithAbc> settings, ArrayList<Comment> comments)
+	public ItemResultTune(TuneDetailsWithDate tuneDetails, User member, int tunebooks, int recordings, ArrayList<String> aliases, ArrayList<SettingDetailsWithAbc> settings, ArrayList<Comment> comments)
 		{
 		this.tuneDetails = tuneDetails;
 		this.member = member;

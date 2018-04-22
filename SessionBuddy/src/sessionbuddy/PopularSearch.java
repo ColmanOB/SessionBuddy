@@ -10,7 +10,9 @@ import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.UrlBuilder;
-import sessionbuddy.wrappers.granularobjects.PopularTuneDetails;
+import sessionbuddy.wrappers.granularobjects.TuneDetails;
+import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
+import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDateAndTunebooks;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.jsonresponse.PopularWrapperTunes;
 import sessionbuddy.wrappers.resultsets.SearchResultTunesPopular;
@@ -108,11 +110,19 @@ public class PopularSearch extends Search
 			{
 			// Extract the required elements from each individual search result in the JSON response
 			// StringCleaner.cleanString() will decode the &039; etc. XML entities from the JSON response
-			PopularTuneDetails details = new PopularTuneDetails(parsedResults.tunes[i].id, StringCleaner.cleanString(parsedResults.tunes[i].name), parsedResults.tunes[i].url, parsedResults.tunes[i].date, parsedResults.tunes[i].type, parsedResults.tunes[i].tunebooks);
+			// Get the basic tune details
+			TuneDetails basicDetails = new TuneDetails(parsedResults.tunes[i].id, StringCleaner.cleanString(parsedResults.tunes[i].name), parsedResults.tunes[i].url);
+			
+			// Get the tune type and tune date
+			TuneDetailsWithDate detailsWithDate = new TuneDetailsWithDate(basicDetails, parsedResults.tunes[i].type, parsedResults.tunes[i].date );
+			
+			// Get the number of user tunebooks to which the tune has been added
+			TuneDetailsWithDateAndTunebooks tuneDetails = new TuneDetailsWithDateAndTunebooks(detailsWithDate, parsedResults.tunes[i].tunebooks);
+			
 			User submitter = new User(parsedResults.tunes[i].member.id, StringCleaner.cleanString(parsedResults.tunes[i].member.name), parsedResults.tunes[i].member.url);
 			
 			// Instantiate a SearchResultTunesPopular object & populate it
-			SearchResultTunesPopular currentResult = new SearchResultTunesPopular(details, submitter);
+			SearchResultTunesPopular currentResult = new SearchResultTunesPopular(tuneDetails, submitter);
 			
 			// Add the TuneSearchResult object to the ArrayList to be returned to the caller
 			resultSet.add(currentResult);
