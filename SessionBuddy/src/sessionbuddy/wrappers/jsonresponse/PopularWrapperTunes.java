@@ -32,7 +32,7 @@ public class PopularWrapperTunes
 		public SubmitterDetails member; // Details of user who submitted the setting
 		public String date; 	// The date on which this setting was submitted
 		public String type;		// The type of tune, i.e. jig, reel etc.
-		public String tunebooks;	// The number of user tunebooks on thesession.org to which the tune has been added
+		public int tunebooks;	// The number of user tunebooks on thesession.org to which the tune has been added
 		
 		/**
 		 * A wrapper for the details of the "member" within each "setting" in the result set

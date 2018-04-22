@@ -3,8 +3,8 @@ package sessionbuddy.wrappers.resultsets;
 import java.util.ArrayList;
 
 import sessionbuddy.wrappers.granularobjects.Comment;
+import sessionbuddy.wrappers.granularobjects.SettingDetailsWithAbc;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
-import sessionbuddy.wrappers.granularobjects.TuneSetting;
 import sessionbuddy.wrappers.granularobjects.User;
 
 /**
@@ -48,7 +48,7 @@ public class ItemResultTune
 	/**
 	 * A list of different settings of the particular tune
 	 */
-	public ArrayList<TuneSetting> settings;
+	public ArrayList<SettingDetailsWithAbc> settings;
 
 	/**
 	 * Constructor
@@ -61,7 +61,7 @@ public class ItemResultTune
 	 * @param settings a list of different settings of the tune
 	 * @param comments a list of comments on the tune's page on thesession.org
 	 */
-	public ItemResultTune(TuneDetails tuneDetails, User member, String tunebooks, String recordings, ArrayList<String> aliases, ArrayList<TuneSetting> settings, ArrayList<Comment> comments)
+	public ItemResultTune(TuneDetails tuneDetails, User member, String tunebooks, String recordings, ArrayList<String> aliases, ArrayList<SettingDetailsWithAbc> settings, ArrayList<Comment> comments)
 		{
 		this.tuneDetails = tuneDetails;
 		this.member = member;

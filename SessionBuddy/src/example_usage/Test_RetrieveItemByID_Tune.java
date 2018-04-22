@@ -37,11 +37,11 @@ public class Test_RetrieveItemByID_Tune
 			// Loop through each setting of the tune and print it
 			for (int i = 0; i < resultSet.settings.size(); i++)
 				{
-				System.out.println("Setting ID: " + resultSet.settings.get(i).id);
-				System.out.println("Setting Date: " + resultSet.settings.get(i).date);
-				System.out.println("Setting Key: " + resultSet.settings.get(i).key);
+				System.out.println("Setting ID: " + resultSet.settings.get(i).settingDetails.settingID);
+				System.out.println("Setting Date: " + resultSet.settings.get(i).settingDetails.date);
+				System.out.println("Setting Key: " + resultSet.settings.get(i).settingDetails.key);
 				System.out.println("Tune Body: " + resultSet.settings.get(i).abc);
-				System.out.println("Setting URL: " + resultSet.settings.get(i).url);
+				System.out.println("Setting URL: " + resultSet.settings.get(i).settingDetails.settingURL);
 				System.out.println("\n");
 				}
 	

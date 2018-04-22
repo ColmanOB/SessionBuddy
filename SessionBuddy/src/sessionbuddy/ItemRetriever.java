@@ -20,11 +20,12 @@ import sessionbuddy.wrappers.granularobjects.EventDetails;
 import sessionbuddy.wrappers.granularobjects.EventSchedule;
 import sessionbuddy.wrappers.granularobjects.RecordingDetails;
 import sessionbuddy.wrappers.granularobjects.SessionDetails;
+import sessionbuddy.wrappers.granularobjects.SettingDetails;
+import sessionbuddy.wrappers.granularobjects.SettingDetailsWithAbc;
 import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.TrackListing;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.TuneRecord;
-import sessionbuddy.wrappers.granularobjects.TuneSetting;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperDiscussion;
@@ -343,7 +344,7 @@ public class ItemRetriever
 			}
 			
 		// Initalise an ArrayList of TuneSetting objects to hold each individual setting of the tune
-		ArrayList<TuneSetting> settings = new ArrayList<TuneSetting>();
+		ArrayList<SettingDetailsWithAbc> settings = new ArrayList<SettingDetailsWithAbc>();
 			
 		// Populate the ArrayList of TuneSetting objects by iterating through each setting in the JSON response
 		for(int i = 0; i < (parsedResults.settings.length); i++)
@@ -351,8 +352,10 @@ public class ItemRetriever
 			// Populate the User object representing the person who submitted the particular setting
 			User settingSubmitter = new User(parsedResults.settings[i].member.id, parsedResults.settings[i].member.name, parsedResults.settings[i].member.url);
 			
+			SettingDetails currentSettingDetails = new SettingDetails(parsedResults.settings[i].id, parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].date);
+					
 			// Populate the TuneSetting object representing information related to a specific setting, including the user set up above
-			TuneSetting currentSetting = new TuneSetting(Integer.parseInt(parsedResults.settings[i].id), parsedResults.settings[i].url, parsedResults.settings[i].key, parsedResults.settings[i].abc, settingSubmitter, parsedResults.settings[i].date);
+			SettingDetailsWithAbc currentSetting = new SettingDetailsWithAbc(currentSettingDetails, parsedResults.settings[i].abc, settingSubmitter);
 			
 			settings.add(currentSetting);				
 			}

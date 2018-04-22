@@ -36,7 +36,7 @@ public class PopularTuneDetails
 	/**
 	 * The number of user's tunebooks on thesession.org to which this tune belongs
 	 */
-	public String tunebooks;
+	public int tunebooks;
 	
 	/**
 	 * Constructor that populates all fields
@@ -48,7 +48,7 @@ public class PopularTuneDetails
 	 * @param type The type of tune, i.e. jig, reel etc.
 	 * @param tunebooks The number of user's tunebooks on thesession.org to which this tune belongs
 	 */
-	public PopularTuneDetails(int tuneID, String tuneName, String tuneURL, String date, String type, String tunebooks)
+	public PopularTuneDetails(int tuneID, String tuneName, String tuneURL, String date, String type, int tunebooks)
 		{
 		this.tuneID = tuneID;
 		this.tuneName = tuneName;

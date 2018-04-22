@@ -8,7 +8,7 @@ package sessionbuddy.wrappers.granularobjects;
  * @author Colman O'B
  * @since 2017-12-29
  */
-public class LatestSettingDetails 
+public class SettingDetails 
 	{
 	/**
 	 * A numeric ID for the individual tune setting within thesession.org database
@@ -31,7 +31,7 @@ public class LatestSettingDetails
 	public String date;
 
 
-	public LatestSettingDetails(int settingID, String settingURL, String key, String date)
+	public SettingDetails(int settingID, String settingURL, String key, String date)
 		{
 		this.settingID = settingID;
 		this.settingURL = settingURL;

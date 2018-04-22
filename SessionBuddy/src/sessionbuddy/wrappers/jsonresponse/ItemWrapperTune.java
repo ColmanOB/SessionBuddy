@@ -80,7 +80,7 @@ public class ItemWrapperTune
 		/**
 		 * ID of the particular setting in thesession.org
 		 */
-		public String id;
+		public int id;
 		
 		/**
 		 * URL of the particular setting of the tune
