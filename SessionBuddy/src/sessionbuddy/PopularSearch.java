@@ -62,7 +62,6 @@ public class PopularSearch extends Search
 	/**
 	 * Retrieves a list of the most popular tunes on thesession.org, i.e. those that have been added to the most user tunebooks.
 	 * 
-	 * @param resultsPerPage the number of results that should be returned per page in the JSON response
 	 * @return an ArrayList of SearchResultTunesPopular objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it

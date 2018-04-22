@@ -240,8 +240,6 @@ public class KeywordSearch extends Search
 	/**
 	 * Queries the API for a list of sessions matching a specific set of search terms
 	 * 
-	 * @param searchTerms The search terms provided by the user
-	 * @param resultsPerPage Specify how many results should be returned per page. The maximum is 50.
 	 * @return an ArrayList of SessionsSearchResult objects
 	 * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
 	 * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated

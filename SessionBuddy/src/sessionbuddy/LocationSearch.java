@@ -67,9 +67,9 @@ public class LocationSearch extends Search
 	/**
 	 * Constructor where pagination is not required and you only want to see the first page of the API response
 	 *
-	 * @param latitude
-	 * @param longitude
-	 * @param radius
+	 * @param latitude Specifies a particular latitude coordinate
+	 * @param longitude Specifies a particular longitude coordinate
+	 * @param radius Specifies a radius in Kilometres around a set of geographic coordinates
 	 * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
 	 */
 	public LocationSearch(String latitude, String longitude, String radius, int resultsPerPage)
@@ -84,9 +84,9 @@ public class LocationSearch extends Search
 	/**
 	 * Constructor for cases where you need to specify an individual page in the API response
 	 * 
-	 * @param latitude
-	 * @param longitude
-	 * @param radius
+	 * @param latitude Specifies a particular latitude coordinate
+	 * @param longitude Specifies a particular longitude coordinate
+	 * @param radius Specifies a radius in Kilometres around a set of geographic coordinates
 	 * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
 	 * @param pageNumber Specifies a particular page number within the JSON response
 	 */

@@ -102,7 +102,7 @@ public class ItemRetriever
 	 * 
 	 * @return an ItemResultDiscussion object with the details of the chosen discussion
 	 * @throws IOException if there is a problem with the HTTPS request to the API
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 * 
 	 * @author Colman
 	 * @since 2018-04-01
@@ -134,7 +134,7 @@ public class ItemRetriever
 	 * 
 	 * @return an ItemResultTune object with the details of the chosen tune
 	 * @throws IOException if there is a problem with the HTTPS request to the API
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 */
 	public ItemResultTune getTune() throws IOException, URISyntaxException
 		{		
