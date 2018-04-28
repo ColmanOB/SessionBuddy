@@ -10,7 +10,9 @@ import java.net.URISyntaxException;
 import org.junit.Test;
 
 import sessionbuddy.wrappers.resultsets.ItemResultDiscussion;
+import sessionbuddy.wrappers.resultsets.ItemResultEvent;
 import sessionbuddy.wrappers.resultsets.ItemResultRecording;
+import sessionbuddy.wrappers.resultsets.ItemResultSession;
 import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
 public class ItemRetrieverTest 
@@ -105,7 +107,7 @@ public class ItemRetrieverTest
 			
 		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
 			{
-			e.printStackTrace();
+			fail(e.getMessage());
 			}	
 		}
 
@@ -164,20 +166,117 @@ public class ItemRetrieverTest
 
 		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
 			{
-			e.printStackTrace();
+			fail(e.getMessage());
 			}
 		}
 
 	@Test
 	public void testGetSession() 
 		{
-		fail("Not yet implemented");
+		try
+			{
+			// Set the parameters, i.e. the ID number of the session we want to retrieve
+			int sessionID = 6264;
+	
+			// Instantiate an ItemRetriever object
+			ItemRetriever search = new ItemRetriever(sessionID);
+			
+			// Perform the search
+			ItemResultSession resultSet = search.getSession();
+			
+			// Test the basic details of the session
+			assertThat(resultSet.sessionDetails.sessionID, is(notNullValue()));
+			assertThat(resultSet.sessionDetails.sessionURL, is(notNullValue()));
+			assertThat(resultSet.sessionDetails.submittedDate, is(notNullValue()));
+			
+			// Test the details of the user that submitted the session
+			assertThat(resultSet.member.userID, is(notNullValue()));
+			assertThat(resultSet.member.userName, is(notNullValue()));
+			assertThat(resultSet.member.userURL, is(notNullValue()));
+			
+			assertThat(resultSet.schedule.toString(), is(notNullValue()));
+			
+			assertThat(resultSet.venue.venueName, is(notNullValue()));
+
+			// Loop through each comment on the session and test the details
+			for (int i = 0; i < resultSet.comments.size(); i++)
+				{
+				assertThat(resultSet.comments.get(i).id, is(notNullValue()));
+				assertThat(resultSet.comments.get(i).url, is(notNullValue()));
+				assertThat(resultSet.comments.get(i).date, is(notNullValue()));
+	
+				assertThat(resultSet.comments.get(i).member.userID, is(notNullValue()));
+				assertThat(resultSet.comments.get(i).member.userName, is(notNullValue()));
+				assertThat(resultSet.comments.get(i).member.userURL, is(notNullValue()));
+
+				assertThat(resultSet.comments.get(i).subject, is(notNullValue()));
+				assertThat(resultSet.comments.get(i).content, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}
 		}
 
 	@Test
 	public void testGetEvent() 
 		{
-		fail("Not yet implemented");
+		try
+			{
+			// Set the parameter, i.e. the ID number of the event to be retrieved
+			int eventID = 2;
+			
+			// Instantiate a ItemRetriever object
+			ItemRetriever search = new ItemRetriever(eventID);
+			
+			// Call the getEvent() method on the ItemRetriever object
+			ItemResultEvent resultSet = search.getEvent();
+			
+			// Test the general details of the event
+			assertThat(resultSet.eventDetails.eventID, is(notNullValue()));
+			assertThat(resultSet.eventDetails.eventName, is(notNullValue()));
+			assertThat(resultSet.eventDetails.eventURL, is(notNullValue()));
+			assertThat(resultSet.eventDetails.submittedDate, is(notNullValue()));
+			
+			assertThat(resultSet.schedule.startDate, is(notNullValue()));
+			assertThat(resultSet.schedule.endDate, is(notNullValue()));
+		
+			assertThat(resultSet.member.userID, is(notNullValue()));
+			assertThat(resultSet.member.userName, is(notNullValue()));
+			assertThat(resultSet.member.userURL, is(notNullValue()));
+			
+			assertThat(resultSet.coordinates.latitude, is(notNullValue()));
+			assertThat(resultSet.coordinates.longitude, is(notNullValue()));
+			
+			assertThat(resultSet.town.townName, is(notNullValue()));
+			assertThat(resultSet.area.areaName, is(notNullValue()));
+			assertThat(resultSet.country.countryName, is(notNullValue()));
+			
+			assertThat(resultSet.venue.venueName, is(notNullValue()));
+			assertThat(resultSet.venue.venuePhone, is(notNullValue()));
+			assertThat(resultSet.venue.venueEmail, is(notNullValue()));
+			assertThat(resultSet.venue.venueWebsite, is(notNullValue()));
+			
+			// Loop through each comment on the event and test the details
+			for (int i = 0; i < (resultSet.comments.size()); i++)
+				{
+				assertThat(resultSet.comments.get(i).id, is(notNullValue()));
+				assertThat(resultSet.comments.get(i).url, is(notNullValue()));
+				assertThat(resultSet.comments.get(i).date, is(notNullValue()));
+	
+				assertThat(resultSet.comments.get(i).member.userID, is(notNullValue()));
+				assertThat(resultSet.comments.get(i).member.userName, is(notNullValue()));
+				assertThat(resultSet.comments.get(i).member.userURL, is(notNullValue()));
+				assertThat(resultSet.comments.get(i).content, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}
 		}
 
 	}
