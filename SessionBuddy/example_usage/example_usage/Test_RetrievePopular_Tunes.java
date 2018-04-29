@@ -42,17 +42,7 @@ class Test_RetrievePopular_Tunes
 				}
 		   	}
 		
-		catch (IllegalArgumentException e)
-			{
-			System.out.println(e.getMessage());
-			}
-		
-		catch (IllegalStateException e)
-			{
-			System.out.println(e.getMessage());
-			}
-		
-		catch (IOException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException e)
 			{
 			System.out.println(e.getMessage());
 			}
