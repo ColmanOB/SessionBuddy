@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
+import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 import sessionbuddy.wrappers.resultsets.SearchResultSets;
 
 public class MemberContributionSearchTest 
@@ -44,19 +45,135 @@ public class MemberContributionSearchTest
 	@Test
 	public void testListSessionsWithPagination() 
 		{
-		fail("Not yet implemented");
+		int resultsPerPage = 3;
+		int pageNumber = 2;
+		int userID = 1;
+		
+		// Instantiate a MemberContributionSearch object
+		MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage, pageNumber);
+		
+		try
+			{					
+			// Perform the search by calling the listtSessions method of the MemberContributionSearch object
+			ArrayList<SearchResultSessions> resultSet = search.listSessions();
+			
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+						
+				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+				assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueWebsite, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
 		}
 	
 	@Test
 	public void testListSessionsWithoutPagination() 
 		{
-		fail("Not yet implemented");
+		int resultsPerPage = 50;
+		int userID = 1;
+		
+		// Instantiate a MemberContributionSearch object
+		MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage);
+		
+		try
+			{					
+			// Perform the search by calling the listtSessions method of the MemberContributionSearch object
+			ArrayList<SearchResultSessions> resultSet = search.listSessions();
+			
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+						
+				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+				assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueWebsite, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
 		}
 
 	@Test
 	public void testListEventsWithPagination() 
 		{
-		fail("Not yet implemented");
+		// Set the search parameters
+		int resultsPerPage = 2;
+		int pageNumber = 2;
+		int userID = 1;
+
+		// Instantiate a MemberContributionSearch object
+		MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage, pageNumber);
+		
+		try
+			{		
+			// Call the listEvents() method on the MemberContributionSearch object
+			ArrayList<SearchResultEvents> resultSet = search.listEvents();
+			
+			// Loop through the results and print attributes of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).details.eventID, is(notNullValue()));
+				assertThat(resultSet.get(i).details.eventName, is(notNullValue()));
+				assertThat(resultSet.get(i).details.eventURL, is(notNullValue()));
+				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).schedule.startDate, is(notNullValue()));
+				assertThat(resultSet.get(i).schedule.endDate, is(notNullValue()));
+
+				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+				assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+
+				assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueWebsite, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).town.townName, is(notNullValue()));
+				assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
+				assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
 		}
 
 	@Test
