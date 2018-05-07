@@ -11,19 +11,87 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
+import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
 public class LatestSearchTest {
 
 	@Test
 	public void testListTunesWithoutPagination() 
 		{
-		fail("Not yet implemented");
+		// Set the search parameters
+		int resultsPerPage = 50;
+		
+		// Instantiate a LatestSearch object
+		LatestSearch search = new LatestSearch(resultsPerPage);
+		
+		try
+			{
+			// Perform the search by calling the getLatestTunes method on the LatestSearch object
+			ArrayList<SearchResultTunesLatest> resultSet = search.listTunes();
+			
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).settingDetails.settingID, is(notNullValue()));
+				assertThat(resultSet.get(i).settingDetails.settingURL, is(notNullValue()));
+				assertThat(resultSet.get(i).settingDetails.key, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).tuneDetails.tuneID, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.tuneName, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.tuneURL, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).settingDetails.date, is(notNullValue()));
+	
+				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue())); 
+				}
+		   	}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}
 		}
 	
 	@Test
 	public void testListTunesWithPagination() 
 		{
-		fail("Not yet implemented");
+		// Set the search parameters
+		int resultsPerPage = 2;
+		int pageNumber = 2;
+		
+		// Instantiate a LatestSearch object
+		LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
+		
+		try
+			{
+			// Perform the search by calling the getLatestTunes method on the LatestSearch object
+			ArrayList<SearchResultTunesLatest> resultSet = search.listTunes();
+			
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).settingDetails.settingID, is(notNullValue()));
+				assertThat(resultSet.get(i).settingDetails.settingURL, is(notNullValue()));
+				assertThat(resultSet.get(i).settingDetails.key, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).tuneDetails.tuneID, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.tuneName, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.tuneURL, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).settingDetails.date, is(notNullValue()));
+	
+				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue())); 
+				}
+		   	}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}
 		}
 
 	@Test
