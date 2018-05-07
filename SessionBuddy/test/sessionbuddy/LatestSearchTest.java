@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
+import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
 import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
 public class LatestSearchTest {
@@ -168,13 +169,78 @@ public class LatestSearchTest {
 	@Test
 	public void testListRecordingsWithoutPagination() 
 		{
-		fail("Not yet implemented");
+		// Set the number of results to be returned per page
+		int resultsPerPage = 50;
+
+		// Instantiate a LatestSearch object
+		LatestSearch search = new LatestSearch(resultsPerPage);
+		
+		try
+			{
+			// Call the listRecordings method on the LatestSearch object
+			ArrayList<SearchResultRecordings> resultSet = search.listRecordings();
+				
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingName, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingDate, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingURL, is(notNullValue()));
+							
+				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+
+				assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			System.out.println(e.getMessage());
+			}	
 		}
 	
 	@Test
 	public void testListRecordingsWithPagination() 
 		{
-		fail("Not yet implemented");
+		// Set the number of results to be returned per page
+		int resultsPerPage = 2;
+		int pageNumber = 2;
+
+		// Instantiate a LatestSearch object
+		LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
+		
+		try
+			{
+			// Call the listRecordings method on the LatestSearch object
+			ArrayList<SearchResultRecordings> resultSet = search.listRecordings();
+				
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingName, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingDate, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingURL, is(notNullValue()));
+							
+				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+
+				assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			System.out.println(e.getMessage());
+			}	
 		}
 
 
