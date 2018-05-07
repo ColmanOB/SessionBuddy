@@ -12,8 +12,10 @@ import org.junit.Test;
 
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
+import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
 import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 import sessionbuddy.wrappers.resultsets.SearchResultSets;
+import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
 public class MemberContributionSearchTest 
 	{
@@ -21,25 +23,161 @@ public class MemberContributionSearchTest
 	@Test
 	public void testListTunesWithPagination() 
 		{
-		fail("Not yet implemented");
+		// Set the search parameters
+		int userID = 1;
+		int resultsPerPage = 2;
+		int pageNumber = 2;
+		
+		// Instantiate a LatestSearch object
+		MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage, pageNumber);
+		
+		try
+			{			
+			// Perform the search by calling the getLatestTunes method on the LatestSearch object
+			ArrayList<SearchResultTunesLatest> resultSet = search.listTunes();
+			
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).settingDetails.settingID, is(notNullValue()));
+				assertThat(resultSet.get(i).settingDetails.settingURL, is(notNullValue()));
+				assertThat(resultSet.get(i).settingDetails.key, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).tuneDetails.tuneID, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.tuneName, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.tuneURL, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).settingDetails.date, is(notNullValue()));
+	
+				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+				}
+		   	}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}
 		}
 	
 	@Test
 	public void testListTunesWithoutPagination() 
 		{
-		fail("Not yet implemented");
+		// Set the search parameters
+		int userID = 1;
+		int resultsPerPage = 50;
+		
+		// Instantiate a LatestSearch object
+		MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage);
+		
+		try
+			{			
+			// Perform the search by calling the getLatestTunes method on the LatestSearch object
+			ArrayList<SearchResultTunesLatest> resultSet = search.listTunes();
+			
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).settingDetails.settingID, is(notNullValue()));
+				assertThat(resultSet.get(i).settingDetails.settingURL, is(notNullValue()));
+				assertThat(resultSet.get(i).settingDetails.key, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).tuneDetails.tuneID, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.tuneName, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.tuneURL, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).settingDetails.date, is(notNullValue()));
+	
+				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+				}
+		   	}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}
 		}
 
 	@Test
 	public void testListRecordingsWithPagination() 
 		{
-		fail("Not yet implemented");
+		// Set the number of results to be returned per page
+		int resultsPerPage = 2;
+		int userID = 1;
+		int pageNumber = 2;
+		
+		// Instantiate a MemberContributionSearch object
+		MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage, pageNumber);
+		
+		try
+			{			
+			// Call the listRecordings method on the MemberContributionSearch object
+			ArrayList<SearchResultRecordings> resultSet = search.listRecordings();
+				
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingName, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingDate, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingURL, is(notNullValue()));
+							
+				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+
+				assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
 		}
 	
 	@Test
 	public void testListRecordingsWithoutPagination() 
 		{
-		fail("Not yet implemented");
+		// Set the number of results to be returned per page
+		int resultsPerPage = 50;
+		int userID = 1;
+		
+		// Instantiate a MemberContributionSearch object
+		MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage);
+		
+		try
+			{			
+			// Call the listRecordings method on the MemberContributionSearch object
+			ArrayList<SearchResultRecordings> resultSet = search.listRecordings();
+				
+			// Loop through the results and print each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingName, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingDate, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingInfo.recordingURL, is(notNullValue()));
+							
+				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+
+				assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
+				assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
 		}
 
 	@Test
