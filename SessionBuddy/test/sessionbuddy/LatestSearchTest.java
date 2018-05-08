@@ -11,10 +11,13 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
+import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
+import sessionbuddy.wrappers.resultsets.SearchResultSessions;
 import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
-public class LatestSearchTest {
+public class LatestSearchTest 
+	{
 
 	@Test
 	public void testListTunesWithoutPagination() 
@@ -30,7 +33,7 @@ public class LatestSearchTest {
 			// Perform the search by calling the getLatestTunes method on the LatestSearch object
 			ArrayList<SearchResultTunesLatest> resultSet = search.listTunes();
 			
-			// Loop through the results and print each attribute of each individual result in the set
+			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				assertThat(resultSet.get(i).settingDetails.settingID, is(notNullValue()));
@@ -70,7 +73,7 @@ public class LatestSearchTest {
 			// Perform the search by calling the getLatestTunes method on the LatestSearch object
 			ArrayList<SearchResultTunesLatest> resultSet = search.listTunes();
 			
-			// Loop through the results and print each attribute of each individual result in the set
+			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				assertThat(resultSet.get(i).settingDetails.settingID, is(notNullValue()));
@@ -109,7 +112,7 @@ public class LatestSearchTest {
 			// Pass in the search parameters
 			ArrayList<SearchResultDiscussions> resultSet = search.listDiscussions();
 					
-			// Loop through the results and print each attribute of each individual result in the set
+			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				assertThat(resultSet.get(i).details.discussionID, is(notNullValue()));
@@ -145,7 +148,7 @@ public class LatestSearchTest {
 			// Pass in the search parameters
 			ArrayList<SearchResultDiscussions> resultSet = search.listDiscussions();
 			
-			// Loop through the results and print each attribute of each individual result in the set
+			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				assertThat(resultSet.get(i).details.discussionID, is(notNullValue()));
@@ -180,7 +183,7 @@ public class LatestSearchTest {
 			// Call the listRecordings method on the LatestSearch object
 			ArrayList<SearchResultRecordings> resultSet = search.listRecordings();
 				
-			// Loop through the results and print each attribute of each individual result in the set
+			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
@@ -219,7 +222,7 @@ public class LatestSearchTest {
 			// Call the listRecordings method on the LatestSearch object
 			ArrayList<SearchResultRecordings> resultSet = search.listRecordings();
 				
-			// Loop through the results and print each attribute of each individual result in the set
+			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
@@ -247,25 +250,183 @@ public class LatestSearchTest {
 	@Test
 	public void testListSessionsWithoutPagination() 
 		{
-		fail("Not yet implemented");
+		// Specify the number of results to be returned per page
+		int resultsPerPage = 50;
+		
+		// Instantiate a LatestSearch object
+		LatestSearch search = new LatestSearch(resultsPerPage);
+		
+		try
+			{				
+			// Perform the search by calling the getLatestSessions method of the LatestSearch object
+			ArrayList<SearchResultSessions> resultSet = search.listSessions();
+			
+			// Loop through the results and test each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+	
+				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+				assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueWebsite, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}
 		}
 	
 	@Test
 	public void testListSessionsWithPagination() 
 		{
-		fail("Not yet implemented");
+		// Specify the number of results to be returned per page
+		int resultsPerPage = 2;
+		int pageNumber = 2;
+		
+		// Instantiate a LatestSearch object
+		LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
+		
+		try
+			{				
+			// Perform the search by calling the getLatestSessions method of the LatestSearch object
+			ArrayList<SearchResultSessions> resultSet = search.listSessions();
+			
+			// Loop through the results and test each attribute of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+	
+				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+				assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueWebsite, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}
 		}
 
 	@Test
 	public void testListEventsWithoutPagination() 
 		{
-		fail("Not yet implemented");
+		// Set the search parameters
+		int resultsPerPage = 50;
+
+		// Instantiate a LatestSearch object
+		LatestSearch search = new LatestSearch(resultsPerPage);
+		
+		try
+			{	
+			// Call the listEvents() method on the LatestSearch object
+			ArrayList<SearchResultEvents> resultSet = search.listEvents();
+			
+			// Loop through the results and test attributes of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).details.eventID, is(notNullValue()));
+				assertThat(resultSet.get(i).details.eventName, is(notNullValue()));
+				assertThat(resultSet.get(i).details.eventURL, is(notNullValue()));
+				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+	
+				assertThat(resultSet.get(i).schedule.startDate, is(notNullValue()));
+				assertThat(resultSet.get(i).schedule.endDate, is(notNullValue()));
+						
+				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+
+				assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+				assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueWebsite, is(notNullValue()));
+
+				assertThat(resultSet.get(i).town.townName, is(notNullValue()));
+				assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
+				assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
 		}
 
 	@Test
 	public void testListEventsWithPagination() 
 		{
-		fail("Not yet implemented");
+		// Set the search parameters
+		int resultsPerPage = 2;
+		int pageNumber = 2;
+
+		// Instantiate a LatestSearch object
+		LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
+		
+		try
+			{	
+			// Call the listEvents() method on the LatestSearch object
+			ArrayList<SearchResultEvents> resultSet = search.listEvents();
+			
+			// Loop through the results and test attributes of each individual result in the set
+			for (int i = 0; i < resultSet.size(); i++)
+				{
+				assertThat(resultSet.get(i).details.eventID, is(notNullValue()));
+				assertThat(resultSet.get(i).details.eventName, is(notNullValue()));
+				assertThat(resultSet.get(i).details.eventURL, is(notNullValue()));
+				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+	
+				assertThat(resultSet.get(i).schedule.startDate, is(notNullValue()));
+				assertThat(resultSet.get(i).schedule.endDate, is(notNullValue()));
+						
+				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+				assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+
+				assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+				assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+				
+				assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
+				assertThat(resultSet.get(i).venue.venueWebsite, is(notNullValue()));
+
+				assertThat(resultSet.get(i).town.townName, is(notNullValue()));
+				assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
+				assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+				}
+			}
+		
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}	
 		}
 
-}
+	}
