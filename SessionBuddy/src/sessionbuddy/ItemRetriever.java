@@ -8,8 +8,9 @@ import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
+import sessionbuddy.utils.RequestType;
 import sessionbuddy.utils.StringCleaner;
-import sessionbuddy.utils.UrlBuilder;
+import sessionbuddy.utils.URLComposer;
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Artist;
 import sessionbuddy.wrappers.granularobjects.Comment;
@@ -492,9 +493,10 @@ public class ItemRetriever
 		// Build the URL with all necessary parameters to perform a search via thesession.org API
 		URL requestURL;
 		
-		UrlBuilder builder = new UrlBuilder();
+		URLComposer builder = new URLComposer();
 			
 		requestURL = builder.new Builder()
+				.requestType(RequestType.SINGLE_ITEM)
 				.path(dataCategory + "/" + itemID)
 				.build();
 		

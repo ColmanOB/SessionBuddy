@@ -8,8 +8,9 @@ import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
+import sessionbuddy.utils.RequestType;
 import sessionbuddy.utils.StringCleaner;
-import sessionbuddy.utils.UrlBuilder;
+import sessionbuddy.utils.URLComposer;
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Artist;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
@@ -465,9 +466,10 @@ public class LatestSearch extends Search
 		// If a particular page within the response from the API is specified:
 		if (pageNumber > 0)
 			{
-			UrlBuilder builder = new UrlBuilder();
+			URLComposer builder = new URLComposer();
 			
 			requestURL = builder.new Builder()
+					.requestType(RequestType.SEARCH_LATEST_ITEMS)
 					.path(dataCategory + "/" + "new")
 					.itemsPerPage(resultsPerPage)
 					.pageNumber(pageNumber)
@@ -477,9 +479,10 @@ public class LatestSearch extends Search
 		// If no page is specified
 		else if (pageNumber == 0)		
 			{
-			UrlBuilder builder = new UrlBuilder();
+			URLComposer builder = new URLComposer();
 			
 			requestURL = builder.new Builder()
+					.requestType(RequestType.SEARCH_LATEST_ITEMS)
 					.path(dataCategory + "/" + "new")
 					.itemsPerPage(resultsPerPage)
 					.build();

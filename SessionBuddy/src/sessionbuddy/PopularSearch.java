@@ -8,8 +8,9 @@ import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
+import sessionbuddy.utils.RequestType;
 import sessionbuddy.utils.StringCleaner;
-import sessionbuddy.utils.UrlBuilder;
+import sessionbuddy.utils.URLComposer;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDateAndTunebooks;
@@ -147,9 +148,10 @@ public class PopularSearch extends Search
 		// If a particular page within the response from the API is specified:
 		if (pageNumber > 0)
 			{
-			UrlBuilder builder = new UrlBuilder();
+			URLComposer builder = new URLComposer();
 			
 			requestURL = builder.new Builder()
+					.requestType(RequestType.SEARCH_POPULAR)
 					.path("tunes" + "/" + "popular")
 					.itemsPerPage(resultsPerPage)
 					.pageNumber(pageNumber)
@@ -159,9 +161,10 @@ public class PopularSearch extends Search
 		// If no page is specified
 		else if (pageNumber == 0)		
 			{
-			UrlBuilder builder = new UrlBuilder();
+			URLComposer builder = new URLComposer();
 			
 			requestURL = builder.new Builder()
+					.requestType(RequestType.SEARCH_POPULAR)
 					.path("tunes" + "/" + "popular")
 					.itemsPerPage(resultsPerPage)
 					.build();

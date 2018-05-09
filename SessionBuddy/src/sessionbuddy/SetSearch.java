@@ -8,8 +8,9 @@ import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
+import sessionbuddy.utils.RequestType;
 import sessionbuddy.utils.StringCleaner;
-import sessionbuddy.utils.UrlBuilder;
+import sessionbuddy.utils.URLComposer;
 import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperSets;
@@ -144,9 +145,10 @@ public class SetSearch extends Search
 		// If a particular page within the response from the API is specified:
 		if (pageNumber > 0)
 			{
-			UrlBuilder builder = new UrlBuilder();
+			URLComposer builder = new URLComposer();
 			
 			requestURL = builder.new Builder()
+					.requestType(RequestType.SEARCH_SETS)
 					.path("tunes" + "/" + "sets")
 					.itemsPerPage(resultsPerPage)
 					.pageNumber(pageNumber)
@@ -156,9 +158,10 @@ public class SetSearch extends Search
 		// If no page is specified
 		else if (pageNumber == 0)		
 			{
-			UrlBuilder builder = new UrlBuilder();
+			URLComposer builder = new URLComposer();
 			
 			requestURL = builder.new Builder()
+					.requestType(RequestType.SEARCH_SETS)
 					.path("tunes" + "/" + "sets")
 					.itemsPerPage(resultsPerPage)
 					.build();
