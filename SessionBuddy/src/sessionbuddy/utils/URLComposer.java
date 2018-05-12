@@ -113,8 +113,8 @@ public class URLComposer
 					return builder.build().toURL();
 		    		}
 	    		
-	    		// In the case of KeywordSearch or LocationSearch where a page number is specified
-	    		 else if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION) && apiRequest.pageNumber > 0)
+	    		// In the case of KeywordSearch or LocationSearch where a page number is specified & a number of items per page is specified
+	    		 else if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION) && apiRequest.pageNumber > 0 && apiRequest.itemsPerPage > 0)
 	    			{
 					URIBuilder builder = new URIBuilder()
 							.setScheme(PROTOCOL)
@@ -128,8 +128,22 @@ public class URLComposer
 					return builder.build().toURL();
 	    			}
 	    		
-	    		// In the case of LatestSearch, MemberContributionSearch, PopularSearch & SetSearch where a page number is specified
-	    		 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS || apiRequest.requestType == RequestType.SEARCH_POPULAR || apiRequest.requestType == RequestType.SEARCH_SETS) && apiRequest.pageNumber > 0)
+	    		// In the case of KeywordSearch or LocationSearch where a page number is specified, but no number of items per page
+	    		 else if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION) && apiRequest.pageNumber > 0 && apiRequest.itemsPerPage == 0)
+	    			{
+					URIBuilder builder = new URIBuilder()
+							.setScheme(PROTOCOL)
+							.setHost(HOST)
+							.setPath(apiRequest.getPath())
+							.addParameters(apiRequest.getQueryParameters())
+							.addParameter(FORMAT_SPECIFIER, FORMAT)
+							.addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiRequest.pageNumber));
+					
+					return builder.build().toURL();
+	    			}
+	    		
+	    		// In the case of LatestSearch, MemberContributionSearch, PopularSearch & SetSearch where a page number and items per page are specified
+	    		 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS || apiRequest.requestType == RequestType.SEARCH_POPULAR || apiRequest.requestType == RequestType.SEARCH_SETS) && apiRequest.pageNumber > 0 && apiRequest.itemsPerPage > 0)
 	    			{
 					URIBuilder builder = new URIBuilder()
 							.setScheme(PROTOCOL)
@@ -142,9 +156,21 @@ public class URLComposer
 					return builder.build().toURL();
 	    			}
 	
+	    		// In the case of LatestSearch, MemberContributionSearch, PopularSearch & SetSearch where a page number is specified, but not a number of items per page
+	    		 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS || apiRequest.requestType == RequestType.SEARCH_POPULAR || apiRequest.requestType == RequestType.SEARCH_SETS) && apiRequest.pageNumber > 0 && apiRequest.itemsPerPage == 0)
+	    			{
+					URIBuilder builder = new URIBuilder()
+							.setScheme(PROTOCOL)
+							.setHost(HOST)
+							.setPath(apiRequest.getPath())
+							.addParameter(FORMAT_SPECIFIER, FORMAT)
+							.addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiRequest.pageNumber));
+					
+					return builder.build().toURL();
+	    			}
 	    		
-	    		// In the case of LatestSearch, MemberContributionSearch, PopularSearch & SetSearch where no page number is specified
-	    		 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS || apiRequest.requestType == RequestType.SEARCH_POPULAR || apiRequest.requestType == RequestType.SEARCH_SETS) && apiRequest.pageNumber == 0)
+	    		// In the case of LatestSearch, MemberContributionSearch, PopularSearch & SetSearch where no page number is specified, but items per page are specified
+	    		 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS || apiRequest.requestType == RequestType.SEARCH_POPULAR || apiRequest.requestType == RequestType.SEARCH_SETS) && apiRequest.pageNumber == 0 && apiRequest.itemsPerPage > 0)
 		    		{ 
 					URIBuilder builder = new URIBuilder()
 							.setScheme(PROTOCOL)
@@ -156,6 +182,17 @@ public class URLComposer
 					return builder.build().toURL();
 		    		}
 	    		
+	    		// In the case of LatestSearch, MemberContributionSearch, PopularSearch & SetSearch where no page number or items per page are specified
+	    		 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS || apiRequest.requestType == RequestType.SEARCH_POPULAR || apiRequest.requestType == RequestType.SEARCH_SETS) && apiRequest.pageNumber == 0 & apiRequest.itemsPerPage == 0)
+		    		{ 
+					URIBuilder builder = new URIBuilder()
+							.setScheme(PROTOCOL)
+							.setHost(HOST)
+							.setPath(apiRequest.getPath())
+							.addParameter(FORMAT_SPECIFIER, FORMAT);
+					
+					return builder.build().toURL();
+		    		}
 	    		
 	    		// In the case of ItemRetriever, which doesn't have page number or items per page options
 	    		 else if (apiRequest.requestType == RequestType.SINGLE_ITEM)

@@ -45,7 +45,7 @@ public class URLComposerTest
 	// Test building a URL to perform a keyword search
 	
 	@Test
-	public void testKeywordSearchURLWithPagination() 
+	public void testKeywordSearchURLWithPaginationAndItemsPerPage() 
 		{
 		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();	
@@ -68,7 +68,28 @@ public class URLComposerTest
 		}
 	
 	@Test
-	public void testKeywordSearchURLWithoutPagination() 
+	public void testKeywordSearchURLWithPaginationButNoItemsPerPageSpecified() 
+		{
+		// Create a UrlBuilder object and specify the various search parameters
+		URLComposer ub = new URLComposer();	
+		String searchTerms = "wig glue";
+		int pageNumber = 2;
+		List<NameValuePair> queryParams = new ArrayList<>();
+		queryParams.add(new BasicNameValuePair("q", searchTerms));
+		
+		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
+		URL requestURL = ub.new Builder()
+				.requestType(RequestType.SEARCH_BY_KEYWORD)
+				.path("discussions" + "/" + "search")
+				.queryParameters(queryParams)
+				.pageNumber(pageNumber)
+				.build();
+		
+		assertEquals("https://thesession.org/discussions/search?q=wig+glue&format=json&page=2", requestURL.toString());
+		}
+	
+	@Test
+	public void testKeywordSearchURLWithoutPaginationOrItemsPerPage() 
 		{
 		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
@@ -126,6 +147,22 @@ public class URLComposerTest
 				.build();
 		
 		assertEquals("https://thesession.org/tunes/new?format=json&perpage=5", requestURL.toString());
+		}
+	
+	@Test
+	public void testLatestSearchURLWithoutPaginationOrItemsPerPage() 
+		{
+		// Create a UrlBuilder object and specify the various search parameters
+		URLComposer ub = new URLComposer();
+		String dataCategory = "tunes";
+
+		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
+		URL requestURL = ub.new Builder()
+				.requestType(RequestType.SEARCH_LATEST_ITEMS)
+				.path(dataCategory + "/" + "new")
+				.build();
+		
+		assertEquals("https://thesession.org/tunes/new?format=json", requestURL.toString());
 		}
 	
 	@Test

@@ -16,7 +16,7 @@ public class SetSearchTest
 	{
 
 	@Test
-	public void testListSetsWithoutPagination() 
+	public void testListSetsWithoutPaginationWithResultsPerPage() 
 		{
 		try
 			{
@@ -50,7 +50,7 @@ public class SetSearchTest
 		}
 
 	@Test
-	public void testListSetsWithPagination() 
+	public void testListSetsWithPaginationWithResultsPerPage() 
 		{
 		try
 			{
@@ -79,6 +79,51 @@ public class SetSearchTest
 		   	}
 		
 		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}
+		}
+	
+
+	@Test
+	(expected = IllegalArgumentException.class)
+	
+	public void testAttemptWithZeroResultsPerPage() 
+		{
+		try
+			{
+			int resultsPerPage = 0;
+			// Instantiate a SetSearch object
+			SetSearch search = new SetSearch(resultsPerPage);
+					
+			// Perform the search by calling the listSets method on the SetSearch object
+			@SuppressWarnings("unused")
+			ArrayList<SearchResultSets> resultSet = search.listSets();
+			}
+		
+		catch (IllegalStateException | IOException | URISyntaxException e)
+			{
+			fail(e.getMessage());
+			}
+		}
+
+	@Test
+	(expected = IllegalArgumentException.class)
+	
+	public void testAttemptWithTooManyResultsPerPage() 
+		{
+		try
+			{
+			int resultsPerPage = 51;
+			// Instantiate a SetSearch object
+			SetSearch search = new SetSearch(resultsPerPage);
+					
+			// Perform the search by calling the listSets method on the SetSearch object
+			@SuppressWarnings("unused")
+			ArrayList<SearchResultSets> resultSet = search.listSets();
+			}
+		
+		catch (IllegalStateException | IOException | URISyntaxException e)
 			{
 			fail(e.getMessage());
 			}
