@@ -8,124 +8,112 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import sessionbuddy.wrappers.resultsets.SearchResultSets;
 
 public class SetSearchTest 
 	{
+	@Rule 
+	public ExpectedException zeroItemsPerPageException = ExpectedException.none();
+	
+	@Rule 
+	public ExpectedException lessThanZeroItemsPerPageException = ExpectedException.none();
+	
+	@Rule 
+	public ExpectedException MoreThanFiftyItemsPerPageException = ExpectedException.none();
+	
 
 	@Test
-	public void testListSetsWithoutPaginationWithResultsPerPage() 
+	public void testListSetsWithoutPaginationWithResultsPerPage() throws IllegalArgumentException, IOException, URISyntaxException 
 		{
-		try
+		int resultsPerPage = 50;
+
+		SetSearch search = new SetSearch(resultsPerPage);
+
+		ArrayList<SearchResultSets> resultSet = search.listSets();
+			
+		// Loop through the results and test each attribute of each individual result in the set
+		for (int i = 0; i < resultSet.size(); i++)
 			{
-			// Set the search parameters
-			int resultsPerPage = 50;
-			
-			// Instantiate a SetSearch object
-			SetSearch search = new SetSearch(resultsPerPage);
-			
-			// Perform the search by calling the listSets method on the SetSearch object
-			ArrayList<SearchResultSets> resultSet = search.listSets();
-			
-			// Loop through the results and test each attribute of each individual result in the set
-			for (int i = 0; i < resultSet.size(); i++)
-				{
-				assertThat(resultSet.get(i).setDetails.setID, is(notNullValue()));
-				assertThat(resultSet.get(i).setDetails.setName, is(notNullValue()));
-				assertThat(resultSet.get(i).setDetails.setDate, is(notNullValue()));
-				assertThat(resultSet.get(i).setDetails.setURL, is(notNullValue()));
+			assertThat(resultSet.get(i).setDetails.setID, is(notNullValue()));
+			assertThat(resultSet.get(i).setDetails.setName, is(notNullValue()));
+			assertThat(resultSet.get(i).setDetails.setDate, is(notNullValue()));
+			assertThat(resultSet.get(i).setDetails.setURL, is(notNullValue()));
 				
-				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
-				}
-		   	}
-		
-		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
-			{
-			fail(e.getMessage());
-			}
+			assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+			assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+			assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+			}	   	
 		}
 
 	@Test
-	public void testListSetsWithPaginationWithResultsPerPage() 
+	public void testListSetsWithPaginationWithResultsPerPage() throws IllegalArgumentException, IOException, URISyntaxException 
 		{
-		try
+		int resultsPerPage = 4;
+		int pageNumber = 2;
+
+		SetSearch search = new SetSearch(resultsPerPage, pageNumber);
+
+		ArrayList<SearchResultSets> resultSet = search.listSets();
+		
+		// Loop through the results and test each attribute of each individual result in the set
+		for (int i = 0; i < resultSet.size(); i++)
 			{
-			// Set the search parameters
-			int resultsPerPage = 4;
-			int pageNumber = 2;
-			
-			// Instantiate a SetSearch object
-			SetSearch search = new SetSearch(resultsPerPage, pageNumber);
-			
-			// Perform the search by calling the listSets method on the SetSearch object
-			ArrayList<SearchResultSets> resultSet = search.listSets();
-			
-			// Loop through the results and test each attribute of each individual result in the set
-			for (int i = 0; i < resultSet.size(); i++)
-				{
-				assertThat(resultSet.get(i).setDetails.setID, is(notNullValue()));
-				assertThat(resultSet.get(i).setDetails.setName, is(notNullValue()));
-				assertThat(resultSet.get(i).setDetails.setDate, is(notNullValue()));
-				assertThat(resultSet.get(i).setDetails.setURL, is(notNullValue()));
+			assertThat(resultSet.get(i).setDetails.setID, is(notNullValue()));
+			assertThat(resultSet.get(i).setDetails.setName, is(notNullValue()));
+			assertThat(resultSet.get(i).setDetails.setDate, is(notNullValue()));
+			assertThat(resultSet.get(i).setDetails.setURL, is(notNullValue()));
 				
-				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-				assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
-				}
-		   	}
-		
-		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
-			{
-			fail(e.getMessage());
+			assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+			assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+			assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
 			}
 		}
-	
-
-	@Test
-	(expected = IllegalArgumentException.class)
-	
-	public void testAttemptWithZeroResultsPerPage() 
-		{
-		try
-			{
-			int resultsPerPage = 0;
-			// Instantiate a SetSearch object
-			SetSearch search = new SetSearch(resultsPerPage);
-					
-			// Perform the search by calling the listSets method on the SetSearch object
-			@SuppressWarnings("unused")
-			ArrayList<SearchResultSets> resultSet = search.listSets();
-			}
 		
-		catch (IllegalStateException | IOException | URISyntaxException e)
-			{
-			fail(e.getMessage());
-			}
+	@Test
+	public void testAttemptWithZeroResultsPerPage() throws IllegalArgumentException, IOException, URISyntaxException 
+		{
+		zeroItemsPerPageException.expect(IllegalArgumentException.class);
+		zeroItemsPerPageException.expectMessage("Number of results per page must be greater than zero");
+		
+		int resultsPerPage = 0;
+
+		SetSearch search = new SetSearch(resultsPerPage);
+							
+		@SuppressWarnings("unused")
+		ArrayList<SearchResultSets> resultSet = search.listSets();
 		}
-
-	@Test
-	(expected = IllegalArgumentException.class)
 	
-	public void testAttemptWithTooManyResultsPerPage() 
+	@Test
+	public void testAttemptWithLessThanZeroResultsPerPage() throws IllegalArgumentException, IOException, URISyntaxException 
 		{
-		try
-			{
-			int resultsPerPage = 51;
-			// Instantiate a SetSearch object
-			SetSearch search = new SetSearch(resultsPerPage);
-					
-			// Perform the search by calling the listSets method on the SetSearch object
-			@SuppressWarnings("unused")
-			ArrayList<SearchResultSets> resultSet = search.listSets();
-			}
+		lessThanZeroItemsPerPageException.expect(IllegalArgumentException.class);
+		lessThanZeroItemsPerPageException.expectMessage("Number of results per page must be greater than zero");
 		
-		catch (IllegalStateException | IOException | URISyntaxException e)
-			{
-			fail(e.getMessage());
-			}
+		int resultsPerPage = -1;
+
+		SetSearch search = new SetSearch(resultsPerPage);
+							
+		// Perform the search by calling the listSets method on the SetSearch object
+		@SuppressWarnings("unused")
+		ArrayList<SearchResultSets> resultSet = search.listSets();
+		}
+	
+	@Test
+	public void testAttemptWithMoreThanFiftyResultsPerPage() throws IllegalArgumentException, IOException, URISyntaxException 
+		{
+		MoreThanFiftyItemsPerPageException.expect(IllegalArgumentException.class);
+		MoreThanFiftyItemsPerPageException.expectMessage("Number of results per page cannot exceed 50");
+		
+		int resultsPerPage = 51;
+
+		SetSearch search = new SetSearch(resultsPerPage);
+							
+		// Perform the search by calling the listSets method on the SetSearch object
+		@SuppressWarnings("unused")
+		ArrayList<SearchResultSets> resultSet = search.listSets();
 		}
 	}
