@@ -115,11 +115,11 @@ public class LatestSearchTest
 			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).details.discussionID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.discussionName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
-				assertThat(resultSet.get(i).details.discussionURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.numberOfComments, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionID, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionName, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 								
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
 				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
@@ -151,11 +151,11 @@ public class LatestSearchTest
 			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).details.discussionID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.discussionName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
-				assertThat(resultSet.get(i).details.discussionURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.numberOfComments, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionID, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionName, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 						
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
 				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
@@ -186,10 +186,10 @@ public class LatestSearchTest
 			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingName, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingDate, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingURL, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingID, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingName, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingDate, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingURL, is(notNullValue()));
 							
 				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
 				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
@@ -225,10 +225,10 @@ public class LatestSearchTest
 			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingName, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingDate, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingURL, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingID, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingName, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingDate, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingURL, is(notNullValue()));
 							
 				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
 				assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
@@ -264,9 +264,9 @@ public class LatestSearchTest
 			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
 	
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
 				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
@@ -306,9 +306,9 @@ public class LatestSearchTest
 			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
 	
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
 				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
@@ -347,10 +347,10 @@ public class LatestSearchTest
 			// Loop through the results and test attributes of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).details.eventID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.submittedDate, is(notNullValue()));
 	
 				assertThat(resultSet.get(i).schedule.startDate, is(notNullValue()));
 				assertThat(resultSet.get(i).schedule.endDate, is(notNullValue()));
@@ -397,10 +397,10 @@ public class LatestSearchTest
 			// Loop through the results and test attributes of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).details.eventID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.submittedDate, is(notNullValue()));
 	
 				assertThat(resultSet.get(i).schedule.startDate, is(notNullValue()));
 				assertThat(resultSet.get(i).schedule.endDate, is(notNullValue()));

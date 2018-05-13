@@ -38,11 +38,11 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Discussion metadata
-				assertThat(resultSet.get(i).details.discussionID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.discussionName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
-				assertThat(resultSet.get(i).details.discussionURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.numberOfComments, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionID, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionName, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 				
 				// User details
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
@@ -77,11 +77,11 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Discussion metadata
-				assertThat(resultSet.get(i).details.discussionID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.discussionName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
-				assertThat(resultSet.get(i).details.discussionURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.numberOfComments, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionID, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionName, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.discussionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 				
 				// User details
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
@@ -115,10 +115,10 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Discussion metadata
-				assertThat(resultSet.get(i).details.eventID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.submittedDate, is(notNullValue()));
 
 				// User details
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
@@ -177,10 +177,10 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Discussion metadata
-				assertThat(resultSet.get(i).details.eventID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.submittedDate, is(notNullValue()));
 
 				// User details
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
@@ -238,11 +238,11 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Tune metadata
-				assertThat(resultSet.get(i).details.tuneDetails.tuneID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.tuneDetails.tuneName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.tuneType, is(notNullValue()));
-				assertThat(resultSet.get(i).details.tuneDetails.tuneURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.tuneType, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.submittedDate, is(notNullValue()));
 				
 				// User details
 				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
@@ -277,11 +277,11 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Tune metadata
-				assertThat(resultSet.get(i).details.tuneDetails.tuneID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.tuneDetails.tuneName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.tuneType, is(notNullValue()));
-				assertThat(resultSet.get(i).details.tuneDetails.tuneURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.tuneType, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
+				assertThat(resultSet.get(i).tuneDetails.submittedDate, is(notNullValue()));
 				
 				// User details
 				assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
@@ -315,10 +315,10 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Tune metadata
-				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingName, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingDate, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingURL, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingID, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingName, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingDate, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingURL, is(notNullValue()));
 				
 				// Artist details
 				assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
@@ -358,10 +358,10 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Tune metadata
-				assertThat(resultSet.get(i).recordingInfo.recordingID, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingName, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingDate, is(notNullValue()));
-				assertThat(resultSet.get(i).recordingInfo.recordingURL, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingID, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingName, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingDate, is(notNullValue()));
+				assertThat(resultSet.get(i).recordingDetails.recordingURL, is(notNullValue()));
 				
 				// Artist details
 				assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
@@ -400,9 +400,9 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Session metadata
-				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
 
 				// User details
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
@@ -457,9 +457,9 @@ public class KeywordSearchTest
 			for (int i = 0; i < resultSet.size(); i++)
 				{
 				// Session metadata
-				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
 
 				// User details
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));

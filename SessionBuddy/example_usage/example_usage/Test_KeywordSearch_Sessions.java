@@ -28,9 +28,9 @@ public class Test_KeywordSearch_Sessions
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				System.out.println("Session ID: " + resultSet.get(i).details.sessionID);
-				System.out.println("Session URL: " + resultSet.get(i).details.sessionURL);
-				System.out.println("Submitted Date: " + resultSet.get(i).details.submittedDate);	
+				System.out.println("Session ID: " + resultSet.get(i).sessionDetails.sessionID);
+				System.out.println("Session URL: " + resultSet.get(i).sessionDetails.sessionURL);
+				System.out.println("Submitted Date: " + resultSet.get(i).sessionDetails.submittedDate);	
 				
 				System.out.println("Venue ID: " + resultSet.get(i).venue.venueID);
 				System.out.println("Venue Name: " + resultSet.get(i).venue.venueName);

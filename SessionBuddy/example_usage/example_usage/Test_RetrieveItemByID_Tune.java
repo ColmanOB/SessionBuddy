@@ -22,11 +22,11 @@ public class Test_RetrieveItemByID_Tune
 			ItemResultTune resultSet = search.getTune();
 			
 			// Retrieve all the general tune details
-			System.out.println("Tune ID: " + resultSet.tuneDetails.tuneDetails.tuneID);
-			System.out.println("Tune Title: " + resultSet.tuneDetails.tuneDetails.tuneName);
+			System.out.println("Tune ID: " + resultSet.tuneDetails.basicTuneDetails.tuneID);
+			System.out.println("Tune Title: " + resultSet.tuneDetails.basicTuneDetails.tuneName);
 			System.out.println("Tune Type: " + resultSet.tuneDetails.tuneType);
 			System.out.println("Date Submitted: " + resultSet.tuneDetails.submittedDate);
-			System.out.println("Date Submitted: " + resultSet.tuneDetails.tuneDetails.tuneURL);
+			System.out.println("Date Submitted: " + resultSet.tuneDetails.basicTuneDetails.tuneURL);
 	
 		
 			System.out.println("Tune Submitter ID: " + resultSet.member.userID);

@@ -11,7 +11,7 @@ public class TuneDetailsWithDateAndTunebooks
 	/**
 	 * The basic meta data relating to the tune, incl. tune title, date of submission etc.
 	 */
-	public TuneDetailsWithDate tuneDetails;
+	public TuneDetailsWithDate generalTuneDetails;
 
 	/**
 	 * The number of user's tunebooks on thesession.org to which this tune belongs
@@ -26,7 +26,7 @@ public class TuneDetailsWithDateAndTunebooks
 	 */
 	public TuneDetailsWithDateAndTunebooks(TuneDetailsWithDate tuneDetails, int tunebooks)
 		{
-		this.tuneDetails = tuneDetails;
+		this.generalTuneDetails = tuneDetails;
 		this.tunebooks = tunebooks;
 		}
 	}

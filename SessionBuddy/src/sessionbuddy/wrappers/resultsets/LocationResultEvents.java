@@ -20,7 +20,7 @@ public class LocationResultEvents
 	/**
 	 * General details relating to the event
 	 */
-	public EventDetails details;
+	public EventDetails eventDetails;
 	
 	/**
 	 * Details of the user who submitted the event
@@ -71,7 +71,7 @@ public class LocationResultEvents
 	 */
 	public LocationResultEvents(EventDetails details, User user, EventSchedule schedule, Coordinates coordinates, Venue venue, Town town, Area area, Country country)
 		{
-		this.details = details;
+		this.eventDetails = details;
 		this.user = user;
 		this.schedule = schedule;
 		this.coordinates = coordinates;	

@@ -29,10 +29,10 @@ public static void main(String[] args) throws URISyntaxException
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
 			{
-			System.out.println("Event ID: " + resultSet.get(i).details.eventID);
-			System.out.println("Event Name: " + resultSet.get(i).details.eventName);
-			System.out.println("Date Submitted: " + resultSet.get(i).details.submittedDate);
-			System.out.println("Event URL: " + resultSet.get(i).details.eventURL);	
+			System.out.println("Event ID: " + resultSet.get(i).eventDetails.eventID);
+			System.out.println("Event Name: " + resultSet.get(i).eventDetails.eventName);
+			System.out.println("Date Submitted: " + resultSet.get(i).eventDetails.submittedDate);
+			System.out.println("Event URL: " + resultSet.get(i).eventDetails.eventURL);	
 			
 			System.out.println("Venue ID: " + resultSet.get(i).venue.venueID);
 			System.out.println("Venue Name: " + resultSet.get(i).venue.venueName);

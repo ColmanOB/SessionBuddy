@@ -21,7 +21,7 @@ public class SearchResultEvents
 	/**
 	 * General details of the Event
 	 */
-	public EventDetails details;
+	public EventDetails eventDetails;
 	
 	/**
 	 * The event submitter
@@ -72,7 +72,7 @@ public class SearchResultEvents
 	 */
 	public SearchResultEvents(EventDetails details, User user, EventSchedule schedule, Coordinates coordinates, Venue venue, Town town, Area area, Country country)
 		{
-		this.details = details;
+		this.eventDetails = details;
 		this.user = user;
 		this.schedule = schedule;
 		this.coordinates = coordinates;	

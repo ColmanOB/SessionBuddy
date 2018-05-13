@@ -25,6 +25,9 @@ public class SetSearchTest
 	@Rule 
 	public ExpectedException MoreThanFiftyItemsPerPageException = ExpectedException.none();
 	
+	@Rule 
+	public ExpectedException NegativePageNumberException = ExpectedException.none();
+	
 
 	@Test
 	public void testListSetsWithoutPaginationWithResultsPerPage() throws IllegalArgumentException, IOException, URISyntaxException 
@@ -48,7 +51,7 @@ public class SetSearchTest
 			assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
 			}	   	
 		}
-
+	
 	@Test
 	public void testListSetsWithPaginationWithResultsPerPage() throws IllegalArgumentException, IOException, URISyntaxException 
 		{
@@ -111,6 +114,37 @@ public class SetSearchTest
 		int resultsPerPage = 51;
 
 		SetSearch search = new SetSearch(resultsPerPage);
+							
+		// Perform the search by calling the listSets method on the SetSearch object
+		@SuppressWarnings("unused")
+		ArrayList<SearchResultSets> resultSet = search.listSets();
+		}
+	
+	@Test
+	public void testAttemptWitNegativePageNumber() throws IllegalArgumentException, IOException, URISyntaxException 
+		{
+		NegativePageNumberException.expect(IllegalArgumentException.class);
+		NegativePageNumberException.expectMessage("Page number must be an integer value greater than zero");
+		
+		int resultsPerPage = 5;
+		int pageNumber = -1;
+
+		SetSearch search = new SetSearch(resultsPerPage, pageNumber);
+							
+		// Perform the search by calling the listSets method on the SetSearch object
+		@SuppressWarnings("unused")
+		ArrayList<SearchResultSets> resultSet = search.listSets();
+		}
+	
+	@Test
+	public void testAttemptWitNegativePageNumberAndNegativeItemsPerPage() throws IllegalArgumentException, IOException, URISyntaxException 
+		{
+		NegativePageNumberException.expect(IllegalArgumentException.class);
+		
+		int resultsPerPage = -5;
+		int pageNumber = -1;
+
+		SetSearch search = new SetSearch(resultsPerPage, pageNumber);
 							
 		// Perform the search by calling the listSets method on the SetSearch object
 		@SuppressWarnings("unused")

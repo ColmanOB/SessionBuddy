@@ -27,10 +27,10 @@ class Test_RetrieveLatest_Events
 			// Loop through the results and print attributes of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				System.out.println("Event ID: " + resultSet.get(i).details.eventID);
-				System.out.println("Event Name: " + resultSet.get(i).details.eventName);
-				System.out.println("Event URL: " + resultSet.get(i).details.eventURL);
-				System.out.println("Date Submitted: " + resultSet.get(i).details.submittedDate);
+				System.out.println("Event ID: " + resultSet.get(i).eventDetails.eventID);
+				System.out.println("Event Name: " + resultSet.get(i).eventDetails.eventName);
+				System.out.println("Event URL: " + resultSet.get(i).eventDetails.eventURL);
+				System.out.println("Date Submitted: " + resultSet.get(i).eventDetails.submittedDate);
 	
 				System.out.println("Event Start Date: " + resultSet.get(i).schedule.startDate);
 				System.out.println("Event End Date: " + resultSet.get(i).schedule.endDate);

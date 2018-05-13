@@ -126,12 +126,12 @@ public class ItemRetrieverTest
 			ItemResultTune resultSet = search.getTune();
 			
 			// Test the general tune details
-			assertThat(resultSet.tuneDetails.tuneDetails.tuneID, is(notNullValue()));
-			assertThat(resultSet.tuneDetails.tuneDetails.tuneName, is(notNullValue()));
+			assertThat(resultSet.tuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
+			assertThat(resultSet.tuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
 			assertThat(resultSet.tuneDetails.tuneType, is(notNullValue()));
 			assertThat(resultSet.tuneDetails.submittedDate, is(notNullValue()));
-			assertThat(resultSet.tuneDetails.tuneDetails.tuneID, is(notNullValue()));
-			assertThat(resultSet.tuneDetails.tuneDetails.tuneURL, is(notNullValue()));
+			assertThat(resultSet.tuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
+			assertThat(resultSet.tuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
 			
 			// Test the details of the tune submitter
 			assertThat(resultSet.member.userID, is(notNullValue()));

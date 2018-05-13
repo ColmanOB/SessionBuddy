@@ -27,12 +27,10 @@ public class URLComposerTest
 	@Test
 	public void testItemRetrieverURL() 
 		{
-		// Create a UrlBuilder object, specify the data category and item identifier
 		URLComposer ub = new URLComposer();
 		String dataCategory = "tunes";
 		int itemID = 2;
-			
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
+
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SINGLE_ITEM)
 				.path(dataCategory + "/" + itemID)
@@ -47,15 +45,13 @@ public class URLComposerTest
 	@Test
 	public void testKeywordSearchURLWithPaginationAndItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();	
 		String searchTerms = "wig glue";
 		int resultsPerPage = 5;
 		int pageNumber = 2;
 		List<NameValuePair> queryParams = new ArrayList<>();
 		queryParams.add(new BasicNameValuePair("q", searchTerms));
-		
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
+
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_BY_KEYWORD)
 				.path("discussions" + "/" + "search")
@@ -70,14 +66,12 @@ public class URLComposerTest
 	@Test
 	public void testKeywordSearchURLWithPaginationButNoItemsPerPageSpecified() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();	
 		String searchTerms = "wig glue";
 		int pageNumber = 2;
 		List<NameValuePair> queryParams = new ArrayList<>();
 		queryParams.add(new BasicNameValuePair("q", searchTerms));
-		
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
+
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_BY_KEYWORD)
 				.path("discussions" + "/" + "search")
@@ -91,13 +85,11 @@ public class URLComposerTest
 	@Test
 	public void testKeywordSearchURLWithoutPaginationOrItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		String searchTerms = "wig glue";
 		List<NameValuePair> queryParams = new ArrayList<>();
 		queryParams.add(new BasicNameValuePair("q", searchTerms));
-		
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
+
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_BY_KEYWORD)
 				.path("discussions" + "/" + "search")
@@ -110,14 +102,12 @@ public class URLComposerTest
 	@Test
 	public void testKeywordSearchURLWithoutPaginationButWithItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		String searchTerms = "wig glue";
 		int resultsPerPage = 5;
 		List<NameValuePair> queryParams = new ArrayList<>();
 		queryParams.add(new BasicNameValuePair("q", searchTerms));
-		
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
+
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_BY_KEYWORD)
 				.path("discussions" + "/" + "search")
@@ -134,12 +124,10 @@ public class URLComposerTest
 	@Test
 	public void testLatestSearchURLWithoutPaginationButWithItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		String dataCategory = "tunes";
 		int resultsPerPage = 5;
 
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_LATEST_ITEMS)
 				.path(dataCategory + "/" + "new")
@@ -152,11 +140,9 @@ public class URLComposerTest
 	@Test
 	public void testLatestSearchURLWithoutPaginationOrItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		String dataCategory = "tunes";
 
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_LATEST_ITEMS)
 				.path(dataCategory + "/" + "new")
@@ -168,13 +154,11 @@ public class URLComposerTest
 	@Test
 	public void testLatestSearchURLWithPaginationAndItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		String dataCategory = "tunes";
 		int resultsPerPage = 5;
 		int pageNumber = 2;
 
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_LATEST_ITEMS)
 				.path(dataCategory + "/" + "new")
@@ -190,20 +174,17 @@ public class URLComposerTest
 	@Test
 	public void testLocationSearchURLWithoutPaginationButWithItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		String dataCategory = "sessions";
 		int resultsPerPage = 5;
 		String latitude = "53.3498";
 		String longitude = "6.2603";
 		String radius = "100";
-		
-		// Assemble the query parameters for the URL
+
 		List<NameValuePair> queryParams = new ArrayList<>();
 		queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
 		queryParams.add(new BasicNameValuePair("radius", radius));
 
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_BY_LOCATION)
 				.path(dataCategory + "/" + "nearby")
@@ -217,7 +198,6 @@ public class URLComposerTest
 	@Test
 	public void testLocationSearchURLWithPaginationAndItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		String dataCategory = "sessions";
 		int resultsPerPage = 5;
@@ -225,13 +205,11 @@ public class URLComposerTest
 		String latitude = "53.3498";
 		String longitude = "6.2603";
 		String radius = "100";
-		
-		// Assemble the query parameters for the URL
+
 		List<NameValuePair> queryParams = new ArrayList<>();
 		queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
 		queryParams.add(new BasicNameValuePair("radius", radius));
 
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_BY_LOCATION)
 				.path(dataCategory + "/" + "nearby")
@@ -249,7 +227,6 @@ public class URLComposerTest
 	@Test
 	public void testMemberContributionSearchURLWithoutPaginationButWithItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		int userID = 1;
 		String dataCategory = "tunes";
@@ -267,7 +244,6 @@ public class URLComposerTest
 	@Test
 	public void testMemberContributionSearchURLWithPaginationAndItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		int userID = 1;
 		String dataCategory = "tunes";
@@ -290,11 +266,9 @@ public class URLComposerTest
 	@Test
 	public void testPopularSearchURLWithoutPaginationButWithItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		int resultsPerPage = 5;
 
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_POPULAR)
 				.path("tunes" + "/" + "popular")
@@ -307,12 +281,10 @@ public class URLComposerTest
 	@Test
 	public void testPopularSearchURLWithPaginationAndItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		int resultsPerPage = 5;
 		int pageNumber = 2;
 
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_POPULAR)
 				.path("tunes" + "/" + "popular")
@@ -329,11 +301,9 @@ public class URLComposerTest
 	@Test
 	public void testSetSearchURLWithoutPaginationButWithItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		int resultsPerPage = 5;
 
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_SETS)
 				.path("tunes" + "/" + "sets")
@@ -346,12 +316,10 @@ public class URLComposerTest
 	@Test
 	public void testSetSearchURLWithPaginationAndItemsPerPage() 
 		{
-		// Create a UrlBuilder object and specify the various search parameters
 		URLComposer ub = new URLComposer();
 		int resultsPerPage = 5;
 		int pageNumber = 2;
 
-		// Create a new object using the UrlBuilder.Builder inner class, set the URL parameters, and call its build() method
 		URL requestURL = ub.new Builder()
 				.requestType(RequestType.SEARCH_SETS)
 				.path("tunes" + "/" + "sets")

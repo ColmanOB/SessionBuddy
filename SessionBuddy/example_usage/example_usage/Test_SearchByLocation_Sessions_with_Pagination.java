@@ -30,9 +30,9 @@ public class Test_SearchByLocation_Sessions_with_Pagination
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				System.out.println(resultSet.get(i).details.sessionID);
-				System.out.println(resultSet.get(i).details.sessionURL);
-				System.out.println(resultSet.get(i).details.submittedDate);	
+				System.out.println(resultSet.get(i).sessionDetails.sessionID);
+				System.out.println(resultSet.get(i).sessionDetails.sessionURL);
+				System.out.println(resultSet.get(i).sessionDetails.submittedDate);	
 						
 				System.out.println(resultSet.get(i).user.userID);
 				System.out.println(resultSet.get(i).user.userName);

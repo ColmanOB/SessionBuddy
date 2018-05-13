@@ -36,11 +36,11 @@ public static void main(String[] args) throws URISyntaxException
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
 			{
-			System.out.println(resultSet.get(i).details.discussionID);
-			System.out.println(resultSet.get(i).details.discussionName);
-			System.out.println(resultSet.get(i).details.submittedDate);
-			System.out.println(resultSet.get(i).details.discussionURL);	
-			System.out.println(resultSet.get(i).details.numberOfComments);	
+			System.out.println(resultSet.get(i).discussionDetails.discussionID);
+			System.out.println(resultSet.get(i).discussionDetails.discussionName);
+			System.out.println(resultSet.get(i).discussionDetails.submittedDate);
+			System.out.println(resultSet.get(i).discussionDetails.discussionURL);	
+			System.out.println(resultSet.get(i).discussionDetails.numberOfComments);	
 					
 			System.out.println(resultSet.get(i).user.userID);
 			System.out.println(resultSet.get(i).user.userName);

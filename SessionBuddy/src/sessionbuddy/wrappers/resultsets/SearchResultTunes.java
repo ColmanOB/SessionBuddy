@@ -16,7 +16,7 @@ public class SearchResultTunes
 	/**
 	 * Attributes of the tune itself
 	 */
-	public TuneDetailsWithDate details;
+	public TuneDetailsWithDate tuneDetails;
 	
 	/**
 	 * Attributes of the user who submitted the tune
@@ -31,7 +31,7 @@ public class SearchResultTunes
 	 */
 	public SearchResultTunes(TuneDetailsWithDate details, User submitter)
 		{
-		this.details = details;
+		this.tuneDetails = details;
 		this.submitter = submitter;
 		}
 	}

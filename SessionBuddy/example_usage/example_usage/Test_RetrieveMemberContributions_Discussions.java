@@ -36,10 +36,10 @@ public static void main(String[] args) throws URISyntaxException
 		// Loop through the results and print each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
 			{
-			System.out.println("Discussion ID: " + resultSet.get(i).details.discussionID);
-			System.out.println("Discussion Title: " + resultSet.get(i).details.discussionName);
-			System.out.println("Date Submitted: " + resultSet.get(i).details.submittedDate);
-			System.out.println("Discussion URL: " + resultSet.get(i).details.discussionURL);	
+			System.out.println("Discussion ID: " + resultSet.get(i).discussionDetails.discussionID);
+			System.out.println("Discussion Title: " + resultSet.get(i).discussionDetails.discussionName);
+			System.out.println("Date Submitted: " + resultSet.get(i).discussionDetails.submittedDate);
+			System.out.println("Discussion URL: " + resultSet.get(i).discussionDetails.discussionURL);	
 			/* The comment count is not returned when searching by member contribution
 			System.out.println(resultSet.get(i).details.numberOfComments);
 			*/	

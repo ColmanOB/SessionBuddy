@@ -29,9 +29,9 @@ public class Test_SearchByLocation_Events
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				System.out.println(resultSet.get(i).details.eventID);
-				System.out.println(resultSet.get(i).details.eventName);
-				System.out.println(resultSet.get(i).details.eventURL);	
+				System.out.println(resultSet.get(i).eventDetails.eventID);
+				System.out.println(resultSet.get(i).eventDetails.eventName);
+				System.out.println(resultSet.get(i).eventDetails.eventURL);	
 						
 				System.out.println(resultSet.get(i).user.userID);
 				System.out.println(resultSet.get(i).user.userName);

@@ -83,9 +83,7 @@ public class URLComposer
 	    public URL build() throws IllegalArgumentException
 	    	{
 	    	try
-		    	{
-	    		// TODO: Add support for all imaginable permutations of items per page, page number, or none, for each search type
-	    		
+		    	{	    		
 	    		// In the case of KeywordSearch or LocationSearch where no page number is specified & no items per page are specified
 	    		if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION) && apiRequest.pageNumber == 0 && apiRequest.itemsPerPage == 0)
 		    		{ 

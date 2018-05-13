@@ -15,7 +15,7 @@ public class SearchResultDiscussions
 	/**
 	 * General details of the discussion
 	 */
-	public DiscussionDetails details;
+	public DiscussionDetails discussionDetails;
 	
 	/**
 	 * Details of the user who submitted the discussion
@@ -31,7 +31,7 @@ public class SearchResultDiscussions
 	 */
 	public SearchResultDiscussions(DiscussionDetails details, User user)
 		{
-		this.details = details;
+		this.discussionDetails = details;
 		this.user = user;
 		}
 	}

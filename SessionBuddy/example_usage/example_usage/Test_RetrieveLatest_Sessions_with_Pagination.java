@@ -27,9 +27,9 @@ class Test_RetrieveLatest_Sessions_with_Pagination
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				System.out.println("Session ID: " + resultSet.get(i).details.sessionID);
-				System.out.println("Session URL: " + resultSet.get(i).details.sessionURL);
-				System.out.println("Date Submitted: " + resultSet.get(i).details.submittedDate);
+				System.out.println("Session ID: " + resultSet.get(i).sessionDetails.sessionID);
+				System.out.println("Session URL: " + resultSet.get(i).sessionDetails.sessionURL);
+				System.out.println("Date Submitted: " + resultSet.get(i).sessionDetails.submittedDate);
 						
 				System.out.println("Submitter User ID: " + resultSet.get(i).user.userID);
 				System.out.println("Submitter Username: " + resultSet.get(i).user.userName);

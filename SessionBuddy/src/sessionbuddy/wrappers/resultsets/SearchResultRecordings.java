@@ -16,7 +16,7 @@ public class SearchResultRecordings
 	/**
 	 * General details relating to the recording
 	 */
-	public RecordingDetails recordingInfo;
+	public RecordingDetails recordingDetails;
 	
 	/**
 	 * Details of the user who submitted the recording
@@ -37,7 +37,7 @@ public class SearchResultRecordings
 	 */
 	public SearchResultRecordings(RecordingDetails recordingInfo, User submitter, Artist artist)
 		{
-		this.recordingInfo = recordingInfo;
+		this.recordingDetails = recordingInfo;
 		this.submitter = submitter;	
 		this.artist = artist;
 		}

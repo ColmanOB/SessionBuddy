@@ -20,7 +20,7 @@ public class SearchResultSessions
 	/**
 	 * General details about the session
 	 */
-	public SessionDetails details;
+	public SessionDetails sessionDetails;
 	
 	/**
 	 * Latitude and longitude of the session venue
@@ -65,7 +65,7 @@ public class SearchResultSessions
 	 */
 	public SearchResultSessions(SessionDetails details, Coordinates coordinates, User user, Venue venue, Town town, Area area, Country country)
 		{
-		this.details = details;
+		this.sessionDetails = details;
 		this.coordinates = coordinates;	
 		this.user = user;
 		this.venue = venue;

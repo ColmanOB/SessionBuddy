@@ -37,9 +37,9 @@ public class LocationSearchTest
 			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
 						
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
 				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
@@ -73,9 +73,9 @@ public class LocationSearchTest
 			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).details.sessionID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.sessionURL, is(notNullValue()));
-				assertThat(resultSet.get(i).details.submittedDate, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
+				assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
 						
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
 				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
@@ -110,9 +110,9 @@ public class LocationSearchTest
 			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).details.eventID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventURL, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
 					
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
 				assertThat(resultSet.get(i).user.userName, is(notNullValue()));
@@ -154,9 +154,9 @@ public class LocationSearchTest
 			// Loop through the results and test each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)
 				{
-				assertThat(resultSet.get(i).details.eventID, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventName, is(notNullValue()));
-				assertThat(resultSet.get(i).details.eventURL, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
+				assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
 					
 				assertThat(resultSet.get(i).user.userID, is(notNullValue()));
 				assertThat(resultSet.get(i).user.userName, is(notNullValue()));

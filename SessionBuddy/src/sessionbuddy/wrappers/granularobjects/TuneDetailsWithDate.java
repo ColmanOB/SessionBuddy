@@ -11,7 +11,7 @@ public class TuneDetailsWithDate
 	/**
 	 * The basic details of the tune, incl. tune title, tune type etc.
 	 */
-	public TuneDetails tuneDetails;
+	public TuneDetails basicTuneDetails;
 	
 	/**
 	 * The type of tune, e.g. jig, reel etc.
@@ -32,7 +32,7 @@ public class TuneDetailsWithDate
 	 */
 	public TuneDetailsWithDate(TuneDetails tuneDetails, String tuneType, String submittedDate)
 		{
-		this.tuneDetails = tuneDetails;
+		this.basicTuneDetails = tuneDetails;
 		this.tuneType = tuneType;
 		this.submittedDate = submittedDate;
 		}
