@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="sessionbuddy.PopularSearchTest" time="5.756" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="sessionbuddy.PopularSearchTest" time="5.814" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_112\jre\bin"/>
@@ -27,7 +27,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\Users\Colman\eclipsenewversion-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf3299295626212755846.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\Colman\eclipsenewversion-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf2803408499007489419.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_112\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;c:/Program Files/Java/jdk1.8.0_91/bin/../jre/bin/server;c:/Program Files/Java/jdk1.8.0_91/bin/../jre/bin;c:/Program Files/Java/jdk1.8.0_91/bin/../jre/lib/amd64;c:\Program Files\Java\jdk1.8.0_91\bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\TXE Components\TCS\;C:\Program Files\Intel\TXE Components\TCS\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\TXE Components\DAL\;C:\Program Files (x86)\Intel\TXE Components\DAL\;C:\Program Files\Intel\TXE Components\IPT\;C:\Program Files (x86)\Intel\TXE Components\IPT\;C:\Users\Colman\Documents\DT249Project\abcm2ps\abcm2ps-8.11.4\;C:\Users\Colman\Documents\DT249Project\abc xml converters\abc2xml.exe-69\abc2xml_v69\;C:\Users\Colman\Documents\DT249Project\abc xml converters\xml2abc.exe-62\xml2abc_v62\;C:\WINDOWS\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Users\Colman\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\Colman\AppData\Local\Programs\Python\Python36\;C:\Users\Colman\AppData\Local\Microsoft\WindowsApps;;C:\Users\Colman\Desktop;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -61,9 +61,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="sessionbuddy.PopularSearchTest" name="testAttemptWithZeroResultsPerPage" time="0.274"/>
-  <testcase classname="sessionbuddy.PopularSearchTest" name="testGetTunesWithNoPageNumberButResultsPerPage" time="1.937"/>
+  <testcase classname="sessionbuddy.PopularSearchTest" name="testAttemptWithZeroResultsPerPage" time="0.031"/>
+  <testcase classname="sessionbuddy.PopularSearchTest" name="testGetTunesWithNoPageNumberButResultsPerPage" time="1.825"/>
   <testcase classname="sessionbuddy.PopularSearchTest" name="testAttemptWithNegativeResultsPerPage" time="0"/>
-  <testcase classname="sessionbuddy.PopularSearchTest" name="testGetTunesWithPageNumberAndResultsPerPage" time="3.545"/>
+  <testcase classname="sessionbuddy.PopularSearchTest" name="testGetTunesWithPageNumberAndResultsPerPage" time="3.958"/>
   <testcase classname="sessionbuddy.PopularSearchTest" name="testAttemptWithTooManyResultsPerPage" time="0"/>
 </testsuite>
