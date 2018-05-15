@@ -8,7 +8,7 @@ import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
 public class Test_RetrieveItemByID_Tune 
 	{
-	public static void main(String[] args) throws URISyntaxException
+	public static void main(String[] args)
 		{	
 		try
 			{
@@ -63,7 +63,7 @@ public class Test_RetrieveItemByID_Tune
 				}
 			}
 		
-		catch (IllegalArgumentException | IllegalStateException | IOException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
 			{
 			e.printStackTrace();
 			}

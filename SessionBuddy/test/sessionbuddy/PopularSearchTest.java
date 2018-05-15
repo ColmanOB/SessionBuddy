@@ -33,7 +33,7 @@ public class PopularSearchTest
 
 		PopularSearch search = new PopularSearch(resultsPerPage, pageNumber);
 
-		ArrayList<SearchResultTunesPopular> resultSet = search.getTunes();
+		ArrayList<SearchResultTunesPopular> resultSet = search.listTunes();
 			
 		// Loop through the results and test each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
@@ -57,7 +57,7 @@ public class PopularSearchTest
 
 		PopularSearch search = new PopularSearch(resultsPerPage);
 
-		ArrayList<SearchResultTunesPopular> resultSet = search.getTunes();
+		ArrayList<SearchResultTunesPopular> resultSet = search.listTunes();
 			
 		// Loop through the results and test each attribute of each individual result in the set
 		for (int i = 0; i < resultSet.size(); i++)
@@ -85,7 +85,7 @@ public class PopularSearchTest
 		PopularSearch search = new PopularSearch(resultsPerPage);
 							
 		@SuppressWarnings("unused")
-		ArrayList<SearchResultTunesPopular> resultSet = search.getTunes();
+		ArrayList<SearchResultTunesPopular> resultSet = search.listTunes();
 		}
 	
 	@Test
@@ -99,7 +99,7 @@ public class PopularSearchTest
 		PopularSearch search = new PopularSearch(resultsPerPage);
 							
 		@SuppressWarnings("unused")
-		ArrayList<SearchResultTunesPopular> resultSet = search.getTunes();
+		ArrayList<SearchResultTunesPopular> resultSet = search.listTunes();
 		}
 	
 	@Test
@@ -113,6 +113,6 @@ public class PopularSearchTest
 		PopularSearch search = new PopularSearch(resultsPerPage);
 							
 		@SuppressWarnings("unused")
-		ArrayList<SearchResultTunesPopular> resultSet = search.getTunes();
+		ArrayList<SearchResultTunesPopular> resultSet = search.listTunes();
 		}
 	}

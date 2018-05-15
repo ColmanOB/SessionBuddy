@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import sessionbuddy.LatestSearch;
 import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
-// TODO: the field names printed out are not 100% right - investigate and fix!
-
 class Test_RetrieveLatest_Tunes_with_Pagination
 	{
-	public static void main(String[] args) throws URISyntaxException
+	public static void main(String[] args)
 	   {
 		try
 			{
@@ -46,9 +44,9 @@ class Test_RetrieveLatest_Tunes_with_Pagination
 				}
 		   	}
 		
-		catch (IllegalArgumentException | IllegalStateException | IOException e)
+		catch (IllegalArgumentException | IllegalStateException | IOException | URISyntaxException e)
 			{
 			System.out.println(e.getMessage());
 			}
-	   }
+	   	}
 	}

@@ -68,7 +68,7 @@ public class PopularSearch extends Search
 	 * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
 	 * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
 	 */
-	public ArrayList<SearchResultTunesPopular> getTunes() throws IllegalArgumentException, IOException, URISyntaxException
+	public ArrayList<SearchResultTunesPopular> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
 		{
 		try
 			{

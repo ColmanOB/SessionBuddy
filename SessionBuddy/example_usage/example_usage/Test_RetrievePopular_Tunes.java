@@ -22,7 +22,7 @@ class Test_RetrievePopular_Tunes
 			PopularSearch search = new PopularSearch(resultsPerPage, pageNumber);
 			
 			// Perform the search by calling the getTunes method on the PopularSearch object
-			ArrayList<SearchResultTunesPopular> resultSet = search.getTunes();
+			ArrayList<SearchResultTunesPopular> resultSet = search.listTunes();
 			
 			// Loop through the results and print each attribute of each individual result in the set
 			for (int i = 0; i < resultSet.size(); i++)

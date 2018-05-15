@@ -10,12 +10,12 @@ import sessionbuddy.wrappers.resultsets.SearchResultTunes;
 public class Test_KeywordSearch_Tune_with_Pagination
 	{
 	
-	public static void main(String[] args) throws IllegalStateException, URISyntaxException
+	public static void main(String[] args)
 	   {
 		// Set the search parameters
-		String searchTerms = "Bucks";
-		int resultsPerPage = 2;
-		int pageNumber = 2;
+		String searchTerms = "The Old Bush";
+		int resultsPerPage = 5;
+		int pageNumber = 1;
 		
 		// Instantiate a KeywordSearch object
 		KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
@@ -42,7 +42,7 @@ public class Test_KeywordSearch_Tune_with_Pagination
 				}
 		   	}
 		
-		catch (IllegalArgumentException | IOException e)
+		catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
 			{
 			e.printStackTrace();
 			}

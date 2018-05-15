@@ -20,10 +20,10 @@ public class SetSearchTest
 	public ExpectedException zeroItemsPerPageException = ExpectedException.none();
 	
 	@Rule 
-	public ExpectedException lessThanZeroItemsPerPageException = ExpectedException.none();
+	public ExpectedException negativeItemsPerPageException = ExpectedException.none();
 	
 	@Rule 
-	public ExpectedException MoreThanFiftyItemsPerPageException = ExpectedException.none();
+	public ExpectedException tooManyItemsPerPageException = ExpectedException.none();
 	
 	@Rule 
 	public ExpectedException NegativePageNumberException = ExpectedException.none();
@@ -93,8 +93,8 @@ public class SetSearchTest
 	@Test
 	public void testAttemptWithLessThanZeroResultsPerPage() throws IllegalArgumentException, IOException, URISyntaxException 
 		{
-		lessThanZeroItemsPerPageException.expect(IllegalArgumentException.class);
-		lessThanZeroItemsPerPageException.expectMessage("Number of results per page must be greater than zero");
+		negativeItemsPerPageException.expect(IllegalArgumentException.class);
+		negativeItemsPerPageException.expectMessage("Number of results per page must be greater than zero");
 		
 		int resultsPerPage = -1;
 
@@ -108,8 +108,8 @@ public class SetSearchTest
 	@Test
 	public void testAttemptWithMoreThanFiftyResultsPerPage() throws IllegalArgumentException, IOException, URISyntaxException 
 		{
-		MoreThanFiftyItemsPerPageException.expect(IllegalArgumentException.class);
-		MoreThanFiftyItemsPerPageException.expectMessage("Number of results per page cannot exceed 50");
+		tooManyItemsPerPageException.expect(IllegalArgumentException.class);
+		tooManyItemsPerPageException.expectMessage("Number of results per page cannot exceed 50");
 		
 		int resultsPerPage = 51;
 
@@ -143,6 +143,21 @@ public class SetSearchTest
 		
 		int resultsPerPage = -5;
 		int pageNumber = -1;
+
+		SetSearch search = new SetSearch(resultsPerPage, pageNumber);
+							
+		// Perform the search by calling the listSets method on the SetSearch object
+		@SuppressWarnings("unused")
+		ArrayList<SearchResultSets> resultSet = search.listSets();
+		}
+	
+	@Test
+	public void testAttemptWithPositivePageNumberAndNegativeItemsPerPage() throws IllegalArgumentException, IOException, URISyntaxException 
+		{
+		negativeItemsPerPageException.expect(IllegalArgumentException.class);
+		
+		int resultsPerPage = -5;
+		int pageNumber = 1;
 
 		SetSearch search = new SetSearch(resultsPerPage, pageNumber);
 							
