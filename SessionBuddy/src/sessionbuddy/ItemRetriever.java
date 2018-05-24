@@ -54,11 +54,9 @@ public class ItemRetriever {
   private int itemID;
 
   /**
-   * Constructor where pagination is not required and you only want to see the first page of the API
-   * response
+   * Constructor where pagination is not required and you only want to see the first page of the API response
    * 
-   * @param itemID Specifies the numeric identifier in thesession.org database of the resource to be
-   *        retrieved
+   * @param itemID Specifies the numeric identifier in thesession.org database of the resource to be retrieved
    */
   public ItemRetriever(int itemID) {
     this.itemID = itemID;
@@ -84,19 +82,15 @@ public class ItemRetriever {
       String response = HttpRequestor.submitRequest(composeURL("recordings"));
 
       // Parse the returned JSON into a wrapper class to allow access to all elements
-      ItemWrapperRecording parsedResults =
-          JsonParser.parseResponse(response, ItemWrapperRecording.class);
+      ItemWrapperRecording parsedResults = JsonParser.parseResponse(response, ItemWrapperRecording.class);
 
-      // Use a private helper method to put the response into an easily usable object, and return
-      // that object
+      // Use the response to populate a POJO, and return that object
       return populateRecordingResult(parsedResults);
     }
-
     catch (IOException | URISyntaxException ex) {
       throw ex;
     }
   }
-
 
   /**
    * Gets the details of an individual discussion based on its numeric ID in thesession.org. This
@@ -116,14 +110,11 @@ public class ItemRetriever {
       String response = HttpRequestor.submitRequest(composeURL("discussions"));
 
       // Parse the returned JSON into a pre-defined wrapper class to allow access to all elements
-      ItemWrapperDiscussion parsedResults =
-          JsonParser.parseResponse(response, ItemWrapperDiscussion.class);
+      ItemWrapperDiscussion parsedResults = JsonParser.parseResponse(response, ItemWrapperDiscussion.class);
 
-      // Use a private helper method to put the response into an easily usable object, and return
-      // that object
+      // Use the response to populate a POJO, and return that object
       return populateDiscussionResult(parsedResults);
     }
-
     catch (IOException | URISyntaxException ex) {
       throw ex;
     }
@@ -147,11 +138,9 @@ public class ItemRetriever {
       // Parse the returned JSON into a wrapper class to allow access to all elements
       ItemWrapperTune parsedResults = JsonParser.parseResponse(response, ItemWrapperTune.class);
 
-      // Use a private helper method to put the response into an easily usable object, and return
-      // that object
+      // Use the reponse to populate a POJO, and return that object
       return populateTuneResult(parsedResults);
     }
-
     catch (IOException | URISyntaxException ex) {
       throw ex;
     }
@@ -176,8 +165,7 @@ public class ItemRetriever {
       String response = HttpRequestor.submitRequest(composeURL("sessions"));
 
       // Parse the returned JSON into a wrapper class to allow access to all elements
-      ItemWrapperSession parsedResults =
-          JsonParser.parseResponse(response, ItemWrapperSession.class);
+      ItemWrapperSession parsedResults = JsonParser.parseResponse(response, ItemWrapperSession.class);
 
       // Use a private helper method to put the response into an easily usable object, and return
       // that object
