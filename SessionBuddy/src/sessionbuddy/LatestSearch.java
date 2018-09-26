@@ -146,8 +146,7 @@ public class LatestSearch extends Search
      * @author Colman
      * @since 2018-04-01
      */
-    public ArrayList<SearchResultRecordings> listRecordings()
-            throws IllegalArgumentException, IOException, URISyntaxException
+    public ArrayList<SearchResultRecordings> listRecordings() throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -248,7 +247,8 @@ public class LatestSearch extends Search
                     parsedResults.settings[i].key,
                     parsedResults.settings[i].date);
             
-            User submitter = new User(parsedResults.settings[i].member.id,
+            User submitter = new User(
+                    parsedResults.settings[i].member.id,
                     StringCleaner.cleanString(parsedResults.settings[i].member.name),
                     parsedResults.settings[i].member.url);
             
@@ -259,7 +259,6 @@ public class LatestSearch extends Search
 
             // Instantiate a TunesSearchResult object & populate it
             SearchResultTunesLatest currentResult = new SearchResultTunesLatest(details, submitter, settingDetails);
-
             // Add the object to the ArrayList to be returned
             resultSet.add(currentResult);
         }
@@ -291,13 +290,13 @@ public class LatestSearch extends Search
                     parsedResults.discussions[i].date,
                     parsedResults.discussions[i].comments);
             
-            User user = new User(parsedResults.discussions[i].member.id,
+            User user = new User(
+                    parsedResults.discussions[i].member.id,
                     StringCleaner.cleanString(parsedResults.discussions[i].member.name),
                     parsedResults.discussions[i].member.url);
 
             // Instantiate a DiscussionsSearchResult object & populate it
             SearchResultDiscussions currentResult = new SearchResultDiscussions(details, user);
-
             // Add the object to the ArrayList to be returned to the caller
             resultSet.add(currentResult);
         }
@@ -328,17 +327,18 @@ public class LatestSearch extends Search
                     parsedResults.recordings[i].url,
                     parsedResults.recordings[i].date);
             
-            User submitter = new User(parsedResults.recordings[i].member.id,
+            User submitter = new User(
+                    parsedResults.recordings[i].member.id,
                     StringCleaner.cleanString(parsedResults.recordings[i].member.name),
                     parsedResults.recordings[i].member.url);
             
-            Artist artist = new Artist(parsedResults.recordings[i].artist.id,
+            Artist artist = new Artist(
+                    parsedResults.recordings[i].artist.id,
                     StringCleaner.cleanString(parsedResults.recordings[i].artist.name),
                     parsedResults.recordings[i].url);
 
             // Instantiate and populate a SearchResultRecordings object
             SearchResultRecordings currentResult = new SearchResultRecordings(details, submitter, artist);
-
             // Add the object to the ArrayList to be returned to the caller
             resultSet.add(currentResult);
         }
@@ -371,29 +371,32 @@ public class LatestSearch extends Search
                     parsedResults.sessions[i].latitude,
                     parsedResults.sessions[i].longitude);
             
-            User submitter = new User(parsedResults.sessions[i].member.id,
+            User submitter = new User(
+                    parsedResults.sessions[i].member.id,
                     StringCleaner.cleanString(parsedResults.sessions[i].member.name),
                     parsedResults.sessions[i].member.url);
             
-            Venue venue = new Venue(parsedResults.sessions[i].venue.id,
-                    StringCleaner
-                            .cleanString(parsedResults.sessions[i].venue.name),
+            Venue venue = new Venue(
+                    parsedResults.sessions[i].venue.id,
+                    StringCleaner.cleanString(parsedResults.sessions[i].venue.name),
                     parsedResults.sessions[i].venue.telephone,
                     parsedResults.sessions[i].venue.email,
                     parsedResults.sessions[i].venue.web);
             
-            Town town = new Town(parsedResults.sessions[i].town.id,
+            Town town = new Town(
+                    parsedResults.sessions[i].town.id,
                     StringCleaner.cleanString(parsedResults.sessions[i].town.name));
             
-            Area area = new Area(parsedResults.sessions[i].area.id,
+            Area area = new Area(
+                    parsedResults.sessions[i].area.id,
                     StringCleaner.cleanString(parsedResults.sessions[i].area.name));
             
-            Country country = new Country(parsedResults.sessions[i].country.id,
+            Country country = new Country(
+                    parsedResults.sessions[i].country.id,
                     StringCleaner.cleanString(parsedResults.sessions[i].country.name));
 
             // Instantiate and populate a SearchResultSessions object 
             SearchResultSessions currentResult = new SearchResultSessions(details, coordinates, submitter, venue, town, area, country);
-
             // Add the object to the ArrayList to be returned to the caller
             resultSet.add(currentResult);
         }
@@ -419,7 +422,8 @@ public class LatestSearch extends Search
         for (int i = 0; i < (parsedResults.events.length); i++)
         {
             // Extract the required elements from each individual search result in the JSON response
-            EventDetails details = new EventDetails(parsedResults.events[i].id,
+            EventDetails details = new EventDetails(
+                    parsedResults.events[i].id,
                     StringCleaner.cleanString(parsedResults.events[i].name),
                     parsedResults.events[i].url, parsedResults.events[i].date);
             
@@ -431,28 +435,32 @@ public class LatestSearch extends Search
                     parsedResults.events[i].dtstart,
                     parsedResults.events[i].dtend);
             
-            User submitter = new User(parsedResults.events[i].member.id,
+            User submitter = new User(
+                    parsedResults.events[i].member.id,
                     StringCleaner.cleanString(parsedResults.events[i].member.name),
                     parsedResults.events[i].member.url);
             
-            Venue venue = new Venue(parsedResults.events[i].venue.id,
+            Venue venue = new Venue(
+                    parsedResults.events[i].venue.id,
                     StringCleaner.cleanString(parsedResults.events[i].venue.name),
                     parsedResults.events[i].venue.telephone,
                     parsedResults.events[i].venue.email,
                     parsedResults.events[i].venue.web);
             
-            Town town = new Town(parsedResults.events[i].town.id, 
+            Town town = new Town(
+                    parsedResults.events[i].town.id, 
                     StringCleaner.cleanString(parsedResults.events[i].town.name));
             
-            Area area = new Area(parsedResults.events[i].area.id, 
+            Area area = new Area(
+                    parsedResults.events[i].area.id, 
                     StringCleaner.cleanString(parsedResults.events[i].area.name));
             
-            Country country = new Country(parsedResults.events[i].country.id,
+            Country country = new Country(
+                    parsedResults.events[i].country.id,
                     StringCleaner.cleanString(parsedResults.events[i].country.name));
 
             // Instantiate and populate a SearchResultEvents object
             SearchResultEvents currentResult = new SearchResultEvents(details, submitter, schedule, coordinates, venue, town, area, country);
-
             // Add the object to the ArrayList to be returned to the caller
             resultSet.add(currentResult);
         }

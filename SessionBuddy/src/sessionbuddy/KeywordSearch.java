@@ -257,19 +257,21 @@ public class KeywordSearch extends Search
         for (int i = 0; i < (parsedResults.tunes.length); i++)
         {
             // Extract the required elements from each individual search result in the JSON response
-            TuneDetails tuneDetails = new TuneDetails(parsedResults.tunes[i].id,
+            TuneDetails tuneDetails = new TuneDetails(
+                    parsedResults.tunes[i].id,
                     StringCleaner.cleanString(parsedResults.tunes[i].name),
                     parsedResults.tunes[i].url);
             
-            TuneDetailsWithDate details = new TuneDetailsWithDate(tuneDetails,
+            TuneDetailsWithDate details = new TuneDetailsWithDate(
+                    tuneDetails,
                     parsedResults.tunes[i].type, parsedResults.tunes[i].date);
             
-            User submitter = new User(parsedResults.tunes[i].member.id,
+            User submitter = new User(
+                    parsedResults.tunes[i].member.id,
                     StringCleaner.cleanString(parsedResults.tunes[i].member.name),
                     parsedResults.tunes[i].member.url);
 
             SearchResultTunes currentResult = new SearchResultTunes(details, submitter);
-
             // Add the SearchResultTunes object to the ArrayList to be returned to the caller
             resultSet.add(currentResult);
         }
@@ -298,13 +300,13 @@ public class KeywordSearch extends Search
                     parsedResults.discussions[i].date,
                     parsedResults.discussions[i].comments);
             
-            User user = new User(parsedResults.discussions[i].member.id,
+            User user = new User(
+                    parsedResults.discussions[i].member.id,
                     StringCleaner.cleanString(parsedResults.discussions[i].member.name),
                     parsedResults.discussions[i].member.url);
 
             // Instantiate and populate a structure to hold the search results
             SearchResultDiscussions currentResult = new SearchResultDiscussions(details, user);
-
             // Add the SearchResultDiscussions object to the ArrayList to be returned to the caller
             resultSet.add(currentResult);
         }
@@ -326,11 +328,13 @@ public class KeywordSearch extends Search
         for (int i = 0; i < (parsedResults.events.length); i++)
         {
             // Extract the required elements from each individual search result in the JSON response
-            EventDetails details = new EventDetails(parsedResults.events[i].id,
+            EventDetails details = new EventDetails(
+                    parsedResults.events[i].id,
                     StringCleaner.cleanString(parsedResults.events[i].name),
                     parsedResults.events[i].url, parsedResults.events[i].date);
             
-            User user = new User(parsedResults.events[i].member.id,
+            User user = new User(
+                    parsedResults.events[i].member.id,
                     StringCleaner.cleanString(parsedResults.events[i].member.name),
                     parsedResults.events[i].member.url);
             
@@ -342,24 +346,27 @@ public class KeywordSearch extends Search
                     parsedResults.events[i].latitude,
                     parsedResults.events[i].longitude);
             
-            Venue venue = new Venue(parsedResults.events[i].venue.id,
+            Venue venue = new Venue(
+                    parsedResults.events[i].venue.id,
                     StringCleaner.cleanString(parsedResults.events[i].venue.name),
                     parsedResults.events[i].venue.telephone,
                     parsedResults.events[i].venue.email,
                     parsedResults.events[i].venue.web);
             
-            Town town = new Town(parsedResults.events[i].town.id, 
+            Town town = new Town(
+                    parsedResults.events[i].town.id, 
                     StringCleaner.cleanString(parsedResults.events[i].town.name));
             
-            Area area = new Area(parsedResults.events[i].area.id, 
+            Area area = new Area(
+                    parsedResults.events[i].area.id, 
                     StringCleaner.cleanString(parsedResults.events[i].area.name));
             
-            Country country = new Country(parsedResults.events[i].country.id,
+            Country country = new Country(
+                    parsedResults.events[i].country.id,
                     StringCleaner.cleanString(parsedResults.events[i].country.name));
 
             // Instantiate and populate a SearchResultEvents object
             SearchResultEvents currentResult = new SearchResultEvents(details, user, schedule, coordinates, venue, town, area, country);
-
             // Add the EventsSearchResult object to the ArrayList to be returned to the caller
             resultSet.add(currentResult);
         }
@@ -387,17 +394,18 @@ public class KeywordSearch extends Search
                     parsedResults.recordings[i].url,
                     parsedResults.recordings[i].date);
             
-            User user = new User(parsedResults.recordings[i].member.id,
+            User user = new User(
+                    parsedResults.recordings[i].member.id,
                     StringCleaner.cleanString(parsedResults.recordings[i].member.name),
                     parsedResults.recordings[i].member.url);
             
-            Artist artist = new Artist(parsedResults.recordings[i].artist.id,
+            Artist artist = new Artist(
+                    parsedResults.recordings[i].artist.id,
                     StringCleaner.cleanString(parsedResults.recordings[i].artist.name),
                     parsedResults.recordings[i].artist.url);
 
             // Instantiate and populate a SearchResultRecordings object
             SearchResultRecordings currentResult = new SearchResultRecordings(details, user, artist);
-
             // Add the object to the ArrayList to be returned to the caller
             resultSet.add(currentResult);
         }
@@ -427,28 +435,32 @@ public class KeywordSearch extends Search
                     parsedResults.sessions[i].latitude,
                     parsedResults.sessions[i].longitude);
             
-            User user = new User(parsedResults.sessions[i].member.id,
+            User user = new User(
+                    parsedResults.sessions[i].member.id,
                     StringCleaner.cleanString(parsedResults.sessions[i].member.name),
                     parsedResults.sessions[i].member.url);
             
-            Venue venue = new Venue(parsedResults.sessions[i].venue.id,
+            Venue venue = new Venue(
+                    parsedResults.sessions[i].venue.id,
                     StringCleaner.cleanString(parsedResults.sessions[i].venue.name),
                     parsedResults.sessions[i].venue.telephone,
                     parsedResults.sessions[i].venue.email,
                     parsedResults.sessions[i].venue.web);
             
-            Town town = new Town(parsedResults.sessions[i].town.id,
+            Town town = new Town(
+                    parsedResults.sessions[i].town.id,
                     StringCleaner.cleanString(parsedResults.sessions[i].town.name));
             
-            Area area = new Area(parsedResults.sessions[i].area.id,
+            Area area = new Area(
+                    parsedResults.sessions[i].area.id,
                     StringCleaner.cleanString(parsedResults.sessions[i].area.name));
             
-            Country country = new Country(parsedResults.sessions[i].country.id,
+            Country country = new Country(
+                    parsedResults.sessions[i].country.id,
                     StringCleaner.cleanString(parsedResults.sessions[i].country.name));
 
             // Instantiate and populate a SearchResultSessions object
             SearchResultSessions currentResult = new SearchResultSessions( details, coordinates, user, venue, town, area, country);
-
             // Add the object to the ArrayList to be returned to the caller
             resultSet.add(currentResult);
         }
@@ -481,7 +493,6 @@ public class KeywordSearch extends Search
                     .queryParameters(queryParams).itemsPerPage(resultsPerPage)
                     .pageNumber(pageNumber).build();
         }
-
         // If no page is specified
         else if (pageNumber == 0)
         {
@@ -492,9 +503,9 @@ public class KeywordSearch extends Search
                     .queryParameters(queryParams).itemsPerPage(resultsPerPage)
                     .build();
         }
+        // If anything other than a positive integer was specified
         else
         {
-            // If anything other than a positive integer was specified
             throw new IllegalArgumentException("Page number must be an integer value greater than zero");
         }
         return requestURL;

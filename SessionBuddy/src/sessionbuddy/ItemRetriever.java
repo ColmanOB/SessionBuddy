@@ -216,12 +216,14 @@ public class ItemRetriever
                 parsedResults.date);
         
         // Get the details of the member who originally submitted the recording
-        User member = new User(parsedResults.member.id,
+        User member = new User(
+                parsedResults.member.id,
                 StringCleaner.cleanString(parsedResults.member.name),
                 parsedResults.member.url);
         
         // Get the details of the recording artist(s)
-        Artist artist = new Artist(parsedResults.artist.id,
+        Artist artist = new Artist(
+                parsedResults.artist.id,
                 StringCleaner.cleanString(parsedResults.artist.name),
                 parsedResults.artist.url);
         
@@ -275,7 +277,6 @@ public class ItemRetriever
 
         // Instantiate a RecordingByIDResult object & populate it with the details captured above
         ItemResultRecording finalResult = new ItemResultRecording(recordingDetails, member, artist, tracks, comments);
-
         // Return the set of results that has been collected
         return finalResult;
     }
@@ -290,11 +291,14 @@ public class ItemRetriever
     {
         // Extract each element from the discussion in the JSON response
         DiscussionDetails discussionDetails = new DiscussionDetails(
-                parsedResults.id, parsedResults.name, parsedResults.url,
+                parsedResults.id, 
+                parsedResults.name, 
+                parsedResults.url,
                 parsedResults.date);
 
         // Get the details of the member who originally submitted the discussion
-        User member = new User(parsedResults.member.id,
+        User member = new User(
+                parsedResults.member.id,
                 StringCleaner.cleanString(parsedResults.member.name),
                 parsedResults.member.url);
 
@@ -324,7 +328,6 @@ public class ItemRetriever
 
         // Instantiate and populate an ItemResultDiscussion object
         ItemResultDiscussion finalResult = new ItemResultDiscussion(discussionDetails, member, comments);
-
         // Return the set of results that has been collected
         return finalResult;
     }
@@ -338,16 +341,20 @@ public class ItemRetriever
     private ItemResultTune populateTuneResult(ItemWrapperTune parsedResults)
     {
         // Get the basic set of tune details
-        TuneDetails tuneDetails = new TuneDetails(parsedResults.id,
+        TuneDetails tuneDetails = new TuneDetails(
+                parsedResults.id,
                 StringCleaner.cleanString(parsedResults.name),
                 parsedResults.url);
 
         // Get the tune type and date of submission
         TuneDetailsWithDate tuneDetailsWithDate = new TuneDetailsWithDate(
-                tuneDetails, parsedResults.type, parsedResults.date);
+                tuneDetails, 
+                parsedResults.type, 
+                parsedResults.date);
 
         // Get the details of the member who originally submitted the tune
-        User member = new User(parsedResults.member.id,
+        User member = new User(
+                parsedResults.member.id,
                 StringCleaner.cleanString(parsedResults.member.name),
                 parsedResults.member.url);
 
@@ -417,7 +424,6 @@ public class ItemRetriever
 
         // Instantiate and populate an ItemResultTune object TuneByIDResult object
         ItemResultTune finalResult = new ItemResultTune(tuneDetailsWithDate, member, tunebooks, recordings, aliases, settings, comments);
-
         // Return the set of results that has been collected
         return finalResult;
     }
@@ -431,29 +437,36 @@ public class ItemRetriever
     private ItemResultSession populateSessionResult(ItemWrapperSession parsedResults)
     {
         // Extract each element from the session entry in the JSON response
-        SessionDetails sessionDetails = new SessionDetails(parsedResults.id,
+        SessionDetails sessionDetails = new SessionDetails(
+                parsedResults.id,
                 parsedResults.url, 
                 parsedResults.date);
         
-        Coordinates coordinates = new Coordinates(parsedResults.latitude,
+        Coordinates coordinates = new Coordinates(
+                parsedResults.latitude,
                 parsedResults.longitude);
         
-        User member = new User(parsedResults.member.id,
+        User member = new User(
+                parsedResults.member.id,
                 StringCleaner.cleanString(parsedResults.member.name),
                 parsedResults.member.url);
         
-        Venue venue = new Venue(parsedResults.venue.id,
+        Venue venue = new Venue(
+                parsedResults.venue.id,
                 StringCleaner.cleanString(parsedResults.venue.name),
                 parsedResults.venue.telephone, parsedResults.venue.email,
                 parsedResults.venue.web);
         
-        Town town = new Town(parsedResults.town.id,
+        Town town = new Town(
+                parsedResults.town.id,
                 StringCleaner.cleanString(parsedResults.town.name));
         
-        Area area = new Area(parsedResults.area.id,
+        Area area = new Area(
+                parsedResults.area.id,
                 StringCleaner.cleanString(parsedResults.area.name));
         
-        Country country = new Country(parsedResults.country.id,
+        Country country = new Country(
+                parsedResults.country.id,
                 StringCleaner.cleanString(parsedResults.country.name));
 
         // A structure to store the schedule, i.e. the days when the session happens
@@ -490,7 +503,6 @@ public class ItemRetriever
 
         // Populate an ItemResultSession object
         ItemResultSession finalResult = new ItemResultSession(sessionDetails, coordinates, member, venue, town, area, country, schedule, comments);
-
         // Return the set of results that has been collected
         return finalResult;
     }
@@ -504,33 +516,41 @@ public class ItemRetriever
     private ItemResultEvent populateEventResult(ItemWrapperEvent parsedResults)
     {
         // Extract each element from the event entry in the JSON response
-        EventDetails eventDetails = new EventDetails(parsedResults.id,
+        EventDetails eventDetails = new EventDetails(
+                parsedResults.id,
                 StringCleaner.cleanString(parsedResults.name),
                 parsedResults.url, parsedResults.date);
         
-        User member = new User(parsedResults.member.id,
+        User member = new User(
+                parsedResults.member.id,
                 StringCleaner.cleanString(parsedResults.member.name),
                 parsedResults.member.url);
         
-        EventSchedule schedule = new EventSchedule(parsedResults.dtstart,
+        EventSchedule schedule = new EventSchedule(
+                parsedResults.dtstart,
                 parsedResults.dtend);
         
-        Coordinates coordinates = new Coordinates(parsedResults.latitude,
+        Coordinates coordinates = new Coordinates(
+                parsedResults.latitude,
                 parsedResults.longitude);
         
-        Venue venue = new Venue(parsedResults.venue.id,
+        Venue venue = new Venue(
+                parsedResults.venue.id,
                 StringCleaner.cleanString(parsedResults.venue.name),
                 parsedResults.venue.telephone, 
                 parsedResults.venue.email,
                 parsedResults.venue.web);
         
-        Town town = new Town(parsedResults.town.id,
+        Town town = new Town(
+                parsedResults.town.id,
                 StringCleaner.cleanString(parsedResults.town.name));
         
-        Area area = new Area(parsedResults.area.id,
+        Area area = new Area(
+                parsedResults.area.id,
                 StringCleaner.cleanString(parsedResults.area.name));
         
-        Country country = new Country(parsedResults.country.id,
+        Country country = new Country(
+                parsedResults.country.id,
                 StringCleaner.cleanString(parsedResults.country.name));
 
         // A structure to hold each individual comment on the event
@@ -559,7 +579,6 @@ public class ItemRetriever
 
         // Instantiate and populate an ItemResultEvent object
         ItemResultEvent finalResult = new ItemResultEvent(eventDetails, member, schedule, coordinates, venue, town, area, country, comments);
-
         // Return the set of results that has been collected
         return finalResult;
     }
@@ -578,7 +597,9 @@ public class ItemRetriever
         URL requestURL;
         URLComposer builder = new URLComposer();
 
-        requestURL = builder.new Builder().requestType(RequestType.SINGLE_ITEM)
+        requestURL = builder
+                .new Builder()
+                .requestType(RequestType.SINGLE_ITEM)
                 .path(dataCategory + "/" + itemID).build();
 
         return requestURL;
