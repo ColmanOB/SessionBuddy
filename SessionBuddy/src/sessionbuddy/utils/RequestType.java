@@ -9,12 +9,13 @@ package sessionbuddy.utils;
  * 
  * @author Colman since 2018-05-08
  */
-public enum RequestType {
-  SINGLE_ITEM, 
-  SEARCH_BY_KEYWORD, 
-  SEARCH_BY_LOCATION, 
-  SEARCH_LATEST_ITEMS, 
-  SEARCH_MEMBER_CONTRIBUTIONS, 
-  SEARCH_POPULAR, 
-  SEARCH_SETS
+public enum RequestType
+{
+    SINGLE_ITEM, 
+    SEARCH_BY_KEYWORD, 
+    SEARCH_BY_LOCATION, 
+    SEARCH_LATEST_ITEMS, 
+    SEARCH_MEMBER_CONTRIBUTIONS, 
+    SEARCH_POPULAR, 
+    SEARCH_SETS
 }
