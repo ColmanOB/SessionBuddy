@@ -21,7 +21,7 @@ public class Test_KeywordSearch_Discussions_with_Pagination {
     // Set the search parameters
     String searchTerms = "Wig glue";
     int resultsPerPage = 40;
-    int pageNumber = 2;
+    int pageNumber = 1;
 
     try {
       // Instantiate a KeywordSearch object

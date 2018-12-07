@@ -47,21 +47,25 @@ public class URLComposer
             apiRequest.setPath(path);
             return this;
         }
+
         public Builder queryParameters(List<NameValuePair> queryParameters)
         {
             apiRequest.setQueryParameters(queryParameters);
             return this;
         }
+
         public Builder requestType(RequestType requestType)
         {
             apiRequest.setRequestType(requestType);
             return this;
         }
+
         public Builder itemsPerPage(int itemsPerPage)
         {
             apiRequest.setItemsPerPage(itemsPerPage);
             return this;
         }
+
         public Builder pageNumber(int pageNumber)
         {
             apiRequest.setPageNumber(pageNumber);
@@ -69,84 +73,95 @@ public class URLComposer
         }
 
         /**
-         * Builds the URL required to query the API at thesession.org, 
-         * based on the parameters provided by the caller
+         * Builds the URL required to query the API at thesession.org based on
+         * the parameters provided by the caller
          * 
          * @return a URL in the format expected by the API at thesession.org
-         * @throws IllegalArgumentException if the parameters provided are invalid, 
-         * or if a URI Syntax Exception or Malformed URL Exception are encountered
+         * @throws IllegalArgumentException
+         *             if the parameters provided are invalid or if a URI Syntax
+         *             Exception or Malformed URL Exception are encountered
          */
         public URL build() throws IllegalArgumentException
         {
             try
             {
-                // In the case of Keyword or location-based search, 
-                // if no page number & no items per page are specified
-                if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION)
-                        && apiRequest.pageNumber == 0
-                        && apiRequest.itemsPerPage == 0)
-                {
-                    URIBuilder builder = new URIBuilder()
-                            .setScheme(PROTOCOL)
-                            .setHost(HOST)
-                            .setPath(apiRequest.getPath())
-                            .addParameters(apiRequest.queryParameters)
-                            .addParameter(FORMAT_SPECIFIER, FORMAT);
-
-                    return builder.build().toURL();
-                }
-                // In the case of Keyword or location-based search, 
-                // where no page number is specified, but items per page are specified
-                else if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION)
-                        && apiRequest.pageNumber == 0
-                        && apiRequest.itemsPerPage > 0)
-                {
-                    URIBuilder builder = new URIBuilder()
-                            .setScheme(PROTOCOL)
-                            .setHost(HOST)
-                            .setPath(apiRequest.getPath())
-                            .addParameters(apiRequest.getQueryParameters())
-                            .addParameter(FORMAT_SPECIFIER, FORMAT)
-                            .addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiRequest.getItemsPerPage()));
-
-                    return builder.build().toURL();
-                }
-
-                // In the case of Keyword or location-based search, 
-                // where page number and number of items per page are both specified
-                else if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION)
-                        && apiRequest.pageNumber > 0
-                        && apiRequest.itemsPerPage > 0)
-                {
-                    URIBuilder builder = new URIBuilder()
-                            .setScheme(PROTOCOL)
-                            .setHost(HOST)
-                            .setPath(apiRequest.getPath())
-                            .addParameters(apiRequest.getQueryParameters())
-                            .addParameter(FORMAT_SPECIFIER, FORMAT)
-                            .addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiRequest.itemsPerPage))
-                            .addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiRequest.pageNumber));
-
-                    return builder.build().toURL();
-                }
                 // In the case of Keyword or location-based search,
-                // where page number is specified, but no number of items per page
-                else if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION)
+                // where no page number & no items per page are specified
+                if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD
+                        || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION)
+                        && apiRequest.pageNumber == 0
+                        && apiRequest.itemsPerPage == 0)
+                {
+                    URIBuilder builder = new URIBuilder()
+                                            .setScheme(PROTOCOL)
+                                            .setHost(HOST)
+                                            .setPath(apiRequest.getPath())
+                                            .addParameters(apiRequest.queryParameters)
+                                            .addParameter(FORMAT_SPECIFIER, FORMAT);
+
+                    return builder.build().toURL();
+                }
+                
+                // In the case of Keyword or location-based search
+                // where no page number is specified
+                // but items per page are specified
+                else if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD
+                        || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION)
+                        && apiRequest.pageNumber == 0
+                        && apiRequest.itemsPerPage > 0)
+                {
+                    URIBuilder builder = new URIBuilder()
+                                            .setScheme(PROTOCOL)
+                                            .setHost(HOST)
+                                            .setPath(apiRequest.getPath())
+                                            .addParameters(apiRequest.getQueryParameters())
+                                            .addParameter(FORMAT_SPECIFIER, FORMAT)
+                                            .addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiRequest.getItemsPerPage()));
+
+                    return builder.build().toURL();
+                }
+
+                // In the case of Keyword or location-based search
+                // where page number and number of items per page are specified
+                else if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD
+                        || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION)
+                        && apiRequest.pageNumber > 0
+                        && apiRequest.itemsPerPage > 0)
+                {
+                    URIBuilder builder = new URIBuilder()
+                                            .setScheme(PROTOCOL)
+                                            .setHost(HOST)
+                                            .setPath(apiRequest.getPath())
+                                            .addParameters(apiRequest.getQueryParameters())
+                                            .addParameter(FORMAT_SPECIFIER, FORMAT)
+                                            .addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiRequest.itemsPerPage))
+                                            .addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiRequest.pageNumber));
+
+                    return builder.build().toURL();
+                }
+                
+                // In the case of Keyword or location-based search
+                // where page number is specified
+                // but no number of items per page are specified
+                else if ((apiRequest.requestType == RequestType.SEARCH_BY_KEYWORD
+                        || apiRequest.requestType == RequestType.SEARCH_BY_LOCATION)
                         && apiRequest.pageNumber > 0
                         && apiRequest.itemsPerPage == 0)
                 {
                     URIBuilder builder = new URIBuilder()
-                            .setScheme(PROTOCOL)
-                            .setHost(HOST)
-                            .setPath(apiRequest.getPath())
-                            .addParameters(apiRequest.getQueryParameters())
-                            .addParameter(FORMAT_SPECIFIER, FORMAT)
-                            .addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiRequest.pageNumber));
+                                            .setScheme(PROTOCOL)
+                                            .setHost(HOST)
+                                            .setPath(apiRequest.getPath())
+                                            .addParameters(apiRequest.getQueryParameters())
+                                            .addParameter(FORMAT_SPECIFIER, FORMAT)
+                                            .addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiRequest.pageNumber));
 
                     return builder.build().toURL();
                 }
-                // In the case of search for recently-added items, Member contributions,
-                // popular tunes or sets, where a page number and items per page are specified
+                
+                // In the case of search for recently-added items, member contributions,
+                // popular tunes or sets
+                // where a page number and items per page are specified
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
                         || apiRequest.requestType == RequestType.SEARCH_POPULAR
@@ -155,17 +170,19 @@ public class URLComposer
                         && apiRequest.itemsPerPage > 0)
                 {
                     URIBuilder builder = new URIBuilder()
-                            .setScheme(PROTOCOL)
-                            .setHost(HOST)
-                            .setPath(apiRequest.getPath())
-                            .addParameter(FORMAT_SPECIFIER, FORMAT)
-                            .addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiRequest.itemsPerPage))
-                            .addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiRequest.pageNumber));
+                                            .setScheme(PROTOCOL)
+                                            .setHost(HOST)
+                                            .setPath(apiRequest.getPath())
+                                            .addParameter(FORMAT_SPECIFIER, FORMAT)
+                                            .addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiRequest.itemsPerPage))
+                                            .addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiRequest.pageNumber));
 
                     return builder.build().toURL();
                 }
-                // In the case of search for recently-added items, Member contributions,
-                // popular tunes or sets, where page number is specified, but not a number of items per page
+                
+                // In the case of search for recently-added items, Member
+                // contributions, popular tunes or sets
+                // where page number is specified, but not a number of items per page
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
                         || apiRequest.requestType == RequestType.SEARCH_POPULAR
@@ -174,17 +191,18 @@ public class URLComposer
                         && apiRequest.itemsPerPage == 0)
                 {
                     URIBuilder builder = new URIBuilder()
-                            .setScheme(PROTOCOL)
-                            .setHost(HOST)
-                            .setPath(apiRequest.getPath())
-                            .addParameter(FORMAT_SPECIFIER, FORMAT)
-                            .addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiRequest.pageNumber));
+                                            .setScheme(PROTOCOL)
+                                            .setHost(HOST)
+                                            .setPath(apiRequest.getPath())
+                                            .addParameter(FORMAT_SPECIFIER, FORMAT)
+                                            .addParameter(PAGE_NUMBER_SPECIFIER, Integer.toString(apiRequest.pageNumber));
 
                     return builder.build().toURL();
                 }
 
-                // In the case of search for recently-added items, Member contributions,
-                // popular tunes or sets, where no page number is specified, but items per page are specified
+                // In the case of search for recently-added items, member
+                // contributions, popular tunes or sets
+                // where no page number is specified, but items per page are specified
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
                         || apiRequest.requestType == RequestType.SEARCH_POPULAR
@@ -193,17 +211,18 @@ public class URLComposer
                         && apiRequest.itemsPerPage > 0)
                 {
                     URIBuilder builder = new URIBuilder()
-                            .setScheme(PROTOCOL)
-                            .setHost(HOST)
-                            .setPath(apiRequest.getPath())
-                            .addParameter(FORMAT_SPECIFIER, FORMAT)
-                            .addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiRequest.itemsPerPage));
+                                            .setScheme(PROTOCOL)
+                                            .setHost(HOST)
+                                            .setPath(apiRequest.getPath())
+                                            .addParameter(FORMAT_SPECIFIER, FORMAT)
+                                            .addParameter(ITEMS_PER_PAGE_SPECIFIER, Integer.toString(apiRequest.itemsPerPage));
 
                     return builder.build().toURL();
                 }
 
-                // In the case of search for recently-added items, Member contributions,
-                // popular tunes or sets, where no page number or items per page are specified
+                // In the case of search for recently-added items, 
+                // member contributions, popular tunes or sets
+                // where no page number or items per page are specified
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
                         || apiRequest.requestType == RequestType.SEARCH_POPULAR
@@ -212,28 +231,35 @@ public class URLComposer
                         && apiRequest.itemsPerPage == 0)
                 {
                     URIBuilder builder = new URIBuilder()
-                            .setScheme(PROTOCOL)
-                            .setHost(HOST)
-                            .setPath(apiRequest.getPath())
-                            .addParameter(FORMAT_SPECIFIER, FORMAT);
+                                            .setScheme(PROTOCOL)
+                                            .setHost(HOST)
+                                            .setPath(apiRequest.getPath())
+                                            .addParameter(FORMAT_SPECIFIER, FORMAT);
 
                     return builder.build().toURL();
                 }
-                // In the case of ItemRetriever, which doesn't have page number or items per page options
+                
+                // In the case of ItemRetriever, which doesn't have page number
+                // or items per page options
                 else if (apiRequest.requestType == RequestType.SINGLE_ITEM)
                 {
                     URIBuilder builder = new URIBuilder()
-                            .setScheme(PROTOCOL)
-                            .setHost(HOST)
-                            .setPath(apiRequest.getPath())
-                            .addParameter(FORMAT_SPECIFIER, FORMAT);
+                                            .setScheme(PROTOCOL)
+                                            .setHost(HOST)
+                                            .setPath(apiRequest.getPath())
+                                            .addParameter(FORMAT_SPECIFIER, FORMAT);
 
                     return builder.build().toURL();
                 }
+                
                 // If incorrect parameters were somehow provided
                 else
+                {
                     throw new IllegalArgumentException("Invalid Parameters Provided");
-            }
+                }
+                
+            } 
+            
             catch (MalformedURLException | URISyntaxException ex)
             {
                 throw new IllegalArgumentException(ex.getMessage());
