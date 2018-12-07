@@ -1,45 +1,94 @@
 package sessionbuddy.wrappers.jsonresponse;
 
 /**
- * A wrapper class for the response returned when searching for the most recently added sets of
- * tunes on thesession.org. The fields and nested structure follow the format of the JSON structure
- * of the most recent sets results from the API.
+ * A wrapper for the response returned when searching for the most
+ * recently added sets of tunes on thesession.org. 
  * 
- * This class is based on the existing LatestWrapperTunes class, with a couple of minor tweaks.
+ * The fields and structure follow the format of the JSON returned from the API.
+ * 
+ * This class is based on the existing LatestWrapperTunes class, 
+ * with a couple of minor tweaks.
  * 
  * @author Colman O'B
  * @since 2018-02-16
  */
-public class LatestWrapperSets {
-  public String format; // The format of the results (always be JSON in this implementation)
-  public String pages; // Number of pages in the result set
-  public String page; // The current page within the result set
-  public SetDetails[] sets; // An array of the individual sets returned by the search
-
-  /**
-   * A wrapper for the individual sets within the search results returned from thesession.org API
-   * 
-   * @author Colman O'B
-   * @since 2018-02-16
-   */
-  public class SetDetails {
-    public int id;
-    public String name;
-    public String url;
-    public String date;
-    public SubmitterDetails member;
+public class LatestWrapperSets
+{
+    /**
+     * The format of the results (always be JSON in this project)
+     */
+    public String format;
+    /**
+     * Number of pages in the result set
+     */
+    public String pages;
+    
+    /**
+     * The current page within the result set
+     */
+    public String page;
+    
+    /**
+     * An array of the individual sets returned by the search
+     */
+    public SetDetails[] sets;
 
     /**
-     * A wrapper for the details of the "member" within each "set" in the result set
+     * A wrapper for an individual set within the search results 
      * 
      * @author Colman O'B
      * @since 2018-02-16
-     *
      */
-    public class SubmitterDetails {
-      public int id; // ID of the user within thesession.org
-      public String name; // The user's username
-      public String url; // URL of the submitter's profile page on thesession.org
+    public class SetDetails
+    {
+        /**
+         * ID of the set in thesession.org database
+         */
+        public int id;
+        
+        /**
+         * Name of the set
+         */
+        public String name;
+        
+        /**
+         * URL of the set on thesession.org
+         */
+        public String url;
+        
+        /**
+         * Date the set was added to thesession.org
+         */
+        public String date;
+        
+        /**
+         * Details of the user who submitted the set
+         */
+        public SubmitterDetails member;
+
+        /**
+         * A wrapper for the details of the "member" within each "set" 
+         * 
+         * @author Colman O'B
+         * @since 2018-02-16
+         *
+         */
+        public class SubmitterDetails
+        {
+            /**
+             * ID of the user within thesession.org
+             */
+            public int id;
+            
+            /**
+             * The user's username
+             */
+            public String name;
+            
+            /**
+             * URL of the submitter's profile page on thesession.org
+             */
+            public String url;
+        }
     }
-  }
 }

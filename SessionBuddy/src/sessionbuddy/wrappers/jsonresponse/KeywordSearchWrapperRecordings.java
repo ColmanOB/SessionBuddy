@@ -2,8 +2,8 @@ package sessionbuddy.wrappers.jsonresponse;
 
 
 /**
- * A wrapper for the response returned from the API at https://thesession.org 
- * when searching by keyword for a recording. 
+ * A wrapper for the response when searching by keyword for a recording. 
+ * 
  * The fields and nested structure follow the format of the JSON response.
  * 
  * @author Colman O'B
@@ -37,7 +37,7 @@ public class KeywordSearchWrapperRecordings
     public recordingsList[] recordings;
 
     /**
-     * A wrapper for the individual recordings within the search results
+     * A wrapper for an individual recording within the search results
      * 
      * @author Colman O'B
      * @since 2017-01-28
@@ -75,8 +75,7 @@ public class KeywordSearchWrapperRecordings
         public ArtistDetails artist;
 
         /**
-         * A wrapper for the details of the "member" within each "recording" in
-         * the result set
+         * A wrapper for the details of the "member" within each "recording" 
          * 
          * @author Colman O'B
          * @since 2017-01-28
@@ -101,8 +100,7 @@ public class KeywordSearchWrapperRecordings
         }
 
         /**
-         * A wrapper for the details of the "artist" within each "recording" in
-         * the result set
+         * A wrapper for the details of the "artist" within each "recording" 
          * 
          * @author Colman O'B
          * @since 2017-01-28

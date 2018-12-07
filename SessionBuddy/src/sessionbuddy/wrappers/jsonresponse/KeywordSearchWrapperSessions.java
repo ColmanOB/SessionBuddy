@@ -1,11 +1,9 @@
 package sessionbuddy.wrappers.jsonresponse;
 
 /**
- * A wrapper for the response returned from the API 
- * when searching for sessions by keyword. 
+ * A wrapper for the response returned from the API when searching for sessions by keyword. 
  * 
- * The fields and nested structure follow the format 
- * of the JSON response from the API.
+ * The fields and nested structure follow the format of the JSON response from the API.
  * 
  * @author Colman O'B
  * @since 2017-09-12
@@ -96,8 +94,7 @@ public class KeywordSearchWrapperSessions
         public CountryDetails country;
 
         /**
-         * A wrapper for the details of the "member" within each "session" in
-         * the result set
+         * A wrapper for the details of the "member" within each "session"
          * 
          * @author Colman O'B
          * @since 2017-02-01
@@ -121,8 +118,7 @@ public class KeywordSearchWrapperSessions
         }
 
         /**
-         * A wrapper for the details of the "venue" within each "session" in the
-         * result set
+         * A wrapper for the details of the "venue" within each "session" 
          * 
          * @author Colman O'B
          * @since 2017-02-01
@@ -156,8 +152,7 @@ public class KeywordSearchWrapperSessions
         }
 
         /**
-         * A wrapper for the details of the "town" within each "session" in the
-         * result set
+         * A wrapper for the details of the "town" within each "session".
          * 
          * @author Colman
          * @since 2017-02-01
@@ -176,8 +171,7 @@ public class KeywordSearchWrapperSessions
         }
 
         /**
-         * A wrapper for the details of the "area" within each "session" in the
-         * result set
+         * A wrapper for the details of the "area" within each "session" 
          * 
          * @author Colman.O'Brien
          * @since 2017-02-01
@@ -196,8 +190,7 @@ public class KeywordSearchWrapperSessions
         }
 
         /**
-         * A wrapper for the details of the "country" within each "session" in
-         * the result set
+         * A wrapper for the details of the "country" within each "session" 
          * 
          * @author Colman.O'Brien
          * @since 2017-02-01
