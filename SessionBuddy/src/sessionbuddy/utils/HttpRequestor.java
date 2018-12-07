@@ -7,11 +7,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Submits a HTTPS GET request to the API at https://thesession.org, using a URL
- * in the format required by the API. The JSON response is captured as a String
- * and returned to the caller. A standard user of this library should never have
- * to instantiate an object of this class directly - it is essentially a
- * 'helper' class.
+ * Submits a HTTPS GET request to the API at https://thesession.org 
+ * using a URL in the format required by the API. 
+ * 
+ * The JSON response is captured as a String and returned to the caller. 
+ * 
+ * A standard user of this library should never have to instantiate an object of this class directly
+ *  - it is essentially a 'helper' class.
  * 
  * @author Colman O'B
  * @since 2018-03-30
@@ -36,12 +38,38 @@ public class HttpRequestor
             // Call the API and return the response
             return getAPIResponse(requestURL);
         }
+        
         catch (IOException ex)
         {
             throw ex;
         }
     }
 
+    /**
+     * Makes a HTTP connection to the API with the requested data in the URL,
+     * and get the response data
+     * 
+     * @param tuneSearchURL the URL used when querying the API
+     * @return the entire JSON response to the API query, returned as a single String
+     * @throws IOException if there was a problem establishing the connection to the API or reading a response
+     */
+    private static String getAPIResponse(URL tuneSearchURL) throws IOException
+    {
+        try
+        {
+            // Create the HTTPS connection and store the response as a String
+            HttpURLConnection connectionToURL = buildConnection(tuneSearchURL);
+            String response = captureResponse(connectionToURL);
+            connectionToURL.disconnect();
+            return response;
+        }
+
+        catch (IOException ex)
+        {
+            throw ex;
+        }
+    }
+    
     /**
      * A helper method to build a HTTPS connection
      * 
@@ -65,9 +93,11 @@ public class HttpRequestor
             {
                 throw new IOException("HTTP error: " + connectionToURL.getResponseCode());
             }
+            
             // Return the HTTPS connection to the caller, in order to read the data from it
             return connectionToURL;
         }
+        
         catch (IOException ex)
         {
             throw ex;
@@ -97,34 +127,11 @@ public class HttpRequestor
             {
                 builder.append(resultCurrentLine);
             }
+            
             // Return a String containing the entire response
             return builder.toString();
         }
-        catch (IOException ex)
-        {
-            throw ex;
-        }
-    }
-
-    /**
-     * Makes a HTTP connection to the API with the requested data in the URL,
-     * and get the response data
-     * 
-     * @param tuneSearchURL the URL used when querying the API
-     * @return the entire JSON response to the API query, returned as a single String
-     * @throws IOException if there was a problem establishing the connection to the API or reading a response
-     */
-    private static String getAPIResponse(URL tuneSearchURL) throws IOException
-    {
-        try
-        {
-            // Create the HTTPS connection and store the response as a String
-            HttpURLConnection connectionToURL = buildConnection(tuneSearchURL);
-            String response = captureResponse(connectionToURL);
-            connectionToURL.disconnect();
-            return response;
-        }
-
+        
         catch (IOException ex)
         {
             throw ex;
