@@ -23,6 +23,7 @@ import sessionbuddy.wrappers.granularobjects.EventSchedule;
 import sessionbuddy.wrappers.granularobjects.RecordingDetails;
 import sessionbuddy.wrappers.granularobjects.SessionDetails;
 import sessionbuddy.wrappers.granularobjects.Town;
+import sessionbuddy.wrappers.granularobjects.TripDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.User;
@@ -32,8 +33,10 @@ import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperSessions;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperTunes;
+import sessionbuddy.wrappers.jsonresponse.LatestWrapperTrips;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 import sessionbuddy.wrappers.resultsets.SearchResultSessions;
+import sessionbuddy.wrappers.resultsets.SearchResultTrips;
 import sessionbuddy.wrappers.resultsets.SearchResultTunes;
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
 import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
@@ -235,6 +238,36 @@ public class KeywordSearch extends Search
             KeywordSearchWrapperSessions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperSessions.class);
             // Return the data retrieved from the API
             return populateSessionsSearchResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    /**
+     * Queries the API for a list of trips matching a set of search  terms
+     * 
+     * @return an ArrayList of SearchResultTrips objects
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+     * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * 
+     * @author Colman
+     * @since 2018-12-10
+     */
+    public ArrayList<SearchResultTrips> searchTrips() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURL("trips"));
+            // Parse the JSON response into a wrapper
+            LatestWrapperTrips parsedResults = JsonParser.parseResponse(response, LatestWrapperTrips.class);
+            // Return the data retrieved from the API
+            return populateTripsSearchResult(parsedResults);
         }
         catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
         {
@@ -466,6 +499,43 @@ public class KeywordSearch extends Search
         }
         return resultSet;
     }
+    
+    /**
+     * Helper method to gather and parse the response to a search for trips by keyword
+     * 
+     * @param parsedResults  a LatestWrapperTrips object that has already been created and populated
+     * @return an ArrayList of SearchResultTrips objects
+     * 
+     * @author Colman
+     * @since 2018-12-08
+     */
+    private ArrayList<SearchResultTrips> populateTripsSearchResult(LatestWrapperTrips parsedResults)
+    {
+        ArrayList<SearchResultTrips> resultSet = new ArrayList<SearchResultTrips>();
+        pageCount = parsedResults.pages;
+
+        // Loop as many times as the count of trips in the result set:
+        for (int i = 0; i < parsedResults.trips.length; i++)
+        {
+            // Extract the required elements from each individual search result in the JSON response
+            TripDetails details = new TripDetails(
+                    parsedResults.trips[i].id, 
+                    parsedResults.trips[i].url,
+                    parsedResults.trips[i].name,
+                    parsedResults.trips[i].date,
+                    parsedResults.trips[i].dtstart,
+                    parsedResults.trips[i].dtend);
+            
+            User submitter = new User(
+                    parsedResults.trips[i].member.id,
+                    StringCleaner.cleanString(parsedResults.trips[i].member.name),
+                    parsedResults.trips[i].member.url);
+
+            SearchResultTrips currentResult = new SearchResultTrips(details, submitter);
+            resultSet.add(currentResult);
+        }
+        return resultSet;
+    }
 
     /**
      * A helper method used to put the URL together to query the API
@@ -493,6 +563,7 @@ public class KeywordSearch extends Search
                     .queryParameters(queryParams).itemsPerPage(resultsPerPage)
                     .pageNumber(pageNumber).build();
         }
+        
         // If no page is specified
         else if (pageNumber == 0)
         {
@@ -503,11 +574,13 @@ public class KeywordSearch extends Search
                     .queryParameters(queryParams).itemsPerPage(resultsPerPage)
                     .build();
         }
+        
         // If anything other than a positive integer was specified
         else
         {
             throw new IllegalArgumentException("Page number must be an integer value greater than zero");
         }
+
         return requestURL;
     }
 }
