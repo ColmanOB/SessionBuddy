@@ -9,467 +9,509 @@ import java.util.ArrayList;
 import org.junit.Test;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 import sessionbuddy.wrappers.resultsets.SearchResultSessions;
+import sessionbuddy.wrappers.resultsets.SearchResultTrips;
 import sessionbuddy.wrappers.resultsets.SearchResultTunes;
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
 import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
 
-public class KeywordSearchTest {
+/**
+ * Unit tests for the KeywordSearch class
+ * 
+ * Each test follows the same process:
+ * 
+ * 1. Set the search parameters
+ * 2. Instantiate a KeywordSearch object
+ * 3. Perform the search
+ * 4. Loop through the result set, testing (usually) each element of the result set
+ * 
+ * For each category of data, one test is done with pagination in the results, 
+ * and one without pagination
+ * 
+ * @author Colman
+ * @since 2018-12-10
+ */
+public class KeywordSearchTest
+{
 
-  @Test
-  public void testSearchDiscussionsWithoutPagination() {
-    // Set the search parameters
-    String searchTerms = "Wig Glue";
-    int resultsPerPage = 10;
+    @Test
+    public void testSearchDiscussionsWithoutPagination()
+    {
+        String searchTerms = "Wig Glue";
+        int resultsPerPage = 10;
 
-    try {
-      // Instantiate a KeywordSearch object
-      KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 
-      // Call the KeywordSearch.searchDiscussions() method and store the result
-      ArrayList<SearchResultDiscussions> resultSet = search.searchDiscussions();
+            ArrayList<SearchResultDiscussions> resultSet = search.searchDiscussions();
 
-      // Loop through the results and ensure each field of each object is set to a non-null value
-      for (int i = 0; i < resultSet.size(); i++) {
-        // Discussion metadata
-        assertThat(resultSet.get(i).discussionDetails.discussionID, is(notNullValue()));
-        assertThat(resultSet.get(i).discussionDetails.discussionName, is(notNullValue()));
-        assertThat(resultSet.get(i).discussionDetails.submittedDate, is(notNullValue()));
-        assertThat(resultSet.get(i).discussionDetails.discussionURL, is(notNullValue()));
-        assertThat(resultSet.get(i).discussionDetails.numberOfComments, is(notNullValue()));
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).discussionDetails.discussionID, is(notNullValue()));
+                assertThat(resultSet.get(i).discussionDetails.discussionName, is(notNullValue()));
+                assertThat(resultSet.get(i).discussionDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.get(i).discussionDetails.discussionURL, is(notNullValue()));
+                assertThat(resultSet.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 
-        // User details
-        assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
-      }
+                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+            }
+        }
+
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
-    catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e) {
-      fail(e.getMessage());
-    }
-  }
+    @Test
+    public void testSearchDiscussionsWithPagination()
+    {
+        String searchTerms = "Wig Glue";
+        int resultsPerPage = 10;
+        int pageNumber = 1;
 
-  @Test
-  public void testSearchDiscussionsWithPagination() {
-    // Set the search parameters
-    String searchTerms = "Wig Glue";
-    int resultsPerPage = 10;
-    int pageNumber = 1;
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 
-    try {
-      // Instantiate a KeywordSearch object
-      KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+            ArrayList<SearchResultDiscussions> resultSet = search.searchDiscussions();
 
-      // Call the KeywordSearch.searchDiscussions() method and store the result
-      ArrayList<SearchResultDiscussions> resultSet = search.searchDiscussions();
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).discussionDetails.discussionID, is(notNullValue()));
+                assertThat(resultSet.get(i).discussionDetails.discussionName, is(notNullValue()));
+                assertThat(resultSet.get(i).discussionDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.get(i).discussionDetails.discussionURL, is(notNullValue()));
+                assertThat(resultSet.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 
-      // Loop through the results and ensure each field of each object is set to a non-null value
-      for (int i = 0; i < resultSet.size(); i++) {
-        // Discussion metadata
-        assertThat(resultSet.get(i).discussionDetails.discussionID, is(notNullValue()));
-        assertThat(resultSet.get(i).discussionDetails.discussionName, is(notNullValue()));
-        assertThat(resultSet.get(i).discussionDetails.submittedDate, is(notNullValue()));
-        assertThat(resultSet.get(i).discussionDetails.discussionURL, is(notNullValue()));
-        assertThat(resultSet.get(i).discussionDetails.numberOfComments, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+            }
+        }
 
-        // User details
-        assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
-      }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
-    catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e) {
-      fail(e.getMessage());
-    }
-  }
+    @Test
+    public void testSearchEventsWithoutPagination()
+    {
+        String searchTerms = "Fiddle";
+        int resultsPerPage = 5;
 
-  @Test
-  public void testSearchEventssWithoutPagination() {
-    // Set the search parameters
-    String searchTerms = "Fiddle";
-    int resultsPerPage = 5;
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 
-    try {
-      // Instantiate a KeywordSearch object
-      KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
+            ArrayList<SearchResultEvents> resultSet = search.searchEvents();
 
-      // Call the KeywordSearch.searchDiscussions() method and store the result
-      ArrayList<SearchResultEvents> resultSet = search.searchEvents();
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
+                assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
+                assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
+                assertThat(resultSet.get(i).eventDetails.submittedDate, is(notNullValue()));
 
-      // Loop through the results and ensure each field of each object is set to a non-null value
-      for (int i = 0; i < resultSet.size(); i++) {
-        // Discussion metadata
-        assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
-        assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
-        assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
-        assertThat(resultSet.get(i).eventDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
 
-        // User details
-        assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.get(i).schedule.startDate, is(notNullValue()));
+                assertThat(resultSet.get(i).schedule.endDate, is(notNullValue()));
 
-        // Schedule details
-        assertThat(resultSet.get(i).schedule.startDate, is(notNullValue()));
-        assertThat(resultSet.get(i).schedule.endDate, is(notNullValue()));
+                assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+                assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
 
-        // Coordinates details
-        assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
-        assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+                assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
+                assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
 
-        // Venue details
-        assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
-        assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+                assertThat(resultSet.get(i).town.townID, is(notNullValue()));
+                assertThat(resultSet.get(i).town.townName, is(notNullValue()));
 
-        // Town/city details
-        assertThat(resultSet.get(i).town.townID, is(notNullValue()));
-        assertThat(resultSet.get(i).town.townName, is(notNullValue()));
+                assertThat(resultSet.get(i).area.areaID, is(notNullValue()));
+                assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
 
-        // Area details
-        assertThat(resultSet.get(i).area.areaID, is(notNullValue()));
-        assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
+                assertThat(resultSet.get(i).country.countryID, is(notNullValue()));
+                assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+            }
+        }
 
-        // Country details
-        assertThat(resultSet.get(i).country.countryID, is(notNullValue()));
-        assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
-      }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
-    catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e) {
-      fail(e.getMessage());
-    }
-  }
+    @Test
+    public void testSearchEventsWithPagination()
+    {
+        String searchTerms = "Fiddle";
+        int resultsPerPage = 5;
+        int pageNumber = 1;
 
-  @Test
-  public void testSearchEventssWithPagination() {
-    // Set the search parameters
-    String searchTerms = "Fiddle";
-    int resultsPerPage = 5;
-    int pageNumber = 1;
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 
-    try {
-      // Instantiate a KeywordSearch object
-      KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+            ArrayList<SearchResultEvents> resultSet = search.searchEvents();
 
-      // Call the KeywordSearch.searchDiscussions() method and store the result
-      ArrayList<SearchResultEvents> resultSet = search.searchEvents();
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
+                assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
+                assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
+                assertThat(resultSet.get(i).eventDetails.submittedDate, is(notNullValue()));
 
-      // Loop through the results and ensure each field of each object is set to a non-null value
-      for (int i = 0; i < resultSet.size(); i++) {
-        // Discussion metadata
-        assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
-        assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
-        assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
-        assertThat(resultSet.get(i).eventDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
 
-        // User details
-        assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.get(i).schedule.startDate, is(notNullValue()));
+                assertThat(resultSet.get(i).schedule.endDate, is(notNullValue()));
 
-        // Schedule details
-        assertThat(resultSet.get(i).schedule.startDate, is(notNullValue()));
-        assertThat(resultSet.get(i).schedule.endDate, is(notNullValue()));
+                assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+                assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
 
-        // Coordinates details
-        assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
-        assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+                assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
+                assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
 
-        // Venue details
-        assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
-        assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+                assertThat(resultSet.get(i).town.townID, is(notNullValue()));
+                assertThat(resultSet.get(i).town.townName, is(notNullValue()));
 
-        // Town/city details
-        assertThat(resultSet.get(i).town.townID, is(notNullValue()));
-        assertThat(resultSet.get(i).town.townName, is(notNullValue()));
+                assertThat(resultSet.get(i).area.areaID, is(notNullValue()));
+                assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
 
-        // Area details
-        assertThat(resultSet.get(i).area.areaID, is(notNullValue()));
-        assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
+                assertThat(resultSet.get(i).country.countryID, is(notNullValue()));
+                assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+            }
+        }
 
-        // Country details
-        assertThat(resultSet.get(i).country.countryID, is(notNullValue()));
-        assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
-      }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
-    catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e) {
-      fail(e.getMessage());
-    }
-  }
+    @Test
+    public void testSearchTunesWithoutPagination()
+    {
+        String searchTerms = "Humours";
+        int resultsPerPage = 10;
 
-  @Test
-  public void testSearchTunesWithoutPagination() {
-    // Set the search parameters
-    String searchTerms = "Humours";
-    int resultsPerPage = 10;
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 
-    try {
-      // Instantiate a KeywordSearch object
-      KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
+            ArrayList<SearchResultTunes> resultSet = search.searchTunes();
 
-      // Call the KeywordSearch.searchDiscussions() method and store the result
-      ArrayList<SearchResultTunes> resultSet = search.searchTunes();
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
+                assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
+                assertThat(resultSet.get(i).tuneDetails.tuneType, is(notNullValue()));
+                assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
+                assertThat(resultSet.get(i).tuneDetails.submittedDate,is(notNullValue()));
 
-      // Loop through the results and ensure each field of each object is set to a non-null value
-      for (int i = 0; i < resultSet.size(); i++) {
-        // Tune metadata
-        assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
-        assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
-        assertThat(resultSet.get(i).tuneDetails.tuneType, is(notNullValue()));
-        assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
-        assertThat(resultSet.get(i).tuneDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+            }
+        }
 
-        // User details
-        assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-        assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-        assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
-      }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
-    catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e) {
-      fail(e.getMessage());
-    }
-  }
+    @Test
+    public void testSearchTunesWithPagination()
+    {
+        String searchTerms = "Humours";
+        int resultsPerPage = 10;
+        int pageNumber = 1;
 
-  @Test
-  public void testSearchTunesWithPagination() {
-    // Set the search parameters
-    String searchTerms = "Humours";
-    int resultsPerPage = 10;
-    int pageNumber = 1;
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 
-    try {
-      // Instantiate a KeywordSearch object
-      KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+            ArrayList<SearchResultTunes> resultSet = search.searchTunes();
 
-      // Call the KeywordSearch.searchDiscussions() method and store the result
-      ArrayList<SearchResultTunes> resultSet = search.searchTunes();
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
+                assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
+                assertThat(resultSet.get(i).tuneDetails.tuneType, is(notNullValue()));
+                assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
+                assertThat(resultSet.get(i).tuneDetails.submittedDate, is(notNullValue()));
 
-      // Loop through the results and ensure each field of each object is set to a non-null value
-      for (int i = 0; i < resultSet.size(); i++) {
-        // Tune metadata
-        assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
-        assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
-        assertThat(resultSet.get(i).tuneDetails.tuneType, is(notNullValue()));
-        assertThat(resultSet.get(i).tuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
-        assertThat(resultSet.get(i).tuneDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+            }
+        }
 
-        // User details
-        assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-        assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-        assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
-      }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
-    catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e) {
-      fail(e.getMessage());
-    }
-  }
+    @Test
+    public void testSearchRecordingsWithoutPagination()
+    {
+        String searchTerms = "Humours";
+        int resultsPerPage = 10;
 
-  @Test
-  public void testSearchRecordingsWithoutPagination() {
-    // Set the search parameters
-    String searchTerms = "Humours";
-    int resultsPerPage = 10;
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 
-    try {
-      // Instantiate a KeywordSearch object
-      KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
+            ArrayList<SearchResultRecordings> resultSet = search.searchRecordings();
 
-      // Call the KeywordSearch.searchDiscussions() method and store the result
-      ArrayList<SearchResultRecordings> resultSet = search.searchRecordings();
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).recordingDetails.recordingID, is(notNullValue()));
+                assertThat(resultSet.get(i).recordingDetails.recordingName, is(notNullValue()));
+                assertThat(resultSet.get(i).recordingDetails.recordingDate, is(notNullValue()));
+                assertThat(resultSet.get(i).recordingDetails.recordingURL, is(notNullValue()));
 
-      // Loop through the results and ensure each field of each object is set to a non-null value
-      for (int i = 0; i < resultSet.size(); i++) {
-        // Tune metadata
-        assertThat(resultSet.get(i).recordingDetails.recordingID, is(notNullValue()));
-        assertThat(resultSet.get(i).recordingDetails.recordingName, is(notNullValue()));
-        assertThat(resultSet.get(i).recordingDetails.recordingDate, is(notNullValue()));
-        assertThat(resultSet.get(i).recordingDetails.recordingURL, is(notNullValue()));
+                assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
+                assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
+                assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
 
-        // Artist details
-        assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
-        assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
-        assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+            }
+        }
 
-        // User details
-        assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-        assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-        assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
-      }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
-    catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e) {
-      fail(e.getMessage());
-    }
-  }
+    @Test
+    public void testSearchRecordingsWithPagination()
+    {
+        String searchTerms = "Humours";
+        int resultsPerPage = 3;
+        int pageNumber = 2;
 
-  @Test
-  public void testSearchRecordingsWithPagination() {
-    // Set the search parameters
-    String searchTerms = "Humours";
-    int resultsPerPage = 3;
-    int pageNumber = 2;
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 
-    try {
-      // Instantiate a KeywordSearch object
-      KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+            ArrayList<SearchResultRecordings> resultSet = search.searchRecordings();
 
-      // Call the KeywordSearch.searchDiscussions() method and store the result
-      ArrayList<SearchResultRecordings> resultSet = search.searchRecordings();
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).recordingDetails.recordingID, is(notNullValue()));
+                assertThat(resultSet.get(i).recordingDetails.recordingName, is(notNullValue()));
+                assertThat(resultSet.get(i).recordingDetails.recordingDate, is(notNullValue()));
+                assertThat(resultSet.get(i).recordingDetails.recordingURL, is(notNullValue()));
 
-      // Loop through the results and ensure each field of each object is set to a non-null value
-      for (int i = 0; i < resultSet.size(); i++) {
-        // Tune metadata
-        assertThat(resultSet.get(i).recordingDetails.recordingID, is(notNullValue()));
-        assertThat(resultSet.get(i).recordingDetails.recordingName, is(notNullValue()));
-        assertThat(resultSet.get(i).recordingDetails.recordingDate, is(notNullValue()));
-        assertThat(resultSet.get(i).recordingDetails.recordingURL, is(notNullValue()));
+                assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
+                assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
+                assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
 
-        // Artist details
-        assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
-        assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
-        assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+            }
+        }
 
-        // User details
-        assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-        assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-        assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
-      }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
-    catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e) {
-      fail(e.getMessage());
-    }
-  }
+    @Test
+    public void testSearchSessionsWithoutPagination()
+    {
+        String searchTerms = "London";
+        int resultsPerPage = 5;
 
-  @Test
-  public void testSearchSessionsWithoutPagination() {
-    // Set the search parameters
-    String searchTerms = "London";
-    int resultsPerPage = 5;
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 
-    try {
-      // Instantiate a KeywordSearch object
-      KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
+            ArrayList<SearchResultSessions> resultSet = search.searchSessions();
 
-      // Call the KeywordSearch.searchDiscussions() method and store the result
-      ArrayList<SearchResultSessions> resultSet = search.searchSessions();
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
+                assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
+                assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
 
-      // Loop through the results and ensure each field of each object is set to a non-null value
-      for (int i = 0; i < resultSet.size(); i++) {
-        // Session metadata
-        assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
-        assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
-        assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
 
-        // User details
-        assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+                assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
 
-        // Coordinates details
-        assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
-        assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+                assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
+                assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
 
-        // Venue details
-        assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
-        assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+                assertThat(resultSet.get(i).town.townID, is(notNullValue()));
+                assertThat(resultSet.get(i).town.townName, is(notNullValue()));
 
-        // Town/city details
-        assertThat(resultSet.get(i).town.townID, is(notNullValue()));
-        assertThat(resultSet.get(i).town.townName, is(notNullValue()));
+                assertThat(resultSet.get(i).area.areaID, is(notNullValue()));
+                assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
 
-        // Area details
-        assertThat(resultSet.get(i).area.areaID, is(notNullValue()));
-        assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
+                assertThat(resultSet.get(i).country.countryID, is(notNullValue()));
+                assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+            }
+        }
 
-        // Country details
-        assertThat(resultSet.get(i).country.countryID, is(notNullValue()));
-        assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
-      }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
-    catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e) {
-      fail(e.getMessage());
-    }
-  }
+    @Test
+    public void testSearchSessionsWithPagination()
+    {
+        String searchTerms = "London";
+        int resultsPerPage = 5;
+        int pageNumber = 1;
 
-  @Test
-  public void testSearchSessionsWithPagination() {
-    // Set the search parameters
-    String searchTerms = "London";
-    int resultsPerPage = 5;
-    int pageNumber = 1;
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 
-    try {
-      // Instantiate a KeywordSearch object
-      KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+            ArrayList<SearchResultSessions> resultSet = search.searchSessions();
 
-      // Call the KeywordSearch.searchDiscussions() method and store the result
-      ArrayList<SearchResultSessions> resultSet = search.searchSessions();
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
+                assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
+                assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
 
-      // Loop through the results and ensure each field of each object is set to a non-null value
-      for (int i = 0; i < resultSet.size(); i++) {
-        // Session metadata
-        assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
-        assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
-        assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
 
-        // User details
-        assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-        assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
+                assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
 
-        // Coordinates details
-        assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
-        assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+                assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
+                assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
 
-        // Venue details
-        assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
-        assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
+                assertThat(resultSet.get(i).town.townID, is(notNullValue()));
+                assertThat(resultSet.get(i).town.townName, is(notNullValue()));
 
-        // Town/city details
-        assertThat(resultSet.get(i).town.townID, is(notNullValue()));
-        assertThat(resultSet.get(i).town.townName, is(notNullValue()));
+                assertThat(resultSet.get(i).area.areaID, is(notNullValue()));
+                assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
 
-        // Area details
-        assertThat(resultSet.get(i).area.areaID, is(notNullValue()));
-        assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
+                assertThat(resultSet.get(i).country.countryID, is(notNullValue()));
+                assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+            }
+        }
 
-        // Country details
-        assertThat(resultSet.get(i).country.countryID, is(notNullValue()));
-        assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
-      }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
-    catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e) {
-      fail(e.getMessage());
+    @Test
+    public void testSearchSessionsWithPaginationWithNoResults()
+    {
+        // Set the search parameters, using values that we know will produce no results
+        String searchTerms = "London";
+        int resultsPerPage = 50;
+        int pageNumber = 20;
+
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+
+            ArrayList<SearchResultSessions> resultSet = search.searchSessions();
+
+            assertThat(resultSet.size(), is(0));
+        }
+
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
-  }
+    
+    @Test
+    public void testSearchTripsWithoutPagination()
+    {
+        String searchTerms = "London";
+        int resultsPerPage = 5;
 
-  @Test
-  public void testSearchSessionsWithPaginationWithNoResults() {
-    // Set the search parameters, using values that we know will produce no search results
-    String searchTerms = "London";
-    int resultsPerPage = 50;
-    int pageNumber = 20;
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 
-    try {
-      // Instantiate a KeywordSearch object
-      KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+            ArrayList<SearchResultTrips> resultSet = search.searchTrips();
 
-      // Call the KeywordSearch.searchDiscussions() method and store the result
-      ArrayList<SearchResultSessions> resultSet = search.searchSessions();
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).tripDetails.tripID, is(notNullValue()));
+                assertThat(resultSet.get(i).tripDetails.tripName, is(notNullValue()));
+                assertThat(resultSet.get(i).tripDetails.tripURL, is(notNullValue()));
+                assertThat(resultSet.get(i).tripDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.get(i).tripDetails.tripStartDate, is(notNullValue()));
+                assertThat(resultSet.get(i).tripDetails.tripEndDate, is(notNullValue()));
 
-      // Check that the ArrayList of SearchResultSessions objects is zero
-      assertThat(resultSet.size(), is(0));
+                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+            }
+        }
+
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
+    }
+    
+    @Test
+    public void testSearchTripsWithPagination()
+    {
+        String searchTerms = "London";
+        int resultsPerPage = 5;
+        int pageNumber = 2;
+
+        try
+        {
+            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+
+            ArrayList<SearchResultTrips> resultSet = search.searchTrips();
+
+            for (int i = 0; i < resultSet.size(); i++)
+            {
+                assertThat(resultSet.get(i).tripDetails.tripID, is(notNullValue()));
+                assertThat(resultSet.get(i).tripDetails.tripName, is(notNullValue()));
+                assertThat(resultSet.get(i).tripDetails.tripURL, is(notNullValue()));
+                assertThat(resultSet.get(i).tripDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.get(i).tripDetails.tripStartDate, is(notNullValue()));
+                assertThat(resultSet.get(i).tripDetails.tripEndDate, is(notNullValue()));
+
+                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+            }
+        }
+
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
-    catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException e) {
-      fail(e.getMessage());
-    }
-  }
 }
