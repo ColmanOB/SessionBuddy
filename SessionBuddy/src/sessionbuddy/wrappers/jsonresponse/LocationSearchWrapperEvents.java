@@ -64,12 +64,12 @@ public class LocationSearchWrapperEvents
         public String url;
         
         /**
-         * Details of thesession.org user who submitted the session
+         * Details of thesession.org user who submitted the event
          */
         public SubmitterDetails member;
         
         /**
-         * Date on which the session was submitted
+         * Date on which the event was submitted
          */
         public String date;
         

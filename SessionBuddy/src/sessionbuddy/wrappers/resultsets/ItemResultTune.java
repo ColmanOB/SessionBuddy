@@ -12,41 +12,42 @@ import sessionbuddy.wrappers.granularobjects.User;
  * @author Colman
  * @since 2018-01-28
  */
-public class ItemResultTune {
-  /**
-   * Metadata relating to the tune
-   */
-  public TuneDetailsWithDate tuneDetails;
+public class ItemResultTune
+{
+    /**
+     * Metadata relating to the tune
+     */
+    public TuneDetailsWithDate tuneDetails;
 
-  /**
-   * Details of the user who submitted the tune
-   */
-  public User member;
+    /**
+     * Details of the user who submitted the tune
+     */
+    public User member;
 
-  /**
-   * Number of user tunebooks to which this tune has been added
-   */
-  public int tunebooks;
+    /**
+     * Number of user tunebooks to which this tune has been added
+     */
+    public int tunebooks;
 
-  /**
-   * Number of recordings with a tune of this name
-   */
-  public int recordings;
+    /**
+     * Number of recordings with a tune of this name
+     */
+    public int recordings;
 
-  /**
-   * Alternative titles for the tune
-   */
-  public ArrayList<String> aliases;
+    /**
+     * Alternative titles for the tune
+     */
+    public ArrayList<String> aliases;
 
-  /**
-   * A list of comments on the tune's page
-   */
-  public ArrayList<Comment> comments;
+    /**
+     * A list of comments on the tune's page
+     */
+    public ArrayList<Comment> comments;
 
-  /**
-   * A list of different settings of the particular tune
-   */
-  public ArrayList<SettingDetailsWithAbc> settings;
+    /**
+     * A list of different settings of the particular tune
+     */
+    public ArrayList<SettingDetailsWithAbc> settings;
 
   /**
    * Constructor
@@ -59,15 +60,14 @@ public class ItemResultTune {
    * @param settings a list of different settings of the tune
    * @param comments a list of comments on the tune's page on thesession.org
    */
-  public ItemResultTune(TuneDetailsWithDate tuneDetails, User member, int tunebooks, int recordings,
-      ArrayList<String> aliases, ArrayList<SettingDetailsWithAbc> settings,
-      ArrayList<Comment> comments) {
-    this.tuneDetails = tuneDetails;
-    this.member = member;
-    this.tunebooks = tunebooks;
-    this.recordings = recordings;
-    this.aliases = aliases;
-    this.settings = settings;
-    this.comments = comments;
-  }
+    public ItemResultTune(TuneDetailsWithDate tuneDetails, User member, int tunebooks, int recordings, ArrayList<String> aliases, ArrayList<SettingDetailsWithAbc> settings, ArrayList<Comment> comments)
+    {
+        this.tuneDetails = tuneDetails;
+        this.member = member;
+        this.tunebooks = tunebooks;
+        this.recordings = recordings;
+        this.aliases = aliases;
+        this.settings = settings;
+        this.comments = comments;
+    }
 }
