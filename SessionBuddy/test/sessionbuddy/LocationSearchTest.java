@@ -197,8 +197,9 @@ public class LocationSearchTest
                 assertThat(resultSet.get(i).tripDetails.tripName, is(notNullValue()));
                 assertThat(resultSet.get(i).tripDetails.tripURL, is(notNullValue()));
                 assertThat(resultSet.get(i).tripDetails.submittedDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripStartDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripEndDate, is(notNullValue()));
+                
+                assertThat(resultSet.get(i).tripSchedule.startDate, is(notNullValue()));
+                assertThat(resultSet.get(i).tripSchedule.endDate, is(notNullValue()));
 
                 assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
                 assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
@@ -232,8 +233,9 @@ public class LocationSearchTest
                 assertThat(resultSet.get(i).tripDetails.tripName, is(notNullValue()));
                 assertThat(resultSet.get(i).tripDetails.tripURL, is(notNullValue()));
                 assertThat(resultSet.get(i).tripDetails.submittedDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripStartDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripEndDate, is(notNullValue()));
+
+                assertThat(resultSet.get(i).tripSchedule.startDate, is(notNullValue()));
+                assertThat(resultSet.get(i).tripSchedule.endDate, is(notNullValue()));
 
                 assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
                 assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));

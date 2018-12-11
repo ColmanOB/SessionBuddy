@@ -522,16 +522,19 @@ public class KeywordSearch extends Search
                     parsedResults.trips[i].id, 
                     parsedResults.trips[i].url,
                     parsedResults.trips[i].name,
-                    parsedResults.trips[i].date,
+                    parsedResults.trips[i].date);
+            
+            EventSchedule tripSchedule = new EventSchedule(
                     parsedResults.trips[i].dtstart,
-                    parsedResults.trips[i].dtend);
+                    parsedResults.trips[i].dtend
+                    );
             
             User submitter = new User(
                     parsedResults.trips[i].member.id,
                     StringCleaner.cleanString(parsedResults.trips[i].member.name),
                     parsedResults.trips[i].member.url);
 
-            SearchResultTrips currentResult = new SearchResultTrips(details, submitter);
+            SearchResultTrips currentResult = new SearchResultTrips(details, tripSchedule, submitter);
             resultSet.add(currentResult);
         }
         return resultSet;

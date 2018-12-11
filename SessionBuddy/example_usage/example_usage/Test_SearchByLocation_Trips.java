@@ -29,8 +29,9 @@ public class Test_SearchByLocation_Trips
             System.out.println("Name: " + resultSet.get(i).tripDetails.tripName);
             System.out.println("URL: " + resultSet.get(i).tripDetails.tripURL);
             System.out.println("Submitted: " + resultSet.get(i).tripDetails.submittedDate);
-            System.out.println("Start Date: " + resultSet.get(i).tripDetails.tripStartDate);
-            System.out.println("End Date: " + resultSet.get(i).tripDetails.tripEndDate);
+            
+            System.out.println("Start Date: " + resultSet.get(i).tripSchedule.startDate);
+            System.out.println("End Date: " + resultSet.get(i).tripSchedule.endDate);
 
             System.out.println("User ID: " + resultSet.get(i).submitter.userID);
             System.out.println("User Name: " + resultSet.get(i).submitter.userName);

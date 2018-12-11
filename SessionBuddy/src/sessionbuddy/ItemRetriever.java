@@ -24,6 +24,7 @@ import sessionbuddy.wrappers.granularobjects.SettingDetails;
 import sessionbuddy.wrappers.granularobjects.SettingDetailsWithAbc;
 import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.TrackListing;
+import sessionbuddy.wrappers.granularobjects.TripDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.User;
@@ -32,11 +33,13 @@ import sessionbuddy.wrappers.jsonresponse.ItemWrapperDiscussion;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperEvent;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperRecording;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperSession;
+import sessionbuddy.wrappers.jsonresponse.ItemWrapperTrip;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperTune;
 import sessionbuddy.wrappers.resultsets.ItemResultDiscussion;
 import sessionbuddy.wrappers.resultsets.ItemResultEvent;
 import sessionbuddy.wrappers.resultsets.ItemResultRecording;
 import sessionbuddy.wrappers.resultsets.ItemResultSession;
+import sessionbuddy.wrappers.resultsets.ItemResultTrip;
 import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
 /**
@@ -194,6 +197,34 @@ public class ItemRetriever
             ItemWrapperEvent parsedResults = JsonParser.parseResponse(response, ItemWrapperEvent.class);
             // Return the data retrieved from the API
             return populateEventResult(parsedResults);
+        } 
+        catch (IOException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    /**
+     * Gets the details of a trip using its ID in thesession.org. 
+     * Details include metadata about the trip, and comments.
+     * 
+     * @return an ItemResultRecording object with the trip's details
+     * @throws IOException if there is a problem with the HTTPS request to the API
+     * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
+     * 
+     * @author Colman
+     * @since 2018-12-11
+     */
+    public ItemResultTrip getTrip() throws IOException, URISyntaxException
+    {
+        try
+        {
+            // Query the API
+            String response = HttpRequestor.submitRequest(composeURL("trips"));
+            // Parse the returned JSON into a wrapper
+            ItemWrapperTrip parsedResults = JsonParser.parseResponse(response, ItemWrapperTrip.class);
+            // Return the data retrieved from the API
+            return populateTripResult(parsedResults);
         } 
         catch (IOException | URISyntaxException ex)
         {
@@ -579,6 +610,65 @@ public class ItemRetriever
 
         // Instantiate and populate an ItemResultEvent object
         ItemResultEvent finalResult = new ItemResultEvent(eventDetails, member, schedule, coordinates, venue, town, area, country, comments);
+        // Return the set of results that has been collected
+        return finalResult;
+    }
+    
+    /**
+     * A helper method to parse a JSON list of trip details into a POJO.
+     * 
+     * @param parsedResults An already-populated ItemWrapperEvent object
+     * @return A populated ItemResultEvent object
+     */
+    private ItemResultTrip populateTripResult(ItemWrapperTrip parsedResults)
+    {
+        // Extract each element from the event entry in the JSON response
+        TripDetails tripDetails = new TripDetails(
+                parsedResults.id,
+                StringCleaner.cleanString(parsedResults.name),
+                parsedResults.url, 
+                parsedResults.date);
+        
+        User member = new User(
+                parsedResults.member.id,
+                StringCleaner.cleanString(parsedResults.member.name),
+                parsedResults.member.url);
+        
+        EventSchedule tripSchedule = new EventSchedule(
+                parsedResults.dtstart,
+                parsedResults.dtend);
+
+        Coordinates coordinates = new Coordinates(
+                parsedResults.latitude,
+                parsedResults.longitude);
+
+        // A structure to hold each individual comment on the event
+        ArrayList<Comment> comments = new ArrayList<Comment>();
+
+        // Iterate through the list of comments
+        for (int i = 0; i < (parsedResults.comments.length); i++)
+        {
+            // Populate details of the user who submitted the comment
+            User commentSubmitter = new User(
+                    parsedResults.comments[i].member.id,
+                    StringCleaner.cleanString(parsedResults.comments[i].member.name),
+                    parsedResults.comments[i].member.url);
+
+            // Populate all of the comment details, including the user details
+            Comment currentComment = new Comment(
+                    Integer.parseInt(parsedResults.comments[i].id),
+                    parsedResults.comments[i].url,
+                    StringCleaner.cleanString(parsedResults.comments[i].subject),
+                    StringCleaner.cleanString(parsedResults.comments[i].content),
+                    commentSubmitter, 
+                    parsedResults.comments[i].date);
+
+            comments.add(currentComment);
+        }
+
+        // Instantiate and populate an ItemResultTrip object
+        ItemResultTrip finalResult = new ItemResultTrip(tripDetails, tripSchedule, coordinates, member, comments);
+        
         // Return the set of results that has been collected
         return finalResult;
     }

@@ -34,7 +34,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultTrips;
  * Retrieves a list of sessions or events within a given radius (in Km) of a set of coordinates.
  * 
  * @author Colman
- * @since 2018-04-01
+ * @since 2018-12-11
  */
 public class LocationSearch extends Search
 {
@@ -307,7 +307,9 @@ public class LocationSearch extends Search
                     parsedResults.trips[i].id, 
                     parsedResults.trips[i].url,
                     parsedResults.trips[i].name,
-                    parsedResults.trips[i].date,
+                    parsedResults.trips[i].date);
+            
+            EventSchedule tripSchedule = new EventSchedule(
                     parsedResults.trips[i].dtstart,
                     parsedResults.trips[i].dtend);
             
@@ -316,7 +318,7 @@ public class LocationSearch extends Search
                     StringCleaner.cleanString(parsedResults.trips[i].member.name),
                     parsedResults.trips[i].member.url);
 
-            SearchResultTrips currentResult = new SearchResultTrips(details, submitter);
+            SearchResultTrips currentResult = new SearchResultTrips(details, tripSchedule, submitter);
             resultSet.add(currentResult);
         }
         return resultSet;

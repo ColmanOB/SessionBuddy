@@ -28,7 +28,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
  * and one without pagination
  * 
  * @author Colman
- * @since 2018-12-10
+ * @since 2018-12-11
  */
 public class KeywordSearchTest
 {
@@ -465,8 +465,8 @@ public class KeywordSearchTest
                 assertThat(resultSet.get(i).tripDetails.tripName, is(notNullValue()));
                 assertThat(resultSet.get(i).tripDetails.tripURL, is(notNullValue()));
                 assertThat(resultSet.get(i).tripDetails.submittedDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripStartDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripEndDate, is(notNullValue()));
+                assertThat(resultSet.get(i).tripSchedule.startDate, is(notNullValue()));
+                assertThat(resultSet.get(i).tripSchedule.endDate, is(notNullValue()));
 
                 assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
                 assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
@@ -499,8 +499,8 @@ public class KeywordSearchTest
                 assertThat(resultSet.get(i).tripDetails.tripName, is(notNullValue()));
                 assertThat(resultSet.get(i).tripDetails.tripURL, is(notNullValue()));
                 assertThat(resultSet.get(i).tripDetails.submittedDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripStartDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripEndDate, is(notNullValue()));
+                assertThat(resultSet.get(i).tripSchedule.startDate, is(notNullValue()));
+                assertThat(resultSet.get(i).tripSchedule.endDate, is(notNullValue()));
 
                 assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
                 assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));

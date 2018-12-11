@@ -1,5 +1,6 @@
 package sessionbuddy.wrappers.resultsets;
 
+import sessionbuddy.wrappers.granularobjects.EventSchedule;
 import sessionbuddy.wrappers.granularobjects.TripDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 
@@ -16,6 +17,11 @@ public class SearchResultTrips
      * Attributes of the trip itself
      */
     public TripDetails tripDetails;
+    
+    /**
+     * Start and End date of the trip
+     */
+    public EventSchedule tripSchedule;
 
     /**
      * Attributes of the user who submitted the tune
@@ -28,9 +34,10 @@ public class SearchResultTrips
      * @param details an already-populated TripDetails object
      * @param submitter an already-populated User object
      */
-    public SearchResultTrips(TripDetails details, User submitter)
+    public SearchResultTrips(TripDetails details, EventSchedule tripSchedule, User submitter)
     {
         this.tripDetails = details;
+        this.tripSchedule = tripSchedule;
         this.submitter = submitter;
     }
 }
