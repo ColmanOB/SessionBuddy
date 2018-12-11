@@ -17,7 +17,7 @@ import sessionbuddy.wrappers.granularobjects.Coordinates;
 import sessionbuddy.wrappers.granularobjects.Country;
 import sessionbuddy.wrappers.granularobjects.DiscussionDetails;
 import sessionbuddy.wrappers.granularobjects.EventDetails;
-import sessionbuddy.wrappers.granularobjects.EventSchedule;
+import sessionbuddy.wrappers.granularobjects.Schedule;
 import sessionbuddy.wrappers.granularobjects.RecordingDetails;
 import sessionbuddy.wrappers.granularobjects.SessionDetails;
 import sessionbuddy.wrappers.granularobjects.SettingDetails;
@@ -557,7 +557,7 @@ public class ItemRetriever
                 StringCleaner.cleanString(parsedResults.member.name),
                 parsedResults.member.url);
         
-        EventSchedule schedule = new EventSchedule(
+        Schedule schedule = new Schedule(
                 parsedResults.dtstart,
                 parsedResults.dtend);
         
@@ -634,7 +634,7 @@ public class ItemRetriever
                 StringCleaner.cleanString(parsedResults.member.name),
                 parsedResults.member.url);
         
-        EventSchedule tripSchedule = new EventSchedule(
+        Schedule tripSchedule = new Schedule(
                 parsedResults.dtstart,
                 parsedResults.dtend);
 

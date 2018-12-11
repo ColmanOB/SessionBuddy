@@ -56,7 +56,7 @@ public class LocationResultSessions
      * Constructor
      * 
      * @param details an already-populated SessionDetails object
-     * @param coordinate a Coordinates object populated with a latitude and longitude
+     * @param coordinates a Coordinates object populated with a latitude and longitude
      * @param user a populated User object representing the submitter of the session
      * @param venue a Venue object populated with the venue details
      * @param town an already-populated Town object

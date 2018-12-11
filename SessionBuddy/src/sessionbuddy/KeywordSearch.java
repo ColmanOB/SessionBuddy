@@ -19,7 +19,7 @@ import sessionbuddy.wrappers.granularobjects.Coordinates;
 import sessionbuddy.wrappers.granularobjects.Country;
 import sessionbuddy.wrappers.granularobjects.DiscussionDetails;
 import sessionbuddy.wrappers.granularobjects.EventDetails;
-import sessionbuddy.wrappers.granularobjects.EventSchedule;
+import sessionbuddy.wrappers.granularobjects.Schedule;
 import sessionbuddy.wrappers.granularobjects.RecordingDetails;
 import sessionbuddy.wrappers.granularobjects.SessionDetails;
 import sessionbuddy.wrappers.granularobjects.Town;
@@ -371,7 +371,7 @@ public class KeywordSearch extends Search
                     StringCleaner.cleanString(parsedResults.events[i].member.name),
                     parsedResults.events[i].member.url);
             
-            EventSchedule schedule = new EventSchedule(
+            Schedule schedule = new Schedule(
                     parsedResults.events[i].dtstart,
                     parsedResults.events[i].dtend);
             
@@ -524,7 +524,7 @@ public class KeywordSearch extends Search
                     parsedResults.trips[i].name,
                     parsedResults.trips[i].date);
             
-            EventSchedule tripSchedule = new EventSchedule(
+            Schedule tripSchedule = new Schedule(
                     parsedResults.trips[i].dtstart,
                     parsedResults.trips[i].dtend
                     );

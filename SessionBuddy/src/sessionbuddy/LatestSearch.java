@@ -16,7 +16,7 @@ import sessionbuddy.wrappers.granularobjects.Coordinates;
 import sessionbuddy.wrappers.granularobjects.Country;
 import sessionbuddy.wrappers.granularobjects.DiscussionDetails;
 import sessionbuddy.wrappers.granularobjects.EventDetails;
-import sessionbuddy.wrappers.granularobjects.EventSchedule;
+import sessionbuddy.wrappers.granularobjects.Schedule;
 import sessionbuddy.wrappers.granularobjects.SettingDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.RecordingDetails;
@@ -464,7 +464,7 @@ public class LatestSearch extends Search
                     parsedResults.events[i].latitude,
                     parsedResults.events[i].longitude);
             
-            EventSchedule schedule = new EventSchedule(
+            Schedule schedule = new Schedule(
                     parsedResults.events[i].dtstart,
                     parsedResults.events[i].dtend);
             
@@ -524,7 +524,7 @@ public class LatestSearch extends Search
                     parsedResults.trips[i].name,
                     parsedResults.trips[i].date);
             
-            EventSchedule tripSchedule = new EventSchedule(
+            Schedule tripSchedule = new Schedule(
                     parsedResults.trips[i].dtstart,
                     parsedResults.trips[i].dtend);
             

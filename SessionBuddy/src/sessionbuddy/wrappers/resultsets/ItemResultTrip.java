@@ -3,7 +3,7 @@ package sessionbuddy.wrappers.resultsets;
 import java.util.ArrayList;
 import sessionbuddy.wrappers.granularobjects.Comment;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
-import sessionbuddy.wrappers.granularobjects.EventSchedule;
+import sessionbuddy.wrappers.granularobjects.Schedule;
 import sessionbuddy.wrappers.granularobjects.TripDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 
@@ -23,7 +23,7 @@ public class ItemResultTrip
     /**
      * The start and end dates of the trip
      */
-    public EventSchedule tripSchedule;
+    public Schedule tripSchedule;
 
     /**
      * Latitude and longitude of the trip destination
@@ -45,11 +45,12 @@ public class ItemResultTrip
      * Constructor method
      * 
      * @param tripDetails a TripDetails object that has already been populated
+     * @param tripSchedule an already-populated Schedule object
      * @param coordinates a Coordinates object populated with latitude and longitude
      * @param member a User object representing the trip submitter
      * @param comments an ArrayList of Comment objects that have already been populated
      */
-    public ItemResultTrip(TripDetails tripDetails, EventSchedule tripSchedule, Coordinates coordinates, User member, ArrayList<Comment> comments)
+    public ItemResultTrip(TripDetails tripDetails, Schedule tripSchedule, Coordinates coordinates, User member, ArrayList<Comment> comments)
     {
         this.tripDetails = tripDetails;
         this.tripSchedule = tripSchedule;

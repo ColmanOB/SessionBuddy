@@ -4,7 +4,7 @@ import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
 import sessionbuddy.wrappers.granularobjects.Country;
 import sessionbuddy.wrappers.granularobjects.EventDetails;
-import sessionbuddy.wrappers.granularobjects.EventSchedule;
+import sessionbuddy.wrappers.granularobjects.Schedule;
 import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
@@ -31,7 +31,7 @@ public class LocationResultEvents
     /**
      * Start and end dates of the event
      */
-    public EventSchedule schedule;
+    public Schedule schedule;
 
     /**
      * Latitude and longitude of the venue
@@ -63,14 +63,14 @@ public class LocationResultEvents
      * 
      * @param details an already-populated EventDetails object
      * @param user an already-populated User object representing the submitter of the event
-     * @param schedule an EventSchedule object with the start and end date/time of the event
+     * @param schedule an Schedule object with the start and end date/time of the event
      * @param coordinates a Coordinates object with the latitude and longitude of the venue
      * @param venue a populated Venue object
      * @param town a populated Town object
      * @param area a populated Area object
      * @param country a populated country object
      */
-    public LocationResultEvents(EventDetails details, User user, EventSchedule schedule, Coordinates coordinates, Venue venue, Town town, Area area, Country country)
+    public LocationResultEvents(EventDetails details, User user, Schedule schedule, Coordinates coordinates, Venue venue, Town town, Area area, Country country)
     {
         this.eventDetails = details;
         this.user = user;

@@ -6,7 +6,7 @@ package sessionbuddy.wrappers.granularobjects;
  * @author Colman O'B
  * @since 2017-12-29
  */
-public class EventSchedule
+public class Schedule
 {
     /**
      * Start date/time of the event
@@ -24,7 +24,7 @@ public class EventSchedule
      * @param startDate the start date/time of the event
      * @param endDate the end date/time of the event
      */
-    public EventSchedule(String startDate, String endDate)
+    public Schedule(String startDate, String endDate)
     {
         this.startDate = startDate;
         this.endDate = endDate;

@@ -16,7 +16,7 @@ import sessionbuddy.wrappers.granularobjects.Coordinates;
 import sessionbuddy.wrappers.granularobjects.Country;
 import sessionbuddy.wrappers.granularobjects.DiscussionDetails;
 import sessionbuddy.wrappers.granularobjects.EventDetails;
-import sessionbuddy.wrappers.granularobjects.EventSchedule;
+import sessionbuddy.wrappers.granularobjects.Schedule;
 import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.SettingDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
@@ -439,7 +439,7 @@ public class MemberContributionSearch extends Search
                     parsedResults.events[i].latitude,
                     parsedResults.events[i].longitude);
             
-            EventSchedule schedule = new EventSchedule(
+            Schedule schedule = new Schedule(
                     parsedResults.events[i].dtstart,
                     parsedResults.events[i].dtend);
             
