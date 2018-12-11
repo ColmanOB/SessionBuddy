@@ -562,6 +562,7 @@ public class LatestSearch extends Search
                     .itemsPerPage(resultsPerPage).pageNumber(pageNumber)
                     .build();
         }
+        
         // If no page is specified
         else if (pageNumber == 0)
         {
@@ -571,11 +572,13 @@ public class LatestSearch extends Search
                     .path(dataCategory + "/" + "new")
                     .itemsPerPage(resultsPerPage).build();
         }
+        
         // If anything other than a positive integer was specified as the page number
         else
         {
             throw new IllegalArgumentException("Page number must be an integer value greater than zero");
         }
+        
         return requestURL;
     }
 }
