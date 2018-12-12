@@ -216,7 +216,7 @@ public class KeywordSearch extends Search
     }
 
     /**
-     * Queries the API for a list of sessions matching a set of search  terms
+     * Queries the API for a list of sessions matching a set of search terms
      * 
      * @return an ArrayList of SessionsSearchResult objects
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page

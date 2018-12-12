@@ -77,9 +77,7 @@ public class URLComposer
          * the parameters provided by the caller
          * 
          * @return a URL in the format expected by the API at thesession.org
-         * @throws IllegalArgumentException
-         *             if the parameters provided are invalid or if a URI Syntax
-         *             Exception or Malformed URL Exception are encountered
+         * @throws IllegalArgumentException if the parameters provided are invalid or if a URI Syntax Exception or Malformed URL Exception are encountered
          */
         public URL build() throws IllegalArgumentException
         {

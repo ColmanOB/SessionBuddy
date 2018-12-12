@@ -7,7 +7,7 @@ package sessionbuddy.utils;
  * to carry out any given operation, as the category of request / search 
  * is one of the key pieces of information that determines the URL to be used.
  * 
- * @author Colman since 2018-05-08
+ * @author Colman since 2018-12-12
  */
 public enum RequestType
 {
@@ -17,5 +17,6 @@ public enum RequestType
     SEARCH_LATEST_ITEMS, 
     SEARCH_MEMBER_CONTRIBUTIONS, 
     SEARCH_POPULAR, 
-    SEARCH_SETS
+    SEARCH_SETS,
+    ACTIVITY_STREAM
 }
