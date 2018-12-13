@@ -163,7 +163,8 @@ public class URLComposer
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
                         || apiRequest.requestType == RequestType.SEARCH_POPULAR
-                        || apiRequest.requestType == RequestType.SEARCH_SETS)
+                        || apiRequest.requestType == RequestType.SEARCH_SETS
+                        || apiRequest.requestType == RequestType.ACTIVITY_STREAM)
                         && apiRequest.pageNumber > 0
                         && apiRequest.itemsPerPage > 0)
                 {
@@ -184,7 +185,8 @@ public class URLComposer
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
                         || apiRequest.requestType == RequestType.SEARCH_POPULAR
-                        || apiRequest.requestType == RequestType.SEARCH_SETS)
+                        || apiRequest.requestType == RequestType.SEARCH_SETS
+                        || apiRequest.requestType == RequestType.ACTIVITY_STREAM)
                         && apiRequest.pageNumber > 0
                         && apiRequest.itemsPerPage == 0)
                 {
@@ -204,7 +206,8 @@ public class URLComposer
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
                         || apiRequest.requestType == RequestType.SEARCH_POPULAR
-                        || apiRequest.requestType == RequestType.SEARCH_SETS)
+                        || apiRequest.requestType == RequestType.SEARCH_SETS
+                        || apiRequest.requestType == RequestType.ACTIVITY_STREAM)
                         && apiRequest.pageNumber == 0
                         && apiRequest.itemsPerPage > 0)
                 {
@@ -224,7 +227,8 @@ public class URLComposer
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
                         || apiRequest.requestType == RequestType.SEARCH_POPULAR
-                        || apiRequest.requestType == RequestType.SEARCH_SETS)
+                        || apiRequest.requestType == RequestType.SEARCH_SETS
+                        || apiRequest.requestType == RequestType.ACTIVITY_STREAM)
                         && apiRequest.pageNumber == 0
                         && apiRequest.itemsPerPage == 0)
                 {
