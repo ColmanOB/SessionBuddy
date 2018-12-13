@@ -183,6 +183,8 @@ public class ActivityStreamReader extends Search
     
     /**
      * A helper method used to put the URL together to query the API at thesession.org
+     * for an activity stream, specifically one with no data category, i.e. for retrieving
+     * details of all recent activity across thesession.org
      * 
      * @return A URL specifying a particular resource from thesession.org API
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
