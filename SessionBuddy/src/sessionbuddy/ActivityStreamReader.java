@@ -61,7 +61,7 @@ public class ActivityStreamReader extends Search
     }
 
     /**
-     * Retrieves an Activity Stream from thesession.org.
+     * Retrieves an activity stream from thesession.org.
      * 
      * This method lists all recent activity, and does not narrow it down by category
      * 
@@ -91,12 +91,162 @@ public class ActivityStreamReader extends Search
             throw ex;
         }
     }
+    
+    /**
+     * Retrieves an activity stream of tune-related activity from thesession.org
+     * 
+     * @return An ArrayList of ActivityStreamResult objects
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+     * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * 
+     * @author Colman
+     * @since 2018-12-13
+     */
+    public ArrayList<ActivityStreamResult> readActivityStreamTunes() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURL("tunes"));
+            // Parse the returned JSON into a wrapper
+            ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
+            // Return the data retrieved from the API
+            return populateActivityStreamResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    /**
+     * Retrieves an activity stream of recordings-related activity from thesession.org
+     * 
+     * @return An ArrayList of ActivityStreamResult objects
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+     * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * 
+     * @author Colman
+     * @since 2018-12-13
+     */
+    public ArrayList<ActivityStreamResult> readActivityStreamRecordings() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURL("recordings"));
+            // Parse the returned JSON into a wrapper
+            ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
+            // Return the data retrieved from the API
+            return populateActivityStreamResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    /**
+     * Retrieves an activity stream of session-related activity from thesession.org
+     * 
+     * @return An ArrayList of ActivityStreamResult objects
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+     * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * 
+     * @author Colman
+     * @since 2018-12-13
+     */
+    public ArrayList<ActivityStreamResult> readActivityStreamSessions() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURL("sessions"));
+            // Parse the returned JSON into a wrapper
+            ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
+            // Return the data retrieved from the API
+            return populateActivityStreamResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
 
+    /**
+     * Retrieves an activity stream of events-related activity from thesession.org
+     * 
+     * @return An ArrayList of ActivityStreamResult objects
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+     * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * 
+     * @author Colman
+     * @since 2018-12-13
+     */
+    public ArrayList<ActivityStreamResult> readActivityStreamEvents() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURL("events"));
+            // Parse the returned JSON into a wrapper
+            ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
+            // Return the data retrieved from the API
+            return populateActivityStreamResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    /**
+     * Retrieves an activity stream of discussions-related activity from thesession.org
+     * 
+     * @return An ArrayList of ActivityStreamResult objects
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+     * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * 
+     * @author Colman
+     * @since 2018-12-13
+     */
+    public ArrayList<ActivityStreamResult> readActivityStreamDiscussions() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURL("discussions"));
+            // Parse the returned JSON into a wrapper
+            ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
+            // Return the data retrieved from the API
+            return populateActivityStreamResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
     /**
      * Helper method to gather and parse the response to a request for an Activity Stream
      * 
      * @param parsedResults an ActivityStreamWrapper object that has already been created an populated
-     * @return
+     * @return an ArrayList of ActivityStreamResult objects
      */
     private ArrayList<ActivityStreamResult> populateActivityStreamResult(ActivityStreamWrapper parsedResults)
     {
@@ -132,7 +282,8 @@ public class ActivityStreamReader extends Search
                           );
 
             ActivityStreamResult currentResult = new ActivityStreamResult(details, actor, object, target);
-            // Add the SearchResultTunes object to the ArrayList to be returned to the caller
+            
+            // Add the current ActivityStreamResult object to the ArrayList to be returned to the caller
             resultSet.add(currentResult);
         }
         return resultSet;
