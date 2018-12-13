@@ -158,7 +158,7 @@ public class URLComposer
                 }
                 
                 // In the case of search for recently-added items, member contributions,
-                // popular tunes or sets
+                // popular tunes, sets or activity streams
                 // where a page number and items per page are specified
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
@@ -180,7 +180,7 @@ public class URLComposer
                 }
                 
                 // In the case of search for recently-added items, Member
-                // contributions, popular tunes or sets
+                // contributions, popular tunes, sets or activity streams
                 // where page number is specified, but not a number of items per page
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
@@ -201,7 +201,7 @@ public class URLComposer
                 }
 
                 // In the case of search for recently-added items, member
-                // contributions, popular tunes or sets
+                // contributions, popular tunes, sets or activity streams
                 // where no page number is specified, but items per page are specified
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
@@ -222,7 +222,7 @@ public class URLComposer
                 }
 
                 // In the case of search for recently-added items, 
-                // member contributions, popular tunes or sets
+                // member contributions, popular tunes, sets or activity streams
                 // where no page number or items per page are specified
                 else if ((apiRequest.requestType == RequestType.SEARCH_LATEST_ITEMS
                         || apiRequest.requestType == RequestType.SEARCH_MEMBER_CONTRIBUTIONS
