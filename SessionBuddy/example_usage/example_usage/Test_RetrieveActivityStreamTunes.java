@@ -21,7 +21,7 @@ class Test_RetrieveActivityStreamTunes
 
             // Perform the search by calling the getLatestTunes method on the
             // LatestSearch object
-            ArrayList<ActivityStreamResult> resultSet = search.readActivityStreamTunes();
+            ArrayList<ActivityStreamResult> resultSet = search.readActivityStreamItemTune(2);
 
             // Loop through the results and print each attribute of each
             // individual result in the set
