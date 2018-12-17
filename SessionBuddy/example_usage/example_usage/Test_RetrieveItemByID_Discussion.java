@@ -9,10 +9,10 @@ public class Test_RetrieveItemByID_Discussion {
   public static void main(String[] args) throws URISyntaxException {
     try {
       // Instantiate a RetrieveItem object & set the search parameters
-      ItemRetriever search = new ItemRetriever(666);
+      ItemRetriever search = new ItemRetriever();
 
       // Call the getDiscussion method on the ItemRetriever object
-      ItemResultDiscussion resultSet = search.getDiscussion();
+      ItemResultDiscussion resultSet = search.getDiscussion(666);
 
       // Print out attributes of the discussion as a whole:
       System.out.println("Discussion ID: " + resultSet.discussionDetails.discussionID);
