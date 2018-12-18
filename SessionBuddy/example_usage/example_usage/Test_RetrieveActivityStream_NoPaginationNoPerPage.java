@@ -7,21 +7,14 @@ import java.util.ArrayList;
 import sessionbuddy.ActivityStreamReader;
 import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
 
-class Test_RetrieveActivityStream
+class Test_RetrieveActivityStream_NoPaginationNoPerPage
 {
     public static void main(String[] args) throws URISyntaxException
     {
         try
         {
-            // Set the search parameters
-            int resultsPerPage = 10;
-
-            // Instantiate a LatestSearch object
-            ActivityStreamReader search = new ActivityStreamReader(resultsPerPage);
-
-            // Perform the search by calling the getLatestTunes method on the
-            // LatestSearch object
-            ArrayList<ActivityStreamResult> resultSet = search.readActivityStream();
+            // Get the activity stream
+            ArrayList<ActivityStreamResult> resultSet = ActivityStreamReader.readActivityStream();
 
             // Loop through the results and print each attribute of each
             // individual result in the set

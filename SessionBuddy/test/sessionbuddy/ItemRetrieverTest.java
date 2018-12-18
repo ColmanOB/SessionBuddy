@@ -19,8 +19,7 @@ import sessionbuddy.wrappers.resultsets.ItemResultTune;
  * Each test follows the same process:
  * 
  * 1. Set the search parameters, i.e. the ID of the resource to be retrieved
- * 2. Instantiate an ItemRetriever object
- * 3. Perform the API call
+ * 2. Perform the API call using one of the static methods in ItemRetriever
  * 4. Test the result set, testing (usually) each element of the result set
  */
 public class ItemRetrieverTest
@@ -33,9 +32,7 @@ public class ItemRetrieverTest
 
         try
         {
-            ItemRetriever retriever = new ItemRetriever(itemID);
-
-            ItemResultRecording resultSet = retriever.getRecording();
+            ItemResultRecording resultSet = ItemRetriever.getRecording(itemID);
 
             assertThat(resultSet.recordingDetails.recordingID, is(notNullValue()));
             assertThat(resultSet.recordingDetails.recordingName, is(notNullValue()));
@@ -79,9 +76,7 @@ public class ItemRetrieverTest
 
         try
         {
-            ItemRetriever search = new ItemRetriever(itemID);
-
-            ItemResultDiscussion resultSet = search.getDiscussion();
+            ItemResultDiscussion resultSet = ItemRetriever.getDiscussion(itemID);
 
             assertThat(resultSet.discussionDetails.discussionID, is(notNullValue()));
             assertThat(resultSet.discussionDetails.discussionName, is(notNullValue()));
@@ -114,13 +109,13 @@ public class ItemRetrieverTest
     @Test
     public void testGetTune()
     {
+        int tuneID = 2;
+        
         try
         {
-            int tuneID = 2;
+            
 
-            ItemRetriever search = new ItemRetriever(tuneID);
-
-            ItemResultTune resultSet = search.getTune();
+            ItemResultTune resultSet = ItemRetriever.getTune(tuneID);
 
             assertThat(resultSet.tuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
             assertThat(resultSet.tuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
@@ -166,13 +161,11 @@ public class ItemRetrieverTest
     @Test
     public void testGetSession()
     {
+        int sessionID = 6264;
+        
         try
         {
-            int sessionID = 6264;
-
-            ItemRetriever search = new ItemRetriever(sessionID);
-
-            ItemResultSession resultSet = search.getSession();
+            ItemResultSession resultSet = ItemRetriever.getSession(sessionID);
 
             assertThat(resultSet.sessionDetails.sessionID, is(notNullValue()));
             assertThat(resultSet.sessionDetails.sessionURL, is(notNullValue()));
@@ -210,13 +203,11 @@ public class ItemRetrieverTest
     @Test
     public void testGetEvent()
     {
+        int eventID = 2;
+        
         try
         {
-            int eventID = 2;
-
-            ItemRetriever search = new ItemRetriever(eventID);
-
-            ItemResultEvent resultSet = search.getEvent();
+            ItemResultEvent resultSet = ItemRetriever.getEvent(eventID);
 
             assertThat(resultSet.eventDetails.eventID, is(notNullValue()));
             assertThat(resultSet.eventDetails.eventName, is(notNullValue()));
@@ -264,13 +255,11 @@ public class ItemRetrieverTest
     @Test
     public void testGetTrip()
     {
+        int tripID = 2;
+        
         try
         {
-            int tripID = 2;
-
-            ItemRetriever search = new ItemRetriever(tripID);
-
-            ItemResultTrip resultSet = search.getTrip();
+            ItemResultTrip resultSet = ItemRetriever.getTrip(tripID);
 
             assertThat(resultSet.tripDetails.tripID, is(notNullValue()));
             assertThat(resultSet.tripDetails.tripName, is(notNullValue()));

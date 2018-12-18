@@ -47,7 +47,7 @@ import sessionbuddy.wrappers.resultsets.ItemResultTune;
  * The item may be a tune, discussion, recording, session or event.
  * 
  * @author Colman
- * @since 2018-12-17
+ * @since 2018-12-18
  */
 public class ItemRetriever
 {
@@ -89,7 +89,7 @@ public class ItemRetriever
      * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
      * @since 2018-12-17
      */
-    public ItemResultDiscussion getDiscussion(int itemID) throws IOException, URISyntaxException
+    public static ItemResultDiscussion getDiscussion(int itemID) throws IOException, URISyntaxException
     {
         try
         {
@@ -116,7 +116,7 @@ public class ItemRetriever
      * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
      * @since 2018-12-17
      */
-    public ItemResultTune getTune(int itemID) throws IOException, URISyntaxException
+    public static ItemResultTune getTune(int itemID) throws IOException, URISyntaxException
     {
         try
         {
@@ -143,7 +143,7 @@ public class ItemRetriever
      * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
      * @since 2018-12-17
      */
-    public ItemResultSession getSession(int itemID) throws IOException, URISyntaxException
+    public static ItemResultSession getSession(int itemID) throws IOException, URISyntaxException
     {
         try
         {
@@ -170,7 +170,7 @@ public class ItemRetriever
      * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
      * @since 2018-12-17
      */
-    public ItemResultEvent getEvent(int itemID) throws IOException, URISyntaxException
+    public static ItemResultEvent getEvent(int itemID) throws IOException, URISyntaxException
     {
         try
         {
@@ -197,7 +197,7 @@ public class ItemRetriever
      * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
      * @since 2018-12-17
      */
-    public ItemResultTrip getTrip(int itemID) throws IOException, URISyntaxException
+    public static ItemResultTrip getTrip(int itemID) throws IOException, URISyntaxException
     {
         try
         {
@@ -300,7 +300,7 @@ public class ItemRetriever
      * @param parsedResults An already-populated ItemWrapperDiscussion object
      * @return A populated ItemResultDiscussion object
      */
-    private ItemResultDiscussion populateDiscussionResult(ItemWrapperDiscussion parsedResults)
+    private static ItemResultDiscussion populateDiscussionResult(ItemWrapperDiscussion parsedResults)
     {
         // Extract each element from the discussion in the JSON response
         DiscussionDetails discussionDetails = new DiscussionDetails(
@@ -351,7 +351,7 @@ public class ItemRetriever
      * @param parsedResults An already-populated ItemWrapperTune object
      * @return A populated ItemResultTune object
      */
-    private ItemResultTune populateTuneResult(ItemWrapperTune parsedResults)
+    private static ItemResultTune populateTuneResult(ItemWrapperTune parsedResults)
     {
         // Get the basic set of tune details
         TuneDetails tuneDetails = new TuneDetails(
@@ -447,7 +447,7 @@ public class ItemRetriever
      * @param parsedResults An already-populated ItemWrapperSession object
      * @return A populated ItemResultSession object
      */
-    private ItemResultSession populateSessionResult(ItemWrapperSession parsedResults)
+    private static ItemResultSession populateSessionResult(ItemWrapperSession parsedResults)
     {
         // Extract each element from the session entry in the JSON response
         SessionDetails sessionDetails = new SessionDetails(
@@ -526,7 +526,7 @@ public class ItemRetriever
      * @param parsedResults An already-populated ItemWrapperEvent object
      * @return A populated ItemResultEvent object
      */
-    private ItemResultEvent populateEventResult(ItemWrapperEvent parsedResults)
+    private static ItemResultEvent populateEventResult(ItemWrapperEvent parsedResults)
     {
         // Extract each element from the event entry in the JSON response
         EventDetails eventDetails = new EventDetails(
@@ -602,7 +602,7 @@ public class ItemRetriever
      * @param parsedResults An already-populated ItemWrapperEvent object
      * @return A populated ItemResultEvent object
      */
-    private ItemResultTrip populateTripResult(ItemWrapperTrip parsedResults)
+    private static ItemResultTrip populateTripResult(ItemWrapperTrip parsedResults)
     {
         // Extract each element from the event entry in the JSON response
         TripDetails tripDetails = new TripDetails(
@@ -659,6 +659,7 @@ public class ItemRetriever
      * A helper method used to build the URL to query the API
      * 
      * @param dataCategory The category of data to be queried, e.g. tunes, discussions, events etc.
+     * @param itemID The numeric ID of the specific resource on thesession.org
      * @return A URL specifying a particular resource from thesession.org API
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
      * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException

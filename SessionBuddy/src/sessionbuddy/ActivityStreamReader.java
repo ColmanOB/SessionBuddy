@@ -23,58 +23,58 @@ import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
  * methods to perform the actual search.
  * 
  * @author Colman O'B
- * @since 2018-12-12
+ * @since 2018-12-18
  *
  */
 public class ActivityStreamReader extends Search
 {
     /**
-     * The number of search results to be returned per page
-     */
-    //private int resultsPerPage = 0;
-
-    /**
-     * Specifies an individual page within a multi-page response
-     */
-    //private int pageNumber = 0;
-
-    /**
-     * Constructor where pagination is not required,
-     * and you only want to see the first page of the API response
-     *
-     * @param resultsPerPage The number of results per page in the JSON response from the API
-     */
-    /*
-    public ActivityStreamReader(int resultsPerPage)
-    {
-        this.resultsPerPage = resultsPerPage;
-    } */
-
-    /**
-     * Constructor where you need to specify a page within the API response
-     * 
-     * @param resultsPerPage The number of search results per page in the JSON response from the API
-     * @param pageNumber Specifies a particular page number within the JSON response
-     */
-    /*
-    public ActivityStreamReader(int resultsPerPage, int pageNumber)
-    {
-        this.pageNumber = pageNumber;
-    } */
-
-    /**
      * Retrieves an activity stream from thesession.org.
      * 
-     * This method lists all recent activity, and does not narrow it down by category
+     * This lists all recent activity, and does not narrow it down by category.
+     * 
+     * This does not specify a number of results per page, 
+     * or a particular page number of the result set.
      * 
      * @return An ArrayList of ActivityStreamResult objects
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
      * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
      * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * @since 2018-12-18
+     */
+    public static ArrayList<ActivityStreamResult> readActivityStream() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    {
+        try
+        {
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURLAllCategories());
+            // Parse the returned JSON into a wrapper
+            ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
+            // Return the data retrieved from the API
+            return populateActivityStreamResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    /**
+     * Retrieves an activity stream from thesession.org.
      * 
-     * @author Colman
-     * @since 2018-12-12
+     * This method lists all recent activity, and does not narrow it down by category.
+     * 
+     * This is used when you want to specify the number of results 
+     * in each page of the response from the API.
+     * 
+     * @param resultsPerPage The number of results to be returned per page in the API response
+     * @return An ArrayList of ActivityStreamResult objects
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+     * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * @since 2018-12-18
      */
     public static ArrayList<ActivityStreamResult> readActivityStream(int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
@@ -82,7 +82,7 @@ public class ActivityStreamReader extends Search
         {
             validateResultsPerPageCount(resultsPerPage);
             // Perform the API query
-            String response = HttpRequestor.submitRequest(composeURL(resultsPerPage));
+            String response = HttpRequestor.submitRequest(composeURLAllCategories(resultsPerPage));
             // Parse the returned JSON into a wrapper
             ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
             // Return the data retrieved from the API
@@ -97,16 +97,17 @@ public class ActivityStreamReader extends Search
     /**
      * Retrieves an activity stream from thesession.org.
      * 
-     * This method lists all recent activity, and does not narrow it down by category
+     * This method lists all recent activity, and does not narrow it down by category.
+     * 
+     * This is used when you want to specify both the number of results per page
+     * in the response from the API, and a specific page number within that response.
      * 
      * @return An ArrayList of ActivityStreamResult objects
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
      * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
      * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-     * 
-     * @author Colman
-     * @since 2018-12-12
+     * @since 2018-12-18
      */
     public static ArrayList<ActivityStreamResult> readActivityStream(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
@@ -114,7 +115,41 @@ public class ActivityStreamReader extends Search
         {
             validateResultsPerPageCount(resultsPerPage);
             // Perform the API query
-            String response = HttpRequestor.submitRequest(composeURL(resultsPerPage, pageNumber));
+            String response = HttpRequestor.submitRequest(composeURLAllCategories(resultsPerPage, pageNumber));
+            // Parse the returned JSON into a wrapper
+            ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
+            // Return the data retrieved from the API
+            return populateActivityStreamResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    /**
+     * Retrieves an activity stream of tune-related activity from thesession.org.
+     * 
+     * This is used when you want to specify the number of results per page, 
+     * but not any specific page within the response.
+     * 
+     * @param resultsPerPage the number of results to be returned per page in the API response
+     * @return An ArrayList of ActivityStreamResult objects
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+     * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * 
+     * @author Colman
+     * @since 2018-12-18
+     */
+    public static ArrayList<ActivityStreamResult> readActivityStreamTunes(int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURL("tunes", resultsPerPage));
             // Parse the returned JSON into a wrapper
             ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
             // Return the data retrieved from the API
@@ -129,27 +164,31 @@ public class ActivityStreamReader extends Search
     /**
      * Retrieves an activity stream of tune-related activity from thesession.org
      * 
+     * This is used when you want to specify both the number of results per page
+     * in the API response, and one individual page within the response.
+     * 
+     * @param resultsPerPage the number of results to be returned per page in the API response
+     * @param pageNumber a specific page number within the API response
      * @return An ArrayList of ActivityStreamResult objects
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
      * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
      * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-     * 
-     * @author Colman
-     * @since 2018-12-13
+     * @since 2018-12-18
      */
-    public static ArrayList<ActivityStreamResult> readActivityStreamTunes(String dataCategory, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    public static ArrayList<ActivityStreamResult> readActivityStreamTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
         try
         {
             validateResultsPerPageCount(resultsPerPage);
             // Perform the API query
-            String response = HttpRequestor.submitRequest(composeURL("dataCategory", resultsPerPage));
+            String response = HttpRequestor.submitRequest(composeURL("tunes", resultsPerPage, pageNumber));
             // Parse the returned JSON into a wrapper
             ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
             // Return the data retrieved from the API
             return populateActivityStreamResult(parsedResults);
         }
+        
         catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
         {
             throw ex;
@@ -157,29 +196,30 @@ public class ActivityStreamReader extends Search
     }
     
     /**
-     * Retrieves an activity stream of tune-related activity from thesession.org
+     * Retrieves an activity stream of tune-related activity from thesession.org.
+     * 
+     * This is used when you do not want to specify a number of results per page
+     * in the response, or a specific page number.
      * 
      * @return An ArrayList of ActivityStreamResult objects
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
      * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
      * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-     * 
-     * @author Colman
-     * @since 2018-12-13
+     * @since 2018-12-18
      */
-    public static ArrayList<ActivityStreamResult> readActivityStreamTunes(String dataCategory, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    public static ArrayList<ActivityStreamResult> readActivityStreamTunes() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
             // Perform the API query
-            String response = HttpRequestor.submitRequest(composeURL("dataCategory", resultsPerPage, pageNumber));
+            String response = HttpRequestor.submitRequest(composeURL("tunes"));
             // Parse the returned JSON into a wrapper
             ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
             // Return the data retrieved from the API
             return populateActivityStreamResult(parsedResults);
         }
+        
         catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
         {
             throw ex;
@@ -194,9 +234,7 @@ public class ActivityStreamReader extends Search
      * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
      * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-     * 
-     * @author Colman
-     * @since 2018-12-13
+     * @since 2018-12-18
      */
     public ArrayList<ActivityStreamResult> readActivityStreamRecordings() throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
@@ -315,17 +353,14 @@ public class ActivityStreamReader extends Search
      * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
      * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-     * 
-     * @author Colman
-     * @since 2018-12-12
+     * @since 2018-12-18
      */
-    public ArrayList<ActivityStreamResult> readActivityStreamItemTune(int tuneID) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    public static ArrayList<ActivityStreamResult> readActivityStreamItemTune(int tuneID) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
             // Perform the API query
-            String response = HttpRequestor.submitRequest(composeURL("tunes", tuneID));
+            String response = HttpRequestor.submitRequest(composeURLItem("tunes", tuneID));
             // Parse the returned JSON into a wrapper
             ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
             // Return the data retrieved from the API
@@ -429,6 +464,51 @@ public class ActivityStreamReader extends Search
     
     /**
      * A helper method used to put the URL together to query the API at thesession.org
+     * 
+     * @param dataCategory The category of data to be queried, e.g. tunes, discussions, events etc.
+     * @return A URL specifying a particular resource from thesession.org API
+     * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
+     * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
+     */
+    private static URL composeURL(String dataCategory) throws MalformedURLException, URISyntaxException
+    {
+        // Build the URL with all necessary parameters to perform a search via thesession.org API
+        URL requestURL;
+
+        URLComposer builder = new URLComposer();
+        requestURL = builder.new Builder()
+                    .requestType(RequestType.ACTIVITY_STREAM)
+                    .path(dataCategory + "/" + "activity")
+                    .build();
+        
+        return requestURL;
+    }
+    
+    /**
+     * A helper method used to put the URL together to query the API at thesession.org
+     * 
+     * @param dataCategory The category of data to be queried, e.g. tunes, discussions, events etc.
+     * @return A URL specifying a particular resource from thesession.org API
+     * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
+     * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
+     */
+    private static URL composeURL(String dataCategory, int resultsPerPage) throws MalformedURLException, URISyntaxException
+    {
+        // Build the URL with all necessary parameters to perform a search via thesession.org API
+        URL requestURL;
+
+        URLComposer builder = new URLComposer();
+        requestURL = builder.new Builder()
+                    .requestType(RequestType.ACTIVITY_STREAM)
+                    .path(dataCategory + "/" + "activity")
+                    .itemsPerPage(resultsPerPage)
+                    .build();
+        
+        return requestURL;
+    }
+    
+    /**
+     * A helper method used to put the URL together to query the API at thesession.org
      * for an activity stream, specifically one with no data category, i.e. for retrieving
      * details of all recent activity across thesession.org
      * 
@@ -436,7 +516,7 @@ public class ActivityStreamReader extends Search
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
      * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
      */
-    private static URL composeURL(int resultsPerPage) throws MalformedURLException, URISyntaxException
+    private static URL composeURLAllCategories(int resultsPerPage) throws MalformedURLException, URISyntaxException
     {
         URL requestURL;
         
@@ -470,7 +550,7 @@ public class ActivityStreamReader extends Search
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
      * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
      */
-    private static URL composeURL(int resultsPerPage, int pageNumber) throws MalformedURLException, URISyntaxException
+    private static URL composeURLAllCategories(int resultsPerPage, int pageNumber) throws MalformedURLException, URISyntaxException
     {
         // Build the URL with all necessary parameters to perform a search via thesession.org API
         URL requestURL;
@@ -482,7 +562,8 @@ public class ActivityStreamReader extends Search
             requestURL = builder.new Builder()
                     .requestType(RequestType.ACTIVITY_STREAM)
                     .path("/" + "activity")
-                    .itemsPerPage(resultsPerPage).pageNumber(pageNumber)
+                    .itemsPerPage(resultsPerPage)
+                    .pageNumber(pageNumber)
                     .build();
         }
         
@@ -515,7 +596,7 @@ public class ActivityStreamReader extends Search
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
      * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
      */
-    private static URL composeURL(String dataCategory, int itemID) throws MalformedURLException, URISyntaxException
+    private static URL composeURLItem(String dataCategory, int itemID) throws MalformedURLException, URISyntaxException
     {
         // Build the URL with all necessary parameters to perform an API query
         URL requestURL;
@@ -526,6 +607,30 @@ public class ActivityStreamReader extends Search
                 .requestType(RequestType.SINGLE_ITEM)
                 .path(dataCategory + "/" + itemID + "/activity").build();
 
+        return requestURL;
+    }
+    
+    /**
+     * A helper method used to put the URL together to query the API at thesession.org
+     * for an activity stream, specifically one with no data category, i.e. for retrieving
+     * details of all recent activity across thesession.org
+     * 
+     * @return A URL specifying a particular resource from thesession.org API
+     * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
+     * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
+     */
+    private static URL composeURLAllCategories() throws MalformedURLException, URISyntaxException
+    {
+        // Build the URL with all necessary parameters to perform a search via thesession.org API
+        URL requestURL;
+        URLComposer builder = new URLComposer();
+            
+        requestURL = builder.new Builder()
+                        .requestType(RequestType.ACTIVITY_STREAM)
+                        .path("/" + "activity")
+                        .build();
+
+        
         return requestURL;
     }
 }
