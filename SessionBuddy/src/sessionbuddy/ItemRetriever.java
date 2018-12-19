@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+
+import sessionbuddy.utils.DataCategory;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.RequestType;
@@ -66,8 +68,9 @@ public class ItemRetriever
     {
         try
         {
+            DataCategory dataCategory = DataCategory.recordings;
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("recordings", itemID));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
             // Parse the returned JSON into a wrapper
             ItemWrapperRecording parsedResults = JsonParser.parseResponse(response, ItemWrapperRecording.class);
             // Return the data retrieved from the API
@@ -665,6 +668,29 @@ public class ItemRetriever
      * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
      */
     private static URL composeURL(String dataCategory, int itemID) throws MalformedURLException, URISyntaxException
+    {
+        // Build the URL with all necessary parameters to perform an API query
+        URL requestURL;
+        URLComposer builder = new URLComposer();
+
+        requestURL = builder
+                .new Builder()
+                .requestType(RequestType.SINGLE_ITEM)
+                .path(dataCategory + "/" + itemID).build();
+
+        return requestURL;
+    }
+    
+    /**
+     * A helper method used to build the URL to query the API
+     * 
+     * @param dataCategory The category of data to be queried, e.g. tunes, discussions, events etc.
+     * @param itemID The numeric ID of the specific resource on thesession.org
+     * @return A URL specifying a particular resource from thesession.org API
+     * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
+     * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
+     */
+    private static URL composeURL(DataCategory dataCategory, int itemID) throws MalformedURLException, URISyntaxException
     {
         // Build the URL with all necessary parameters to perform an API query
         URL requestURL;

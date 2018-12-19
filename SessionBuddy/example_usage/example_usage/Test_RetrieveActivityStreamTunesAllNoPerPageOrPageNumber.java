@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.ActivityStreamReader;
+import sessionbuddy.utils.DataCategory;
 import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
 
 class Test_RetrieveActivityStreamTunesAllNoPerPageOrPageNumber
@@ -13,8 +14,10 @@ class Test_RetrieveActivityStreamTunesAllNoPerPageOrPageNumber
     {
         try
         {
+            // Specify the data category that we are interested in
+            DataCategory dataCategory = DataCategory.tunes;
             // Perform the search
-            ArrayList<ActivityStreamResult> resultSet = ActivityStreamReader.readActivityStreamTunes();
+            ArrayList<ActivityStreamResult> resultSet = ActivityStreamReader.readActivityStream(dataCategory);
 
             // Loop through the results and print each attribute of each
             // individual result in the set

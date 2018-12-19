@@ -21,11 +21,8 @@ import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
  * Queries the API at thesession.org for an activity stream
  * and parses the response into an easily usable structure. 
  * 
- * To use this feature, first create a new ActivityStreamReader object, then call one of its
- * methods to perform the actual search.
- * 
  * @author Colman O'B
- * @since 2018-12-18
+ * @since 2018-12-19
  *
  */
 public class ActivityStreamReader extends Search
@@ -130,11 +127,39 @@ public class ActivityStreamReader extends Search
             throw ex;
         }
     }
-  
-    public static ArrayList<ActivityStreamResult> readActivityStreamByCategory(DataCategory dataCategory, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    
+    public static ArrayList<ActivityStreamResult> readActivityStream(DataCategory dataCategory) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
+        if (dataCategory == DataCategory.members || dataCategory == DataCategory.trips)
+        {
+            throw new IllegalArgumentException("Invalid category - No activity stream is available");
+        }
+        
         try
         {
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURLSingleCategory(dataCategory));
+            // Parse the returned JSON into a wrapper
+            ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
+            // Return the data retrieved from the API
+            return populateActivityStreamResult(parsedResults);
+        }
+        
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    public static ArrayList<ActivityStreamResult> readActivityStream(DataCategory dataCategory, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    {
+        if (dataCategory == DataCategory.members || dataCategory == DataCategory.trips)
+        {
+            throw new IllegalArgumentException("Invalid category - No activity stream is available");
+        }
+        
+        try
+        {            
             validateResultsPerPageCount(resultsPerPage);
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURLSingleCategory(dataCategory, resultsPerPage, pageNumber));
@@ -150,31 +175,18 @@ public class ActivityStreamReader extends Search
         }
     }
     
-    public static ArrayList<ActivityStreamResult> readActivityStreamByCategory(DataCategory dataCategory, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    public static ArrayList<ActivityStreamResult> readActivityStream(DataCategory dataCategory, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
+        if (dataCategory == DataCategory.members || dataCategory == DataCategory.trips)
+        {
+            throw new IllegalArgumentException("Invalid category - No activity stream is available");
+        }
+        
         try
         {
             validateResultsPerPageCount(resultsPerPage);
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURLSingleCategory(dataCategory, resultsPerPage));
-            // Parse the returned JSON into a wrapper
-            ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
-            // Return the data retrieved from the API
-            return populateActivityStreamResult(parsedResults);
-        }
-        
-        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
-        {
-            throw ex;
-        }
-    }
-    
-    public static ArrayList<ActivityStreamResult> readActivityStreamByCategory(DataCategory dataCategory) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
-    {
-        try
-        {
-            // Perform the API query
-            String response = HttpRequestor.submitRequest(composeURLSingleCategory(dataCategory));
             // Parse the returned JSON into a wrapper
             ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
             // Return the data retrieved from the API

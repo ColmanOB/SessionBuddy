@@ -5,19 +5,21 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.ActivityStreamReader;
+import sessionbuddy.utils.DataCategory;
 import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
 
 class Test_RetrieveActivityStreamTunesAllWithPerPageAndPageNumber
 {
     public static void main(String[] args) throws URISyntaxException
     {
+        DataCategory dataCategory = DataCategory.tunes;
         int resultsPerPage = 4;
         int pageNumber= 2;
         
         try
         {
             // Perform the search
-            ArrayList<ActivityStreamResult> resultSet = ActivityStreamReader.readActivityStreamTunes(resultsPerPage, pageNumber);
+            ArrayList<ActivityStreamResult> resultSet = ActivityStreamReader.readActivityStream(dataCategory, resultsPerPage, pageNumber);
 
             // Loop through the results and print each attribute of each
             // individual result in the set
