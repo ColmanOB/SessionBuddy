@@ -8,17 +8,17 @@ import sessionbuddy.ActivityStreamReader;
 import sessionbuddy.utils.DataCategory;
 import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
 
-class Test_RetrieveActivityStreamTuneByID
+class Test_RetrieveActivityStreamItemByID
 {
     public static void main(String[] args) throws URISyntaxException
     {
-        int tuneID = 2;
-        DataCategory dataCategory = DataCategory.tunes;
+        int itemID = 666;
+        DataCategory dataCategory = DataCategory.sessions;
         
         try
         {
             // Perform the search
-            ArrayList<ActivityStreamResult> resultSet = ActivityStreamReader.readActivityStreamItem(dataCategory, tuneID);
+            ArrayList<ActivityStreamResult> resultSet = ActivityStreamReader.readActivityStreamItem(dataCategory, itemID);
 
             // Loop through the results and print each attribute of each
             // individual result in the set
