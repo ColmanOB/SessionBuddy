@@ -96,8 +96,9 @@ public class ItemRetriever
     {
         try
         {
+            DataCategory dataCategory = DataCategory.discussions;
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("discussions", itemID));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
             // Parse the returned JSON into a wrapper
             ItemWrapperDiscussion parsedResults = JsonParser.parseResponse(response, ItemWrapperDiscussion.class);
             // Return the data retrieved from the API
@@ -123,8 +124,9 @@ public class ItemRetriever
     {
         try
         {
+            DataCategory dataCategory = DataCategory.tunes;
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("tunes", itemID));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
             // Parse the returned JSON into a wrapper
             ItemWrapperTune parsedResults = JsonParser.parseResponse(response, ItemWrapperTune.class);
             // Return the data retrieved from the API
@@ -150,8 +152,9 @@ public class ItemRetriever
     {
         try
         {
+            DataCategory dataCategory = DataCategory.sessions;
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("sessions", itemID));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
             // Parse the returned JSON into a wrapper
             ItemWrapperSession parsedResults = JsonParser.parseResponse(response, ItemWrapperSession.class);
             // Return the data retrieved from the API
@@ -177,8 +180,9 @@ public class ItemRetriever
     {
         try
         {
+            DataCategory dataCategory = DataCategory.events;
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("events", itemID));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
             // Parse the returned JSON into a wrapper
             ItemWrapperEvent parsedResults = JsonParser.parseResponse(response, ItemWrapperEvent.class);
             // Return the data retrieved from the API
@@ -204,8 +208,9 @@ public class ItemRetriever
     {
         try
         {
+            DataCategory dataCategory = DataCategory.trips;
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("trips", itemID));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
             // Parse the returned JSON into a wrapper
             ItemWrapperTrip parsedResults = JsonParser.parseResponse(response, ItemWrapperTrip.class);
             // Return the data retrieved from the API
@@ -656,29 +661,6 @@ public class ItemRetriever
         
         // Return the set of results that has been collected
         return finalResult;
-    }
-
-    /**
-     * A helper method used to build the URL to query the API
-     * 
-     * @param dataCategory The category of data to be queried, e.g. tunes, discussions, events etc.
-     * @param itemID The numeric ID of the specific resource on thesession.org
-     * @return A URL specifying a particular resource from thesession.org API
-     * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
-     * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
-     */
-    private static URL composeURL(String dataCategory, int itemID) throws MalformedURLException, URISyntaxException
-    {
-        // Build the URL with all necessary parameters to perform an API query
-        URL requestURL;
-        URLComposer builder = new URLComposer();
-
-        requestURL = builder
-                .new Builder()
-                .requestType(RequestType.SINGLE_ITEM)
-                .path(dataCategory + "/" + itemID).build();
-
-        return requestURL;
     }
     
     /**
