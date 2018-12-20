@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import sessionbuddy.PopularSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultTunesPopular;
+import sessionbuddy.wrappers.individualresults.SearchResultTunesPopular;
 
 
 class Test_RetrievePopular_Tunes {

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import sessionbuddy.LatestSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
+import sessionbuddy.wrappers.individualresults.SearchResultTunesLatest;
 
 
 class Test_RetrieveLatest_Tunes {

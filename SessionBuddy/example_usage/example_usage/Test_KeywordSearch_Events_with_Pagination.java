@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import sessionbuddy.KeywordSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultEvents;
+import sessionbuddy.wrappers.individualresults.SearchResultEvents;
 
 public class Test_KeywordSearch_Events_with_Pagination {
   public static void main(String[] args) throws URISyntaxException {

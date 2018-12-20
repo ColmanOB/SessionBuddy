@@ -7,9 +7,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import org.junit.Test;
-import sessionbuddy.wrappers.resultsets.LocationResultEvents;
-import sessionbuddy.wrappers.resultsets.LocationResultSessions;
-import sessionbuddy.wrappers.resultsets.SearchResultTrips;
+
+import sessionbuddy.wrappers.individualresults.LocationResultEvents;
+import sessionbuddy.wrappers.individualresults.LocationResultSessions;
+import sessionbuddy.wrappers.individualresults.SearchResultTrips;
 
 /**
  * Unit tests for the LocationSearch class

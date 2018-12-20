@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import sessionbuddy.MemberContributionSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
+import sessionbuddy.wrappers.individualresults.SearchResultDiscussions;
 
 /**
  * Example usage of the searchDiscussions method of RetrieveLatest class to search thesession.org

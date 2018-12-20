@@ -12,8 +12,8 @@ import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.URLComposer;
 import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.User;
+import sessionbuddy.wrappers.individualresults.SearchResultSets;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperSets;
-import sessionbuddy.wrappers.resultsets.SearchResultSets;
 
 /**
  * Retrieves a list of user-added sets of tunes

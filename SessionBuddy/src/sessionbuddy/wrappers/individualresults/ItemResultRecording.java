@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.resultsets;
+package sessionbuddy.wrappers.individualresults;
 
 import java.util.ArrayList;
 import sessionbuddy.wrappers.granularobjects.Artist;

@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import org.junit.Test;
-import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
-import sessionbuddy.wrappers.resultsets.SearchResultEvents;
-import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
-import sessionbuddy.wrappers.resultsets.SearchResultSessions;
-import sessionbuddy.wrappers.resultsets.SearchResultSets;
-import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
+
+import sessionbuddy.wrappers.individualresults.SearchResultDiscussions;
+import sessionbuddy.wrappers.individualresults.SearchResultEvents;
+import sessionbuddy.wrappers.individualresults.SearchResultRecordings;
+import sessionbuddy.wrappers.individualresults.SearchResultSessions;
+import sessionbuddy.wrappers.individualresults.SearchResultSets;
+import sessionbuddy.wrappers.individualresults.SearchResultTunesLatest;
 
 /**
  * Unit tests for the MemberContributionSearch class

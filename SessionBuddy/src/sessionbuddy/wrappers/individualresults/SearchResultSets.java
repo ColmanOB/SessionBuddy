@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.resultsets;
+package sessionbuddy.wrappers.individualresults;
 
 import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.User;

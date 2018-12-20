@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import sessionbuddy.KeywordSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultSessions;
+import sessionbuddy.wrappers.individualresults.SearchResultSessions;
 
 
 public class Test_KeywordSearch_Sessions {

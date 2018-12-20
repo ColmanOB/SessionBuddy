@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import sessionbuddy.KeywordSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultTunes;
+import sessionbuddy.wrappers.individualresults.SearchResultTunes;
 
 public class Test_KeywordSearch_Tune_with_Pagination {
 

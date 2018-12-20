@@ -14,7 +14,7 @@ public class Search
     /**
      * Keeps track of how many pages are in a JSON response
      */
-    protected int pageCount = 0;
+    protected static int pageCount = 0;
 
     /**
      * Helper method to validate that the user has specified a value between

@@ -16,14 +16,24 @@ public class KeywordSearchWrapperTunes
     public String q;
     
     /**
+     * The number of results returned per page in the response
+     */
+    public int perpage;
+    
+    /**
      * Number of pages in the result set
      */
-    public String pages;
+    public int pages;
     
     /**
      * The current page within the result set
      */
-    public String page;
+    public int page;
+    
+    /**
+     * The total number of tunes in the result set
+     */
+    public int total;
     
     /**
      * The format of the results (always JSON in this project)

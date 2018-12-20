@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import sessionbuddy.wrappers.resultsets.SearchResultTunesPopular;
+
+import sessionbuddy.wrappers.individualresults.SearchResultTunesPopular;
 
 public class PopularSearchTest
 {

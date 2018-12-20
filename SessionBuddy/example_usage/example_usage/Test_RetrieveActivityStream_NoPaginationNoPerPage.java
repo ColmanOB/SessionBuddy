@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import sessionbuddy.ActivityStreamReader;
-import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
+import sessionbuddy.wrappers.individualresults.ActivityStreamResult;
 
 class Test_RetrieveActivityStream_NoPaginationNoPerPage
 {

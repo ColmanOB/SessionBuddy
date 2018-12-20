@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.resultsets;
+package sessionbuddy.wrappers.individualresults;
 
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Coordinates;
@@ -9,28 +9,26 @@ import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
 
 /**
- * A structure to hold an individual event from a set of search results
- * 
- * The search may be a keyword-based search or a search for
- * recently-added sessions
+ * A structure to hold an individual session listing 
+ * from a location-based search
  * 
  * @author Colman O'B
  * @since 2018-01-28
  */
-public class SearchResultSessions
+public class LocationResultSessions
 {
     /**
-     * General details about the session
+     * General information about the session
      */
     public SessionDetails sessionDetails;
 
     /**
-     * Latitude and longitude of the session venue
+     * Latitude and longitude of the venue
      */
     public Coordinates coordinates;
 
     /**
-     * Details of the user who submitted the session
+     * The submitter of the session
      */
     public User user;
 
@@ -40,32 +38,32 @@ public class SearchResultSessions
     public Venue venue;
 
     /**
-     * The town where the venue is located
+     * Details of the town where the venue is located
      */
     public Town town;
 
     /**
-     * The geographic area where the town is located
+     * Details of the geographic area
      */
     public Area area;
 
     /**
-     * The country where the session is located
+     * Details of the country
      */
     public Country country;
 
     /**
      * Constructor
      * 
-     * @param details a SessionDetails object that has already been populated
+     * @param details an already-populated SessionDetails object
      * @param coordinates a Coordinates object populated with a latitude and longitude
-     * @param user a User object that has already been populated with the details of the session submitter
-     * @param venue an already-populated Venue object
+     * @param user a populated User object representing the submitter of the session
+     * @param venue a Venue object populated with the venue details
      * @param town an already-populated Town object
      * @param area an already-populated Area object
      * @param country an already-populated Country object
      */
-    public SearchResultSessions(SessionDetails details, Coordinates coordinates, User user, Venue venue, Town town, Area area, Country country)
+    public LocationResultSessions(SessionDetails details, Coordinates coordinates, User user, Venue venue, Town town, Area area, Country country)
     {
         this.sessionDetails = details;
         this.coordinates = coordinates;

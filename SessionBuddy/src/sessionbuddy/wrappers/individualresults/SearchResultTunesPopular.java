@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.resultsets;
+package sessionbuddy.wrappers.individualresults;
 
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDateAndTunebooks;
 import sessionbuddy.wrappers.granularobjects.User;

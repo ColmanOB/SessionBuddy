@@ -14,8 +14,8 @@ import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDateAndTunebooks;
 import sessionbuddy.wrappers.granularobjects.User;
+import sessionbuddy.wrappers.individualresults.SearchResultTunesPopular;
 import sessionbuddy.wrappers.jsonresponse.PopularWrapperTunes;
-import sessionbuddy.wrappers.resultsets.SearchResultTunesPopular;
 
 /**
  * Retrieves the current most popular tunes, i.e. those that have been added to

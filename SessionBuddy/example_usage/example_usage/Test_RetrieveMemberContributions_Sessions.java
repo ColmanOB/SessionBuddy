@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import sessionbuddy.MemberContributionSearch;
-import sessionbuddy.wrappers.resultsets.SearchResultSessions;
+import sessionbuddy.wrappers.individualresults.SearchResultSessions;
 
 
 class Test_RetrieveMemberContributions_Sessions {

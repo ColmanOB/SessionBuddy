@@ -14,8 +14,8 @@ import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.URLComposer;
 import sessionbuddy.wrappers.granularobjects.ActivityStreamDetails;
 import sessionbuddy.wrappers.granularobjects.ActivityStreamObject;
+import sessionbuddy.wrappers.individualresults.ActivityStreamResult;
 import sessionbuddy.wrappers.jsonresponse.ActivityStreamWrapper;
-import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
 
 /**
  * Queries the API at thesession.org for an activity stream
@@ -461,7 +461,7 @@ public class ActivityStreamReader extends Search
         // If anything other than a positive integer was specified as the page number
         else
         {
-            throw new IllegalArgumentException("Page number must be an integer value greater than zero");
+            throw new IllegalArgumentException("Results per page number must be an integer value greater than zero");
         }
         
         return requestURL;

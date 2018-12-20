@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.resultsets;
+package sessionbuddy.wrappers.individualresults;
 
 import sessionbuddy.wrappers.granularobjects.SettingDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;

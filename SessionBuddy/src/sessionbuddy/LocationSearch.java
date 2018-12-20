@@ -23,12 +23,12 @@ import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.TripDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
+import sessionbuddy.wrappers.individualresults.LocationResultEvents;
+import sessionbuddy.wrappers.individualresults.LocationResultSessions;
+import sessionbuddy.wrappers.individualresults.SearchResultTrips;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTrips;
 import sessionbuddy.wrappers.jsonresponse.LocationSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.LocationSearchWrapperSessions;
-import sessionbuddy.wrappers.resultsets.LocationResultEvents;
-import sessionbuddy.wrappers.resultsets.LocationResultSessions;
-import sessionbuddy.wrappers.resultsets.SearchResultTrips;
 
 /**
  * Retrieves a list of sessions or events within a given radius (in Km) of a set of coordinates.

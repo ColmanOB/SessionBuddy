@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.resultsets;
+package sessionbuddy.wrappers.individualresults;
 
 import sessionbuddy.wrappers.granularobjects.ActivityStreamDetails;
 import sessionbuddy.wrappers.granularobjects.ActivityStreamObject;

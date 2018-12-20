@@ -25,18 +25,18 @@ import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.TripDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
+import sessionbuddy.wrappers.individualresults.SearchResultDiscussions;
+import sessionbuddy.wrappers.individualresults.SearchResultEvents;
+import sessionbuddy.wrappers.individualresults.SearchResultRecordings;
+import sessionbuddy.wrappers.individualresults.SearchResultSessions;
+import sessionbuddy.wrappers.individualresults.SearchResultTrips;
+import sessionbuddy.wrappers.individualresults.SearchResultTunesLatest;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperDiscussions;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperSessions;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTrips;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTunes;
-import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultEvents;
-import sessionbuddy.wrappers.resultsets.SearchResultSessions;
-import sessionbuddy.wrappers.resultsets.SearchResultTrips;
-import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
-import sessionbuddy.wrappers.resultsets.SearchResultRecordings;
 
 /**
  * Retrieves a list of most-recently added entries in a chosen category; 

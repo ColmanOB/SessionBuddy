@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.resultsets;
+package sessionbuddy.wrappers.individualresults;
 
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.User;
@@ -15,6 +15,8 @@ import sessionbuddy.wrappers.granularobjects.User;
  */
 public class SearchResultTunes
 {
+  //  public int pageCount;
+    
     /**
      * Attributes of the tune itself
      */
@@ -31,7 +33,7 @@ public class SearchResultTunes
      * @param details an already-populated TuneDetails object
      * @param submitter an already-populated User object
      */
-    public SearchResultTunes(TuneDetailsWithDate details, User submitter)
+    public SearchResultTunes(int pageCount, TuneDetailsWithDate details, User submitter)
     {
         this.tuneDetails = details;
         this.submitter = submitter;

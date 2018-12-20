@@ -3,7 +3,7 @@ package example_usage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import sessionbuddy.ItemRetriever;
-import sessionbuddy.wrappers.resultsets.ItemResultTune;
+import sessionbuddy.wrappers.individualresults.ItemResultTune;
 
 public class Test_RetrieveItemByID_Tune
 {
