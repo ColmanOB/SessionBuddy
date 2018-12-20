@@ -128,6 +128,28 @@ public class ActivityStreamReader extends Search
         }
     }
     
+    /**
+     * Retrieves an activity stream for a particular data category.
+     * 
+     * Currently the available categories are:
+     * 
+     * Tunes
+     * Recordings
+     * Sessions
+     * Events
+     * Discussions
+     * 
+     * This is used when you do not want to specify a number of results per page
+     * or any specific page within the response.
+     * 
+     * @param dataCategory the category of data in question, e.g. tunes, discussions, sessions etc.
+     * @return an ArrayList of ActivityStreamResult objects
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+     * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * @since 2018-12-20
+     */
     public static ArrayList<ActivityStreamResult> readActivityStream(DataCategory dataCategory) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
         if (dataCategory == DataCategory.members || dataCategory == DataCategory.trips)
@@ -151,30 +173,29 @@ public class ActivityStreamReader extends Search
         }
     }
     
-    public static ArrayList<ActivityStreamResult> readActivityStream(DataCategory dataCategory, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
-    {
-        if (dataCategory == DataCategory.members || dataCategory == DataCategory.trips)
-        {
-            throw new IllegalArgumentException("Invalid category - No activity stream is available");
-        }
-        
-        try
-        {            
-            validateResultsPerPageCount(resultsPerPage);
-            // Perform the API query
-            String response = HttpRequestor.submitRequest(composeURLSingleCategory(dataCategory, resultsPerPage, pageNumber));
-            // Parse the returned JSON into a wrapper
-            ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
-            // Return the data retrieved from the API
-            return populateActivityStreamResult(parsedResults);
-        }
-        
-        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
-        {
-            throw ex;
-        }
-    }
-    
+    /**
+     * Retrieves an activity stream for a particular data category.
+     * 
+     * Currently the available categories are:
+     * 
+     * Tunes
+     * Recordings
+     * Sessions
+     * Events
+     * Discussions
+     * 
+     * This is used when you want to specify the number of results per page
+     * but not a specific page within the response.
+     * 
+     * @param dataCategory the category of data in question, e.g. tunes, discussions, sessions etc.
+     * @param resultsPerPage the number of results to be returned per page in the API response
+     * @return an ArrayList of ActivityStreamResult objects
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+     * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * @since 2018-12-20
+     */
     public static ArrayList<ActivityStreamResult> readActivityStream(DataCategory dataCategory, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
         if (dataCategory == DataCategory.members || dataCategory == DataCategory.trips)
@@ -187,6 +208,54 @@ public class ActivityStreamReader extends Search
             validateResultsPerPageCount(resultsPerPage);
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURLSingleCategory(dataCategory, resultsPerPage));
+            // Parse the returned JSON into a wrapper
+            ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
+            // Return the data retrieved from the API
+            return populateActivityStreamResult(parsedResults);
+        }
+        
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+        
+    /**
+     * Retrieves an activity stream for a particular data category.
+     * 
+     * Currently the available categories are:
+     * 
+     * Tunes
+     * Recordings
+     * Sessions
+     * Events
+     * Discussions
+     * 
+     * This is used when you want to specify both number of results per page
+     * and a specific page within the response.
+     * 
+     * @param dataCategory the category of data in question, e.g. tunes, discussions, sessions etc.
+     * @param resultsPerPage the number of results to be returned per page in the API response
+     * @param pageNumber specifies an individual page within the API response
+     * @return an ArrayList of ActivityStreamResult objects
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IllegalStateException if an attempt was made to check the number of pages in a JSON response before the pageCount field has been populated
+     * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     * @since 2018-12-20
+     */
+    public static ArrayList<ActivityStreamResult> readActivityStream(DataCategory dataCategory, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
+    {
+        if (dataCategory == DataCategory.members || dataCategory == DataCategory.trips)
+        {
+            throw new IllegalArgumentException("Invalid category - No activity stream is available");
+        }
+        
+        try
+        {            
+            validateResultsPerPageCount(resultsPerPage);
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURLSingleCategory(dataCategory, resultsPerPage, pageNumber));
             // Parse the returned JSON into a wrapper
             ActivityStreamWrapper parsedResults = JsonParser.parseResponse(response, ActivityStreamWrapper.class);
             // Return the data retrieved from the API
