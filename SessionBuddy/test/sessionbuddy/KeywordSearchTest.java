@@ -13,6 +13,7 @@ import sessionbuddy.wrappers.individualresults.SearchResultEvents;
 import sessionbuddy.wrappers.individualresults.SearchResultRecordings;
 import sessionbuddy.wrappers.individualresults.SearchResultSessions;
 import sessionbuddy.wrappers.individualresults.SearchResultTrips;
+import sessionbuddy.wrappers.resultsets.SearchResultTunes;
 import sessionbuddy.wrappers.individualresults.SearchResultSingleTune;
 
 /**
@@ -44,7 +45,7 @@ public class KeywordSearchTest
         {
             KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 
-            ArrayList<SearchResultDiscussions> resultSet = search.searchDiscussions();
+            SearchResultTunes resultSet = KeywordSearch.searchDiscussions(searchTerms, resultsPerPage);
 
             for (int i = 0; i < resultSet.size(); i++)
             {
@@ -75,21 +76,19 @@ public class KeywordSearchTest
 
         try
         {
-            KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
+            sessionbuddy.wrappers.resultsets.SearchResultDiscussions resultSet = KeywordSearch.searchDiscussions(searchTerms, resultsPerPage, pageNumber);
 
-            ArrayList<SearchResultDiscussions> resultSet = search.searchDiscussions();
-
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).discussionDetails.discussionID, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.discussionName, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.submittedDate, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.discussionURL, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.numberOfComments, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.discussionID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.discussionName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.discussionURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 
-                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
             }
         }
 
