@@ -1,6 +1,6 @@
 package sessionbuddy.wrappers.individualresults;
 
-import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
+import sessionbuddy.wrappers.granularobjects.DiscussionDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 
 /**
@@ -13,14 +13,12 @@ import sessionbuddy.wrappers.granularobjects.User;
  * @since 2017-09-17
  *
  */
-public class SearchResultTunes
+public class SearchResultSingleDiscussion
 {
-  //  public int pageCount;
-    
     /**
      * Attributes of the tune itself
      */
-    public TuneDetailsWithDate tuneDetails;
+    public DiscussionDetails discussionDetails;
 
     /**
      * Attributes of the user who submitted the tune
@@ -33,9 +31,9 @@ public class SearchResultTunes
      * @param details an already-populated TuneDetails object
      * @param submitter an already-populated User object
      */
-    public SearchResultTunes(int pageCount, TuneDetailsWithDate details, User submitter)
+    public SearchResultSingleDiscussion(DiscussionDetails details, User submitter)
     {
-        this.tuneDetails = details;
+        this.discussionDetails = details;
         this.submitter = submitter;
     }
 }

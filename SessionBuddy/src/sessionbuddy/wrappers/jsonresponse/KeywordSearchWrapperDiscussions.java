@@ -19,12 +19,22 @@ public class KeywordSearchWrapperDiscussions
     /**
      * Number of pages in the result set
      */
-    public String pages;
+    public int pages;
 
     /**
      * Current page number within the result set
      */
-    public String page;
+    public int page;
+    
+    /**
+     * The number of results to be returned per page in the API response
+     */
+    public int perpage;
+    
+    /**
+     * The total number of results in the response
+     */
+    public int total;
 
     /**
      * Response format (always JSON in this project)
@@ -36,6 +46,7 @@ public class KeywordSearchWrapperDiscussions
      */
     public DiscussionsList[] discussions;
 
+    
     /**
      * A wrapper for an individual discussion within the search results
      * 

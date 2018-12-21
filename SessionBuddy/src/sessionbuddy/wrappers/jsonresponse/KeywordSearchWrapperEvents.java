@@ -19,12 +19,12 @@ public class KeywordSearchWrapperEvents
     /**
      * Number of pages in the result set
      */
-    public String pages; 
+    public int pages; 
     
     /**
      * Current page number within the result set
      */
-    public String page;
+    public int page;
     
     /**
      * Format of the response data, always JSON in this project
@@ -35,6 +35,16 @@ public class KeywordSearchWrapperEvents
      * Array of the individual events returned by the search
      */
     public EventsList[] events;
+
+    /**
+     * The number of results per page in the response from the API
+     */
+    public int perpage;
+
+    /**
+     * The total number of results in the response from the API
+     */
+    public int total;
 
     /**
      * A wrapper for an individual event within the result set

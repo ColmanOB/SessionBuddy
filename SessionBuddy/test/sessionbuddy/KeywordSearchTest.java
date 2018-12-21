@@ -13,7 +13,7 @@ import sessionbuddy.wrappers.individualresults.SearchResultEvents;
 import sessionbuddy.wrappers.individualresults.SearchResultRecordings;
 import sessionbuddy.wrappers.individualresults.SearchResultSessions;
 import sessionbuddy.wrappers.individualresults.SearchResultTrips;
-import sessionbuddy.wrappers.individualresults.SearchResultTunes;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleTune;
 
 /**
  * Unit tests for the KeywordSearch class
@@ -208,7 +208,7 @@ public class KeywordSearchTest
         {
             KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage);
 
-            ArrayList<SearchResultTunes> resultSet = search.searchTunes();
+            ArrayList<SearchResultSingleTune> resultSet = search.searchTunes();
 
             for (int i = 0; i < resultSet.size(); i++)
             {
@@ -241,7 +241,7 @@ public class KeywordSearchTest
         {
             KeywordSearch search = new KeywordSearch(searchTerms, resultsPerPage, pageNumber);
 
-            ArrayList<SearchResultTunes> resultSet = search.searchTunes();
+            ArrayList<SearchResultSingleTune> resultSet = search.searchTunes();
 
             for (int i = 0; i < resultSet.size(); i++)
             {

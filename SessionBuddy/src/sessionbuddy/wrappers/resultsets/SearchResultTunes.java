@@ -2,17 +2,17 @@ package sessionbuddy.wrappers.resultsets;
 
 import java.util.ArrayList;
 
-import sessionbuddy.wrappers.individualresults.SearchResultTunes;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleTune;
 import sessionbuddy.wrappers.responsemetadata.KeywordSearchResultHeaders;
 
-public class KeywordSearchResultTunes
+public class SearchResultTunes
 {
 
     public KeywordSearchResultHeaders responseHeaders;
     
-    public ArrayList<SearchResultTunes> searchResults;
+    public ArrayList<SearchResultSingleTune> searchResults;
     
-    public KeywordSearchResultTunes(KeywordSearchResultHeaders responseHeaders, ArrayList<SearchResultTunes> searchResults)
+    public SearchResultTunes(KeywordSearchResultHeaders responseHeaders, ArrayList<SearchResultSingleTune> searchResults)
     {   
         this.responseHeaders = responseHeaders;
         this.searchResults = searchResults;
