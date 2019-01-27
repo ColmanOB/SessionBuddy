@@ -12,6 +12,10 @@ package sessionbuddy.wrappers.jsonresponse;
 public class LatestWrapperTrips
 {
     /**
+     * Search terms provided by the user
+     */
+    public String q; 
+    /**
      * The format of the result set, always JSON in this project
      */
     public String format;
@@ -25,6 +29,11 @@ public class LatestWrapperTrips
      * The current page in the result set
      */
     public int page;
+    
+    /**
+     * The number of search results per page in the API response
+     */
+    public int perpage;
     
     /**
      * The total number of trips in the result set

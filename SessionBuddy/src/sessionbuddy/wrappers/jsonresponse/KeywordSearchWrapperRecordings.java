@@ -19,17 +19,27 @@ public class KeywordSearchWrapperRecordings
     /**
      * Number of pages in the result set
      */
-    public String pages;
+    public int pages;
     
     /**
      * Current page number within the result set
      */
-    public String page;
+    public int page;
     
     /**
      * Format of the results (always JSON for this project)
      */
     public String format;
+    
+    /**
+     * The number of results per page in the response from the API
+     */
+    public int perpage;
+
+    /**
+     * The total number of results in the response from the API
+     */
+    public int total;
     
     /**
      * An array of the individual recordings returned by the search

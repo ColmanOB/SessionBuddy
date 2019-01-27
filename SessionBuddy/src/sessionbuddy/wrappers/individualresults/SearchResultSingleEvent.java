@@ -10,7 +10,7 @@ import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
 
 /**
- * A structure to hold an individual tune from a set of search results
+ * A structure to hold an individual event from a set of search results
  *
  * This can only be used for keyword-based searches - searches for recently added tunes
  * return results in a totally different format

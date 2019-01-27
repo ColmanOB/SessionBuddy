@@ -18,18 +18,28 @@ public class KeywordSearchWrapperSessions
     /**
      * Number of pages in the result set
      */
-    public String pages; 
+    public int pages; 
     
     /**
      * The current page number within the result set
      */
-    public String page;
+    public int page;
     
     /**
      * The format of the API response, always JSON in this project
      */
     public String format; 
 
+    /**
+     * The number of results per page in the response from the API
+     */
+    public int perpage;
+
+    /**
+     * The total number of results in the response from the API
+     */
+    public int total;
+    
     /**
      * An array of the individual sessions returned
      */

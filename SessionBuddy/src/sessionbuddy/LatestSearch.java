@@ -25,7 +25,7 @@ import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.TripDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
-import sessionbuddy.wrappers.individualresults.SearchResultDiscussions;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleDiscussion;
 import sessionbuddy.wrappers.individualresults.SearchResultEvents;
 import sessionbuddy.wrappers.individualresults.SearchResultRecordings;
 import sessionbuddy.wrappers.individualresults.SearchResultSessions;
@@ -119,7 +119,7 @@ public class LatestSearch extends Search
      * @author Colman
      * @since 2018-04-01
      */
-    public ArrayList<SearchResultDiscussions> listDiscussions() throws IllegalArgumentException, IOException, URISyntaxException
+    public ArrayList<SearchResultSingleDiscussion> listDiscussions() throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -307,10 +307,10 @@ public class LatestSearch extends Search
      * @author Colman
      * @since 2018-02-10
      */
-    private ArrayList<SearchResultDiscussions> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
+    private ArrayList<SearchResultSingleDiscussion> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
     {
-        ArrayList<SearchResultDiscussions> resultSet = new ArrayList<SearchResultDiscussions>();
-        pageCount = Integer.parseInt(parsedResults.pages);
+        ArrayList<SearchResultSingleDiscussion> resultSet = new ArrayList<SearchResultSingleDiscussion>();
+        pageCount = parsedResults.pages;
 
         // Loop as many times as the count of recordings in the result set:
         for (int i = 0; i < (parsedResults.discussions.length); i++)
@@ -329,7 +329,7 @@ public class LatestSearch extends Search
                     parsedResults.discussions[i].member.url);
 
             // Instantiate a DiscussionsSearchResult object & populate it
-            SearchResultDiscussions currentResult = new SearchResultDiscussions(details, user);
+            SearchResultSingleDiscussion currentResult = new SearchResultSingleDiscussion(details, user);
             // Add the object to the ArrayList to be returned to the caller
             resultSet.add(currentResult);
         }
@@ -449,7 +449,7 @@ public class LatestSearch extends Search
     private ArrayList<SearchResultEvents> populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)
     {
         ArrayList<SearchResultEvents> resultSet = new ArrayList<SearchResultEvents>();
-        pageCount = Integer.parseInt(parsedResults.pages);
+        pageCount = parsedResults.pages;
 
         // Loop as many times as the count of events in the result set:
         for (int i = 0; i < (parsedResults.events.length); i++)
