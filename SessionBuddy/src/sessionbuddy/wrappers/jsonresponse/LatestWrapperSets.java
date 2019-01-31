@@ -18,10 +18,15 @@ public class LatestWrapperSets
      * The format of the results (always be JSON in this project)
      */
     public String format;
+    
     /**
      * Number of pages in the result set
      */
-    public String pages;
+    public int pages;
+    
+    public int perpage;
+    
+    public int total;
     
     /**
      * The current page within the result set

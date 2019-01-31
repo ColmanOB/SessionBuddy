@@ -30,7 +30,7 @@ import sessionbuddy.wrappers.individualresults.SearchResultEvents;
 import sessionbuddy.wrappers.individualresults.SearchResultRecordings;
 import sessionbuddy.wrappers.individualresults.SearchResultSessions;
 import sessionbuddy.wrappers.individualresults.SearchResultSets;
-import sessionbuddy.wrappers.individualresults.SearchResultTunesLatest;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleTuneLatest;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperDiscussions;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
@@ -92,7 +92,7 @@ public class MemberContributionSearch extends Search
     /**
      * Retrieves the tunes/settings added by a particular member, most recent first
      * 
-     * @return an ArrayList of SearchResultTunesLatest objects
+     * @return an ArrayList of SearchResultSingleTuneLatest objects
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
      * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
@@ -100,7 +100,7 @@ public class MemberContributionSearch extends Search
      * @author Colman
      * @since 2018-04-01
      */
-    public ArrayList<SearchResultTunesLatest> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
+    public ArrayList<SearchResultSingleTuneLatest> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -268,14 +268,14 @@ public class MemberContributionSearch extends Search
      * tune
      * 
      * @param parsedResults a LatestWrapperTunes object that has already been created and populated
-     * @return an ArrayList of SearchResultTunesLatest objects
+     * @return an ArrayList of SearchResultSingleTuneLatest objects
      * 
      * @author Colman
      * @since 2018-02-10
      */
-    private ArrayList<SearchResultTunesLatest> populateTunesSearchResult(LatestWrapperTunes parsedResults)
+    private ArrayList<SearchResultSingleTuneLatest> populateTunesSearchResult(LatestWrapperTunes parsedResults)
     {
-        ArrayList<SearchResultTunesLatest> resultSet = new ArrayList<SearchResultTunesLatest>();
+        ArrayList<SearchResultSingleTuneLatest> resultSet = new ArrayList<SearchResultSingleTuneLatest>();
         // Find out how many pages are in the response
         pageCount = Integer.parseInt(parsedResults.pages);
 
@@ -299,7 +299,7 @@ public class MemberContributionSearch extends Search
                     parsedResults.settings[i].tune.url);
 
             // Instantiate a TunesSearchResult object & populate it
-            SearchResultTunesLatest currentResult = new SearchResultTunesLatest(details, submitter, settingDetails);
+            SearchResultSingleTuneLatest currentResult = new SearchResultSingleTuneLatest(details, submitter, settingDetails);
             // Add the TuneSearchResult object to the ArrayList to be returned
             resultSet.add(currentResult);
         }

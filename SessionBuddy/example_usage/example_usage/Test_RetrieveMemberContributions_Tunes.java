@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import sessionbuddy.MemberContributionSearch;
-import sessionbuddy.wrappers.individualresults.SearchResultTunesLatest;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleTuneLatest;
 
 
 class Test_RetrieveMemberContributions_Tunes {
@@ -18,7 +18,7 @@ class Test_RetrieveMemberContributions_Tunes {
       MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage);
 
       // Perform the search by calling the getLatestTunes method on the LatestSearch object
-      ArrayList<SearchResultTunesLatest> resultSet = search.listTunes();
+      ArrayList<SearchResultSingleTuneLatest> resultSet = search.listTunes();
 
       // Loop through the results and print each attribute of each individual result in the set
       for (int i = 0; i < resultSet.size(); i++) {

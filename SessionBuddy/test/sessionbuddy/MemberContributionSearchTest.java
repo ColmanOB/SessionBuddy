@@ -13,7 +13,7 @@ import sessionbuddy.wrappers.individualresults.SearchResultEvents;
 import sessionbuddy.wrappers.individualresults.SearchResultRecordings;
 import sessionbuddy.wrappers.individualresults.SearchResultSessions;
 import sessionbuddy.wrappers.individualresults.SearchResultSets;
-import sessionbuddy.wrappers.individualresults.SearchResultTunesLatest;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleTuneLatest;
 
 /**
  * Unit tests for the MemberContributionSearch class
@@ -45,7 +45,7 @@ public class MemberContributionSearchTest
 
         try
         {
-            ArrayList<SearchResultTunesLatest> resultSet = search.listTunes();
+            ArrayList<SearchResultSingleTuneLatest> resultSet = search.listTunes();
 
             for (int i = 0; i < resultSet.size(); i++)
             {
@@ -81,7 +81,7 @@ public class MemberContributionSearchTest
 
         try
         {
-            ArrayList<SearchResultTunesLatest> resultSet = search.listTunes();
+            ArrayList<SearchResultSingleTuneLatest> resultSet = search.listTunes();
 
             for (int i = 0; i < resultSet.size(); i++)
             {

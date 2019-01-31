@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+
+import sessionbuddy.utils.DataCategory;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.RequestType;
@@ -26,17 +28,22 @@ import sessionbuddy.wrappers.granularobjects.TripDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
 import sessionbuddy.wrappers.individualresults.SearchResultSingleDiscussion;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleTune;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleTuneLatest;
 import sessionbuddy.wrappers.individualresults.SearchResultEvents;
 import sessionbuddy.wrappers.individualresults.SearchResultRecordings;
 import sessionbuddy.wrappers.individualresults.SearchResultSessions;
 import sessionbuddy.wrappers.individualresults.SearchResultTrips;
-import sessionbuddy.wrappers.individualresults.SearchResultTunesLatest;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperDiscussions;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperSessions;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTrips;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTunes;
+import sessionbuddy.wrappers.responsemetadata.KeywordSearchResultHeaders;
+import sessionbuddy.wrappers.responsemetadata.LatestSearchResultHeaders;
+import sessionbuddy.wrappers.resultsets.SearchResultTunes;
+import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
 /**
  * Retrieves a list of most-recently added entries in a chosen category; 
@@ -50,19 +57,19 @@ public class LatestSearch extends Search
     /**
      * The number of individual search results that should be returned per page
      */
-    private int resultsPerPage = 0;
+//    private int resultsPerPage = 0;
 
     /**
      * Specifies a particular page within a multi-page response
      */
-    private int pageNumber = 0;
+//    private int pageNumber = 0;
 
     /**
      * Constructor for cases where pagination is not required
      * 
      * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
      */
-    public LatestSearch(int resultsPerPage)
+ /*   public LatestSearch(int resultsPerPage)
     {
         this.resultsPerPage = resultsPerPage;
     }
@@ -73,30 +80,31 @@ public class LatestSearch extends Search
      * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
      * @param pageNumber Specifies a particular page number within the JSON response
      */
-    public LatestSearch(int resultsPerPage, int pageNumber)
+ /*   public LatestSearch(int resultsPerPage, int pageNumber)
     {
         this(resultsPerPage);
         this.pageNumber = pageNumber;
-    }
+    } */
 
     /**
      * Retrieves the most recently added tunes/settings on thesession.org, most recent first
      * 
-     * @return an ArrayList of SearchResultTunesLatest objects
+     * @return an ArrayList of SearchResultSingleTuneLatest objects
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
      * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
      * 
      * @author Colman
-     * @since 2018-04-01
+     * @since 2019-01-31
      */
-    public ArrayList<SearchResultTunesLatest> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
+    public static SearchResultTunesLatest listTunes(/*String searchTerms, */int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
             validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.tunes;
             // Perform the API query
-            String response = HttpRequestor.submitRequest(composeURL("tunes"));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, resultsPerPage, pageNumber));
             // Parse the returned JSON into a wrapper class
             LatestWrapperTunes parsedResults = JsonParser.parseResponse(response, LatestWrapperTunes.class);
             // Return the data retrieved from the API
@@ -261,15 +269,18 @@ public class LatestSearch extends Search
      * Helper method to gather and parse the response to a keyword search for a tune
      * 
      * @param parsedResults  a LatestWrapperTunes object that has already been created and populated
-     * @return an ArrayList of SearchResultTunesLatest objects
+     * @return an ArrayList of SearchResultSingleTuneLatest objects
      * 
      * @author Colman
-     * @since 2018-02-10
+     * @since 201-02-10
      */
-    private ArrayList<SearchResultTunesLatest> populateTunesSearchResult(LatestWrapperTunes parsedResults)
+    private static SearchResultTunesLatest populateTunesSearchResult(LatestWrapperTunes parsedResults)
     {
-        ArrayList<SearchResultTunesLatest> resultSet = new ArrayList<SearchResultTunesLatest>();
-        pageCount = Integer.parseInt(parsedResults.pages);
+        // Capture the metadata for the search results
+        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        
+        // This will hold the list of individual items in the result set
+        ArrayList<SearchResultSingleTuneLatest> resultSet = new ArrayList<SearchResultSingleTuneLatest>();
 
         // Loop as many times as the count of tunes in the result set:
         for (int i = 0; i < parsedResults.settings.length; i++)
@@ -290,12 +301,13 @@ public class LatestSearch extends Search
                     StringCleaner.cleanString(parsedResults.settings[i].tune.name),
                     parsedResults.settings[i].tune.url);
 
-            // Instantiate a TunesSearchResult object & populate it
-            SearchResultTunesLatest currentResult = new SearchResultTunesLatest(details, submitter, settingDetails);
-            // Add the object to the ArrayList to be returned
+            // Put the individual search result into a wrapper object, and add to the larger result set
+            SearchResultSingleTuneLatest currentResult = new SearchResultSingleTuneLatest(details, submitter, settingDetails);
             resultSet.add(currentResult);
         }
-        return resultSet;
+        // Put the response metadata and individual results into a single object to be returned
+        SearchResultTunesLatest searchResult = new SearchResultTunesLatest(headers, resultSet);
+        return searchResult;
     }
 
     /**
@@ -547,7 +559,7 @@ public class LatestSearch extends Search
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
      * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
      */
-    private URL composeURL(String dataCategory) throws MalformedURLException, URISyntaxException
+    private static URL composeURL(DataCategory dataCategory, int resultsPerPage, int pageNumber) throws MalformedURLException, URISyntaxException
     {
         // Build the URL with all necessary parameters to perform a search via thesession.org API
         URL requestURL;
