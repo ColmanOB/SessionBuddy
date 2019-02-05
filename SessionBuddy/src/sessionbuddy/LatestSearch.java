@@ -55,38 +55,6 @@ import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 public class LatestSearch extends Search
 {
     /**
-     * The number of individual search results that should be returned per page
-     */
-//    private int resultsPerPage = 0;
-
-    /**
-     * Specifies a particular page within a multi-page response
-     */
-//    private int pageNumber = 0;
-
-    /**
-     * Constructor for cases where pagination is not required
-     * 
-     * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
-     */
- /*   public LatestSearch(int resultsPerPage)
-    {
-        this.resultsPerPage = resultsPerPage;
-    }
-
-    /**
-     * Constructor for cases where you need to specify an individual page in the API response
-     * 
-     * @param resultsPerPage Specifies how many search results should appear in each page of the JSON response from the API
-     * @param pageNumber Specifies a particular page number within the JSON response
-     */
- /*   public LatestSearch(int resultsPerPage, int pageNumber)
-    {
-        this(resultsPerPage);
-        this.pageNumber = pageNumber;
-    } */
-
-    /**
      * Retrieves the most recently added tunes/settings on thesession.org, most recent first
      * 
      * @return an ArrayList of SearchResultSingleTuneLatest objects
@@ -97,7 +65,7 @@ public class LatestSearch extends Search
      * @author Colman
      * @since 2019-01-31
      */
-    public static SearchResultTunesLatest listTunes(/*String searchTerms, */int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+    public static SearchResultTunesLatest listTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -105,6 +73,25 @@ public class LatestSearch extends Search
             DataCategory dataCategory = DataCategory.tunes;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, resultsPerPage, pageNumber));
+            // Parse the returned JSON into a wrapper class
+            LatestWrapperTunes parsedResults = JsonParser.parseResponse(response, LatestWrapperTunes.class);
+            // Return the data retrieved from the API
+            return populateTunesSearchResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    public static SearchResultTunesLatest listTunes(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.tunes;
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, resultsPerPage));
             // Parse the returned JSON into a wrapper class
             LatestWrapperTunes parsedResults = JsonParser.parseResponse(response, LatestWrapperTunes.class);
             // Return the data retrieved from the API
@@ -127,6 +114,7 @@ public class LatestSearch extends Search
      * @author Colman
      * @since 2018-04-01
      */
+    /*
     public ArrayList<SearchResultSingleDiscussion> listDiscussions() throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
@@ -134,6 +122,25 @@ public class LatestSearch extends Search
             validateResultsPerPageCount(resultsPerPage);
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL("discussions"));
+            // Parse the JSON response into a wrapper
+            KeywordSearchWrapperDiscussions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
+            // Return the data retrieved from the API
+            return populateDiscussionsSearchResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    } */
+    
+    public static ArrayList<SearchResultSingleDiscussion> listDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.discussions;
+            // Perform the API query
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, resultsPerPage, pageNumber));
             // Parse the JSON response into a wrapper
             KeywordSearchWrapperDiscussions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
             // Return the data retrieved from the API
@@ -319,6 +326,7 @@ public class LatestSearch extends Search
      * @author Colman
      * @since 2018-02-10
      */
+    // TODO: Fix up this method based on the above one
     private ArrayList<SearchResultSingleDiscussion> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
     {
         ArrayList<SearchResultSingleDiscussion> resultSet = new ArrayList<SearchResultSingleDiscussion>();
@@ -549,6 +557,28 @@ public class LatestSearch extends Search
             resultSet.add(currentResult);
         }
         return resultSet;
+    }
+    
+    /**
+     * A helper method used to put the URL together to query the API at thesession.org
+     * 
+     * @param dataCategory The category of data to be queried, e.g. tunes, discussions, events etc.
+     * @return A URL specifying a particular resource from thesession.org API
+     * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
+     * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
+     */
+    private static URL composeURL(DataCategory dataCategory, int resultsPerPage) throws MalformedURLException, URISyntaxException
+    {
+        // Build the URL with all necessary parameters to perform a search via thesession.org API
+        URL requestURL;
+
+            URLComposer builder = new URLComposer();
+            requestURL = builder.new Builder()
+                    .requestType(RequestType.SEARCH_LATEST_ITEMS)
+                    .path(dataCategory + "/" + "new")
+                    .itemsPerPage(resultsPerPage).build();
+                
+        return requestURL;
     }
 
     /**
