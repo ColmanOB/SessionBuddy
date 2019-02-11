@@ -31,7 +31,7 @@ public class LatestWrapperSets
     /**
      * The current page within the result set
      */
-    public String page;
+    public int page;
     
     /**
      * An array of the individual sets returned by the search

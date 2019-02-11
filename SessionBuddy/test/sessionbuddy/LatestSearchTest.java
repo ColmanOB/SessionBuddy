@@ -5,15 +5,14 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import org.junit.Test;
 
-import sessionbuddy.wrappers.individualresults.SearchResultDiscussions;
-import sessionbuddy.wrappers.individualresults.SearchResultEvents;
-import sessionbuddy.wrappers.individualresults.SearchResultRecordings;
-import sessionbuddy.wrappers.individualresults.SearchResultSessions;
-import sessionbuddy.wrappers.individualresults.SearchResultTrips;
-import sessionbuddy.wrappers.individualresults.SearchResultSingleTuneLatest;
+import sessionbuddy.wrappers.resultsets.SearchResultDiscussionsLatest;
+import sessionbuddy.wrappers.resultsets.SearchResultEventsLatest;
+import sessionbuddy.wrappers.resultsets.SearchResultRecordingsLatest;
+import sessionbuddy.wrappers.resultsets.SearchResultSessionsLatest;
+import sessionbuddy.wrappers.resultsets.SearchResultTripsLatest;
+import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
 /**
  * Unit tests for the LatestSearch class
@@ -39,27 +38,25 @@ public class LatestSearchTest
     {
         int resultsPerPage = 50;
         
-        LatestSearch search = new LatestSearch(resultsPerPage);
-
         try
         {
-            ArrayList<SearchResultSingleTuneLatest> resultSet = search.listTunes();
-
-            for (int i = 0; i < resultSet.size(); i++)
+            SearchResultTunesLatest resultSet = LatestSearch.listTunes(resultsPerPage);
+            
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).settingDetails.settingID, is(notNullValue()));
-                assertThat(resultSet.get(i).settingDetails.settingURL, is(notNullValue()));
-                assertThat(resultSet.get(i).settingDetails.key, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).settingDetails.settingID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).settingDetails.settingURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).settingDetails.key, is(notNullValue()));
 
-                assertThat(resultSet.get(i).tuneDetails.tuneID, is(notNullValue()));
-                assertThat(resultSet.get(i).tuneDetails.tuneName, is(notNullValue()));
-                assertThat(resultSet.get(i).tuneDetails.tuneURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tuneDetails.tuneID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tuneDetails.tuneName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tuneDetails.tuneURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).settingDetails.date, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).settingDetails.date, is(notNullValue()));
 
-                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
             }
         }
 
@@ -74,28 +71,26 @@ public class LatestSearchTest
     {
         int resultsPerPage = 2;
         int pageNumber = 2;
-        
-        LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
 
         try
         {
-            ArrayList<SearchResultSingleTuneLatest> resultSet = search.listTunes();
+            SearchResultTunesLatest resultSet = LatestSearch.listTunes(resultsPerPage, pageNumber);
 
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).settingDetails.settingID, is(notNullValue()));
-                assertThat(resultSet.get(i).settingDetails.settingURL, is(notNullValue()));
-                assertThat(resultSet.get(i).settingDetails.key, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).settingDetails.settingID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).settingDetails.settingURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).settingDetails.key, is(notNullValue()));
 
-                assertThat(resultSet.get(i).tuneDetails.tuneID, is(notNullValue()));
-                assertThat(resultSet.get(i).tuneDetails.tuneName, is(notNullValue()));
-                assertThat(resultSet.get(i).tuneDetails.tuneURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tuneDetails.tuneID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tuneDetails.tuneName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tuneDetails.tuneURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).settingDetails.date, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).settingDetails.date, is(notNullValue()));
 
-                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
             }
         }
 
@@ -110,23 +105,21 @@ public class LatestSearchTest
     {
         int resultsPerPage = 2;
         
-        LatestSearch search = new LatestSearch(resultsPerPage);
-
         try
         {
-            ArrayList<SearchResultDiscussions> resultSet = search.listDiscussions();
+            SearchResultDiscussionsLatest resultSet = LatestSearch.listDiscussions(resultsPerPage);
 
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).discussionDetails.discussionID, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.discussionName, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.submittedDate, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.discussionURL, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.numberOfComments, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.discussionID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.discussionName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.discussionURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 
-                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
             }
         }
 
@@ -142,23 +135,21 @@ public class LatestSearchTest
         int resultsPerPage = 2;
         int pageNumber = 2;
         
-        LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
-
         try
         {
-            ArrayList<SearchResultDiscussions> resultSet = search.listDiscussions();
+            SearchResultDiscussionsLatest resultSet = LatestSearch.listDiscussions(resultsPerPage, pageNumber);
 
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).discussionDetails.discussionID, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.discussionName, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.submittedDate, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.discussionURL, is(notNullValue()));
-                assertThat(resultSet.get(i).discussionDetails.numberOfComments, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.discussionID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.discussionName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.discussionURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 
-                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
             }
         }
 
@@ -173,26 +164,24 @@ public class LatestSearchTest
     {
         int resultsPerPage = 50;
         
-        LatestSearch search = new LatestSearch(resultsPerPage);
-
         try
         {
-            ArrayList<SearchResultRecordings> resultSet = search.listRecordings();
+            SearchResultRecordingsLatest resultSet = LatestSearch.listRecordings(resultsPerPage);
 
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).recordingDetails.recordingID, is(notNullValue()));
-                assertThat(resultSet.get(i).recordingDetails.recordingName, is(notNullValue()));
-                assertThat(resultSet.get(i).recordingDetails.recordingDate, is(notNullValue()));
-                assertThat(resultSet.get(i).recordingDetails.recordingURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).recordingDetails.recordingID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).recordingDetails.recordingName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).recordingDetails.recordingDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).recordingDetails.recordingURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
-                assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
-                assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).artist.artistID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).artist.artistName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).artist.artistPageURL, is(notNullValue()));
             }
         }
 
@@ -208,26 +197,24 @@ public class LatestSearchTest
         int resultsPerPage = 2;
         int pageNumber = 2;
 
-        LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
-
         try
         {
-            ArrayList<SearchResultRecordings> resultSet = search.listRecordings();
+            SearchResultRecordingsLatest resultSet = LatestSearch.listRecordings(resultsPerPage, pageNumber);
 
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).recordingDetails.recordingID, is(notNullValue()));
-                assertThat(resultSet.get(i).recordingDetails.recordingName, is(notNullValue()));
-                assertThat(resultSet.get(i).recordingDetails.recordingDate, is(notNullValue()));
-                assertThat(resultSet.get(i).recordingDetails.recordingURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).recordingDetails.recordingID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).recordingDetails.recordingName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).recordingDetails.recordingDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).recordingDetails.recordingURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).artist.artistID, is(notNullValue()));
-                assertThat(resultSet.get(i).artist.artistName, is(notNullValue()));
-                assertThat(resultSet.get(i).artist.artistPageURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).artist.artistID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).artist.artistName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).artist.artistPageURL, is(notNullValue()));
             }
         }
 
@@ -242,29 +229,27 @@ public class LatestSearchTest
     {
         int resultsPerPage = 50;
         
-        LatestSearch search = new LatestSearch(resultsPerPage);
-
         try
         {
-            ArrayList<SearchResultSessions> resultSet = search.listSessions();
+            SearchResultSessionsLatest resultSet = LatestSearch.listSessions(resultsPerPage);
 
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
-                assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
-                assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.sessionID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.sessionURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.submittedDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
-                assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).coordinates.latitude, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).coordinates.longitude, is(notNullValue()));
 
-                assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueWebsite, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueEmail, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venuePhone, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueWebsite, is(notNullValue()));
             }
         }
 
@@ -279,30 +264,28 @@ public class LatestSearchTest
     {
         int resultsPerPage = 2;
         int pageNumber = 2;
-
-        LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
-
+        
         try
         {
-            ArrayList<SearchResultSessions> resultSet = search.listSessions();
+            SearchResultSessionsLatest resultSet = LatestSearch.listSessions(resultsPerPage, pageNumber);
 
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
-                assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
-                assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.sessionID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.sessionURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.submittedDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
-                assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).coordinates.latitude, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).coordinates.longitude, is(notNullValue()));
 
-                assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueWebsite, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueEmail, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venuePhone, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueWebsite, is(notNullValue()));
             }
         }
 
@@ -317,37 +300,35 @@ public class LatestSearchTest
     {
         int resultsPerPage = 50;
 
-        LatestSearch search = new LatestSearch(resultsPerPage);
-
         try
         {
-            ArrayList<SearchResultEvents> resultSet = search.listEvents();
+            SearchResultEventsLatest resultSet = LatestSearch.listEvents(resultsPerPage);
 
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
-                assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
-                assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
-                assertThat(resultSet.get(i).eventDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.submittedDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).schedule.startDate, is(notNullValue()));
-                assertThat(resultSet.get(i).schedule.endDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).schedule.startDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).schedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
-                assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).coordinates.latitude, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).coordinates.longitude, is(notNullValue()));
 
-                assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueWebsite, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueEmail, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venuePhone, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueWebsite, is(notNullValue()));
 
-                assertThat(resultSet.get(i).town.townName, is(notNullValue()));
-                assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
-                assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).town.townName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).area.areaName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).country.countryName, is(notNullValue()));
             }
         }
 
@@ -363,37 +344,35 @@ public class LatestSearchTest
         int resultsPerPage = 2;
         int pageNumber = 2;
 
-        LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
-
         try
         {
-            ArrayList<SearchResultEvents> resultSet = search.listEvents();
+            SearchResultEventsLatest resultSet = LatestSearch.listEvents(resultsPerPage, pageNumber);
 
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
-                assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
-                assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
-                assertThat(resultSet.get(i).eventDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.submittedDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).schedule.startDate, is(notNullValue()));
-                assertThat(resultSet.get(i).schedule.endDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).schedule.startDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).schedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).coordinates.latitude, is(notNullValue()));
-                assertThat(resultSet.get(i).coordinates.longitude, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).coordinates.latitude, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).coordinates.longitude, is(notNullValue()));
 
-                assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueWebsite, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueEmail, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venuePhone, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueWebsite, is(notNullValue()));
 
-                assertThat(resultSet.get(i).town.townName, is(notNullValue()));
-                assertThat(resultSet.get(i).area.areaName, is(notNullValue()));
-                assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).town.townName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).area.areaName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).country.countryName, is(notNullValue()));
             }
         }
 
@@ -408,25 +387,23 @@ public class LatestSearchTest
     {
         int resultsPerPage = 2;
 
-        LatestSearch search = new LatestSearch(resultsPerPage);
-
         try
         {
-            ArrayList<SearchResultTrips> resultSet = search.listTrips();
+            SearchResultTripsLatest resultSet = LatestSearch.listTrips(resultsPerPage);
 
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).tripDetails.tripID, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripName, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripURL, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.submittedDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).tripSchedule.startDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripSchedule.endDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripSchedule.startDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripSchedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
             }
         }
 
@@ -442,25 +419,23 @@ public class LatestSearchTest
         int resultsPerPage = 2;
         int pageNumber = 2;
 
-        LatestSearch search = new LatestSearch(resultsPerPage, pageNumber);
-
         try
         {
-            ArrayList<SearchResultTrips> resultSet = search.listTrips();
+            SearchResultTripsLatest resultSet = LatestSearch.listTrips(resultsPerPage, pageNumber);
 
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).tripDetails.tripID, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripName, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripURL, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.submittedDate, is(notNullValue()));
                 
-                assertThat(resultSet.get(i).tripSchedule.startDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripSchedule.endDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripSchedule.startDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripSchedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
             }
         }
 

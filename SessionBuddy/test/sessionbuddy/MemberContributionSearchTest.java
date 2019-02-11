@@ -12,7 +12,7 @@ import sessionbuddy.wrappers.individualresults.SearchResultDiscussions;
 import sessionbuddy.wrappers.individualresults.SearchResultEvents;
 import sessionbuddy.wrappers.individualresults.SearchResultRecordings;
 import sessionbuddy.wrappers.individualresults.SearchResultSessions;
-import sessionbuddy.wrappers.individualresults.SearchResultSets;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleSet;
 import sessionbuddy.wrappers.individualresults.SearchResultSingleTuneLatest;
 
 /**
@@ -430,7 +430,7 @@ public class MemberContributionSearchTest
 
             MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage, pageNumber);
 
-            ArrayList<SearchResultSets> resultSet = search.listSets();
+            ArrayList<SearchResultSingleSet> resultSet = search.listSets();
 
             for (int i = 0; i < resultSet.size(); i++)
             {
@@ -461,7 +461,7 @@ public class MemberContributionSearchTest
 
             MemberContributionSearch search = new MemberContributionSearch(userID, resultsPerPage);
 
-            ArrayList<SearchResultSets> resultSet = search.listSets();
+            ArrayList<SearchResultSingleSet> resultSet = search.listSets();
 
             for (int i = 0; i < resultSet.size(); i++)
             {

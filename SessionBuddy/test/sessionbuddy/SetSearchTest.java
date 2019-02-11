@@ -5,12 +5,11 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import sessionbuddy.wrappers.individualresults.SearchResultSets;
+import sessionbuddy.wrappers.resultsets.SearchResultSetsLatest;
 
 public class SetSearchTest
 {
@@ -31,20 +30,18 @@ public class SetSearchTest
     {
         int resultsPerPage = 50;
 
-        SetSearch search = new SetSearch(resultsPerPage);
+        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage);
 
-        ArrayList<SearchResultSets> resultSet = search.listSets();
-
-        for (int i = 0; i < resultSet.size(); i++)
+        for (int i = 0; i < resultSet.searchResults.size(); i++)
         {
-            assertThat(resultSet.get(i).setDetails.setID, is(notNullValue()));
-            assertThat(resultSet.get(i).setDetails.setName, is(notNullValue()));
-            assertThat(resultSet.get(i).setDetails.setDate, is(notNullValue()));
-            assertThat(resultSet.get(i).setDetails.setURL, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).setDetails.setID, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).setDetails.setName, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).setDetails.setDate, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).setDetails.setURL, is(notNullValue()));
 
-            assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-            assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-            assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
         }
     }
 
@@ -53,21 +50,19 @@ public class SetSearchTest
     {
         int resultsPerPage = 4;
         int pageNumber = 2;
+        
+        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage, pageNumber);
 
-        SetSearch search = new SetSearch(resultsPerPage, pageNumber);
-
-        ArrayList<SearchResultSets> resultSet = search.listSets();
-
-        for (int i = 0; i < resultSet.size(); i++)
+        for (int i = 0; i < resultSet.searchResults.size(); i++)
         {
-            assertThat(resultSet.get(i).setDetails.setID, is(notNullValue()));
-            assertThat(resultSet.get(i).setDetails.setName, is(notNullValue()));
-            assertThat(resultSet.get(i).setDetails.setDate, is(notNullValue()));
-            assertThat(resultSet.get(i).setDetails.setURL, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).setDetails.setID, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).setDetails.setName, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).setDetails.setDate, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).setDetails.setURL, is(notNullValue()));
 
-            assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-            assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-            assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
         }
     }
 
@@ -79,10 +74,8 @@ public class SetSearchTest
 
         int resultsPerPage = 0;
 
-        SetSearch search = new SetSearch(resultsPerPage);
-
         @SuppressWarnings("unused")
-        ArrayList<SearchResultSets> resultSet = search.listSets();
+        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage);     
     }
 
     @Test
@@ -93,10 +86,8 @@ public class SetSearchTest
 
         int resultsPerPage = -1;
 
-        SetSearch search = new SetSearch(resultsPerPage);
-
         @SuppressWarnings("unused")
-        ArrayList<SearchResultSets> resultSet = search.listSets();
+        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage);
     }
 
     @Test
@@ -107,10 +98,8 @@ public class SetSearchTest
 
         int resultsPerPage = 51;
 
-        SetSearch search = new SetSearch(resultsPerPage);
-
         @SuppressWarnings("unused")
-        ArrayList<SearchResultSets> resultSet = search.listSets();
+        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage);
     }
 
     @Test
@@ -122,10 +111,8 @@ public class SetSearchTest
         int resultsPerPage = 5;
         int pageNumber = -1;
 
-        SetSearch search = new SetSearch(resultsPerPage, pageNumber);
-
         @SuppressWarnings("unused")
-        ArrayList<SearchResultSets> resultSet = search.listSets();
+        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage, pageNumber);
     }
 
     @Test
@@ -135,11 +122,9 @@ public class SetSearchTest
 
         int resultsPerPage = -5;
         int pageNumber = -1;
-
-        SetSearch search = new SetSearch(resultsPerPage, pageNumber);
-
+        
         @SuppressWarnings("unused")
-        ArrayList<SearchResultSets> resultSet = search.listSets();
+        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage, pageNumber);
     }
 
     @Test
@@ -150,9 +135,7 @@ public class SetSearchTest
         int resultsPerPage = -5;
         int pageNumber = 1;
 
-        SetSearch search = new SetSearch(resultsPerPage, pageNumber);
-
         @SuppressWarnings("unused")
-        ArrayList<SearchResultSets> resultSet = search.listSets();
+        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage, pageNumber);
     }
 }
