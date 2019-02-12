@@ -16,5 +16,6 @@ public enum DataCategory
     events,
     discussions,
     members,
-    trips
+    trips,
+    sets
 }

@@ -27,10 +27,8 @@ import sessionbuddy.wrappers.granularobjects.SessionDetails;
 import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
-import sessionbuddy.wrappers.individualresults.SearchResultDiscussions;
-import sessionbuddy.wrappers.individualresults.SearchResultEvents;
-import sessionbuddy.wrappers.individualresults.SearchResultRecordings;
-import sessionbuddy.wrappers.individualresults.SearchResultSessions;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleDiscussion;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleEvent;
 import sessionbuddy.wrappers.individualresults.SearchResultSingleRecording;
 import sessionbuddy.wrappers.individualresults.SearchResultSingleSession;
 import sessionbuddy.wrappers.individualresults.SearchResultSingleSet;
@@ -42,8 +40,11 @@ import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperSessions;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperSets;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTunes;
 import sessionbuddy.wrappers.responsemetadata.LatestSearchResultHeaders;
+import sessionbuddy.wrappers.resultsets.SearchResultDiscussionsLatest;
+import sessionbuddy.wrappers.resultsets.SearchResultEventsLatest;
 import sessionbuddy.wrappers.resultsets.SearchResultRecordingsLatest;
 import sessionbuddy.wrappers.resultsets.SearchResultSessionsLatest;
+import sessionbuddy.wrappers.resultsets.SearchResultSetsLatest;
 import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
 /**
@@ -165,25 +166,7 @@ public class MemberContributionSearch extends Search
      * 
      * @author Colman
      * @since 2018-04-01
-     */
-/*    public ArrayList<SearchResultSessions> listSessions() throws IllegalArgumentException, IOException, URISyntaxException
-    {
-        try
-        {
-            validateResultsPerPageCount(resultsPerPage);
-            // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("sessions"));
-            // Parse the JSON response
-            KeywordSearchWrapperSessions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperSessions.class);
-            // Return the data retrieved from the API
-            return populateSessionsSearchResult(parsedResults);
-        }
-        catch (IllegalArgumentException | IOException | URISyntaxException ex)
-        {
-            throw ex;
-        }
-    } */
-    
+     */   
     public static SearchResultSessionsLatest listSessions(int userID, int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
@@ -221,6 +204,25 @@ public class MemberContributionSearch extends Search
             throw ex;
         }
     }
+    
+    public static SearchResultEventsLatest listEvents(int userID, int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.events;
+            // Query the API
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, userID, resultsPerPage));
+            // Parse the JSON response
+            KeywordSearchWrapperEvents parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperEvents.class);
+            // Return the data retreived from the API
+            return populateEventsSearchResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
 
     /**
      * Retrieves a list of events added by a particular member on thesession.org
@@ -233,16 +235,19 @@ public class MemberContributionSearch extends Search
      * @author Colman
      * @since 2018-04-01
      */
-    public ArrayList<SearchResultEvents> listEvents() throws IllegalArgumentException, IOException, URISyntaxException
+    
+    
+    public static SearchResultEventsLatest listEvents(int userID, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
             validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.events;
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("events"));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, userID, resultsPerPage, pageNumber));
             // Parse the JSON response
             KeywordSearchWrapperEvents parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperEvents.class);
-            // Return the data retreived from the API
+            // Return the data retrieved from the API
             return populateEventsSearchResult(parsedResults);
         }
         catch (IllegalArgumentException | IOException | URISyntaxException ex)
@@ -262,13 +267,33 @@ public class MemberContributionSearch extends Search
      * @author Colman
      * @since 2018-04-01
      */
-    public ArrayList<SearchResultDiscussions> listDiscussions() throws IllegalArgumentException, IOException, URISyntaxException
+    public static SearchResultDiscussionsLatest listDiscussions(int userID, int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
             validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.discussions;
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("discussions"));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, userID, resultsPerPage));
+            // Parse the JSON response
+            KeywordSearchWrapperDiscussions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
+            // Return the data retrieved from the API
+            return populateDiscussionsSearchResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    public static SearchResultDiscussionsLatest listDiscussions(int userID, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.discussions;
+            // Query the API
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, userID, resultsPerPage, pageNumber));
             // Parse the JSON response
             KeywordSearchWrapperDiscussions parsedResults = JsonParser.parseResponse(response, KeywordSearchWrapperDiscussions.class);
             // Return the data retrieved from the API
@@ -291,13 +316,33 @@ public class MemberContributionSearch extends Search
      * @author Colman
      * @since 2018-04-01
      */
-    public ArrayList<SearchResultSingleSet> listSets() throws IllegalArgumentException, IOException, URISyntaxException
+    public static SearchResultSetsLatest listSets(int userID, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
             validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.sets;
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("sets"));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, userID, resultsPerPage, pageNumber));
+            // Parse the returned JSON response
+            LatestWrapperSets parsedResults = JsonParser.parseResponse(response, LatestWrapperSets.class);
+            // Return the data retrieved from the API
+            return populateSetSearchResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    public static SearchResultSetsLatest listSets(int userID, int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.sets;
+            // Query the API
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, userID, resultsPerPage));
             // Parse the returned JSON response
             LatestWrapperSets parsedResults = JsonParser.parseResponse(response, LatestWrapperSets.class);
             // Return the data retrieved from the API
@@ -472,12 +517,13 @@ public class MemberContributionSearch extends Search
      * @author Colman
      * @since 2018-02-18
      */
-    private ArrayList<SearchResultEvents> populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)
+    private static SearchResultEventsLatest populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)
     {
-        // Parse the JSON into a usable structure
-        ArrayList<SearchResultEvents> resultSet = new ArrayList<SearchResultEvents>();
-        // Find out how many pages are in the response
-        pageCount = Integer.parseInt(parsedResults.pages);
+        // Capture the metadata for the search results
+        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        
+        // This will hold the list of individual items in the result set
+        ArrayList<SearchResultSingleEvent> resultSet = new ArrayList<SearchResultSingleEvent>();
 
         // Loop as many times as the count of events in the result set:
         for (int i = 0; i < (parsedResults.events.length); i++)
@@ -519,13 +565,14 @@ public class MemberContributionSearch extends Search
             Country country = new Country(
                     parsedResults.events[i].country.id,
                     StringCleaner.cleanString(parsedResults.events[i].country.name));
-
-            // Instantiate a EventsSearchResult object & populate it
-            SearchResultEvents currentResult = new SearchResultEvents(details, submitter, schedule, coordinates, venue, town, area, country);
-            // Add the EventsSearchResult object to the ArrayList to be returned
+            
+            // Put the individual search result into a wrapper object, and add to the larger result set
+            SearchResultSingleEvent currentResult = new SearchResultSingleEvent(details, submitter, schedule, coordinates, venue, town, area, country);
             resultSet.add(currentResult);
         }
-        return resultSet;
+        // Put the response metadata and individual results into a single object to be returned
+        SearchResultEventsLatest searchResult = new SearchResultEventsLatest(headers, resultSet);
+        return searchResult;
     }
 
     /**
@@ -538,12 +585,13 @@ public class MemberContributionSearch extends Search
      * @author Colman
      * @since 2018-02-23
      */
-    private ArrayList<SearchResultDiscussions> populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
+    private static SearchResultDiscussionsLatest populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
     {
-        // Parse the JSON into a usable structure
-        ArrayList<SearchResultDiscussions> resultSet = new ArrayList<SearchResultDiscussions>();
-        // Find out how many pages are in the response
-        pageCount = Integer.parseInt(parsedResults.pages);
+        // Capture the metadata for the search results
+        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        
+        // This will hold the list of individual items in the result set
+        ArrayList<SearchResultSingleDiscussion> resultSet = new ArrayList<SearchResultSingleDiscussion>();
 
         // Loop as many times as the count of recordings in the result set:
         for (int i = 0; i < (parsedResults.discussions.length); i++)
@@ -559,13 +607,14 @@ public class MemberContributionSearch extends Search
                     parsedResults.discussions[i].member.id,
                     StringCleaner.cleanString(parsedResults.discussions[i].member.name),
                     parsedResults.discussions[i].member.url);
-
-            // Instantiate a DiscussionsSearchResult object & populate it
-            SearchResultDiscussions currentResult = new SearchResultDiscussions(details, user);
-            // Add the DiscussionsSearchResult object to the ArrayList to be returned
+            
+            // Put the individual search result into a wrapper object, and add to the larger result set
+            SearchResultSingleDiscussion currentResult = new SearchResultSingleDiscussion(details, user);
             resultSet.add(currentResult);
         }
-        return resultSet;
+        // Put the response metadata and individual results into a single object to be returned
+        SearchResultDiscussionsLatest searchResult = new SearchResultDiscussionsLatest(headers, resultSet);
+        return searchResult;
     }
 
     /**
@@ -578,12 +627,18 @@ public class MemberContributionSearch extends Search
      * @author Colman
      * @since 2018-02-17
      */
-    private ArrayList<SearchResultSingleSet> populateSetSearchResult(LatestWrapperSets parsedResults)
+    private static SearchResultSetsLatest populateSetSearchResult(LatestWrapperSets parsedResults)
     {
-        ArrayList<SearchResultSingleSet> resultSet = new ArrayList<SearchResultSingleSet>();
+  /*      ArrayList<SearchResultSingleSet> resultSet = new ArrayList<SearchResultSingleSet>();
         // Find out how many pages are in the response
-        pageCount = Integer.parseInt(parsedResults.pages);
+        pageCount = Integer.parseInt(parsedResults.pages); */
 
+        // Capture the metadata for the search results
+        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        
+        // This will hold the list of individual items in the result set
+        ArrayList<SearchResultSingleSet> resultSet = new ArrayList<SearchResultSingleSet>();
+        
         // Loop as many times as the count of tunes in the result set:
         for (int i = 0; i < parsedResults.sets.length; i++)
         {
@@ -597,13 +652,14 @@ public class MemberContributionSearch extends Search
                     parsedResults.sets[i].member.id,
                     StringCleaner.cleanString(parsedResults.sets[i].member.name),
                     parsedResults.sets[i].member.url);
-
-            // Instantiate a SearchResultSingleSet object & populate it
+            
+            // Put the individual search result into a wrapper object, and add to the larger result set
             SearchResultSingleSet currentResult = new SearchResultSingleSet(details, submitter);
-            // Add the SearchResultSingleSet object to the ArrayList to be returned
             resultSet.add(currentResult);
         }
-        return resultSet;
+        // Put the response metadata and individual results into a single object to be returned
+        SearchResultSetsLatest searchResult = new SearchResultSetsLatest(headers, resultSet);
+        return searchResult;
     }
 
     /**

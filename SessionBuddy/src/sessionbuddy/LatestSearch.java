@@ -48,25 +48,26 @@ import sessionbuddy.wrappers.resultsets.SearchResultTripsLatest;
 import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
 /**
- * Retrieves a list of most-recently added entries in a chosen category; 
+ * Contains a number of static methods to retrieves a list of 
+ * most-recently added entries in a chosen category; 
  * tunes, discussions, recordings, events or sessions.
  * 
  * @author Colman O'B
- * @since 2019-02-09
+ * @since 2019-02-12
  */
 // TODO: Fix up comments on all methods
 public class LatestSearch extends Search
 {
     /**
-     * Retrieves the most recently added tunes/settings on thesession.org, most recent first
-     * 
-     * @return an ArrayList of SearchResultSingleTuneLatest objects
+     * Retrieves the most recently added tunes/settings on thesession.org, most recent first.
+     * This form of the method retrieves a specified page from the API response.
+     *
+     * @param resultsPerPage the number of search results to be retrieved per page in the response from the API
+     * @param pageNumber the page number to be retrieved, in a multi-page response from the API
+     * @return a SearchResultTunesLatest object, containing all of the data returned in response to the API query
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
      * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
-     * 
-     * @author Colman
-     * @since 2019-01-31
      */
     public static SearchResultTunesLatest listTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
@@ -87,6 +88,17 @@ public class LatestSearch extends Search
         }
     }
     
+    /**
+     * Retrieves the most recently added tunes/settings on thesession.org, most recent first.
+     * This form of the method is used when no particular page is required, and simply returns 
+     * the first page of the API response.
+     *
+     * @param resultsPerPage the number of search results to be retrieved per page in the response from the API
+     * @return a SearchResultTunesLatest object, containing all of the data returned in response to the API query
+     * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
+     * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
+     * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
+     */
     public static SearchResultTunesLatest listTunes(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
@@ -492,9 +504,6 @@ public class LatestSearch extends Search
      */
     private static SearchResultSessionsLatest populateSessionsSearchResult(KeywordSearchWrapperSessions parsedResults)
     {
-    /*    ArrayList<SearchResultSessions> resultSet = new ArrayList<SearchResultSessions>();
-        pageCount = Integer.parseInt(parsedResults.pages); */
-        
         // Capture the metadata for the search results
         LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
@@ -655,12 +664,6 @@ public class LatestSearch extends Search
         // Put the response metadata and individual results into a single object to be returned
         SearchResultTripsLatest searchResult = new SearchResultTripsLatest(headers, resultSet);
         return searchResult;
-
-            /*
-            SearchResultTrips currentResult = new SearchResultTrips(details, tripSchedule, submitter);
-            resultSet.add(currentResult);
-        }
-        return resultSet; */
     }
     
     /**
