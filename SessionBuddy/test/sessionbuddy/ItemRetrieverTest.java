@@ -21,7 +21,10 @@ import sessionbuddy.wrappers.individualresults.ItemResultTune;
  * 
  * 1. Set the search parameters, i.e. the ID of the resource to be retrieved
  * 2. Perform the API call using one of the static methods in ItemRetriever
- * 4. Test the result set, testing (usually) each element of the result set
+ * 3. Test the result set, testing (usually) that each element of the result set has been populated
+ * 
+ * @author Colman
+ * @since 2019-02-13
  */
 public class ItemRetrieverTest
 {
@@ -114,8 +117,6 @@ public class ItemRetrieverTest
         
         try
         {
-            
-
             ItemResultTune resultSet = ItemRetriever.getTune(tuneID);
 
             assertThat(resultSet.tuneDetails.basicTuneDetails.tuneID, is(notNullValue()));

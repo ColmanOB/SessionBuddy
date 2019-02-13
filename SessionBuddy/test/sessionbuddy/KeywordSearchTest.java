@@ -18,15 +18,15 @@ import sessionbuddy.wrappers.resultsets.SearchResultTrips;
  * 
  * Each test follows the same process:
  * 
- * 1. Set the search parameters
- * 2. Perform the search
- * 3. Loop through the result set, testing (usually) each element of the result set
+ * 1. Define the search parameters
+ * 2. Perform the search by calling one of the static methods on KeywordSearch
+ * 3. Iterate through the result set, testing that (usually) each element of the result set is populated
  * 
  * For each category of data, one test is done with pagination in the results, 
  * and one without pagination
  * 
  * @author Colman
- * @since 2019-01-27
+ * @since 2019-02-13
  */
 public class KeywordSearchTest
 {

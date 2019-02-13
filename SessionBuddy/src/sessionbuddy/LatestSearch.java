@@ -118,6 +118,13 @@ public class LatestSearch extends Search
         }
     }
 
+    /**
+     * @param resultsPerPage
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public static SearchResultDiscussionsLatest listDiscussions(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
