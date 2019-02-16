@@ -44,6 +44,8 @@ public class LatestWrapperTrips
      * An array of the individual trips in the result set
      */
     public Trip[] trips;
+    public String latlon;
+    public String radius;
 
     /**
      * A wrapper for an individual trip within the search results

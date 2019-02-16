@@ -2,50 +2,55 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import sessionbuddy.LocationSearch;
-import sessionbuddy.wrappers.individualresults.SearchResultTrips;
+import sessionbuddy.wrappers.resultsets.LocationResultTrips;
 
 public class Test_SearchByLocation_Trips
 {
-  public static void main(String[] args) throws RuntimeException, URISyntaxException 
-  {
-    // Set the search parameters
-    String latitude = "53.3498";
-    String longitude = "6.2603";
-    String radius = "500";
-    int resultsPerPage = 50;
-
-    try 
+    public static void main(String[] args) throws RuntimeException, URISyntaxException
     {
-        LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage);
-        // Perform the search by calling the searchTrips method
-        ArrayList<SearchResultTrips> resultSet = search.searchTrips();
+        // Set the search parameters
+        String latitude = "53.3498";
+        String longitude = "6.2603";
+        String radius = "500";
+        int resultsPerPage = 50;
 
-        // Loop through the results and print each attribute of each individual result in the set
-        for (int i = 0; i < resultSet.size(); i++)
+        try
         {
-            System.out.println("ID: " + resultSet.get(i).tripDetails.tripID);
-            System.out.println("Name: " + resultSet.get(i).tripDetails.tripName);
-            System.out.println("URL: " + resultSet.get(i).tripDetails.tripURL);
-            System.out.println("Submitted: " + resultSet.get(i).tripDetails.submittedDate);
-            
-            System.out.println("Start Date: " + resultSet.get(i).tripSchedule.startDate);
-            System.out.println("End Date: " + resultSet.get(i).tripSchedule.endDate);
+            // Perform the search by calling the searchTrips method
+            LocationResultTrips resultSet = LocationSearch.searchTrips(latitude, longitude, radius, resultsPerPage);
 
-            System.out.println("User ID: " + resultSet.get(i).submitter.userID);
-            System.out.println("User Name: " + resultSet.get(i).submitter.userName);
-            System.out.println("User Profile Page: " + resultSet.get(i).submitter.userURL);
+            // Loop through the results and print each attribute of each individual result in the set
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
+            {
+                System.out.println("ID: "
+                        + resultSet.searchResults.get(i).tripDetails.tripID);
+                System.out.println("Name: "
+                        + resultSet.searchResults.get(i).tripDetails.tripName);
+                System.out.println("URL: "
+                        + resultSet.searchResults.get(i).tripDetails.tripURL);
+                System.out.println("Submitted: " + resultSet.searchResults
+                        .get(i).tripDetails.submittedDate);
 
-            System.out.println("\n");
+                System.out.println("Start Date: " + resultSet.searchResults
+                        .get(i).tripSchedule.startDate);
+                System.out.println("End Date: "
+                        + resultSet.searchResults.get(i).tripSchedule.endDate);
+
+                System.out.println("User ID: "
+                        + resultSet.searchResults.get(i).submitter.userID);
+                System.out.println("User Name: "
+                        + resultSet.searchResults.get(i).submitter.userName);
+                System.out.println("User Profile Page: "
+                        + resultSet.searchResults.get(i).submitter.userURL);
+
+                System.out.println("\n");
+            }
+        }
+
+        catch (IllegalArgumentException | IllegalStateException | IOException e)
+        {
+            e.printStackTrace();
         }
     }
-
-    catch(IllegalArgumentException|IllegalStateException|
-
-    IOException e)
-    {
-        e.printStackTrace();
-    }
-  }
 }

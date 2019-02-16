@@ -5,12 +5,11 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import org.junit.Test;
 
-import sessionbuddy.wrappers.individualresults.LocationResultSingleEvent;
-import sessionbuddy.wrappers.individualresults.LocationResultSingleSession;
-import sessionbuddy.wrappers.individualresults.SearchResultTrips;
+import sessionbuddy.wrappers.resultsets.LocationResultEvents;
+import sessionbuddy.wrappers.resultsets.LocationResultSessions;
+import sessionbuddy.wrappers.resultsets.LocationResultTrips;
 
 /**
  * Unit tests for the LocationSearch class
@@ -18,15 +17,14 @@ import sessionbuddy.wrappers.individualresults.SearchResultTrips;
  * Each test follows the same process:
  * 
  * 1. Set the search parameters
- * 2. Instantiate a LocationSearch object
- * 3. Perform the search
- * 4. Loop through the result set, testing that each element of each result is populated
+ * 2. Perform the search
+ * 3. Loop through the result set, testing that each element of each result is populated
  * 
  * For each category of data, one test is done with pagination in the results, 
  * and one without pagination
  * 
  * @author Colman
- * @since 2018-12-11
+ * @since 2019-02-16
  */
 public class LocationSearchTest
 {
@@ -42,19 +40,17 @@ public class LocationSearchTest
 
         try
         {
-            LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage, pageNumber);
+            LocationResultSessions resultSet = LocationSearch.searchSessions(latitude, longitude, radius, resultsPerPage, pageNumber);
 
-            ArrayList<LocationResultSingleSession> resultSet = search.searchSessions();
-
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
-                assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
-                assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.sessionID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.sessionURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.submittedDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -74,19 +70,17 @@ public class LocationSearchTest
 
         try
         {
-            LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage);
+            LocationResultSessions resultSet = LocationSearch.searchSessions(latitude, longitude, radius, resultsPerPage);
 
-            ArrayList<LocationResultSingleSession> resultSet = search.searchSessions();
-
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).sessionDetails.sessionID, is(notNullValue()));
-                assertThat(resultSet.get(i).sessionDetails.sessionURL, is(notNullValue()));
-                assertThat(resultSet.get(i).sessionDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.sessionID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.sessionURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).sessionDetails.submittedDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -107,27 +101,25 @@ public class LocationSearchTest
 
         try
         {
-            LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage, pageNumber);
+            LocationResultEvents resultSet = LocationSearch.searchEvents(latitude, longitude, radius, resultsPerPage, pageNumber);
 
-            ArrayList<LocationResultSingleEvent> resultSet = search.searchEvents();
-
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
-                assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
-                assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueEmail, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venuePhone, is(notNullValue()));
 
-                assertThat(resultSet.get(i).town.townName, is(notNullValue()));
-                assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).town.townName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).country.countryName, is(notNullValue()));
             }
         }
 
@@ -147,27 +139,25 @@ public class LocationSearchTest
 
         try
         {
-            LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage);
+            LocationResultEvents resultSet = LocationSearch.searchEvents(latitude, longitude, radius, resultsPerPage);
 
-            ArrayList<LocationResultSingleEvent> resultSet = search.searchEvents();
-
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).eventDetails.eventID, is(notNullValue()));
-                assertThat(resultSet.get(i).eventDetails.eventName, is(notNullValue()));
-                assertThat(resultSet.get(i).eventDetails.eventURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).eventDetails.eventURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).user.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).user.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
 
-                assertThat(resultSet.get(i).venue.venueID, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueName, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venueEmail, is(notNullValue()));
-                assertThat(resultSet.get(i).venue.venuePhone, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venueEmail, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).venue.venuePhone, is(notNullValue()));
 
-                assertThat(resultSet.get(i).town.townName, is(notNullValue()));
-                assertThat(resultSet.get(i).country.countryName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).town.townName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).country.countryName, is(notNullValue()));
             }
         }
 
@@ -188,23 +178,21 @@ public class LocationSearchTest
 
         try
         {
-            LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage, pageNumber);
+            LocationResultTrips resultSet = LocationSearch.searchTrips(latitude, longitude, radius, resultsPerPage, pageNumber);
 
-            ArrayList<SearchResultTrips> resultSet = search.searchTrips();
-
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).tripDetails.tripID, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripName, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripURL, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.submittedDate, is(notNullValue()));
                 
-                assertThat(resultSet.get(i).tripSchedule.startDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripSchedule.endDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripSchedule.startDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripSchedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
             }
         }
 
@@ -224,23 +212,21 @@ public class LocationSearchTest
 
         try
         {
-            LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage);
+            LocationResultTrips resultSet = LocationSearch.searchTrips(latitude, longitude, radius, resultsPerPage);
 
-            ArrayList<SearchResultTrips> resultSet = search.searchTrips();
-
-            for (int i = 0; i < resultSet.size(); i++)
+            for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                assertThat(resultSet.get(i).tripDetails.tripID, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripName, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.tripURL, is(notNullValue()));
-                assertThat(resultSet.get(i).tripDetails.submittedDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.tripURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripDetails.submittedDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).tripSchedule.startDate, is(notNullValue()));
-                assertThat(resultSet.get(i).tripSchedule.endDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripSchedule.startDate, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).tripSchedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
             }
         }
 

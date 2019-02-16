@@ -27,12 +27,14 @@ import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
 import sessionbuddy.wrappers.individualresults.LocationResultSingleEvent;
 import sessionbuddy.wrappers.individualresults.LocationResultSingleSession;
-import sessionbuddy.wrappers.individualresults.SearchResultTrips;
+import sessionbuddy.wrappers.individualresults.SearchResultSingleTrip;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTrips;
 import sessionbuddy.wrappers.jsonresponse.LocationSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.LocationSearchWrapperSessions;
 import sessionbuddy.wrappers.responsemetadata.LocationSearchResultHeaders;
+import sessionbuddy.wrappers.resultsets.LocationResultEvents;
 import sessionbuddy.wrappers.resultsets.LocationResultSessions;
+import sessionbuddy.wrappers.resultsets.LocationResultTrips;
 
 /**
  * Retrieves a list of sessions or events within a given radius (in Km) of a set of coordinates.
@@ -40,65 +42,8 @@ import sessionbuddy.wrappers.resultsets.LocationResultSessions;
  * @author Colman
  * @since 2018-12-11
  */
-// TODO Make all methods in this class static - get rid of the instance variables and constructors etc.
 public class LocationSearch extends Search
 {
-    /**
-     * The number of results that should be returned per page
-     */
-    int resultsPerPage = 0;
-
-    /**
-     * Specifies a page number in the JSON reponse from the API
-     */
-    int pageNumber = 0;
-
-    /**
-     * Specifies a particular latitude coordinate
-     */
-    String latitude = null;
-
-    /**
-     * Specifies a particular longitude coordinate
-     */
-    String longitude = null;
-
-    /**
-     * Specifies a radius in kilometers around the latitude & longitude
-     */
-    String radius = null;
-
-    /**
-     * Constructor where pagination is not required
-     *
-     * @param latitude Specifies a particular latitude coordinate
-     * @param longitude Specifies a particular longitude coordinate
-     * @param radius Specifies a radius in Kilometres around a set of coordinates
-     * @param resultsPerPage The number of results per page in the API response
-     */
-    public LocationSearch(String latitude, String longitude, String radius, int resultsPerPage)
-    {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.radius = radius;
-        this.resultsPerPage = resultsPerPage;
-    }
-
-    /**
-     * Constructor for cases where you need to specify a page in the API response
-     * 
-     * @param latitude Specifies a particular latitude coordinate
-     * @param longitude Specifies a particular longitude coordinate
-     * @param radius Specifies a radius in Kilometres around a set of coordinates
-     * @param resultsPerPage The number of results per page in the API response
-     * @param pageNumber Specifies a particular page number within the JSON response
-     */
-    public LocationSearch(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber)
-    {
-        this(latitude, longitude, radius, resultsPerPage);
-        this.pageNumber = pageNumber;
-    }
-
     /**
      * Queries the API for a list of sessions within a specified radius of a set of coordinates
      * 
@@ -160,14 +105,36 @@ public class LocationSearch extends Search
      * @author Colman
      * @since 2018-04-01
      */
-    public ArrayList<LocationResultSingleEvent> searchEvents() throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
+    
+    public static LocationResultEvents searchEvents(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
     {
         try
         {
             validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.events;
             validateCoordinates(latitude, longitude, radius);
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("events"));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, latitude, longitude, radius, resultsPerPage, pageNumber));
+            // Parse the JSON response
+            LocationSearchWrapperEvents parsedResults = JsonParser.parseResponse(response, LocationSearchWrapperEvents.class);
+            // Return the data retrieved from the API
+            return populateEventsByLocationResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    public static LocationResultEvents searchEvents(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.events;
+            validateCoordinates(latitude, longitude, radius);
+            // Query the API
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, latitude, longitude, radius, resultsPerPage));
             // Parse the JSON response
             LocationSearchWrapperEvents parsedResults = JsonParser.parseResponse(response, LocationSearchWrapperEvents.class);
             // Return the data retrieved from the API
@@ -189,14 +156,17 @@ public class LocationSearch extends Search
      * @author Colman
      * @since 2018-12-11
      */
-    public ArrayList<SearchResultTrips> searchTrips() throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
+
+    
+    public static LocationResultTrips searchTrips(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
     {
         try
         {
             validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.trips;
             validateCoordinates(latitude, longitude, radius);
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL("trips"));
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, latitude, longitude, radius, resultsPerPage, pageNumber));
             // Parse the JSON response
             LatestWrapperTrips parsedResults = JsonParser.parseResponse(response, LatestWrapperTrips.class);
             // Return the data retrieved from the API
@@ -207,7 +177,28 @@ public class LocationSearch extends Search
             throw ex;
         }
     }
+    
+    public static LocationResultTrips searchTrips(String latitude, String longitude, String radius, int resultsPerPage) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.trips;
+            validateCoordinates(latitude, longitude, radius);
 
+            // Query the API
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, latitude, longitude, radius, resultsPerPage));
+            // Parse the JSON response
+            LatestWrapperTrips parsedResults = JsonParser.parseResponse(response, LatestWrapperTrips.class);
+            // Return the data retrieved from the API
+            return populateTripsSearchResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
     /**
      * Helper method to parse the response to a location-based search for sessions
      * 
@@ -267,11 +258,16 @@ public class LocationSearch extends Search
      * @param parsedResults a LocationSearchWrapperEvents containing response data from the API
      * @return an ArrayList of LocationResultSingleEvent objects
      */
-    private ArrayList<LocationResultSingleEvent> populateEventsByLocationResult(LocationSearchWrapperEvents parsedResults)
+
+    
+    private static LocationResultEvents populateEventsByLocationResult(LocationSearchWrapperEvents parsedResults)
     {
-        // Structure to hold each individual search result entry
+        // Capture the metadata for the search results
+        LocationSearchResultHeaders headers = new LocationSearchResultHeaders(parsedResults.latlon, parsedResults.radius, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        
+        // This will hold the list of individual items in the result set
         ArrayList<LocationResultSingleEvent> resultSet = new ArrayList<LocationResultSingleEvent>();
-        pageCount = Integer.parseInt(parsedResults.pages);
+
 
         // Loop as many times as the count of events in the result set:
         for (int i = 0; i < (parsedResults.events.length); i++)
@@ -308,11 +304,12 @@ public class LocationSearch extends Search
             Country country = new Country(parsedResults.events[i].country.id,
                     StringCleaner .cleanString(parsedResults.events[i].country.name));
 
-            // Instantiate and populate a LocationResultSingleEvent object and add it to the result set
             LocationResultSingleEvent currentResult = new LocationResultSingleEvent(details, user, schedule, coordinates, venue, town, area, country);
             resultSet.add(currentResult);
         }
-        return resultSet;
+        // Put the response metadata and individual results into a single object to be returned
+        LocationResultEvents searchResult = new LocationResultEvents(headers, resultSet);
+        return searchResult;
     }
     
     /**
@@ -324,10 +321,13 @@ public class LocationSearch extends Search
      * @author Colman
      * @since 2018-12-08
      */
-    private ArrayList<SearchResultTrips> populateTripsSearchResult(LatestWrapperTrips parsedResults)
-    {
-        ArrayList<SearchResultTrips> resultSet = new ArrayList<SearchResultTrips>();
-        pageCount = parsedResults.pages;
+    private static LocationResultTrips populateTripsSearchResult(LatestWrapperTrips parsedResults)
+    {        
+        // Capture the metadata for the search results
+        LocationSearchResultHeaders headers = new LocationSearchResultHeaders(parsedResults.latlon, parsedResults.radius, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        
+        // This will hold the list of individual items in the result set
+        ArrayList<SearchResultSingleTrip> resultSet = new ArrayList<SearchResultSingleTrip>();
 
         // Loop as many times as the count of trips in the result set:
         for (int i = 0; i < parsedResults.trips.length; i++)
@@ -347,11 +347,13 @@ public class LocationSearch extends Search
                     parsedResults.trips[i].member.id,
                     StringCleaner.cleanString(parsedResults.trips[i].member.name),
                     parsedResults.trips[i].member.url);
-
-            SearchResultTrips currentResult = new SearchResultTrips(details, tripSchedule, submitter);
+            
+            SearchResultSingleTrip currentResult = new SearchResultSingleTrip(details, tripSchedule, submitter);
             resultSet.add(currentResult);
         }
-        return resultSet;
+        // Put the response metadata and individual results into a single object to be returned
+        LocationResultTrips searchResult = new LocationResultTrips(headers, resultSet);
+        return searchResult;
     }
 
 
@@ -407,47 +409,7 @@ public class LocationSearch extends Search
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
      * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
      */
-    private URL composeURL(String dataCategory) throws MalformedURLException, URISyntaxException
-    {
-        // Build the URL with all necessary parameters to perform a search
-        URL requestURL;
 
-        // Assemble the query parameters for the URL
-        List<NameValuePair> queryParams = new ArrayList<>();
-        queryParams.add(new BasicNameValuePair("latlon", latitude + "," + longitude));
-        queryParams.add(new BasicNameValuePair("radius", radius));
-
-        // If a particular page within the response from the API is specified:
-        if (pageNumber > 0)
-        {
-            URLComposer builder = new URLComposer();
-            requestURL = builder.new Builder()
-                    .requestType(RequestType.SEARCH_BY_LOCATION)
-                    .path(dataCategory + "/" + "nearby")
-                    .queryParameters(queryParams).itemsPerPage(resultsPerPage)
-                    .pageNumber(pageNumber).build();
-        }
-        
-        // If no page is specified
-        else if (pageNumber == 0)
-        {
-            URLComposer builder = new URLComposer();
-            requestURL = builder.new Builder()
-                    .requestType(RequestType.SEARCH_BY_LOCATION)
-                    .path(dataCategory + "/" + "nearby")
-                    .queryParameters(queryParams).itemsPerPage(resultsPerPage)
-                    .build();
-        }
-        
-        // If anything other than a positive integer was specified as the page number
-        else
-        {
-            throw new IllegalArgumentException("Page number must be an integer value greater than zero");
-        }
-        
-        return requestURL;
-    }
-    
     private static URL composeURL(DataCategory dataCategory, String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws MalformedURLException, URISyntaxException
     {
         // Build the URL with all necessary parameters to perform a search

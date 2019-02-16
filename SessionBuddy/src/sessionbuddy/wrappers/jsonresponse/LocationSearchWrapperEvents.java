@@ -28,17 +28,23 @@ public class LocationSearchWrapperEvents
     /**
      * Number of pages in the result set
      */
-    public String pages;
+    public int pages;
     
     /**
      * Current page number within the result set
      */
-    public String page;
+    public int page;
+    
+    public int perpage;
+    
+    public int total;
     
     /**
      * An array of the individual events returned by the search
      */
     public eventsList[] events;
+
+   
 
     /**
      * A wrapper for an individual event within the search results
