@@ -16,7 +16,7 @@ import sessionbuddy.wrappers.granularobjects.Venue;
  * @author Colman O'B
  * @since 2018-01-28
  */
-public class LocationResultEvents
+public class LocationResultSingleEvent
 {
     /**
      * General details relating to the event
@@ -70,7 +70,7 @@ public class LocationResultEvents
      * @param area a populated Area object
      * @param country a populated country object
      */
-    public LocationResultEvents(EventDetails details, User user, Schedule schedule, Coordinates coordinates, Venue venue, Town town, Area area, Country country)
+    public LocationResultSingleEvent(EventDetails details, User user, Schedule schedule, Coordinates coordinates, Venue venue, Town town, Area area, Country country)
     {
         this.eventDetails = details;
         this.user = user;

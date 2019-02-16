@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import sessionbuddy.LocationSearch;
-import sessionbuddy.wrappers.individualresults.LocationResultEvents;
+import sessionbuddy.wrappers.individualresults.LocationResultSingleEvent;
 
 
 public class Test_SearchByLocation_Events {
@@ -20,7 +20,7 @@ public class Test_SearchByLocation_Events {
       LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage);
 
       // Call the searchEvents method
-      ArrayList<LocationResultEvents> resultSet = search.searchEvents();
+      ArrayList<LocationResultSingleEvent> resultSet = search.searchEvents();
 
       // Loop through the results and print each attribute of each individual result in the set
       for (int i = 0; i < resultSet.size(); i++) {

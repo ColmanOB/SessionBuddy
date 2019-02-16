@@ -2,9 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import sessionbuddy.MemberContributionSearch;
-import sessionbuddy.wrappers.individualresults.SearchResultDiscussions;
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussionsLatest;
 
 /**
@@ -33,38 +31,28 @@ class Test_RetrieveMemberContributions_Discussions
             // Pass in the search parameters
             SearchResultDiscussionsLatest resultSet = MemberContributionSearch.listDiscussions(userID, resultsPerPage);
 
-            // Loop through the results and print each attribute of each
-            // individual result in the set
+            // Loop through the results and print each attribute of each individual result in the set
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
-                System.out.println("Discussion ID: "
-                        + resultSet.get(i).discussionDetails.discussionID);
-                System.out.println("Discussion Title: "
-                        + resultSet.get(i).discussionDetails.discussionName);
-                System.out.println("Date Submitted: "
-                        + resultSet.get(i).discussionDetails.submittedDate);
-                System.out.println("Discussion URL: "
-                        + resultSet.get(i).discussionDetails.discussionURL);
+                System.out.println("Discussion ID: " + resultSet.searchResults.get(i).discussionDetails.discussionID);
+                System.out.println("Discussion Title: " + resultSet.searchResults.get(i).discussionDetails.discussionName);
+                System.out.println("Date Submitted: " + resultSet.searchResults.get(i).discussionDetails.submittedDate);
+                System.out.println("Discussion URL: " + resultSet.searchResults.get(i).discussionDetails.discussionURL);
                 /*
-                 * The comment count is not returned when searching by member
-                 * contribution
-                 * System.out.println(resultSet.get(i).details.numberOfComments)
-                 * ;
+                 * The comment count is not returned when searching by member contribution
+                 * System.out.println(resultSet.get(i).details.numberOfComments);
                  */
 
-                System.out.println("User ID: " + resultSet.get(i).user.userID);
-                System.out
-                        .println("Username: " + resultSet.get(i).user.userName);
-                System.out.println(
-                        "User Profile Page: " + resultSet.get(i).user.userURL);
+                System.out.println("User ID: " + resultSet.searchResults.get(i).submitter.userID);
+                System.out.println("Username: " + resultSet.searchResults.get(i).submitter.userName);
+                System.out.println("User Profile Page: " + resultSet.searchResults.get(i).submitter.userURL);
 
                 System.out.println("\n");
             }
         }
 
         catch (IllegalArgumentException | IOException e)
-        // Catch any cases where an invalid number of results per page has been
-        // specified
+        // Catch any cases where an invalid number of results per page has been specified
         {
             System.out.println(e.getMessage());
         }

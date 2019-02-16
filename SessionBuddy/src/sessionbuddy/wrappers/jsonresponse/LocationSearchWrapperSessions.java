@@ -30,12 +30,16 @@ public class LocationSearchWrapperSessions
     /**
      * Number of pages in the result set
      */
-    public String pages;
+    public int pages;
     
     /**
      * Current page number within the result set
      */
-    public String page;
+    public int page;
+    
+    public int perpage;
+    
+    public int total;
     
     /**
      * An array of the individual sessions returned

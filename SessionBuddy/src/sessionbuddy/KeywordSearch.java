@@ -64,6 +64,16 @@ import sessionbuddy.wrappers.resultsets.SearchResultTrips;
  */
 public class KeywordSearch extends Search
 {   
+    /**
+     * @param searchTerms
+     * @param resultsPerPage
+     * @param pageNumber
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public static SearchResultTunes searchTunes(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
         try
@@ -83,6 +93,15 @@ public class KeywordSearch extends Search
         }
     } 
     
+    /**
+     * @param searchTerms
+     * @param resultsPerPage
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public static SearchResultTunes searchTunes(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
         try
@@ -102,6 +121,16 @@ public class KeywordSearch extends Search
         }
     }
     
+    /**
+     * @param searchTerms
+     * @param resultsPerPage
+     * @param pageNumber
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public static SearchResultDiscussions searchDiscussions(String searchTerms, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
         try
@@ -122,6 +151,15 @@ public class KeywordSearch extends Search
         }
     }
     
+    /**
+     * @param searchTerms
+     * @param resultsPerPage
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public static SearchResultDiscussions searchDiscussions(String searchTerms, int resultsPerPage) throws IllegalArgumentException, IllegalStateException, IOException, URISyntaxException
     {
         try

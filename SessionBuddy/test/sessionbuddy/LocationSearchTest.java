@@ -8,8 +8,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import org.junit.Test;
 
-import sessionbuddy.wrappers.individualresults.LocationResultEvents;
-import sessionbuddy.wrappers.individualresults.LocationResultSessions;
+import sessionbuddy.wrappers.individualresults.LocationResultSingleEvent;
+import sessionbuddy.wrappers.individualresults.LocationResultSingleSession;
 import sessionbuddy.wrappers.individualresults.SearchResultTrips;
 
 /**
@@ -44,7 +44,7 @@ public class LocationSearchTest
         {
             LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage, pageNumber);
 
-            ArrayList<LocationResultSessions> resultSet = search.searchSessions();
+            ArrayList<LocationResultSingleSession> resultSet = search.searchSessions();
 
             for (int i = 0; i < resultSet.size(); i++)
             {
@@ -76,7 +76,7 @@ public class LocationSearchTest
         {
             LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage);
 
-            ArrayList<LocationResultSessions> resultSet = search.searchSessions();
+            ArrayList<LocationResultSingleSession> resultSet = search.searchSessions();
 
             for (int i = 0; i < resultSet.size(); i++)
             {
@@ -109,7 +109,7 @@ public class LocationSearchTest
         {
             LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage, pageNumber);
 
-            ArrayList<LocationResultEvents> resultSet = search.searchEvents();
+            ArrayList<LocationResultSingleEvent> resultSet = search.searchEvents();
 
             for (int i = 0; i < resultSet.size(); i++)
             {
@@ -149,7 +149,7 @@ public class LocationSearchTest
         {
             LocationSearch search = new LocationSearch(latitude, longitude, radius, resultsPerPage);
 
-            ArrayList<LocationResultEvents> resultSet = search.searchEvents();
+            ArrayList<LocationResultSingleEvent> resultSet = search.searchEvents();
 
             for (int i = 0; i < resultSet.size(); i++)
             {

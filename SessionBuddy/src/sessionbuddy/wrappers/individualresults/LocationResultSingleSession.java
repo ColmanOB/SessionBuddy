@@ -15,7 +15,7 @@ import sessionbuddy.wrappers.granularobjects.Venue;
  * @author Colman O'B
  * @since 2018-01-28
  */
-public class LocationResultSessions
+public class LocationResultSingleSession
 {
     /**
      * General information about the session
@@ -63,7 +63,7 @@ public class LocationResultSessions
      * @param area an already-populated Area object
      * @param country an already-populated Country object
      */
-    public LocationResultSessions(SessionDetails details, Coordinates coordinates, User user, Venue venue, Town town, Area area, Country country)
+    public LocationResultSingleSession(SessionDetails details, Coordinates coordinates, User user, Venue venue, Town town, Area area, Country country)
     {
         this.sessionDetails = details;
         this.coordinates = coordinates;
