@@ -56,25 +56,6 @@ public class Nearby
      * @since 2018-03-11
      */
     
-/*    public static LocationResultSessions searchSessions(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
-    {
-        try
-        {
-            PageCountValidator.validate(resultsPerPage);
-            DataCategory dataCategory = DataCategory.sessions;
-            validateCoordinates(latitude, longitude, radius);
-            // Query the API
-            String response = HttpRequestor.submitRequest(composeURL(dataCategory, latitude, longitude, radius, resultsPerPage, pageNumber));
-            // Parse the JSON response
-            LocationSearchWrapperSessions parsedResults = JsonParser.parseResponse(response, LocationSearchWrapperSessions.class);
-            // Return the data retrieved from the API
-            return populateSessionsByLocationResult(parsedResults);
-        }
-        catch (IllegalArgumentException | IOException | IllegalStateException | URISyntaxException ex)
-        {
-            throw ex;
-        }
-    } */
     
     public static LocationResultSessions searchSessions(String latitude, String longitude, String radius, int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, IllegalStateException, URISyntaxException
     {
