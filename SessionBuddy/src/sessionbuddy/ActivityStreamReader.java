@@ -14,8 +14,8 @@ import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.URLComposer;
 import sessionbuddy.wrappers.granularobjects.ActivityStreamDetails;
 import sessionbuddy.wrappers.granularobjects.ActivityStreamObject;
-import sessionbuddy.wrappers.individualresults.ActivityStreamResult;
 import sessionbuddy.wrappers.jsonresponse.ActivityStreamWrapper;
+import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
 
 /**
  * Queries the API at thesession.org for an activity stream

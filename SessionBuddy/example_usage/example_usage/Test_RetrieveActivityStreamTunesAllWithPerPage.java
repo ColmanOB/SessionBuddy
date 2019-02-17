@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import sessionbuddy.ActivityStreamReader;
 import sessionbuddy.utils.DataCategory;
-import sessionbuddy.wrappers.individualresults.ActivityStreamResult;
+import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
 
 class Test_RetrieveActivityStreamTunesAllWithPerPage
 {

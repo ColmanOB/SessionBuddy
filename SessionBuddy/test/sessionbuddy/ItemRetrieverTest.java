@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import org.junit.Test;
 
-import sessionbuddy.wrappers.individualresults.ItemResultDiscussion;
-import sessionbuddy.wrappers.individualresults.ItemResultEvent;
-import sessionbuddy.wrappers.individualresults.ItemResultRecording;
-import sessionbuddy.wrappers.individualresults.ItemResultSession;
-import sessionbuddy.wrappers.individualresults.ItemResultTrip;
-import sessionbuddy.wrappers.individualresults.ItemResultTune;
+import sessionbuddy.wrappers.resultsets.ItemResultDiscussion;
+import sessionbuddy.wrappers.resultsets.ItemResultEvent;
+import sessionbuddy.wrappers.resultsets.ItemResultRecording;
+import sessionbuddy.wrappers.resultsets.ItemResultSession;
+import sessionbuddy.wrappers.resultsets.ItemResultTrip;
+import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
 /**
  * Unit tests for the ItemRetriever class

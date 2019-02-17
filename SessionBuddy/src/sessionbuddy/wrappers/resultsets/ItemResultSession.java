@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.individualresults;
+package sessionbuddy.wrappers.resultsets;
 
 import java.util.ArrayList;
 import sessionbuddy.wrappers.granularobjects.Area;

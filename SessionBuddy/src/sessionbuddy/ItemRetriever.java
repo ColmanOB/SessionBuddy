@@ -31,18 +31,18 @@ import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
-import sessionbuddy.wrappers.individualresults.ItemResultDiscussion;
-import sessionbuddy.wrappers.individualresults.ItemResultEvent;
-import sessionbuddy.wrappers.individualresults.ItemResultRecording;
-import sessionbuddy.wrappers.individualresults.ItemResultSession;
-import sessionbuddy.wrappers.individualresults.ItemResultTrip;
-import sessionbuddy.wrappers.individualresults.ItemResultTune;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperDiscussion;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperEvent;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperRecording;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperSession;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperTrip;
 import sessionbuddy.wrappers.jsonresponse.ItemWrapperTune;
+import sessionbuddy.wrappers.resultsets.ItemResultDiscussion;
+import sessionbuddy.wrappers.resultsets.ItemResultEvent;
+import sessionbuddy.wrappers.resultsets.ItemResultRecording;
+import sessionbuddy.wrappers.resultsets.ItemResultSession;
+import sessionbuddy.wrappers.resultsets.ItemResultTrip;
+import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
 /**
  * Retrieves the data for a single item from the session.org. 
