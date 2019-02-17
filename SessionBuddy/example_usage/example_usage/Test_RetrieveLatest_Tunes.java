@@ -3,7 +3,7 @@ package example_usage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import sessionbuddy.Recent;
-import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
+import sessionbuddy.wrappers.resultsets.RecentResultTunes;
 
 
 class Test_RetrieveLatest_Tunes {
@@ -13,7 +13,7 @@ class Test_RetrieveLatest_Tunes {
       int resultsPerPage = 50;
 
       // Perform the search by calling the listTunes method on the Recent object
-      SearchResultTunesLatest resultSet = Recent.listTunes(resultsPerPage);
+      RecentResultTunes resultSet = Recent.listTunes(resultsPerPage);
 
 
       // Loop through the results and print each attribute of each individual result in the set

@@ -3,7 +3,7 @@ package example_usage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import sessionbuddy.Recent;
-import sessionbuddy.wrappers.resultsets.SearchResultEventsLatest;
+import sessionbuddy.wrappers.resultsets.RecentResultEvents;
 
 class Test_RetrieveLatest_Events_with_Pagination
 {
@@ -17,7 +17,7 @@ class Test_RetrieveLatest_Events_with_Pagination
             int pageNumber = 2;
 
             // Call the listEvents() static method
-            SearchResultEventsLatest resultSet = Recent.listEvents(resultsPerPage, pageNumber);
+            RecentResultEvents resultSet = Recent.listEvents(resultsPerPage, pageNumber);
 
             // Loop through the results and print attributes of each individual
             // result in the set

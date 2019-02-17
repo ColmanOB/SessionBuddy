@@ -42,7 +42,7 @@ import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperSessions;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperTunes;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTrips;
-import sessionbuddy.wrappers.responsemetadata.KeywordSearchResultHeaders;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeadersKeywordSearch;
 import sessionbuddy.wrappers.resultsets.SearchResultTunes;
 import sessionbuddy.wrappers.resultsets.SearchResultEvents;
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussions;
@@ -369,7 +369,7 @@ public class KeywordSearch
     private static SearchResultTunes populateTunesSearchResult(KeywordSearchWrapperTunes parsedResults)
     {
         // Capture the metadata for the search results
-        KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersKeywordSearch headers = new ResponseHeadersKeywordSearch(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Tune> resultSet = new ArrayList<Tune>();
@@ -410,7 +410,7 @@ public class KeywordSearch
     private static SearchResultDiscussions populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
     {
         // Capture the metadata for the search results
-        KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersKeywordSearch headers = new ResponseHeadersKeywordSearch(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Discussion> resultSet = new ArrayList<Discussion>();
@@ -444,7 +444,7 @@ public class KeywordSearch
     private static SearchResultEvents populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)
     {
         // Capture the metadata for the search results
-        KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersKeywordSearch headers = new ResponseHeadersKeywordSearch(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Event> resultSet = new ArrayList<Event>();
@@ -506,7 +506,7 @@ public class KeywordSearch
     {
         ArrayList<Recording> resultSet = new ArrayList<Recording>();
         // Capture the metadata for the search results
-        KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersKeywordSearch headers = new ResponseHeadersKeywordSearch(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // Loop as many times as the count of recordings in the result set:
         for (int i = 0; i < (parsedResults.recordings.length); i++)
@@ -541,7 +541,7 @@ public class KeywordSearch
     {
         ArrayList<Session> resultSet = new ArrayList<Session>();
         // Capture the metadata for the search results
-        KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersKeywordSearch headers = new ResponseHeadersKeywordSearch(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // Loop as many times as the count of sessions in the result set:
         for (int i = 0; i < (parsedResults.sessions.length); i++)
@@ -592,7 +592,7 @@ public class KeywordSearch
     {
         ArrayList<Trip> resultSet = new ArrayList<Trip>();
         // Capture the metadata for the search results
-        KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersKeywordSearch headers = new ResponseHeadersKeywordSearch(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // Loop as many times as the count of trips in the result set:
         for (int i = 0; i < parsedResults.trips.length; i++)

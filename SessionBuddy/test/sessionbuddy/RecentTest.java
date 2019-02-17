@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import org.junit.Test;
 
-import sessionbuddy.wrappers.resultsets.SearchResultDiscussionsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultEventsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultRecordingsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultSessionsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultTripsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
+import sessionbuddy.wrappers.resultsets.RecentResultDiscussions;
+import sessionbuddy.wrappers.resultsets.RecentResultEvents;
+import sessionbuddy.wrappers.resultsets.RecentResultRecordings;
+import sessionbuddy.wrappers.resultsets.RecentResultSessions;
+import sessionbuddy.wrappers.resultsets.RecentResultTrips;
+import sessionbuddy.wrappers.resultsets.RecentResultTunes;
 
 /**
  * Unit tests for the Recent class
@@ -40,7 +40,7 @@ public class RecentTest
         
         try
         {
-            SearchResultTunesLatest resultSet = Recent.listTunes(resultsPerPage);
+            RecentResultTunes resultSet = Recent.listTunes(resultsPerPage);
             
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -74,7 +74,7 @@ public class RecentTest
 
         try
         {
-            SearchResultTunesLatest resultSet = Recent.listTunes(resultsPerPage, pageNumber);
+            RecentResultTunes resultSet = Recent.listTunes(resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -107,7 +107,7 @@ public class RecentTest
         
         try
         {
-            SearchResultDiscussionsLatest resultSet = Recent.listDiscussions(resultsPerPage);
+            RecentResultDiscussions resultSet = Recent.listDiscussions(resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -137,7 +137,7 @@ public class RecentTest
         
         try
         {
-            SearchResultDiscussionsLatest resultSet = Recent.listDiscussions(resultsPerPage, pageNumber);
+            RecentResultDiscussions resultSet = Recent.listDiscussions(resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -166,7 +166,7 @@ public class RecentTest
         
         try
         {
-            SearchResultRecordingsLatest resultSet = Recent.listRecordings(resultsPerPage);
+            RecentResultRecordings resultSet = Recent.listRecordings(resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -199,7 +199,7 @@ public class RecentTest
 
         try
         {
-            SearchResultRecordingsLatest resultSet = Recent.listRecordings(resultsPerPage, pageNumber);
+            RecentResultRecordings resultSet = Recent.listRecordings(resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -231,7 +231,7 @@ public class RecentTest
         
         try
         {
-            SearchResultSessionsLatest resultSet = Recent.listSessions(resultsPerPage);
+            RecentResultSessions resultSet = Recent.listSessions(resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -267,7 +267,7 @@ public class RecentTest
         
         try
         {
-            SearchResultSessionsLatest resultSet = Recent.listSessions(resultsPerPage, pageNumber);
+            RecentResultSessions resultSet = Recent.listSessions(resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -302,7 +302,7 @@ public class RecentTest
 
         try
         {
-            SearchResultEventsLatest resultSet = Recent.listEvents(resultsPerPage);
+            RecentResultEvents resultSet = Recent.listEvents(resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -346,7 +346,7 @@ public class RecentTest
 
         try
         {
-            SearchResultEventsLatest resultSet = Recent.listEvents(resultsPerPage, pageNumber);
+            RecentResultEvents resultSet = Recent.listEvents(resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -389,7 +389,7 @@ public class RecentTest
 
         try
         {
-            SearchResultTripsLatest resultSet = Recent.listTrips(resultsPerPage);
+            RecentResultTrips resultSet = Recent.listTrips(resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -421,7 +421,7 @@ public class RecentTest
 
         try
         {
-            SearchResultTripsLatest resultSet = Recent.listTrips(resultsPerPage, pageNumber);
+            RecentResultTrips resultSet = Recent.listTrips(resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {

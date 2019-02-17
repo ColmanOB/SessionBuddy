@@ -3,7 +3,7 @@ package example_usage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import sessionbuddy.Recent;
-import sessionbuddy.wrappers.resultsets.SearchResultDiscussionsLatest;
+import sessionbuddy.wrappers.resultsets.RecentResultDiscussions;
 
 /**
  * Example usage of the searchDiscussions method of RetrieveLatest class to
@@ -28,7 +28,7 @@ class Test_RetrieveLatest_Discussions
         try
         {
             // Call the listDiscussions() method on the Recent object
-            SearchResultDiscussionsLatest resultSet = Recent.listDiscussions(resultsPerPage);
+            RecentResultDiscussions resultSet = Recent.listDiscussions(resultsPerPage);
 
             // Loop through the results and print each attribute of each
             // individual result in the set

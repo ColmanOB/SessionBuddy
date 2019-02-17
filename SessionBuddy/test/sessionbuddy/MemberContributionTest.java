@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import org.junit.Test;
 
-import sessionbuddy.wrappers.resultsets.SearchResultDiscussionsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultEventsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultRecordingsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultSessionsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultSetsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
+import sessionbuddy.wrappers.resultsets.RecentResultDiscussions;
+import sessionbuddy.wrappers.resultsets.RecentResultEvents;
+import sessionbuddy.wrappers.resultsets.RecentResultRecordings;
+import sessionbuddy.wrappers.resultsets.RecentResultSessions;
+import sessionbuddy.wrappers.resultsets.RecentResultSets;
+import sessionbuddy.wrappers.resultsets.RecentResultTunes;
 
 /**
  * Unit tests for the MemberContribution class
@@ -41,7 +41,7 @@ public class MemberContributionTest
 
         try
         {
-            SearchResultTunesLatest resultSet = MemberContribution.listTunes(userID, resultsPerPage, pageNumber);
+            RecentResultTunes resultSet = MemberContribution.listTunes(userID, resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -75,7 +75,7 @@ public class MemberContributionTest
 
         try
         {
-            SearchResultTunesLatest resultSet = MemberContribution.listTunes(userID, resultsPerPage);
+            RecentResultTunes resultSet = MemberContribution.listTunes(userID, resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -110,7 +110,7 @@ public class MemberContributionTest
 
         try
         {
-            SearchResultRecordingsLatest resultSet = MemberContribution.listRecordings(userID, resultsPerPage, pageNumber);
+            RecentResultRecordings resultSet = MemberContribution.listRecordings(userID, resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -143,7 +143,7 @@ public class MemberContributionTest
 
         try
         {
-            SearchResultRecordingsLatest resultSet = MemberContribution.listRecordings(userID, resultsPerPage);
+            RecentResultRecordings resultSet = MemberContribution.listRecordings(userID, resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -177,7 +177,7 @@ public class MemberContributionTest
 
         try
         {
-            SearchResultSessionsLatest resultSet = MemberContribution.listSessions(userID, resultsPerPage, pageNumber);
+            RecentResultSessions resultSet = MemberContribution.listSessions(userID, resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -213,7 +213,7 @@ public class MemberContributionTest
 
         try
         {
-            SearchResultSessionsLatest resultSet = MemberContribution.listSessions(userID, resultsPerPage);
+            RecentResultSessions resultSet = MemberContribution.listSessions(userID, resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -250,7 +250,7 @@ public class MemberContributionTest
 
         try
         {
-            SearchResultEventsLatest resultSet = MemberContribution.listEvents(userID, resultsPerPage, pageNumber);
+            RecentResultEvents resultSet = MemberContribution.listEvents(userID, resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -294,7 +294,7 @@ public class MemberContributionTest
 
         try
         {
-            SearchResultEventsLatest resultSet = MemberContribution.listEvents(userID, resultsPerPage);
+            RecentResultEvents resultSet = MemberContribution.listEvents(userID, resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -339,7 +339,7 @@ public class MemberContributionTest
 
         try
         {
-            SearchResultDiscussionsLatest resultSet = MemberContribution.listDiscussions(userID, resultsPerPage, pageNumber);
+            RecentResultDiscussions resultSet = MemberContribution.listDiscussions(userID, resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -368,7 +368,7 @@ public class MemberContributionTest
 
         try
         {
-            SearchResultDiscussionsLatest resultSet = MemberContribution.listDiscussions(userID, resultsPerPage);
+            RecentResultDiscussions resultSet = MemberContribution.listDiscussions(userID, resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -398,7 +398,7 @@ public class MemberContributionTest
 
         try
         {
-            SearchResultSetsLatest resultSet = MemberContribution.listSets(userID, resultsPerPage, pageNumber);
+            RecentResultSets resultSet = MemberContribution.listSets(userID, resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -428,7 +428,7 @@ public class MemberContributionTest
         try
         {
 
-            SearchResultSetsLatest resultSet = MemberContribution.listSets(userID, resultsPerPage);
+            RecentResultSets resultSet = MemberContribution.listSets(userID, resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {

@@ -23,24 +23,24 @@ public class Test_SearchByLocation_Events_with_Pagination
 
             // Loop through the results and print each attribute of each
             // individual result in the set
-            for (int i = 0; i < resultSet.searchResults.size(); i++)
+            for (int i = 0; i < resultSet.results.size(); i++)
             {
-                System.out.println(resultSet.searchResults.get(i).eventDetails.eventID);
-                System.out.println(resultSet.searchResults.get(i).eventDetails.eventName);
-                System.out.println(resultSet.searchResults.get(i).eventDetails.eventURL);
+                System.out.println(resultSet.results.get(i).eventDetails.eventID);
+                System.out.println(resultSet.results.get(i).eventDetails.eventName);
+                System.out.println(resultSet.results.get(i).eventDetails.eventURL);
 
-                System.out.println(resultSet.searchResults.get(i).user.userID);
-                System.out.println(resultSet.searchResults.get(i).user.userName);
-                System.out.println(resultSet.searchResults.get(i).user.userURL);
+                System.out.println(resultSet.results.get(i).user.userID);
+                System.out.println(resultSet.results.get(i).user.userName);
+                System.out.println(resultSet.results.get(i).user.userURL);
 
-                System.out.println(resultSet.searchResults.get(i).venue.venueID);
-                System.out.println(resultSet.searchResults.get(i).venue.venueName);
-                System.out.println(resultSet.searchResults.get(i).venue.venueEmail);
-                System.out.println(resultSet.searchResults.get(i).venue.venuePhone);
+                System.out.println(resultSet.results.get(i).venue.venueID);
+                System.out.println(resultSet.results.get(i).venue.venueName);
+                System.out.println(resultSet.results.get(i).venue.venueEmail);
+                System.out.println(resultSet.results.get(i).venue.venuePhone);
 
-                System.out.println(resultSet.searchResults.get(i).town.townName);
+                System.out.println(resultSet.results.get(i).town.townName);
 
-                System.out.println(resultSet.searchResults.get(i).country.countryName);
+                System.out.println(resultSet.results.get(i).country.countryName);
 
                 System.out.println("\n");
             }

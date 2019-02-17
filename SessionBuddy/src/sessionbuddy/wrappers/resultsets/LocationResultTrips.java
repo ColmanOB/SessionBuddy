@@ -3,18 +3,18 @@ package sessionbuddy.wrappers.resultsets;
 import java.util.ArrayList;
 
 import sessionbuddy.wrappers.individualresults.Trip;
-import sessionbuddy.wrappers.responsemetadata.LocationSearchResultHeaders;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeadersLocation;
 
 public class LocationResultTrips
 {
 
-    public LocationSearchResultHeaders responseHeaders;
+    public ResponseHeadersLocation headers;
     
-    public ArrayList<Trip> searchResults;
+    public ArrayList<Trip> results;
     
-    public LocationResultTrips(LocationSearchResultHeaders responseHeaders, ArrayList<Trip> searchResults)
+    public LocationResultTrips(ResponseHeadersLocation responseHeaders, ArrayList<Trip> searchResults)
     {   
-        this.responseHeaders = responseHeaders;
-        this.searchResults = searchResults;
+        this.headers = responseHeaders;
+        this.results = searchResults;
     }
 }

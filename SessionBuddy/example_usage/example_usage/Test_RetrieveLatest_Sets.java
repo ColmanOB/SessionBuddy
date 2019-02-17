@@ -3,7 +3,7 @@ package example_usage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import sessionbuddy.Sets;
-import sessionbuddy.wrappers.resultsets.SearchResultSetsLatest;
+import sessionbuddy.wrappers.resultsets.RecentResultSets;
 
 class Test_RetrieveLatest_Sets
 {
@@ -15,7 +15,7 @@ class Test_RetrieveLatest_Sets
             int resultsPerPage = 50;
 
             // Perform the search by calling the listSets method on Sets
-            SearchResultSetsLatest resultSet = Sets.listSets(resultsPerPage);
+            RecentResultSets resultSet = Sets.listSets(resultsPerPage);
 
             // Loop through the results and print each attribute of each
             // individual result in the set

@@ -3,7 +3,7 @@ package example_usage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import sessionbuddy.MemberContribution;
-import sessionbuddy.wrappers.resultsets.SearchResultEventsLatest;
+import sessionbuddy.wrappers.resultsets.RecentResultEvents;
 
 class Test_RetrieveMemberContributions_Events
 {
@@ -16,7 +16,7 @@ class Test_RetrieveMemberContributions_Events
             int userID = 1;
 
             // Call the listEvents() method
-            SearchResultEventsLatest resultSet = MemberContribution.listEvents(userID, resultsPerPage);
+            RecentResultEvents resultSet = MemberContribution.listEvents(userID, resultsPerPage);
 
             // Loop through the results and print attributes of each individual result in the set
             for (int i = 0; i < resultSet.searchResults.size(); i++)

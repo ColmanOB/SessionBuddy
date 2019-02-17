@@ -16,8 +16,8 @@ import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.individualresults.Set;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperSets;
-import sessionbuddy.wrappers.responsemetadata.LatestSearchResultHeaders;
-import sessionbuddy.wrappers.resultsets.SearchResultSetsLatest;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeadersLatest;
+import sessionbuddy.wrappers.resultsets.RecentResultSets;
 
 /**
  * Retrieves a list of user-added sets of tunes
@@ -27,7 +27,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultSetsLatest;
  */
 public class Sets
 {    
-    public static SearchResultSetsLatest listSets(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultSets listSets(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -45,7 +45,7 @@ public class Sets
         }
     }
     
-    public static SearchResultSetsLatest listSets(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultSets listSets(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -72,10 +72,10 @@ public class Sets
      * @author Colman
      * @since 2018-02-17
      */
-    private static SearchResultSetsLatest populateSetSearchResult(LatestWrapperSets parsedResults)
+    private static RecentResultSets populateSetSearchResult(LatestWrapperSets parsedResults)
     {
         // Capture the metadata for the search results
-        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Set> resultSet = new ArrayList<Set>();
@@ -99,7 +99,7 @@ public class Sets
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
-        SearchResultSetsLatest searchResult = new SearchResultSetsLatest(headers, resultSet);
+        RecentResultSets searchResult = new RecentResultSets(headers, resultSet);
         return searchResult;
     }
 

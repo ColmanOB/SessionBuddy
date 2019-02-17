@@ -3,7 +3,7 @@ package example_usage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import sessionbuddy.Recent;
-import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
+import sessionbuddy.wrappers.resultsets.RecentResultTunes;
 
 class Test_RetrieveLatest_Tunes_with_Pagination {
   public static void main(String[] args) {
@@ -13,7 +13,7 @@ class Test_RetrieveLatest_Tunes_with_Pagination {
       int pageNumber = 2;
 
       // Perform the search by calling the listTunes method on the Recent object
-      SearchResultTunesLatest resultSet = Recent.listTunes(resultsPerPage, pageNumber);
+      RecentResultTunes resultSet = Recent.listTunes(resultsPerPage, pageNumber);
 
       // Loop through the results and print each attribute of each individual result in the set
       for (int i = 0; i < resultSet.searchResults.size(); i++) {

@@ -40,13 +40,13 @@ import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperSessions;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTrips;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTunes;
-import sessionbuddy.wrappers.responsemetadata.LatestSearchResultHeaders;
-import sessionbuddy.wrappers.resultsets.SearchResultDiscussionsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultEventsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultRecordingsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultSessionsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultTripsLatest;
-import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeadersLatest;
+import sessionbuddy.wrappers.resultsets.RecentResultDiscussions;
+import sessionbuddy.wrappers.resultsets.RecentResultEvents;
+import sessionbuddy.wrappers.resultsets.RecentResultRecordings;
+import sessionbuddy.wrappers.resultsets.RecentResultSessions;
+import sessionbuddy.wrappers.resultsets.RecentResultTrips;
+import sessionbuddy.wrappers.resultsets.RecentResultTunes;
 
 /**
  * Contains a number of static methods to retrieves a list of 
@@ -65,12 +65,12 @@ public class Recent
      *
      * @param resultsPerPage the number of search results to be retrieved per page in the response from the API
      * @param pageNumber the page number to be retrieved, in a multi-page response from the API
-     * @return a SearchResultTunesLatest object, containing all of the data returned in response to the API query
+     * @return a RecentResultTunes object, containing all of the data returned in response to the API query
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
      * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
      */
-    public static SearchResultTunesLatest listTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultTunes listTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -95,12 +95,12 @@ public class Recent
      * the first page of the API response.
      *
      * @param resultsPerPage the number of search results to be retrieved per page in the response from the API
-     * @return a SearchResultTunesLatest object, containing all of the data returned in response to the API query
+     * @return a RecentResultTunes object, containing all of the data returned in response to the API query
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
      * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
      */
-    public static SearchResultTunesLatest listTunes(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultTunes listTunes(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -126,7 +126,7 @@ public class Recent
      * @throws IOException
      * @throws URISyntaxException
      */
-    public static SearchResultDiscussionsLatest listDiscussions(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultDiscussions listDiscussions(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -145,7 +145,7 @@ public class Recent
         }
     }
     
-    public static SearchResultDiscussionsLatest listDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultDiscussions listDiscussions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -176,7 +176,7 @@ public class Recent
      * @author Colman
      * @since 2018-04-01
      */
-    public static SearchResultRecordingsLatest listRecordings(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultRecordings listRecordings(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -195,7 +195,7 @@ public class Recent
         }
     }
     
-    public static SearchResultRecordingsLatest listRecordings(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultRecordings listRecordings(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -226,7 +226,7 @@ public class Recent
      * @author Colman
      * @since 2018-04-01
      */
-    public static SearchResultSessionsLatest listSessions(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultSessions listSessions(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -245,7 +245,7 @@ public class Recent
         }
     }
 
-    public static SearchResultSessionsLatest listSessions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultSessions listSessions(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -264,7 +264,7 @@ public class Recent
         }
     }
 
-    public static SearchResultEventsLatest listEvents(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultEvents listEvents(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -283,7 +283,7 @@ public class Recent
         }
     }
     
-    public static SearchResultEventsLatest listEvents(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultEvents listEvents(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -332,7 +332,7 @@ public class Recent
         }
     } */
 
-    public static SearchResultTripsLatest listTrips(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultTrips listTrips(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -351,7 +351,7 @@ public class Recent
         }
     }
     
-    public static SearchResultTripsLatest listTrips(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+    public static RecentResultTrips listTrips(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
@@ -378,10 +378,10 @@ public class Recent
      * @author Colman
      * @since 201-02-10
      */
-    private static SearchResultTunesLatest populateTunesSearchResult(LatestWrapperTunes parsedResults)
+    private static RecentResultTunes populateTunesSearchResult(LatestWrapperTunes parsedResults)
     {
         // Capture the metadata for the search results
-        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<TuneLatest> resultSet = new ArrayList<TuneLatest>();
@@ -410,7 +410,7 @@ public class Recent
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
-        SearchResultTunesLatest searchResult = new SearchResultTunesLatest(headers, resultSet);
+        RecentResultTunes searchResult = new RecentResultTunes(headers, resultSet);
         return searchResult;
     }
 
@@ -423,10 +423,10 @@ public class Recent
      * @author Colman
      * @since 2018-02-10
      */
-    private static SearchResultDiscussionsLatest populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
+    private static RecentResultDiscussions populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
     {
         // Capture the metadata for the search results
-        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Discussion> resultSet = new ArrayList<Discussion>();
@@ -452,7 +452,7 @@ public class Recent
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
-        SearchResultDiscussionsLatest searchResult = new SearchResultDiscussionsLatest(headers, resultSet);
+        RecentResultDiscussions searchResult = new RecentResultDiscussions(headers, resultSet);
         return searchResult;
     }
 
@@ -465,10 +465,10 @@ public class Recent
      * @author Colman
      * @since 2018-02-10
      */
-    private static SearchResultRecordingsLatest populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)
+    private static RecentResultRecordings populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)
     {
         // Capture the metadata for the search results
-        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Recording> resultSet = new ArrayList<Recording>();
@@ -497,7 +497,7 @@ public class Recent
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
-        SearchResultRecordingsLatest searchResult = new SearchResultRecordingsLatest(headers, resultSet);
+        RecentResultRecordings searchResult = new RecentResultRecordings(headers, resultSet);
         return searchResult;
     }
 
@@ -510,10 +510,10 @@ public class Recent
      * @author Colman
      * @since 2018-02-10
      */
-    private static SearchResultSessionsLatest populateSessionsSearchResult(KeywordSearchWrapperSessions parsedResults)
+    private static RecentResultSessions populateSessionsSearchResult(KeywordSearchWrapperSessions parsedResults)
     {
         // Capture the metadata for the search results
-        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Session> resultSet = new ArrayList<Session>();
@@ -558,7 +558,7 @@ public class Recent
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
-        SearchResultSessionsLatest searchResult = new SearchResultSessionsLatest(headers, resultSet);
+        RecentResultSessions searchResult = new RecentResultSessions(headers, resultSet);
         return searchResult;
     }
 
@@ -571,10 +571,10 @@ public class Recent
      * @author Colman
      * @since 2018-02-10
      */
-    private static SearchResultEventsLatest populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)
+    private static RecentResultEvents populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)
     {
         // Capture the metadata for the search results
-        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Event> resultSet = new ArrayList<Event>();
@@ -625,7 +625,7 @@ public class Recent
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
-        SearchResultEventsLatest searchResult = new SearchResultEventsLatest(headers, resultSet);
+        RecentResultEvents searchResult = new RecentResultEvents(headers, resultSet);
         return searchResult;
     }
     
@@ -638,10 +638,10 @@ public class Recent
      * @author Colman
      * @since 2018-12-08
      */
-    private static SearchResultTripsLatest populateTripsSearchResult(LatestWrapperTrips parsedResults)
+    private static RecentResultTrips populateTripsSearchResult(LatestWrapperTrips parsedResults)
     {
         // Capture the metadata for the search results
-        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Trip> resultSet = new ArrayList<Trip>();
@@ -670,7 +670,7 @@ public class Recent
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
-        SearchResultTripsLatest searchResult = new SearchResultTripsLatest(headers, resultSet);
+        RecentResultTrips searchResult = new RecentResultTrips(headers, resultSet);
         return searchResult;
     }
     

@@ -3,7 +3,7 @@ package example_usage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import sessionbuddy.Recent;
-import sessionbuddy.wrappers.resultsets.SearchResultRecordingsLatest;
+import sessionbuddy.wrappers.resultsets.RecentResultRecordings;
 
 
 class Test_RetrieveLatest_Recordings_with_Pagination {
@@ -14,7 +14,7 @@ class Test_RetrieveLatest_Recordings_with_Pagination {
       int pageNumber = 2;
 
       // Call the listRecordings method on the Recent
-      SearchResultRecordingsLatest resultSet = Recent.listRecordings(resultsPerPage, pageNumber);
+      RecentResultRecordings resultSet = Recent.listRecordings(resultsPerPage, pageNumber);
 
       // Loop through the results and print each attribute of each individual result in the set
       for (int i = 0; i < resultSet.searchResults.size(); i++) {

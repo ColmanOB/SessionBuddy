@@ -3,16 +3,16 @@ package sessionbuddy.wrappers.resultsets;
 import java.util.ArrayList;
 
 import sessionbuddy.wrappers.individualresults.TuneLatest;
-import sessionbuddy.wrappers.responsemetadata.LatestSearchResultHeaders;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeadersLatest;
 
-public class SearchResultTunesLatest
+public class RecentResultTunes
 {
 
-    public LatestSearchResultHeaders responseHeaders;
+    public ResponseHeadersLatest responseHeaders;
     
     public ArrayList<TuneLatest> searchResults;
     
-    public SearchResultTunesLatest(LatestSearchResultHeaders responseHeaders, ArrayList<TuneLatest> searchResults)
+    public RecentResultTunes(ResponseHeadersLatest responseHeaders, ArrayList<TuneLatest> searchResults)
     {   
         this.responseHeaders = responseHeaders;
         this.searchResults = searchResults;
