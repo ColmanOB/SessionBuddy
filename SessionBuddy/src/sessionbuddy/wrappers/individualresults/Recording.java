@@ -14,7 +14,7 @@ import sessionbuddy.wrappers.granularobjects.User;
  * @author Colman O'B
  * @since 2018-01-28
  */
-public class SearchResultSingleRecording
+public class Recording
 {
     /**
      * General details relating to the recording
@@ -38,7 +38,7 @@ public class SearchResultSingleRecording
      * @param submitter an already-populated User object representing the recording submitter
      * @param artist an Artist object populated with the details of the recording artist/group
      */
-    public SearchResultSingleRecording(RecordingDetails recordingInfo, User submitter, Artist artist)
+    public Recording(RecordingDetails recordingInfo, User submitter, Artist artist)
     {
         this.recordingDetails = recordingInfo;
         this.submitter = submitter;

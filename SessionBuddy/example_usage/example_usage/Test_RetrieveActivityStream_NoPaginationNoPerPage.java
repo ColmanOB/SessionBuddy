@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import sessionbuddy.ActivityStreamReader;
+import sessionbuddy.ActivityStream;
 import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
 
 class Test_RetrieveActivityStream_NoPaginationNoPerPage
@@ -14,7 +14,7 @@ class Test_RetrieveActivityStream_NoPaginationNoPerPage
         try
         {
             // Get the activity stream
-            ArrayList<ActivityStreamResult> resultSet = ActivityStreamReader.readActivityStream();
+            ArrayList<ActivityStreamResult> resultSet = ActivityStream.readActivityStream();
 
             // Loop through the results and print each attribute of each
             // individual result in the set

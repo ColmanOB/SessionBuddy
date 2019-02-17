@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.LocationSearch;
+import sessionbuddy.Nearby;
 import sessionbuddy.wrappers.resultsets.LocationResultSessions;
 
 public class Test_SearchByLocation_Sessions_with_Pagination
@@ -18,12 +18,12 @@ public class Test_SearchByLocation_Sessions_with_Pagination
 
         try
         {
-            // Instantiate a LocationSearch object
-      /*      LocationSearch search = new LocationSearch(latitude, longitude,
+            // Instantiate a Nearby object
+      /*      Nearby search = new Nearby(latitude, longitude,
                     radius, resultsPerPage, pageNumber); */
 
-            // Call the searchSessions method on the LocationSearch object
-            LocationResultSessions resultSet = LocationSearch.searchSessions(latitude, longitude, radius, resultsPerPage, pageNumber);
+            // Call the searchSessions method on the Nearby object
+            LocationResultSessions resultSet = Nearby.searchSessions(latitude, longitude, radius, resultsPerPage, pageNumber);
 
             // Loop through the results and print each attribute of each
             // individual result in the set

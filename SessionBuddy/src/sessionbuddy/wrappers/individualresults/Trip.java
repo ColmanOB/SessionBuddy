@@ -11,7 +11,7 @@ import sessionbuddy.wrappers.granularobjects.User;
  * @since 2018-12-08
  *
  */
-public class SearchResultSingleTrip
+public class Trip
 {
     /**
      * Attributes of the trip itself
@@ -35,7 +35,7 @@ public class SearchResultSingleTrip
      * @param tripSchedule an already-populated Schedule object
      * @param submitter an already-populated User object
      */
-    public SearchResultSingleTrip(TripDetails details, Schedule tripSchedule, User submitter)
+    public Trip(TripDetails details, Schedule tripSchedule, User submitter)
     {
         this.tripDetails = details;
         this.tripSchedule = tripSchedule;

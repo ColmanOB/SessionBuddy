@@ -11,6 +11,7 @@ import org.apache.http.message.BasicNameValuePair;
 import sessionbuddy.utils.DataCategory;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
+import sessionbuddy.utils.PageCountValidator;
 import sessionbuddy.utils.RequestType;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.URLComposer;
@@ -29,12 +30,12 @@ import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
-import sessionbuddy.wrappers.individualresults.SearchResultSingleDiscussion;
-import sessionbuddy.wrappers.individualresults.SearchResultSingleEvent;
-import sessionbuddy.wrappers.individualresults.SearchResultSingleRecording;
-import sessionbuddy.wrappers.individualresults.SearchResultSingleSession;
-import sessionbuddy.wrappers.individualresults.SearchResultSingleTrip;
-import sessionbuddy.wrappers.individualresults.SearchResultSingleTune;
+import sessionbuddy.wrappers.individualresults.Discussion;
+import sessionbuddy.wrappers.individualresults.Event;
+import sessionbuddy.wrappers.individualresults.Recording;
+import sessionbuddy.wrappers.individualresults.Session;
+import sessionbuddy.wrappers.individualresults.Trip;
+import sessionbuddy.wrappers.individualresults.Tune;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperDiscussions;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
@@ -62,7 +63,7 @@ import sessionbuddy.wrappers.resultsets.SearchResultTrips;
  * @since 2019-01-27
  *
  */
-public class KeywordSearch extends Search
+public class KeywordSearch
 {   
     /**
      * @param searchTerms
@@ -78,7 +79,7 @@ public class KeywordSearch extends Search
     {
         try
         {            
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.tunes;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage, pageNumber));
@@ -106,7 +107,7 @@ public class KeywordSearch extends Search
     {
         try
         {            
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.tunes;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage));
@@ -135,7 +136,7 @@ public class KeywordSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.discussions;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage, pageNumber));
@@ -164,7 +165,7 @@ public class KeywordSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.discussions;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage));
@@ -197,7 +198,7 @@ public class KeywordSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.events;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage, pageNumber));
@@ -217,7 +218,7 @@ public class KeywordSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.events;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage));
@@ -237,7 +238,7 @@ public class KeywordSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.recordings;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage, pageNumber));
@@ -256,7 +257,7 @@ public class KeywordSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.recordings;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage));
@@ -287,7 +288,7 @@ public class KeywordSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.sessions;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage, pageNumber));
@@ -306,7 +307,7 @@ public class KeywordSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.sessions;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage));
@@ -325,7 +326,7 @@ public class KeywordSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.trips;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage, pageNumber));
@@ -344,7 +345,7 @@ public class KeywordSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.trips;
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, searchTerms, resultsPerPage));
@@ -371,7 +372,7 @@ public class KeywordSearch extends Search
         KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
-        ArrayList<SearchResultSingleTune> resultSet = new ArrayList<SearchResultSingleTune>();
+        ArrayList<Tune> resultSet = new ArrayList<Tune>();
         
         // Loop as many times as the count of tunes in the result set
         for (int i = 0; i < (parsedResults.tunes.length); i++)
@@ -392,7 +393,7 @@ public class KeywordSearch extends Search
                     parsedResults.tunes[i].member.url);
 
             // Put the individual search result into a wrapper object, and add to the larger result set
-            SearchResultSingleTune currentResult = new SearchResultSingleTune(details, submitter);
+            Tune currentResult = new Tune(details, submitter);
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
@@ -412,7 +413,7 @@ public class KeywordSearch extends Search
         KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
-        ArrayList<SearchResultSingleDiscussion> resultSet = new ArrayList<SearchResultSingleDiscussion>();
+        ArrayList<Discussion> resultSet = new ArrayList<Discussion>();
 
         // Loop as many times as the count of recordings in the result set:
         for (int i = 0; i < (parsedResults.discussions.length); i++)
@@ -431,7 +432,7 @@ public class KeywordSearch extends Search
                     parsedResults.discussions[i].member.url);
 
             // Put the individual search result into a wrapper object, and add to the larger result set
-            SearchResultSingleDiscussion currentResult = new SearchResultSingleDiscussion(details, user);
+            Discussion currentResult = new Discussion(details, user);
             resultSet.add(currentResult);
         }
         
@@ -446,7 +447,7 @@ public class KeywordSearch extends Search
         KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
-        ArrayList<SearchResultSingleEvent> resultSet = new ArrayList<SearchResultSingleEvent>();
+        ArrayList<Event> resultSet = new ArrayList<Event>();
 
 
         // Loop as many times as the count of events in the result set:
@@ -491,7 +492,7 @@ public class KeywordSearch extends Search
                     StringCleaner.cleanString(parsedResults.events[i].country.name));
 
             // Put the individual search result into a wrapper object, and add to the larger result set
-            SearchResultSingleEvent currentResult = new SearchResultSingleEvent(details, user, schedule, coordinates, venue, town, area, country);
+            Event currentResult = new Event(details, user, schedule, coordinates, venue, town, area, country);
             resultSet.add(currentResult);
         }
         
@@ -503,7 +504,7 @@ public class KeywordSearch extends Search
     // TODO: Needs Javadoc comment
     private static SearchResultRecordings populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)
     {
-        ArrayList<SearchResultSingleRecording> resultSet = new ArrayList<SearchResultSingleRecording>();
+        ArrayList<Recording> resultSet = new ArrayList<Recording>();
         // Capture the metadata for the search results
         KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
@@ -528,7 +529,7 @@ public class KeywordSearch extends Search
                     parsedResults.recordings[i].artist.url);
      
             // Put the individual search result into a wrapper object, and add to the larger result set
-            SearchResultSingleRecording currentResult = new SearchResultSingleRecording(details, user, artist);
+            Recording currentResult = new Recording(details, user, artist);
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
@@ -538,7 +539,7 @@ public class KeywordSearch extends Search
     
     private static SearchResultSessions populateSessionsSearchResult(KeywordSearchWrapperSessions parsedResults)
     {
-        ArrayList<SearchResultSingleSession> resultSet = new ArrayList<SearchResultSingleSession>();
+        ArrayList<Session> resultSet = new ArrayList<Session>();
         // Capture the metadata for the search results
         KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
@@ -579,7 +580,7 @@ public class KeywordSearch extends Search
                     StringCleaner.cleanString(parsedResults.sessions[i].country.name));
 
             // Put the individual search result into a wrapper object, and add to the larger result set
-            SearchResultSingleSession currentResult = new SearchResultSingleSession(details, coordinates, user, venue, town, area, country);
+            Session currentResult = new Session(details, coordinates, user, venue, town, area, country);
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
@@ -589,7 +590,7 @@ public class KeywordSearch extends Search
     
     private static SearchResultTrips populateTripsSearchResult(LatestWrapperTrips parsedResults)
     {
-        ArrayList<SearchResultSingleTrip> resultSet = new ArrayList<SearchResultSingleTrip>();
+        ArrayList<Trip> resultSet = new ArrayList<Trip>();
         // Capture the metadata for the search results
         KeywordSearchResultHeaders headers = new KeywordSearchResultHeaders(parsedResults.q, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
@@ -613,7 +614,7 @@ public class KeywordSearch extends Search
                     StringCleaner.cleanString(parsedResults.trips[i].member.name),
                     parsedResults.trips[i].member.url);
 
-            SearchResultSingleTrip currentResult = new SearchResultSingleTrip(details, tripSchedule, submitter);
+            Trip currentResult = new Trip(details, tripSchedule, submitter);
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned

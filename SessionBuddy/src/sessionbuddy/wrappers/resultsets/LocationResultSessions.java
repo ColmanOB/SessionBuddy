@@ -2,7 +2,7 @@ package sessionbuddy.wrappers.resultsets;
 
 import java.util.ArrayList;
 
-import sessionbuddy.wrappers.individualresults.LocationResultSingleSession;
+import sessionbuddy.wrappers.individualresults.Session;
 import sessionbuddy.wrappers.responsemetadata.LocationSearchResultHeaders;
 
 /**
@@ -18,9 +18,9 @@ public class LocationResultSessions
 {    
     public LocationSearchResultHeaders responseHeaders;
     
-    public ArrayList<LocationResultSingleSession> searchResults;
+    public ArrayList<Session> searchResults;
     
-    public LocationResultSessions(LocationSearchResultHeaders responseHeaders, ArrayList<LocationResultSingleSession> searchResults)
+    public LocationResultSessions(LocationSearchResultHeaders responseHeaders, ArrayList<Session> searchResults)
     {   
         this.responseHeaders = responseHeaders;
         this.searchResults = searchResults;

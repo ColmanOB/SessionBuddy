@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.MemberContributionSearch;
+import sessionbuddy.MemberContribution;
 import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
 
@@ -13,8 +13,8 @@ class Test_RetrieveMemberContributions_Tunes {
       int userID = 1;
       int resultsPerPage = 50;
 
-      // Perform the search by calling the getLatestTunes method on the LatestSearch object
-      SearchResultTunesLatest resultSet = MemberContributionSearch.listTunes(userID, resultsPerPage);
+      // Perform the search by calling the getLatestTunes method on the Recent object
+      SearchResultTunesLatest resultSet = MemberContribution.listTunes(userID, resultsPerPage);
 
       // Loop through the results and print each attribute of each individual result in the set
       for (int i = 0; i < resultSet.searchResults.size(); i++) {

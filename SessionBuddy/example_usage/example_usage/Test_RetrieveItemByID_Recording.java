@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.ItemRetriever;
+import sessionbuddy.IndividualItem;
 import sessionbuddy.wrappers.resultsets.ItemResultRecording;
 
 public class Test_RetrieveItemByID_Recording
@@ -13,7 +13,7 @@ public class Test_RetrieveItemByID_Recording
 
         try
         {
-            ItemResultRecording resultSet = ItemRetriever.getRecording(recordingID);
+            ItemResultRecording resultSet = IndividualItem.getRecording(recordingID);
             
             // Print out attributes of the Recording as a whole:
             System.out.println( "Recording ID: " + resultSet.recordingDetails.recordingID);

@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.LatestSearch;
+import sessionbuddy.Recent;
 import sessionbuddy.wrappers.resultsets.SearchResultTunesLatest;
 
 class Test_RetrieveLatest_Tunes_with_Pagination {
@@ -12,8 +12,8 @@ class Test_RetrieveLatest_Tunes_with_Pagination {
       int resultsPerPage = 50;
       int pageNumber = 2;
 
-      // Perform the search by calling the listTunes method on the LatestSearch object
-      SearchResultTunesLatest resultSet = LatestSearch.listTunes(resultsPerPage, pageNumber);
+      // Perform the search by calling the listTunes method on the Recent object
+      SearchResultTunesLatest resultSet = Recent.listTunes(resultsPerPage, pageNumber);
 
       // Loop through the results and print each attribute of each individual result in the set
       for (int i = 0; i < resultSet.searchResults.size(); i++) {

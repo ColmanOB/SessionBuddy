@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import sessionbuddy.ActivityStreamReader;
+import sessionbuddy.ActivityStream;
 import sessionbuddy.utils.DataCategory;
 import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
 
@@ -18,7 +18,7 @@ class Test_RetrieveActivityStreamTuneByID
         try
         {
             // Perform the search
-            ArrayList<ActivityStreamResult> resultSet = ActivityStreamReader.readActivityStreamItem(dataCategory, tuneID);
+            ArrayList<ActivityStreamResult> resultSet = ActivityStream.readActivityStreamItem(dataCategory, tuneID);
 
             // Loop through the results and print each attribute of each
             // individual result in the set

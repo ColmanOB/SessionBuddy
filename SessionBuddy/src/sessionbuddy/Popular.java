@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import sessionbuddy.utils.DataCategory;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
+import sessionbuddy.utils.PageCountValidator;
 import sessionbuddy.utils.RequestType;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.URLComposer;
@@ -16,7 +17,7 @@ import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDateAndTunebooks;
 import sessionbuddy.wrappers.granularobjects.User;
-import sessionbuddy.wrappers.individualresults.PopularResultSingleTune;
+import sessionbuddy.wrappers.individualresults.TunePopular;
 import sessionbuddy.wrappers.jsonresponse.PopularWrapperTunes;
 import sessionbuddy.wrappers.responsemetadata.LatestSearchResultHeaders;
 import sessionbuddy.wrappers.resultsets.PopularResultTunes;
@@ -28,13 +29,13 @@ import sessionbuddy.wrappers.resultsets.PopularResultTunes;
  * @author Colman
  * @since 2019-02-17
  */
-public class PopularSearch extends Search
+public class Popular
 {
     /**
      * Retrieves a list of the most popular tunes on thesession.org, i.e. those
      * that have been added to the most user tunebooks.
      * 
-     * @return an ArrayList of PopularResultSingleTune objects
+     * @return an ArrayList of TunePopular objects
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
      * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
@@ -43,7 +44,7 @@ public class PopularSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.tunes;
             // Query the API
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, resultsPerPage, pageNumber));
@@ -62,7 +63,7 @@ public class PopularSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.tunes;
             // Query the API
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, resultsPerPage));
@@ -82,7 +83,7 @@ public class PopularSearch extends Search
      * tunes
      * 
      * @param parsedResults a PopularWrapperTunes object that has already been created and populated
-     * @return an ArrayList of PopularResultSingleTune objects
+     * @return an ArrayList of TunePopular objects
      */
     private static PopularResultTunes populateTunesSearchResult(PopularWrapperTunes parsedResults)
     {        
@@ -90,7 +91,7 @@ public class PopularSearch extends Search
         LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
-        ArrayList<PopularResultSingleTune> resultSet = new ArrayList<PopularResultSingleTune>();
+        ArrayList<TunePopular> resultSet = new ArrayList<TunePopular>();
 
         // Loop as many times as the count of tunes in the result set:
         for (int i = 0; i < parsedResults.tunes.length; i++)
@@ -118,7 +119,7 @@ public class PopularSearch extends Search
                     parsedResults.tunes[i].member.url);
 
             // Put the individual search result into a wrapper object, and add to the larger result set
-           PopularResultSingleTune currentResult = new PopularResultSingleTune(tuneDetails, submitter);
+           TunePopular currentResult = new TunePopular(tuneDetails, submitter);
            resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned

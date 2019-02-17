@@ -2,7 +2,7 @@ package sessionbuddy.wrappers.resultsets;
 
 import java.util.ArrayList;
 
-import sessionbuddy.wrappers.individualresults.SearchResultSingleRecording;
+import sessionbuddy.wrappers.individualresults.Recording;
 import sessionbuddy.wrappers.responsemetadata.LatestSearchResultHeaders;
 
 /**
@@ -19,9 +19,9 @@ public class SearchResultRecordingsLatest
 {
     public LatestSearchResultHeaders responseHeaders;
     
-    public ArrayList<SearchResultSingleRecording> searchResults;
+    public ArrayList<Recording> searchResults;
     
-    public SearchResultRecordingsLatest(LatestSearchResultHeaders responseHeaders, ArrayList<SearchResultSingleRecording> searchResults)
+    public SearchResultRecordingsLatest(LatestSearchResultHeaders responseHeaders, ArrayList<Recording> searchResults)
     {   
         this.responseHeaders = responseHeaders;
         this.searchResults = searchResults;

@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.PopularSearch;
+import sessionbuddy.Popular;
 import sessionbuddy.wrappers.resultsets.PopularResultTunes;
 
 class Test_RetrievePopular_Tunes
@@ -16,7 +16,7 @@ class Test_RetrievePopular_Tunes
             int pageNumber = 2;
 
             // Perform the search by calling the listTunes
-            PopularResultTunes resultSet = PopularSearch.listTunes(resultsPerPage, pageNumber);
+            PopularResultTunes resultSet = Popular.listTunes(resultsPerPage, pageNumber);
 
             // Loop through the results and print each attribute of each individual result in the set
             for (int i = 0; i < resultSet.searchResults.size(); i++)

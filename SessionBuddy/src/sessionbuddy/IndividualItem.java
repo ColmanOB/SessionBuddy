@@ -51,7 +51,7 @@ import sessionbuddy.wrappers.resultsets.ItemResultTune;
  * @author Colman
  * @since 2018-12-18
  */
-public class ItemRetriever
+public class IndividualItem
 {
     /**
      * Gets the details of a recording using its ID in thesession.org. 

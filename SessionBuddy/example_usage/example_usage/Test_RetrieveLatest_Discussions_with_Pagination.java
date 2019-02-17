@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.LatestSearch;
+import sessionbuddy.Recent;
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussionsLatest;
 
 /**
@@ -29,7 +29,7 @@ class Test_RetrieveLatest_Discussions_with_Pagination
         try
         {
             // Pass in the search parameters
-            SearchResultDiscussionsLatest resultSet = LatestSearch.listDiscussions(resultsPerPage, pageNumber);
+            SearchResultDiscussionsLatest resultSet = Recent.listDiscussions(resultsPerPage, pageNumber);
 
             // Loop through the results and print each attribute of each
             // individual result in the set

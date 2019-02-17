@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.ItemRetriever;
+import sessionbuddy.IndividualItem;
 import sessionbuddy.wrappers.resultsets.ItemResultSession;
 
 public class Test_RetrieveItemByID_Session
@@ -14,7 +14,7 @@ public class Test_RetrieveItemByID_Session
         try
         {
             // Perform the search
-            ItemResultSession resultSet = ItemRetriever.getSession(sessionID);
+            ItemResultSession resultSet = IndividualItem.getSession(sessionID);
 
             System.out.println("Session ID: " + resultSet.sessionDetails.sessionID);
             System.out.println("Session URL: " + resultSet.sessionDetails.sessionURL);

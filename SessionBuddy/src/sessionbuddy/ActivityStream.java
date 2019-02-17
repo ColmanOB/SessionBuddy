@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import sessionbuddy.utils.DataCategory;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
+import sessionbuddy.utils.PageCountValidator;
 import sessionbuddy.utils.RequestType;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.URLComposer;
@@ -25,7 +26,7 @@ import sessionbuddy.wrappers.resultsets.ActivityStreamResult;
  * @since 2018-12-19
  *
  */
-public class ActivityStreamReader extends Search
+public class ActivityStream
 {
     /**
      * Retrieves an activity stream from thesession.org.
@@ -79,7 +80,7 @@ public class ActivityStreamReader extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURLAllCategories(resultsPerPage));
             // Parse the returned JSON into a wrapper
@@ -114,7 +115,7 @@ public class ActivityStreamReader extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURLAllCategories(resultsPerPage, pageNumber));
             // Parse the returned JSON into a wrapper
@@ -205,7 +206,7 @@ public class ActivityStreamReader extends Search
         
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURLSingleCategory(dataCategory, resultsPerPage));
             // Parse the returned JSON into a wrapper
@@ -253,7 +254,7 @@ public class ActivityStreamReader extends Search
         
         try
         {            
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             // Perform the API query
             String response = HttpRequestor.submitRequest(composeURLSingleCategory(dataCategory, resultsPerPage, pageNumber));
             // Parse the returned JSON into a wrapper

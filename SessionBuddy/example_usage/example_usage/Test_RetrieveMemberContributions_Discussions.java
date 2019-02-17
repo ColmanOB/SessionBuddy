@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.MemberContributionSearch;
+import sessionbuddy.MemberContribution;
 import sessionbuddy.wrappers.resultsets.SearchResultDiscussionsLatest;
 
 /**
@@ -29,7 +29,7 @@ class Test_RetrieveMemberContributions_Discussions
         try
         {
             // Pass in the search parameters
-            SearchResultDiscussionsLatest resultSet = MemberContributionSearch.listDiscussions(userID, resultsPerPage);
+            SearchResultDiscussionsLatest resultSet = MemberContribution.listDiscussions(userID, resultsPerPage);
 
             // Loop through the results and print each attribute of each individual result in the set
             for (int i = 0; i < resultSet.searchResults.size(); i++)

@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.ItemRetriever;
+import sessionbuddy.IndividualItem;
 import sessionbuddy.wrappers.resultsets.ItemResultEvent;
 
 public class Test_RetrieveItemByID_Event
@@ -13,8 +13,8 @@ public class Test_RetrieveItemByID_Event
         
         try
         {
-            // Call the getEvent() method on the ItemRetriever object
-            ItemResultEvent resultSet = ItemRetriever.getEvent(eventID);
+            // Call the getEvent() method on the IndividualItem object
+            ItemResultEvent resultSet = IndividualItem.getEvent(eventID);
 
             System.out.println("Event ID: " + resultSet.eventDetails.eventID);
             System.out.println("Event Name: " + resultSet.eventDetails.eventName);

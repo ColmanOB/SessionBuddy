@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.ItemRetriever;
+import sessionbuddy.IndividualItem;
 import sessionbuddy.wrappers.resultsets.ItemResultDiscussion;
 
 public class Test_RetrieveItemByID_Discussion
@@ -12,8 +12,8 @@ public class Test_RetrieveItemByID_Discussion
         int discussionID = 666;
         try
         {
-            // Call the getDiscussion method on the ItemRetriever object
-            ItemResultDiscussion resultSet = ItemRetriever.getDiscussion(discussionID);
+            // Call the getDiscussion method on the IndividualItem object
+            ItemResultDiscussion resultSet = IndividualItem.getDiscussion(discussionID);
 
             // Print out attributes of the discussion as a whole:
             System.out.println("Discussion ID: " + resultSet.discussionDetails.discussionID);

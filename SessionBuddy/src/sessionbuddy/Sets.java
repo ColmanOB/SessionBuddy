@@ -8,12 +8,13 @@ import java.util.ArrayList;
 
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
+import sessionbuddy.utils.PageCountValidator;
 import sessionbuddy.utils.RequestType;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.URLComposer;
 import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.User;
-import sessionbuddy.wrappers.individualresults.SearchResultSingleSet;
+import sessionbuddy.wrappers.individualresults.Set;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperSets;
 import sessionbuddy.wrappers.responsemetadata.LatestSearchResultHeaders;
 import sessionbuddy.wrappers.resultsets.SearchResultSetsLatest;
@@ -24,13 +25,13 @@ import sessionbuddy.wrappers.resultsets.SearchResultSetsLatest;
  * @author Colman O'B
  * @since 2018-04-01
  */
-public class SetSearch extends Search
+public class Sets
 {    
     public static SearchResultSetsLatest listSets(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             // Query the API
             String response = HttpRequestor.submitRequest(composeURL(resultsPerPage, pageNumber));
             // Parse the returned JSON into a wrapper
@@ -48,7 +49,7 @@ public class SetSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             // Query the API
             String response = HttpRequestor.submitRequest(composeURL(resultsPerPage));
             // Parse the returned JSON into a wrapper
@@ -66,7 +67,7 @@ public class SetSearch extends Search
      * Helper method to parse the response to a search for sets of tunes
      * 
      * @param parsedResults a LatestWrapperSets object that has already been created and populated
-     * @return an ArrayList of SearchResultSingleSet objects
+     * @return an ArrayList of Set objects
      * 
      * @author Colman
      * @since 2018-02-17
@@ -77,7 +78,7 @@ public class SetSearch extends Search
         LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
-        ArrayList<SearchResultSingleSet> resultSet = new ArrayList<SearchResultSingleSet>();
+        ArrayList<Set> resultSet = new ArrayList<Set>();
 
         // Loop as many times as the count of tunes in the result set:
         for (int i = 0; i < parsedResults.sets.length; i++)
@@ -94,7 +95,7 @@ public class SetSearch extends Search
                     parsedResults.sets[i].member.url);
 
             // Put the individual search result into a wrapper object, and add to the larger result set
-            SearchResultSingleSet currentResult = new SearchResultSingleSet(details, submitter);
+            Set currentResult = new Set(details, submitter);
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned

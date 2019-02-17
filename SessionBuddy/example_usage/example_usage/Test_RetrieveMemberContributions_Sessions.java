@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.MemberContributionSearch;
+import sessionbuddy.MemberContribution;
 import sessionbuddy.wrappers.resultsets.SearchResultSessionsLatest;
 
 
@@ -13,9 +13,9 @@ class Test_RetrieveMemberContributions_Sessions {
       int resultsPerPage = 50;
       int userID = 1;
 
-      // Perform the search by calling the listtSessions method of the MemberContributionSearch
+      // Perform the search by calling the listtSessions method of the MemberContribution
       // object
-      SearchResultSessionsLatest resultSet = MemberContributionSearch.listSessions(userID, resultsPerPage);
+      SearchResultSessionsLatest resultSet = MemberContribution.listSessions(userID, resultsPerPage);
 
       // Loop through the results and print each attribute of each individual result in the set
       for (int i = 0; i < resultSet.searchResults.size(); i++) {

@@ -241,7 +241,7 @@ public class URLComposer
                     return builder.build().toURL();
                 }
                 
-                // In the case of ItemRetriever, which doesn't have page number
+                // In the case of IndividualItem, which doesn't have page number
                 // or items per page options
                 else if (apiRequest.requestType == RequestType.SINGLE_ITEM)
                 {

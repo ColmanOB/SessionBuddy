@@ -12,6 +12,7 @@ import org.apache.http.message.BasicNameValuePair;
 import sessionbuddy.utils.DataCategory;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
+import sessionbuddy.utils.PageCountValidator;
 import sessionbuddy.utils.RequestType;
 import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.URLComposer;
@@ -25,9 +26,9 @@ import sessionbuddy.wrappers.granularobjects.Town;
 import sessionbuddy.wrappers.granularobjects.TripDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.granularobjects.Venue;
-import sessionbuddy.wrappers.individualresults.LocationResultSingleEvent;
-import sessionbuddy.wrappers.individualresults.LocationResultSingleSession;
-import sessionbuddy.wrappers.individualresults.SearchResultSingleTrip;
+import sessionbuddy.wrappers.individualresults.Event;
+import sessionbuddy.wrappers.individualresults.Session;
+import sessionbuddy.wrappers.individualresults.Trip;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTrips;
 import sessionbuddy.wrappers.jsonresponse.LocationSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.LocationSearchWrapperSessions;
@@ -42,12 +43,12 @@ import sessionbuddy.wrappers.resultsets.LocationResultTrips;
  * @author Colman
  * @since 2018-12-11
  */
-public class LocationSearch extends Search
+public class Nearby
 {
     /**
      * Queries the API for a list of sessions within a specified radius of a set of coordinates
      * 
-     * @return an ArrayList of LocationResultSingleSession objects
+     * @return an ArrayList of Session objects
      * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
      * @throws URISyntaxException if UrlBuilder throws a URISyntaxException
      * 
@@ -59,7 +60,7 @@ public class LocationSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.sessions;
             validateCoordinates(latitude, longitude, radius);
             // Query the API
@@ -79,7 +80,7 @@ public class LocationSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.sessions;
             validateCoordinates(latitude, longitude, radius);
             // Query the API
@@ -98,7 +99,7 @@ public class LocationSearch extends Search
     /**
      * Queries the API for a list of events within a specified radius of a set of coordinates
      * 
-     * @return an ArrayList of LocationResultSingleEvent objects
+     * @return an ArrayList of Event objects
      * @throws IOException if a problem was encountered setting up the HTTP connection or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
      * 
@@ -110,7 +111,7 @@ public class LocationSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.events;
             validateCoordinates(latitude, longitude, radius);
             // Query the API
@@ -130,7 +131,7 @@ public class LocationSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.events;
             validateCoordinates(latitude, longitude, radius);
             // Query the API
@@ -162,7 +163,7 @@ public class LocationSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.trips;
             validateCoordinates(latitude, longitude, radius);
             // Query the API
@@ -182,7 +183,7 @@ public class LocationSearch extends Search
     {
         try
         {
-            validateResultsPerPageCount(resultsPerPage);
+            PageCountValidator.validate(resultsPerPage);
             DataCategory dataCategory = DataCategory.trips;
             validateCoordinates(latitude, longitude, radius);
 
@@ -211,7 +212,7 @@ public class LocationSearch extends Search
         LocationSearchResultHeaders headers = new LocationSearchResultHeaders(parsedResults.latlon, parsedResults.radius, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
-        ArrayList<LocationResultSingleSession> resultSet = new ArrayList<LocationResultSingleSession>();
+        ArrayList<Session> resultSet = new ArrayList<Session>();
 
         // Loop as many times as the count of sessions in the result set:
         for (int i = 0; i < (parsedResults.sessions.length); i++)
@@ -244,7 +245,7 @@ public class LocationSearch extends Search
             Country country = new Country(parsedResults.sessions[i].country.id,
                     StringCleaner.cleanString(parsedResults.sessions[i].country.name));
             
-            LocationResultSingleSession currentResult = new LocationResultSingleSession(details, coordinates, user, venue, town, area, country);
+            Session currentResult = new Session(details, coordinates, user, venue, town, area, country);
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
@@ -256,7 +257,7 @@ public class LocationSearch extends Search
      * Helper method to gather and parse the response to a location-based search for sessions
      * 
      * @param parsedResults a LocationSearchWrapperEvents containing response data from the API
-     * @return an ArrayList of LocationResultSingleEvent objects
+     * @return an ArrayList of Event objects
      */
 
     
@@ -266,7 +267,7 @@ public class LocationSearch extends Search
         LocationSearchResultHeaders headers = new LocationSearchResultHeaders(parsedResults.latlon, parsedResults.radius, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
-        ArrayList<LocationResultSingleEvent> resultSet = new ArrayList<LocationResultSingleEvent>();
+        ArrayList<Event> resultSet = new ArrayList<Event>();
 
 
         // Loop as many times as the count of events in the result set:
@@ -304,7 +305,7 @@ public class LocationSearch extends Search
             Country country = new Country(parsedResults.events[i].country.id,
                     StringCleaner .cleanString(parsedResults.events[i].country.name));
 
-            LocationResultSingleEvent currentResult = new LocationResultSingleEvent(details, user, schedule, coordinates, venue, town, area, country);
+            Event currentResult = new Event(details, user, schedule, coordinates, venue, town, area, country);
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned
@@ -327,7 +328,7 @@ public class LocationSearch extends Search
         LocationSearchResultHeaders headers = new LocationSearchResultHeaders(parsedResults.latlon, parsedResults.radius, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
-        ArrayList<SearchResultSingleTrip> resultSet = new ArrayList<SearchResultSingleTrip>();
+        ArrayList<Trip> resultSet = new ArrayList<Trip>();
 
         // Loop as many times as the count of trips in the result set:
         for (int i = 0; i < parsedResults.trips.length; i++)
@@ -348,7 +349,7 @@ public class LocationSearch extends Search
                     StringCleaner.cleanString(parsedResults.trips[i].member.name),
                     parsedResults.trips[i].member.url);
             
-            SearchResultSingleTrip currentResult = new SearchResultSingleTrip(details, tripSchedule, submitter);
+            Trip currentResult = new Trip(details, tripSchedule, submitter);
             resultSet.add(currentResult);
         }
         // Put the response metadata and individual results into a single object to be returned

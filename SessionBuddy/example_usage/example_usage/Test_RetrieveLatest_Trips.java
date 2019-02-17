@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.LatestSearch;
+import sessionbuddy.Recent;
 import sessionbuddy.wrappers.resultsets.SearchResultTripsLatest;
 
 class Test_RetrieveLatest_Trips
@@ -14,8 +14,8 @@ class Test_RetrieveLatest_Trips
             // Set the search parameters
             int resultsPerPage = 50;
             
-            // Perform the search by calling listTrips() method on the LatestSearch object
-           SearchResultTripsLatest resultSet = LatestSearch.listTrips(resultsPerPage);
+            // Perform the search by calling listTrips() method on the Recent object
+           SearchResultTripsLatest resultSet = Recent.listTrips(resultsPerPage);
 
             // Loop through the results and print each attribute of each individual result in the set
             for (int i = 0; i < resultSet.searchResults.size(); i++)

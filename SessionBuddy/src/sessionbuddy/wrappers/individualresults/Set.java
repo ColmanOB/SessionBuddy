@@ -11,7 +11,7 @@ import sessionbuddy.wrappers.granularobjects.User;
  * @since 2018-01-28
  *
  */
-public class SearchResultSingleSet
+public class Set
 {
     /**
      * Details of the tune set
@@ -29,7 +29,7 @@ public class SearchResultSingleSet
      * @param setDetails a LatestSetDetails object that has already been populated
      * @param submitter a User object populated with the details of the submitter
      */
-    public SearchResultSingleSet(SetDetails setDetails, User submitter)
+    public Set(SetDetails setDetails, User submitter)
     {
         this.setDetails = setDetails;
         this.submitter = submitter;

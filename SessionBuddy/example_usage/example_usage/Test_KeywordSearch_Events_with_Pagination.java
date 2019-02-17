@@ -17,7 +17,7 @@ public class Test_KeywordSearch_Events_with_Pagination
         try
         {
             // Create a structure to hold the response from the API
-            SearchResultEvents resultSet = KeywordSearch .searchEvents(searchTerms, resultsPerPage, pageNumber);
+            SearchResultEvents resultSet = KeywordSearch.searchEvents(searchTerms, resultsPerPage, pageNumber);
 
             // Print out some of the metadata
             System.out.println("The number of pages in the response: " + resultSet.responseHeaders.pages);

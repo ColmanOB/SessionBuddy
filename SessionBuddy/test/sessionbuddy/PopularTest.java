@@ -11,7 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import sessionbuddy.wrappers.resultsets.PopularResultTunes;
 
-public class PopularSearchTest
+public class PopularTest
 {
     @Rule
     public ExpectedException zeroItemsPerPageException = ExpectedException.none();
@@ -28,7 +28,7 @@ public class PopularSearchTest
         int resultsPerPage = 50;
         int pageNumber = 2;
 
-        PopularResultTunes resultSet = PopularSearch.listTunes(resultsPerPage, pageNumber);
+        PopularResultTunes resultSet = Popular.listTunes(resultsPerPage, pageNumber);
 
         for (int i = 0; i < resultSet.searchResults.size(); i++)
         {
@@ -49,7 +49,7 @@ public class PopularSearchTest
     {
         int resultsPerPage = 50;
  
-        PopularResultTunes resultSet = PopularSearch.listTunes(resultsPerPage);
+        PopularResultTunes resultSet = Popular.listTunes(resultsPerPage);
 
         for (int i = 0; i < resultSet.searchResults.size(); i++)
         {
@@ -74,7 +74,7 @@ public class PopularSearchTest
         int resultsPerPage = 0;
 
         @SuppressWarnings("unused")
-        PopularResultTunes resultSet = PopularSearch.listTunes(resultsPerPage);
+        PopularResultTunes resultSet = Popular.listTunes(resultsPerPage);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class PopularSearchTest
         int resultsPerPage = -1;
 
         @SuppressWarnings("unused")
-        PopularResultTunes resultSet = PopularSearch.listTunes(resultsPerPage);
+        PopularResultTunes resultSet = Popular.listTunes(resultsPerPage);
     }
 
     @Test
@@ -98,6 +98,6 @@ public class PopularSearchTest
         int resultsPerPage = 51;
 
         @SuppressWarnings("unused")
-        PopularResultTunes resultSet = PopularSearch.listTunes(resultsPerPage);
+        PopularResultTunes resultSet = Popular.listTunes(resultsPerPage);
     }
 }

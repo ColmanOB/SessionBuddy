@@ -12,7 +12,7 @@ import sessionbuddy.wrappers.resultsets.LocationResultSessions;
 import sessionbuddy.wrappers.resultsets.LocationResultTrips;
 
 /**
- * Unit tests for the LocationSearch class
+ * Unit tests for the Nearby class
  * 
  * Each test follows the same process:
  * 
@@ -26,7 +26,7 @@ import sessionbuddy.wrappers.resultsets.LocationResultTrips;
  * @author Colman
  * @since 2019-02-16
  */
-public class LocationSearchTest
+public class NearbyTest
 {
 
     @Test
@@ -40,7 +40,7 @@ public class LocationSearchTest
 
         try
         {
-            LocationResultSessions resultSet = LocationSearch.searchSessions(latitude, longitude, radius, resultsPerPage, pageNumber);
+            LocationResultSessions resultSet = Nearby.searchSessions(latitude, longitude, radius, resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -70,7 +70,7 @@ public class LocationSearchTest
 
         try
         {
-            LocationResultSessions resultSet = LocationSearch.searchSessions(latitude, longitude, radius, resultsPerPage);
+            LocationResultSessions resultSet = Nearby.searchSessions(latitude, longitude, radius, resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -101,7 +101,7 @@ public class LocationSearchTest
 
         try
         {
-            LocationResultEvents resultSet = LocationSearch.searchEvents(latitude, longitude, radius, resultsPerPage, pageNumber);
+            LocationResultEvents resultSet = Nearby.searchEvents(latitude, longitude, radius, resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -139,7 +139,7 @@ public class LocationSearchTest
 
         try
         {
-            LocationResultEvents resultSet = LocationSearch.searchEvents(latitude, longitude, radius, resultsPerPage);
+            LocationResultEvents resultSet = Nearby.searchEvents(latitude, longitude, radius, resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -178,7 +178,7 @@ public class LocationSearchTest
 
         try
         {
-            LocationResultTrips resultSet = LocationSearch.searchTrips(latitude, longitude, radius, resultsPerPage, pageNumber);
+            LocationResultTrips resultSet = Nearby.searchTrips(latitude, longitude, radius, resultsPerPage, pageNumber);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
@@ -212,7 +212,7 @@ public class LocationSearchTest
 
         try
         {
-            LocationResultTrips resultSet = LocationSearch.searchTrips(latitude, longitude, radius, resultsPerPage);
+            LocationResultTrips resultSet = Nearby.searchTrips(latitude, longitude, radius, resultsPerPage);
 
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {

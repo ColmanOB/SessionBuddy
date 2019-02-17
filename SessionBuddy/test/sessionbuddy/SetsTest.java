@@ -11,7 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import sessionbuddy.wrappers.resultsets.SearchResultSetsLatest;
 
-public class SetSearchTest
+public class SetsTest
 {
     @Rule
     public ExpectedException zeroItemsPerPageException = ExpectedException.none();
@@ -30,7 +30,7 @@ public class SetSearchTest
     {
         int resultsPerPage = 50;
 
-        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage);
+        SearchResultSetsLatest resultSet = Sets.listSets(resultsPerPage);
 
         for (int i = 0; i < resultSet.searchResults.size(); i++)
         {
@@ -51,7 +51,7 @@ public class SetSearchTest
         int resultsPerPage = 4;
         int pageNumber = 2;
         
-        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage, pageNumber);
+        SearchResultSetsLatest resultSet = Sets.listSets(resultsPerPage, pageNumber);
 
         for (int i = 0; i < resultSet.searchResults.size(); i++)
         {
@@ -75,7 +75,7 @@ public class SetSearchTest
         int resultsPerPage = 0;
 
         @SuppressWarnings("unused")
-        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage);     
+        SearchResultSetsLatest resultSet = Sets.listSets(resultsPerPage);     
     }
 
     @Test
@@ -87,7 +87,7 @@ public class SetSearchTest
         int resultsPerPage = -1;
 
         @SuppressWarnings("unused")
-        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage);
+        SearchResultSetsLatest resultSet = Sets.listSets(resultsPerPage);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class SetSearchTest
         int resultsPerPage = 51;
 
         @SuppressWarnings("unused")
-        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage);
+        SearchResultSetsLatest resultSet = Sets.listSets(resultsPerPage);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class SetSearchTest
         int pageNumber = -1;
 
         @SuppressWarnings("unused")
-        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage, pageNumber);
+        SearchResultSetsLatest resultSet = Sets.listSets(resultsPerPage, pageNumber);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class SetSearchTest
         int pageNumber = -1;
         
         @SuppressWarnings("unused")
-        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage, pageNumber);
+        SearchResultSetsLatest resultSet = Sets.listSets(resultsPerPage, pageNumber);
     }
 
     @Test
@@ -136,6 +136,6 @@ public class SetSearchTest
         int pageNumber = 1;
 
         @SuppressWarnings("unused")
-        SearchResultSetsLatest resultSet = SetSearch.listSets(resultsPerPage, pageNumber);
+        SearchResultSetsLatest resultSet = Sets.listSets(resultsPerPage, pageNumber);
     }
 }

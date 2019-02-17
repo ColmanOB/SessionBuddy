@@ -2,7 +2,7 @@ package example_usage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import sessionbuddy.ItemRetriever;
+import sessionbuddy.IndividualItem;
 import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
 public class Test_RetrieveItemByID_Tune
@@ -14,7 +14,7 @@ public class Test_RetrieveItemByID_Tune
         try
         {
             // Perform the search
-            ItemResultTune resultSet = ItemRetriever.getTune(tuneID);
+            ItemResultTune resultSet = IndividualItem.getTune(tuneID);
 
             // Retrieve all the general tune details
             System.out.println("Tune ID: " + resultSet.tuneDetails.basicTuneDetails.tuneID);
