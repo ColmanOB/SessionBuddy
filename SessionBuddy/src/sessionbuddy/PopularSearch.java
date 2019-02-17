@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+
+import sessionbuddy.utils.DataCategory;
 import sessionbuddy.utils.HttpRequestor;
 import sessionbuddy.utils.JsonParser;
 import sessionbuddy.utils.RequestType;
@@ -14,68 +16,56 @@ import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDateAndTunebooks;
 import sessionbuddy.wrappers.granularobjects.User;
-import sessionbuddy.wrappers.individualresults.SearchResultTunesPopular;
+import sessionbuddy.wrappers.individualresults.PopularResultSingleTune;
 import sessionbuddy.wrappers.jsonresponse.PopularWrapperTunes;
+import sessionbuddy.wrappers.responsemetadata.LatestSearchResultHeaders;
+import sessionbuddy.wrappers.resultsets.PopularResultTunes;
 
 /**
  * Retrieves the current most popular tunes, i.e. those that have been added to
  * the largest number of user tune books on thesession.org
  * 
  * @author Colman
- * @since 2018-03-30
+ * @since 2019-02-17
  */
 public class PopularSearch extends Search
 {
     /**
-     * The number of search results to be returned per page
-     */
-    private int resultsPerPage = 0;
-
-    /**
-     * Specifies a page in a multi-page response
-     */
-    private int pageNumber = 0;
-
-    /**
-     * Constructor where pagination is not required and you only want to see the
-     * first page of the API response
-     * 
-     * @param resultsPerPage Specifies how many search results should appear in each page of the response
-     */
-    public PopularSearch(int resultsPerPage)
-    {
-        this.resultsPerPage = resultsPerPage;
-    }
-
-    /**
-     * Constructor for cases where you need to specify an individual page in the
-     * API response
-     * 
-     * @param resultsPerPage Specifies how many search results should appear in each page of the response
-     * @param pageNumber Specifies a particular page number within the JSON response
-     */
-    public PopularSearch(int resultsPerPage, int pageNumber)
-    {
-        this(resultsPerPage);
-        this.pageNumber = pageNumber;
-    }
-
-    /**
      * Retrieves a list of the most popular tunes on thesession.org, i.e. those
      * that have been added to the most user tunebooks.
      * 
-     * @return an ArrayList of SearchResultTunesPopular objects
+     * @return an ArrayList of PopularResultSingleTune objects
      * @throws IllegalArgumentException if an attempt was made to specify more than 50 results per page
      * @throws IOException if a problem was encountered setting up the HTTP connection, or reading data from it
      * @throws URISyntaxException if the underlying UrlBuilder class throws a URISyntaxException
      */
-    public ArrayList<SearchResultTunesPopular> listTunes() throws IllegalArgumentException, IOException, URISyntaxException
+    public static PopularResultTunes listTunes(int resultsPerPage, int pageNumber) throws IllegalArgumentException, IOException, URISyntaxException
     {
         try
         {
             validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.tunes;
             // Query the API
-            String response = HttpRequestor.submitRequest(composeURL());
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, resultsPerPage, pageNumber));
+            // Parse the returned JSON into a wrapper
+            PopularWrapperTunes parsedResults = JsonParser.parseResponse(response, PopularWrapperTunes.class);
+            // Return the data retrieved from the API
+            return populateTunesSearchResult(parsedResults);
+        }
+        catch (IllegalArgumentException | IOException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
+    
+    public static PopularResultTunes listTunes(int resultsPerPage) throws IllegalArgumentException, IOException, URISyntaxException
+    {
+        try
+        {
+            validateResultsPerPageCount(resultsPerPage);
+            DataCategory dataCategory = DataCategory.tunes;
+            // Query the API
+            String response = HttpRequestor.submitRequest(composeURL(dataCategory, resultsPerPage));
             // Parse the returned JSON into a wrapper
             PopularWrapperTunes parsedResults = JsonParser.parseResponse(response, PopularWrapperTunes.class);
             // Return the data retrieved from the API
@@ -92,14 +82,15 @@ public class PopularSearch extends Search
      * tunes
      * 
      * @param parsedResults a PopularWrapperTunes object that has already been created and populated
-     * @return an ArrayList of SearchResultTunesPopular objects
+     * @return an ArrayList of PopularResultSingleTune objects
      */
-    private ArrayList<SearchResultTunesPopular> populateTunesSearchResult(PopularWrapperTunes parsedResults)
-    {
-        ArrayList<SearchResultTunesPopular> resultSet = new ArrayList<SearchResultTunesPopular>();
-
-        // Find out how many pages are in the response
-        pageCount = Integer.parseInt(parsedResults.pages);
+    private static PopularResultTunes populateTunesSearchResult(PopularWrapperTunes parsedResults)
+    {        
+        // Capture the metadata for the search results
+        LatestSearchResultHeaders headers = new LatestSearchResultHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        
+        // This will hold the list of individual items in the result set
+        ArrayList<PopularResultSingleTune> resultSet = new ArrayList<PopularResultSingleTune>();
 
         // Loop as many times as the count of tunes in the result set:
         for (int i = 0; i < parsedResults.tunes.length; i++)
@@ -126,14 +117,13 @@ public class PopularSearch extends Search
                     StringCleaner.cleanString(parsedResults.tunes[i].member.name),
                     parsedResults.tunes[i].member.url);
 
-            // Instantiate a SearchResultTunesPopular object & populate it
-            SearchResultTunesPopular currentResult = new SearchResultTunesPopular(
-                    tuneDetails, 
-                    submitter);
-
-            resultSet.add(currentResult);
+            // Put the individual search result into a wrapper object, and add to the larger result set
+           PopularResultSingleTune currentResult = new PopularResultSingleTune(tuneDetails, submitter);
+           resultSet.add(currentResult);
         }
-        return resultSet;
+        // Put the response metadata and individual results into a single object to be returned
+        PopularResultTunes searchResult = new PopularResultTunes(headers, resultSet);
+        return searchResult;
     }
 
     /**
@@ -144,7 +134,7 @@ public class PopularSearch extends Search
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
      * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
      */
-    private URL composeURL() throws MalformedURLException, URISyntaxException
+    private static URL composeURL(DataCategory dataCategory, int resultsPerPage, int pageNumber) throws MalformedURLException, URISyntaxException
     {
         URL requestURL;
 
@@ -155,7 +145,7 @@ public class PopularSearch extends Search
 
             requestURL = builder.new Builder()
                     .requestType(RequestType.SEARCH_POPULAR)
-                    .path("tunes" + "/" + "popular")
+                    .path(dataCategory + "/" + "popular")
                     .itemsPerPage(resultsPerPage)
                     .pageNumber(pageNumber)
                     .build();
@@ -176,6 +166,21 @@ public class PopularSearch extends Search
         {
             throw new IllegalArgumentException("Page number must be an integer value greater than zero");
         }
+        return requestURL;
+    }
+    
+    private static URL composeURL(DataCategory dataCategory, int resultsPerPage) throws MalformedURLException, URISyntaxException
+    {
+        URL requestURL;
+
+        URLComposer builder = new URLComposer();
+
+        requestURL = builder.new Builder()
+                .requestType(RequestType.SEARCH_POPULAR)
+                .path(dataCategory + "/" + "popular")
+                .itemsPerPage(resultsPerPage)
+                .build();
+        
         return requestURL;
     }
 }

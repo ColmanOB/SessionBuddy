@@ -5,12 +5,11 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import sessionbuddy.wrappers.individualresults.SearchResultTunesPopular;
+import sessionbuddy.wrappers.resultsets.PopularResultTunes;
 
 public class PopularSearchTest
 {
@@ -29,21 +28,19 @@ public class PopularSearchTest
         int resultsPerPage = 50;
         int pageNumber = 2;
 
-        PopularSearch search = new PopularSearch(resultsPerPage, pageNumber);
+        PopularResultTunes resultSet = PopularSearch.listTunes(resultsPerPage, pageNumber);
 
-        ArrayList<SearchResultTunesPopular> resultSet = search.listTunes();
-
-        for (int i = 0; i < resultSet.size(); i++)
+        for (int i = 0; i < resultSet.searchResults.size(); i++)
         {
-            assertThat(resultSet.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
-            assertThat(resultSet.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
-            assertThat(resultSet.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
-            assertThat(resultSet.get(i).tuneDetails.tunebooks, is(notNullValue()));
-            assertThat(resultSet.get(i).tuneDetails.generalTuneDetails.submittedDate, is(notNullValue()));
-            assertThat(resultSet.get(i).tuneDetails.generalTuneDetails.tuneType, is(notNullValue()));
-            assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-            assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-            assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.tunebooks, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.submittedDate, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.tuneType, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
         }
     }
 
@@ -51,22 +48,20 @@ public class PopularSearchTest
     public void testGetTunesWithNoPageNumberButResultsPerPage() throws IllegalArgumentException, IOException, URISyntaxException
     {
         int resultsPerPage = 50;
+ 
+        PopularResultTunes resultSet = PopularSearch.listTunes(resultsPerPage);
 
-        PopularSearch search = new PopularSearch(resultsPerPage);
-
-        ArrayList<SearchResultTunesPopular> resultSet = search.listTunes();
-
-        for (int i = 0; i < resultSet.size(); i++)
+        for (int i = 0; i < resultSet.searchResults.size(); i++)
         {
-            assertThat(resultSet.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
-            assertThat(resultSet.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
-            assertThat(resultSet.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
-            assertThat(resultSet.get(i).tuneDetails.tunebooks, is(notNullValue()));
-            assertThat(resultSet.get(i).tuneDetails.generalTuneDetails.submittedDate, is(notNullValue()));
-            assertThat(resultSet.get(i).tuneDetails.generalTuneDetails.tuneType, is(notNullValue()));
-            assertThat(resultSet.get(i).submitter.userID, is(notNullValue()));
-            assertThat(resultSet.get(i).submitter.userName, is(notNullValue()));
-            assertThat(resultSet.get(i).submitter.userURL, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneName, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.tunebooks, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.submittedDate, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.tuneType, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
         }
     }
 
@@ -78,10 +73,8 @@ public class PopularSearchTest
 
         int resultsPerPage = 0;
 
-        PopularSearch search = new PopularSearch(resultsPerPage);
-
         @SuppressWarnings("unused")
-        ArrayList<SearchResultTunesPopular> resultSet = search.listTunes();
+        PopularResultTunes resultSet = PopularSearch.listTunes(resultsPerPage);
     }
 
     @Test
@@ -92,10 +85,8 @@ public class PopularSearchTest
 
         int resultsPerPage = -1;
 
-        PopularSearch search = new PopularSearch(resultsPerPage);
-
         @SuppressWarnings("unused")
-        ArrayList<SearchResultTunesPopular> resultSet = search.listTunes();
+        PopularResultTunes resultSet = PopularSearch.listTunes(resultsPerPage);
     }
 
     @Test
@@ -106,9 +97,7 @@ public class PopularSearchTest
 
         int resultsPerPage = 51;
 
-        PopularSearch search = new PopularSearch(resultsPerPage);
-
         @SuppressWarnings("unused")
-        ArrayList<SearchResultTunesPopular> resultSet = search.listTunes();
+        PopularResultTunes resultSet = PopularSearch.listTunes(resultsPerPage);
     }
 }

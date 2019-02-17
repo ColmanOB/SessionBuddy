@@ -24,13 +24,16 @@ public class PopularWrapperTunes
     /**
      * Number of pages in the result set
      */
-    public String pages;
+    public int pages;
     
     /**
      * The current page within the result set
      */
-    public String page;
+    public int page;
 
+    public int perpage;
+    
+    public int total;
     /**
      * An array of the individual tunes returned by the search
      */
