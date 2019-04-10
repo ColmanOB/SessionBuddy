@@ -12,7 +12,7 @@ import sessionbuddy.wrappers.granularobjects.User;
  * by its ID.
  * 
  * @author Colman
- * @since 2017-12-29
+ * @since 2019-04-10
  */
 public class ItemResultRecording
 {
@@ -24,7 +24,7 @@ public class ItemResultRecording
     /**
      * User who submitted the recording
      */
-    public User member;
+    public User user;
 
     /**
      * The recording artist or group
@@ -45,15 +45,15 @@ public class ItemResultRecording
      * Constructor that populates all fields
      * 
      * @param recordingDetails a RecordingDetails object that has already been populated
-     * @param member a User object representing the recording submitter
+     * @param user a User object representing the recording submitter
      * @param artist an Artist object representing the recording artist
      * @param tracks an ArrayList of TrackListing objects that have already been populated
      * @param comments an ArrayList of Comment objects that have already been populated
      */
-    public ItemResultRecording(RecordingDetails recordingDetails, User member, Artist artist, ArrayList<TrackListing> tracks, ArrayList<Comment> comments)
+    public ItemResultRecording(RecordingDetails recordingDetails, User user, Artist artist, ArrayList<TrackListing> tracks, ArrayList<Comment> comments)
     {
         this.recordingDetails = recordingDetails;
-        this.member = member;
+        this.user = user;
         this.artist = artist;
         this.tracks = tracks;
         this.comments = comments;

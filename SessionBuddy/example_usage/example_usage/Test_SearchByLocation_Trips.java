@@ -38,11 +38,11 @@ public class Test_SearchByLocation_Trips
                         + resultSet.results.get(i).tripSchedule.endDate);
 
                 System.out.println("User ID: "
-                        + resultSet.results.get(i).submitter.userID);
+                        + resultSet.results.get(i).user.userID);
                 System.out.println("User Name: "
-                        + resultSet.results.get(i).submitter.userName);
+                        + resultSet.results.get(i).user.userName);
                 System.out.println("User Profile Page: "
-                        + resultSet.results.get(i).submitter.userURL);
+                        + resultSet.results.get(i).user.userURL);
 
                 System.out.println("\n");
             }

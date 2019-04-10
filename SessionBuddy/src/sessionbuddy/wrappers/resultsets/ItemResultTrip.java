@@ -8,10 +8,10 @@ import sessionbuddy.wrappers.granularobjects.TripDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 
 /**
- * A wrapper for the result returned when retrieving an individual session by its ID.
+ * A wrapper for the result returned when retrieving an individual trip by its ID.
  * 
  * @author Colman
- * @since 2018-12-11
+ * @since 2019-04-10
  */
 public class ItemResultTrip
 {
@@ -33,7 +33,7 @@ public class ItemResultTrip
     /**
      * The user who submitted the trip
      */
-    public User member;
+    public User user;
 
     /**
      * A list of comments on the trip's page on thesession.org
@@ -47,15 +47,15 @@ public class ItemResultTrip
      * @param tripDetails a TripDetails object that has already been populated
      * @param tripSchedule an already-populated Schedule object
      * @param coordinates a Coordinates object populated with latitude and longitude
-     * @param member a User object representing the trip submitter
+     * @param user a User object representing the trip submitter
      * @param comments an ArrayList of Comment objects that have already been populated
      */
-    public ItemResultTrip(TripDetails tripDetails, Schedule tripSchedule, Coordinates coordinates, User member, ArrayList<Comment> comments)
+    public ItemResultTrip(TripDetails tripDetails, Schedule tripSchedule, Coordinates coordinates, User user, ArrayList<Comment> comments)
     {
         this.tripDetails = tripDetails;
         this.tripSchedule = tripSchedule;
         this.coordinates = coordinates;
-        this.member = member;
+        this.user = user;
         this.comments = comments;
     }
 }

@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.individualresults;
+package sessionbuddy.wrappers.individualresultitems;
 
 import sessionbuddy.wrappers.granularobjects.Area;
 import sessionbuddy.wrappers.granularobjects.Coordinates;

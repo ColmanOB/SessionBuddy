@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.individualresults;
+package sessionbuddy.wrappers.individualresultitems;
 
 import sessionbuddy.wrappers.granularobjects.SettingDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetails;
@@ -22,7 +22,7 @@ public class TuneLatest
     /**
      * Details of the user who submitted the setting
      */
-    public User submitter;
+    public User user;
 
     /**
      * Details of the tune to which the setting belongs
@@ -39,7 +39,7 @@ public class TuneLatest
     public TuneLatest(SettingDetails settingDetails, User submitter, TuneDetails tuneDetails)
     {
         this.settingDetails = settingDetails;
-        this.submitter = submitter;
+        this.user = submitter;
         this.tuneDetails = tuneDetails;
     }
 }

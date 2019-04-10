@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.individualresults;
+package sessionbuddy.wrappers.individualresultitems;
 
 import sessionbuddy.wrappers.granularobjects.Schedule;
 import sessionbuddy.wrappers.granularobjects.TripDetails;
@@ -26,7 +26,7 @@ public class Trip
     /**
      * Attributes of the user who submitted the tune
      */
-    public User submitter;
+    public User user;
 
     /**
      * Constructor
@@ -39,6 +39,6 @@ public class Trip
     {
         this.tripDetails = details;
         this.tripSchedule = tripSchedule;
-        this.submitter = submitter;
+        this.user = submitter;
     }
 }

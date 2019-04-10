@@ -24,9 +24,9 @@ public class Test_RetrieveItemByID_Event
             System.out.println("Event Start Date: " + resultSet.schedule.startDate);
             System.out.println("Event End Date: " + resultSet.schedule.endDate);
 
-            System.out.println("Submitter User ID: " + resultSet.member.userID);
-            System.out.println("Submitter Username: " + resultSet.member.userName);
-            System.out.println("Submitter Profile Page: " + resultSet.member.userURL);
+            System.out.println("Submitter User ID: " + resultSet.user.userID);
+            System.out.println("Submitter Username: " + resultSet.user.userName);
+            System.out.println("Submitter Profile Page: " + resultSet.user.userURL);
 
             System.out.print("Latitude: " + resultSet.coordinates.latitude);
             System.out.print("Longitude: " + resultSet.coordinates.longitude);

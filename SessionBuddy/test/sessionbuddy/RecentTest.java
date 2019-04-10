@@ -54,9 +54,9 @@ public class RecentTest
 
                 assertThat(resultSet.searchResults.get(i).settingDetails.date, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -88,9 +88,9 @@ public class RecentTest
 
                 assertThat(resultSet.searchResults.get(i).settingDetails.date, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -117,9 +117,9 @@ public class RecentTest
                 assertThat(resultSet.searchResults.get(i).discussionDetails.discussionURL, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -147,9 +147,9 @@ public class RecentTest
                 assertThat(resultSet.searchResults.get(i).discussionDetails.discussionURL, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -175,9 +175,9 @@ public class RecentTest
                 assertThat(resultSet.searchResults.get(i).recordingDetails.recordingDate, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).recordingDetails.recordingURL, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
 
                 assertThat(resultSet.searchResults.get(i).artist.artistID, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).artist.artistName, is(notNullValue()));
@@ -208,9 +208,9 @@ public class RecentTest
                 assertThat(resultSet.searchResults.get(i).recordingDetails.recordingDate, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).recordingDetails.recordingURL, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
 
                 assertThat(resultSet.searchResults.get(i).artist.artistID, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).artist.artistName, is(notNullValue()));
@@ -401,9 +401,9 @@ public class RecentTest
                 assertThat(resultSet.searchResults.get(i).tripSchedule.startDate, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).tripSchedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -433,9 +433,9 @@ public class RecentTest
                 assertThat(resultSet.searchResults.get(i).tripSchedule.startDate, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).tripSchedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 

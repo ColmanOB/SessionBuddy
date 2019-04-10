@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.individualresults;
+package sessionbuddy.wrappers.individualresultitems;
 
 import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.User;
@@ -21,7 +21,7 @@ public class Set
     /**
      * Details of the user who submitted the set
      */
-    public User submitter;
+    public User user;
 
     /**
      * Constructor
@@ -32,6 +32,6 @@ public class Set
     public Set(SetDetails setDetails, User submitter)
     {
         this.setDetails = setDetails;
-        this.submitter = submitter;
+        this.user = submitter;
     }
 }

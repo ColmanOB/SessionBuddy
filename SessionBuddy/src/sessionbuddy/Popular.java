@@ -17,7 +17,7 @@ import sessionbuddy.wrappers.granularobjects.TuneDetails;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDateAndTunebooks;
 import sessionbuddy.wrappers.granularobjects.User;
-import sessionbuddy.wrappers.individualresults.TunePopular;
+import sessionbuddy.wrappers.individualresultitems.TunePopular;
 import sessionbuddy.wrappers.jsonresponse.PopularWrapperTunes;
 import sessionbuddy.wrappers.responsemetadata.ResponseHeaders;
 import sessionbuddy.wrappers.resultsets.PopularResultTunes;

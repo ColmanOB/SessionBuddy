@@ -41,6 +41,15 @@ public class ResponseHeaders
      */
     public int total;
     
+    /**
+     * Constructor used to initialise all fields
+     * 
+     * @param perpage The number of search results returned per page from the API
+     * @param format The format of the response data, always JSON for this project
+     * @param pages The number of pages of data in the JSON response
+     * @param page The current page in the JSON response
+     * @param total The total number of search results in the result set
+     */
     public ResponseHeaders(int perpage, String format, int pages, int page, int total)
     {
         this.perpage = perpage;

@@ -31,11 +31,11 @@ class Test_RetrieveLatest_Sets
                         + resultSet.searchResults.get(i).setDetails.setURL);
 
                 System.out.println("User ID: "
-                        + resultSet.searchResults.get(i).submitter.userID);
+                        + resultSet.searchResults.get(i).user.userID);
                 System.out.println("User Name: "
-                        + resultSet.searchResults.get(i).submitter.userName);
+                        + resultSet.searchResults.get(i).user.userName);
                 System.out.println("User Profile Page: "
-                        + resultSet.searchResults.get(i).submitter.userURL);
+                        + resultSet.searchResults.get(i).user.userURL);
 
                 System.out.println("\n");
             }

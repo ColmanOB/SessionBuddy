@@ -28,9 +28,9 @@ class Test_RetrieveLatest_Trips
                 System.out.println("Start Date: " + resultSet.searchResults.get(i).tripSchedule.startDate);
                 System.out.println("End Date: " + resultSet.searchResults.get(i).tripSchedule.endDate);
 
-                System.out.println("User ID: " + resultSet.searchResults.get(i).submitter.userID);
-                System.out.println("User Name: " + resultSet.searchResults.get(i).submitter.userName);
-                System.out.println("User Profile Page: " + resultSet.searchResults.get(i).submitter.userURL);
+                System.out.println("User ID: " + resultSet.searchResults.get(i).user.userID);
+                System.out.println("User Name: " + resultSet.searchResults.get(i).user.userName);
+                System.out.println("User Profile Page: " + resultSet.searchResults.get(i).user.userURL);
 
                 System.out.println("\n");
             }

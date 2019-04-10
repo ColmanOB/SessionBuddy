@@ -28,9 +28,9 @@ class Test_RetrievePopular_Tunes
                 System.out.println("Date Submitted: " + resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.submittedDate);
                 System.out.println("Tune Type: " + resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.tuneType);
 
-                System.out.println("User ID: " + resultSet.searchResults.get(i).submitter.userID);
-                System.out.println("User Name: " + resultSet.searchResults.get(i).submitter.userName);
-                System.out.println("User Profile Page: " + resultSet.searchResults.get(i).submitter.userURL);
+                System.out.println("User ID: " + resultSet.searchResults.get(i).user.userID);
+                System.out.println("User Name: " + resultSet.searchResults.get(i).user.userName);
+                System.out.println("User Profile Page: " + resultSet.searchResults.get(i).user.userURL);
 
                 System.out.println("\n");
             }

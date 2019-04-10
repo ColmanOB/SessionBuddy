@@ -25,7 +25,7 @@ public class ItemResultDiscussion
     /**
      * The user who submitted the discussion
      */
-    public User member;
+    public User user;
 
     /**
      * An array of comments in the discussion
@@ -36,13 +36,13 @@ public class ItemResultDiscussion
      * Constructor that populates all fields
      * 
      * @param discussionDetails A DiscussionDetails object that has already been populated
-     * @param member A User object populated with the details of the user who submitted the discussion
+     * @param user A User object populated with the details of the user who submitted the discussion
      * @param comments A Comment object populated with the details of an individual comment within the dicussion
      */
-    public ItemResultDiscussion(DiscussionDetails discussionDetails, User member, ArrayList<Comment> comments)
+    public ItemResultDiscussion(DiscussionDetails discussionDetails, User user, ArrayList<Comment> comments)
     {
         this.discussionDetails = discussionDetails;
-        this.member = member;
+        this.user = user;
         this.comments = comments;
     }
 }

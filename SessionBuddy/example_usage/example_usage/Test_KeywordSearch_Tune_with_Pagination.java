@@ -34,9 +34,9 @@ public class Test_KeywordSearch_Tune_with_Pagination
                 System.out.println("Tune URL: " + results.searchResults.get(i).tuneDetails.basicTuneDetails.tuneURL);
                 System.out.println("Date Submitted: " + results.searchResults.get(i).tuneDetails.submittedDate);
 
-                System.out.println("Submitted by User ID: " + results.searchResults.get(i).submitter.userID);
-                System.out.println("Submitted by Username: " + results.searchResults.get(i).submitter.userName);
-                System.out.println("Submitter's Profile Page: " + results.searchResults.get(i).submitter.userURL +"\n");
+                System.out.println("Submitted by User ID: " + results.searchResults.get(i).user.userID);
+                System.out.println("Submitted by Username: " + results.searchResults.get(i).user.userName);
+                System.out.println("Submitter's Profile Page: " + results.searchResults.get(i).user.userURL +"\n");
             }
         }
 

@@ -38,9 +38,9 @@ public class PopularTest
             assertThat(resultSet.searchResults.get(i).tuneDetails.tunebooks, is(notNullValue()));
             assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.submittedDate, is(notNullValue()));
             assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.tuneType, is(notNullValue()));
-            assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-            assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-            assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
         }
     }
 
@@ -59,9 +59,9 @@ public class PopularTest
             assertThat(resultSet.searchResults.get(i).tuneDetails.tunebooks, is(notNullValue()));
             assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.submittedDate, is(notNullValue()));
             assertThat(resultSet.searchResults.get(i).tuneDetails.generalTuneDetails.tuneType, is(notNullValue()));
-            assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-            assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-            assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+            assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
         }
     }
 

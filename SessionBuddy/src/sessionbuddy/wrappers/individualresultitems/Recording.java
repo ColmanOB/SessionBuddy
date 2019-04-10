@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.individualresults;
+package sessionbuddy.wrappers.individualresultitems;
 
 import sessionbuddy.wrappers.granularobjects.Artist;
 import sessionbuddy.wrappers.granularobjects.RecordingDetails;
@@ -12,7 +12,7 @@ import sessionbuddy.wrappers.granularobjects.User;
  * recently-added recordings
  * 
  * @author Colman O'B
- * @since 2018-01-28
+ * @since 2019-04-10
  */
 public class Recording
 {
@@ -24,7 +24,7 @@ public class Recording
     /**
      * Details of the user who submitted the recording
      */
-    public User submitter;
+    public User user;
 
     /**
      * Details of the recording artist/group
@@ -41,7 +41,7 @@ public class Recording
     public Recording(RecordingDetails recordingInfo, User submitter, Artist artist)
     {
         this.recordingDetails = recordingInfo;
-        this.submitter = submitter;
+        this.user = submitter;
         this.artist = artist;
     }
 }

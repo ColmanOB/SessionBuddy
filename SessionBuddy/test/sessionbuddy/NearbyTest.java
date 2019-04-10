@@ -190,9 +190,9 @@ public class NearbyTest
                 assertThat(resultSet.results.get(i).tripSchedule.startDate, is(notNullValue()));
                 assertThat(resultSet.results.get(i).tripSchedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.results.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.results.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.results.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.results.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.results.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.results.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -224,9 +224,9 @@ public class NearbyTest
                 assertThat(resultSet.results.get(i).tripSchedule.startDate, is(notNullValue()));
                 assertThat(resultSet.results.get(i).tripSchedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.results.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.results.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.results.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.results.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.results.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.results.get(i).user.userURL, is(notNullValue()));
             }
         }
 

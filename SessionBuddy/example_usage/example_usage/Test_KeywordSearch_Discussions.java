@@ -52,11 +52,11 @@ public class Test_KeywordSearch_Discussions
                         .get(i).discussionDetails.numberOfComments);
 
                 System.out.println("Submitter User ID: "
-                        + resultSet.searchResults.get(i).submitter.userID);
+                        + resultSet.searchResults.get(i).user.userID);
                 System.out.println("Submitter Username: "
-                        + resultSet.searchResults.get(i).submitter.userName);
+                        + resultSet.searchResults.get(i).user.userName);
                 System.out.println("Submitter Profile Page: "
-                        + resultSet.searchResults.get(i).submitter.userURL);
+                        + resultSet.searchResults.get(i).user.userURL);
                 System.out.println("\n");
             }
         }

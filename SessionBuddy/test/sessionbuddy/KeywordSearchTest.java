@@ -49,9 +49,9 @@ public class KeywordSearchTest
                 assertThat(resultSet.searchResults.get(i).discussionDetails.discussionURL, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -80,9 +80,9 @@ public class KeywordSearchTest
                 assertThat(resultSet.searchResults.get(i).discussionDetails.discussionURL, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).discussionDetails.numberOfComments, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -205,9 +205,9 @@ public class KeywordSearchTest
                 assertThat(resultSet.searchResults.get(i).tuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).tuneDetails.submittedDate,is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -236,9 +236,9 @@ public class KeywordSearchTest
                 assertThat(resultSet.searchResults.get(i).tuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).tuneDetails.submittedDate, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -269,9 +269,9 @@ public class KeywordSearchTest
                 assertThat(resultSet.searchResults.get(i).artist.artistName, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).artist.artistPageURL, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -303,9 +303,9 @@ public class KeywordSearchTest
                 assertThat(resultSet.searchResults.get(i).artist.artistName, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).artist.artistPageURL, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -442,9 +442,9 @@ public class KeywordSearchTest
                 assertThat(resultSet.searchResults.get(i).tripSchedule.startDate, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).tripSchedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 
@@ -474,9 +474,9 @@ public class KeywordSearchTest
                 assertThat(resultSet.searchResults.get(i).tripSchedule.startDate, is(notNullValue()));
                 assertThat(resultSet.searchResults.get(i).tripSchedule.endDate, is(notNullValue()));
 
-                assertThat(resultSet.searchResults.get(i).submitter.userID, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userName, is(notNullValue()));
-                assertThat(resultSet.searchResults.get(i).submitter.userURL, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userID, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userName, is(notNullValue()));
+                assertThat(resultSet.searchResults.get(i).user.userURL, is(notNullValue()));
             }
         }
 

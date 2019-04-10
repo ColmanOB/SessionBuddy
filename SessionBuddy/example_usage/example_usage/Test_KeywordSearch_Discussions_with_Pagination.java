@@ -46,9 +46,9 @@ public class Test_KeywordSearch_Discussions_with_Pagination
                 System.out.println("Discussion URL: " + resultSet.searchResults.get(i).discussionDetails.discussionURL);
                 System.out.println("No. of comments: " + resultSet.searchResults.get(i).discussionDetails.numberOfComments);
 
-                System.out.println("Submitter User ID: " + resultSet.searchResults.get(i).submitter.userID);
-                System.out.println("Submitter Username: " + resultSet.searchResults.get(i).submitter.userName);
-                System.out.println("Submitter Profile Page: "+ resultSet.searchResults.get(i).submitter.userURL);
+                System.out.println("Submitter User ID: " + resultSet.searchResults.get(i).user.userID);
+                System.out.println("Submitter Username: " + resultSet.searchResults.get(i).user.userName);
+                System.out.println("Submitter Profile Page: "+ resultSet.searchResults.get(i).user.userURL);
                 System.out.println("\n");
             }
         }

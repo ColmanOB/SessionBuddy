@@ -31,7 +31,7 @@ public class ItemResultSession
     /**
      * The user who submitted thesession
      */
-    public User member;
+    public User user;
 
     /**
      * General details of the venue
@@ -69,7 +69,7 @@ public class ItemResultSession
      * 
      * @param sessionDetails a SessionDetails object that has already been populated
      * @param coordinates a Coordinates object populated with latitude and longitude
-     * @param member a User object representing the event submitter
+     * @param user a User object representing the event submitter
      * @param venue a Venue object that has already been populated with any available venue details
      * @param town a Town object that has already been populated
      * @param area an Area object that has already been populated
@@ -77,11 +77,11 @@ public class ItemResultSession
      * @param schedule the days of the week that the session takes place
      * @param comments an ArrayList of Comment objects that have already been populated
      */
-    public ItemResultSession(SessionDetails sessionDetails, Coordinates coordinates, User member, Venue venue, Town town, Area area, Country country, ArrayList<String> schedule, ArrayList<Comment> comments)
+    public ItemResultSession(SessionDetails sessionDetails, Coordinates coordinates, User user, Venue venue, Town town, Area area, Country country, ArrayList<String> schedule, ArrayList<Comment> comments)
     {
         this.sessionDetails = sessionDetails;
         this.coordinates = coordinates;
-        this.member = member;
+        this.user = user;
         this.venue = venue;
         this.town = town;
         this.area = area;

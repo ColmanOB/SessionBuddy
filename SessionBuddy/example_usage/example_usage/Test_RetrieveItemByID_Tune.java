@@ -23,9 +23,9 @@ public class Test_RetrieveItemByID_Tune
             System.out.println("Date Submitted: " + resultSet.tuneDetails.submittedDate);
             System.out.println("Date Submitted: " + resultSet.tuneDetails.basicTuneDetails.tuneURL);
 
-            System.out.println("Tune Submitter ID: " + resultSet.member.userID);
-            System.out.println("Tune Submitter Username: " + resultSet.member.userName);
-            System.out.println("Tune Submitter User Profile" + resultSet.member.userURL);
+            System.out.println("Tune Submitter ID: " + resultSet.user.userID);
+            System.out.println("Tune Submitter Username: " + resultSet.user.userName);
+            System.out.println("Tune Submitter User Profile" + resultSet.user.userURL);
             System.out.println("\n");
 
             // Loop through each setting of the tune and print it

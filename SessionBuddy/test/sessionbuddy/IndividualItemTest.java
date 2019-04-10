@@ -43,9 +43,9 @@ public class IndividualItemTest
             assertThat(resultSet.recordingDetails.recordingURL, is(notNullValue()));
             assertThat(resultSet.recordingDetails.recordingDate, is(notNullValue()));
 
-            assertThat(resultSet.member.userID, is(notNullValue()));
-            assertThat(resultSet.member.userName, is(notNullValue()));
-            assertThat(resultSet.member.userURL, is(notNullValue()));
+            assertThat(resultSet.user.userID, is(notNullValue()));
+            assertThat(resultSet.user.userName, is(notNullValue()));
+            assertThat(resultSet.user.userURL, is(notNullValue()));
 
             assertThat(resultSet.artist.artistName, is(notNullValue()));
 
@@ -88,9 +88,9 @@ public class IndividualItemTest
             assertThat(resultSet.discussionDetails.submittedDate, is(notNullValue()));
 
             // Test the attributes of the user who submitted the discussion
-            assertThat(resultSet.member.userID, is(notNullValue()));
-            assertThat(resultSet.member.userName, is(notNullValue()));
-            assertThat(resultSet.member.userURL, is(notNullValue()));
+            assertThat(resultSet.user.userID, is(notNullValue()));
+            assertThat(resultSet.user.userName, is(notNullValue()));
+            assertThat(resultSet.user.userURL, is(notNullValue()));
 
             for (int i = 0; i < resultSet.comments.size(); i++)
             {
@@ -126,9 +126,9 @@ public class IndividualItemTest
             assertThat(resultSet.tuneDetails.basicTuneDetails.tuneID, is(notNullValue()));
             assertThat(resultSet.tuneDetails.basicTuneDetails.tuneURL, is(notNullValue()));
 
-            assertThat(resultSet.member.userID, is(notNullValue()));
-            assertThat(resultSet.member.userName, is(notNullValue()));
-            assertThat(resultSet.member.userURL, is(notNullValue()));
+            assertThat(resultSet.user.userID, is(notNullValue()));
+            assertThat(resultSet.user.userName, is(notNullValue()));
+            assertThat(resultSet.user.userURL, is(notNullValue()));
 
             for (int i = 0; i < resultSet.settings.size(); i++)
             {
@@ -173,9 +173,9 @@ public class IndividualItemTest
             assertThat(resultSet.sessionDetails.sessionURL, is(notNullValue()));
             assertThat(resultSet.sessionDetails.submittedDate, is(notNullValue()));
 
-            assertThat(resultSet.member.userID, is(notNullValue()));
-            assertThat(resultSet.member.userName, is(notNullValue()));
-            assertThat(resultSet.member.userURL, is(notNullValue()));
+            assertThat(resultSet.user.userID, is(notNullValue()));
+            assertThat(resultSet.user.userName, is(notNullValue()));
+            assertThat(resultSet.user.userURL, is(notNullValue()));
 
             assertThat(resultSet.schedule.toString(), is(notNullValue()));
 
@@ -219,9 +219,9 @@ public class IndividualItemTest
             assertThat(resultSet.schedule.startDate, is(notNullValue()));
             assertThat(resultSet.schedule.endDate, is(notNullValue()));
 
-            assertThat(resultSet.member.userID, is(notNullValue()));
-            assertThat(resultSet.member.userName, is(notNullValue()));
-            assertThat(resultSet.member.userURL, is(notNullValue()));
+            assertThat(resultSet.user.userID, is(notNullValue()));
+            assertThat(resultSet.user.userName, is(notNullValue()));
+            assertThat(resultSet.user.userURL, is(notNullValue()));
 
             assertThat(resultSet.coordinates.latitude, is(notNullValue()));
             assertThat(resultSet.coordinates.longitude, is(notNullValue()));
@@ -271,9 +271,9 @@ public class IndividualItemTest
             assertThat(resultSet.tripSchedule.startDate, is(notNullValue()));
             assertThat(resultSet.tripSchedule.endDate, is(notNullValue()));
 
-            assertThat(resultSet.member.userID, is(notNullValue()));
-            assertThat(resultSet.member.userName, is(notNullValue()));
-            assertThat(resultSet.member.userURL, is(notNullValue()));
+            assertThat(resultSet.user.userID, is(notNullValue()));
+            assertThat(resultSet.user.userName, is(notNullValue()));
+            assertThat(resultSet.user.userURL, is(notNullValue()));
 
             assertThat(resultSet.coordinates.latitude, is(notNullValue()));
             assertThat(resultSet.coordinates.longitude, is(notNullValue()));

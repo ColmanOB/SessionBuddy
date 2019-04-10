@@ -14,7 +14,7 @@ import sessionbuddy.utils.StringCleaner;
 import sessionbuddy.utils.URLComposer;
 import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.User;
-import sessionbuddy.wrappers.individualresults.Set;
+import sessionbuddy.wrappers.individualresultitems.Set;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperSets;
 import sessionbuddy.wrappers.responsemetadata.ResponseHeaders;
 import sessionbuddy.wrappers.resultsets.RecentResultSets;

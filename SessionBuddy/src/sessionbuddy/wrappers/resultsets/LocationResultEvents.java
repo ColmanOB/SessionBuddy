@@ -2,22 +2,27 @@ package sessionbuddy.wrappers.resultsets;
 
 import java.util.ArrayList;
 
-import sessionbuddy.wrappers.individualresults.Event;
+import sessionbuddy.wrappers.individualresultitems.Event;
 import sessionbuddy.wrappers.responsemetadata.ResponseHeadersWithLocation;
 
 /**
- * A structure to hold an individual event from a set of search results
+ * A structure to hold the result set returned in response to 
+ * a location-based search for events
  * 
- * The search may be a keyword-based search or a search for
- * recently-added sessions
  * 
  * @author Colman O'B
- * @since 2018-01-28
+ * @since 2019-04-10
  */
 public class LocationResultEvents
 {    
+    /**
+     * Header details / metadata relating to the search result set
+     */
     public ResponseHeadersWithLocation headers;
     
+    /**
+     * A list of individual events returned in response to the search
+     */
     public ArrayList<Event> results;
     
     public LocationResultEvents(ResponseHeadersWithLocation responseHeaders, ArrayList<Event> searchResults)

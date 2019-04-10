@@ -14,6 +14,16 @@ public class ResponseHeadersWithQueryText extends ResponseHeaders
      */
     public String q;
     
+    /**
+     * Constructor used to initialise all fields
+     * 
+     * @param q The text string / keywords used when querying the API
+     * @param perpage The number of search results returned per page from the API
+     * @param format The format of the response data, always JSON for this project
+     * @param pages The number of pages of data in the JSON response
+     * @param page The current page in the JSON response
+     * @param total The total number of search results in the result set
+     */
     public ResponseHeadersWithQueryText(String q, int perPage, String format, int pages, int page, int total)
     {
         super(perPage, format, pages, page, total);

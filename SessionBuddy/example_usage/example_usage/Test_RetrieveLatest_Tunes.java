@@ -28,9 +28,9 @@ class Test_RetrieveLatest_Tunes {
 
         System.out.println("Date: " + resultSet.searchResults.get(i).settingDetails.date);
 
-        System.out.println("User ID: " + resultSet.searchResults.get(i).submitter.userID);
-        System.out.println("User Name: " + resultSet.searchResults.get(i).submitter.userName);
-        System.out.println("User Profile Page: " + resultSet.searchResults.get(i).submitter.userURL);
+        System.out.println("User ID: " + resultSet.searchResults.get(i).user.userID);
+        System.out.println("User Name: " + resultSet.searchResults.get(i).user.userName);
+        System.out.println("User Profile Page: " + resultSet.searchResults.get(i).user.userURL);
 
         System.out.println("\n");
       }

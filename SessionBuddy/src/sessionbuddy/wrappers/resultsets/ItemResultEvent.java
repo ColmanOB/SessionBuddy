@@ -31,7 +31,7 @@ public class ItemResultEvent
     /**
      * The user who submitted the event
      */
-    public User member;
+    public User user;
 
     /**
      * The start and end dates of the event
@@ -72,7 +72,7 @@ public class ItemResultEvent
      * Constructor that populates all fields
      * 
      * @param eventDetails an EventDetails object that has already been populated
-     * @param member a User object representing the event submitter
+     * @param user a User object representing the event submitter
      * @param schedule an Schedule object populated with the start and end dates
      * @param coordinates a Coordinates object populated with latitude and longitude
      * @param venue a Venue object that has already been populated with any available venue details
@@ -81,10 +81,10 @@ public class ItemResultEvent
      * @param country a Country object that has already been populated
      * @param comments an ArrayList of Comment objects that have already been populated
      */
-    public ItemResultEvent(EventDetails eventDetails, User member, Schedule schedule, Coordinates coordinates, Venue venue, Town town, Area area, Country country, ArrayList<Comment> comments)
+    public ItemResultEvent(EventDetails eventDetails, User user, Schedule schedule, Coordinates coordinates, Venue venue, Town town, Area area, Country country, ArrayList<Comment> comments)
     {
         this.eventDetails = eventDetails;
-        this.member = member;
+        this.user = user;
         this.schedule = schedule;
         this.coordinates = coordinates;
         this.venue = venue;

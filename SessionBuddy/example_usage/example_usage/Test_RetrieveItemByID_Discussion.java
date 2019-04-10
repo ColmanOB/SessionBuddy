@@ -24,9 +24,9 @@ public class Test_RetrieveItemByID_Discussion
 
             // Print out attributes of the user who submitted the discussion
             System.out.println("Submitted by user: ");
-            System.out.println("User ID: " + resultSet.member.userID);
-            System.out.println("Username: " + resultSet.member.userName);
-            System.out.println("User Profile Page: " + resultSet.member.userURL);
+            System.out.println("User ID: " + resultSet.user.userID);
+            System.out.println("Username: " + resultSet.user.userName);
+            System.out.println("User Profile Page: " + resultSet.user.userURL);
             System.out.println("\n");
 
             System.out.println("Comments: \n");

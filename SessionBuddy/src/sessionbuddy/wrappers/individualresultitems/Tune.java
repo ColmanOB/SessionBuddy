@@ -1,4 +1,4 @@
-package sessionbuddy.wrappers.individualresults;
+package sessionbuddy.wrappers.individualresultitems;
 
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDate;
 import sessionbuddy.wrappers.granularobjects.User;
@@ -10,7 +10,7 @@ import sessionbuddy.wrappers.granularobjects.User;
  * return results in a totally different format
  * 
  * @author Colman O'B
- * @since 2017-09-17
+ * @since 2019-04-10
  *
  */
 public class Tune
@@ -23,7 +23,7 @@ public class Tune
     /**
      * Attributes of the user who submitted the tune
      */
-    public User submitter;
+    public User user;
 
     /**
      * Constructor
@@ -34,6 +34,6 @@ public class Tune
     public Tune(TuneDetailsWithDate details, User submitter)
     {
         this.tuneDetails = details;
-        this.submitter = submitter;
+        this.user = submitter;
     }
 }

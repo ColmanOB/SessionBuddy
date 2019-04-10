@@ -10,7 +10,7 @@ import sessionbuddy.wrappers.granularobjects.User;
  * A wrapper for the result returned when retrieving an individual tune by its ID.
  * 
  * @author Colman
- * @since 2018-01-28
+ * @since 2019-04-10
  */
 public class ItemResultTune
 {
@@ -22,7 +22,7 @@ public class ItemResultTune
     /**
      * Details of the user who submitted the tune
      */
-    public User member;
+    public User user;
 
     /**
      * Number of user tunebooks to which this tune has been added
@@ -53,17 +53,17 @@ public class ItemResultTune
    * Constructor
    * 
    * @param tuneDetails a TuneDetails object that has already been populated
-   * @param member a User object representing the tune submitter
+   * @param user a User object representing the tune submitter
    * @param tunebooks the number of user tunebooks to which this tune has been added
    * @param recordings the number of recordings containing a tune of this name
    * @param aliases a list of alternative titles for the tune
    * @param settings a list of different settings of the tune
    * @param comments a list of comments on the tune's page on thesession.org
    */
-    public ItemResultTune(TuneDetailsWithDate tuneDetails, User member, int tunebooks, int recordings, ArrayList<String> aliases, ArrayList<SettingDetailsWithAbc> settings, ArrayList<Comment> comments)
+    public ItemResultTune(TuneDetailsWithDate tuneDetails, User user, int tunebooks, int recordings, ArrayList<String> aliases, ArrayList<SettingDetailsWithAbc> settings, ArrayList<Comment> comments)
     {
         this.tuneDetails = tuneDetails;
-        this.member = member;
+        this.user = user;
         this.tunebooks = tunebooks;
         this.recordings = recordings;
         this.aliases = aliases;

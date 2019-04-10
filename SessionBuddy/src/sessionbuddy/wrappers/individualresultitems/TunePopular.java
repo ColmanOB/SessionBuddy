@@ -1,14 +1,15 @@
-package sessionbuddy.wrappers.individualresults;
+package sessionbuddy.wrappers.individualresultitems;
 
 import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDateAndTunebooks;
 import sessionbuddy.wrappers.granularobjects.User;
 
 /**
  * A structure to represent an individual result from a search 
- * for the latest tunes submitted to thesession.org
+ * for the most popular tunes on thesession.org,
+ * i.e. tunes which have been added to the largest number of tunebooks.
  * 
  * @author Colman O'B
- * @since 2018-01-28
+ * @since 2019-04-10
  *
  */
 public class TunePopular
@@ -21,7 +22,7 @@ public class TunePopular
     /**
      * Details of the user who submitted the setting
      */
-    public User submitter;
+    public User user;
 
     /**
      * Constructor
@@ -32,6 +33,6 @@ public class TunePopular
     public TunePopular(TuneDetailsWithDateAndTunebooks tuneDetails, User submitter)
     {
         this.tuneDetails = tuneDetails;
-        this.submitter = submitter;
+        this.user = submitter;
     }
 }

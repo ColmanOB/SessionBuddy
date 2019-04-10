@@ -31,9 +31,9 @@ public class Test_KeywordSearch_Recordings
                 System.out.println("Artist Name: " + resultSet.searchResults.get(i).artist.artistName);
                 System.out.println("Artist Page URL: " + resultSet.searchResults.get(i).artist.artistPageURL);
 
-                System.out.println("Submitter User ID: " + resultSet.searchResults.get(i).submitter.userID);
-                System.out.println("Submitter Username: " + resultSet.searchResults.get(i).submitter.userName);
-                System.out.println("Submitter Profile Page: " + resultSet.searchResults.get(i).submitter.userURL);
+                System.out.println("Submitter User ID: " + resultSet.searchResults.get(i).user.userID);
+                System.out.println("Submitter Username: " + resultSet.searchResults.get(i).user.userName);
+                System.out.println("Submitter Profile Page: " + resultSet.searchResults.get(i).user.userURL);
                 System.out.println("\n");
             }
         }

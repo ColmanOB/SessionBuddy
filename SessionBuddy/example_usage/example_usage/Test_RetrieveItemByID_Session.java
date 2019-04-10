@@ -20,9 +20,9 @@ public class Test_RetrieveItemByID_Session
             System.out.println("Session URL: " + resultSet.sessionDetails.sessionURL);
             System.out.println("Submitted Date: " + resultSet.sessionDetails.submittedDate);
 
-            System.out.println("Submitter User ID: " + resultSet.member.userID);
-            System.out.println("Submitter Username: " + resultSet.member.userName);
-            System.out.println("Submitter Profile Page: " + resultSet.member.userURL);
+            System.out.println("Submitter User ID: " + resultSet.user.userID);
+            System.out.println("Submitter Username: " + resultSet.user.userName);
+            System.out.println("Submitter Profile Page: " + resultSet.user.userURL);
 
             System.out.println("Session Schedule: " + resultSet.schedule.toString());
 

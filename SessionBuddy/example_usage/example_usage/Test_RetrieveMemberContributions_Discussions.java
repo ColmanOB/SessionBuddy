@@ -43,9 +43,9 @@ class Test_RetrieveMemberContributions_Discussions
                  * System.out.println(resultSet.get(i).details.numberOfComments);
                  */
 
-                System.out.println("User ID: " + resultSet.searchResults.get(i).submitter.userID);
-                System.out.println("Username: " + resultSet.searchResults.get(i).submitter.userName);
-                System.out.println("User Profile Page: " + resultSet.searchResults.get(i).submitter.userURL);
+                System.out.println("User ID: " + resultSet.searchResults.get(i).user.userID);
+                System.out.println("Username: " + resultSet.searchResults.get(i).user.userName);
+                System.out.println("User Profile Page: " + resultSet.searchResults.get(i).user.userURL);
 
                 System.out.println("\n");
             }

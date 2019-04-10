@@ -26,9 +26,9 @@ class Test_RetrieveMemberContributions_Recordings
                 System.out.println("Submission Date: " + resultSet.searchResults.get(i).recordingDetails.recordingDate);
                 System.out.println("Recurding URL: " + resultSet.searchResults.get(i).recordingDetails.recordingURL);
 
-                System.out.println("Submitter User ID: " + resultSet.searchResults.get(i).submitter.userID);
-                System.out.println("Submitter Username: " + resultSet.searchResults.get(i).submitter.userName);
-                System.out.println("Submitter Profile Page: " + resultSet.searchResults.get(i).submitter.userURL);
+                System.out.println("Submitter User ID: " + resultSet.searchResults.get(i).user.userID);
+                System.out.println("Submitter Username: " + resultSet.searchResults.get(i).user.userName);
+                System.out.println("Submitter Profile Page: " + resultSet.searchResults.get(i).user.userURL);
 
                 System.out.println("Artist ID: " + resultSet.searchResults.get(i).artist.artistID);
                 System.out.println("Artist Name: " + resultSet.searchResults.get(i).artist.artistName);
