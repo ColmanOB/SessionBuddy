@@ -3,16 +3,16 @@ package sessionbuddy.wrappers.resultsets;
 import java.util.ArrayList;
 
 import sessionbuddy.wrappers.individualresults.Event;
-import sessionbuddy.wrappers.responsemetadata.ResponseHeadersLatest;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeaders;
 
 public class RecentResultEvents
 {
 
-    public ResponseHeadersLatest responseHeaders;
+    public ResponseHeaders responseHeaders;
     
     public ArrayList<Event> searchResults;
     
-    public RecentResultEvents(ResponseHeadersLatest responseHeaders, ArrayList<Event> searchResults)
+    public RecentResultEvents(ResponseHeaders responseHeaders, ArrayList<Event> searchResults)
     {   
         this.responseHeaders = responseHeaders;
         this.searchResults = searchResults;

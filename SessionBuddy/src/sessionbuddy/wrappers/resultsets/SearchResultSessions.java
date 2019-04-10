@@ -3,7 +3,7 @@ package sessionbuddy.wrappers.resultsets;
 import java.util.ArrayList;
 
 import sessionbuddy.wrappers.individualresults.Session;
-import sessionbuddy.wrappers.responsemetadata.ResponseHeadersKeywordSearch;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeadersWithQueryText;
 
 /**
  * A structure to hold an individual event from a set of search results
@@ -16,11 +16,11 @@ import sessionbuddy.wrappers.responsemetadata.ResponseHeadersKeywordSearch;
  */
 public class SearchResultSessions
 {    
-    public ResponseHeadersKeywordSearch responseHeaders;
+    public ResponseHeadersWithQueryText responseHeaders;
     
     public ArrayList<Session> searchResults;
     
-    public SearchResultSessions(ResponseHeadersKeywordSearch responseHeaders, ArrayList<Session> searchResults)
+    public SearchResultSessions(ResponseHeadersWithQueryText responseHeaders, ArrayList<Session> searchResults)
     {   
         this.responseHeaders = responseHeaders;
         this.searchResults = searchResults;

@@ -19,7 +19,7 @@ import sessionbuddy.wrappers.granularobjects.TuneDetailsWithDateAndTunebooks;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.individualresults.TunePopular;
 import sessionbuddy.wrappers.jsonresponse.PopularWrapperTunes;
-import sessionbuddy.wrappers.responsemetadata.ResponseHeadersLatest;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeaders;
 import sessionbuddy.wrappers.resultsets.PopularResultTunes;
 
 /**
@@ -88,7 +88,7 @@ public class Popular
     private static PopularResultTunes populateTunesSearchResult(PopularWrapperTunes parsedResults)
     {        
         // Capture the metadata for the search results
-        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeaders headers = new ResponseHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<TunePopular> resultSet = new ArrayList<TunePopular>();

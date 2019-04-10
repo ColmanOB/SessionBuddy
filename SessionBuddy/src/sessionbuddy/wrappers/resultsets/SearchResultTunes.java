@@ -3,16 +3,16 @@ package sessionbuddy.wrappers.resultsets;
 import java.util.ArrayList;
 
 import sessionbuddy.wrappers.individualresults.Tune;
-import sessionbuddy.wrappers.responsemetadata.ResponseHeadersKeywordSearch;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeadersWithQueryText;
 
 public class SearchResultTunes
 {
 
-    public ResponseHeadersKeywordSearch responseHeaders;
+    public ResponseHeadersWithQueryText responseHeaders;
     
     public ArrayList<Tune> searchResults;
     
-    public SearchResultTunes(ResponseHeadersKeywordSearch responseHeaders, ArrayList<Tune> searchResults)
+    public SearchResultTunes(ResponseHeadersWithQueryText responseHeaders, ArrayList<Tune> searchResults)
     {   
         this.responseHeaders = responseHeaders;
         this.searchResults = searchResults;

@@ -32,7 +32,7 @@ import sessionbuddy.wrappers.individualresults.Trip;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTrips;
 import sessionbuddy.wrappers.jsonresponse.LocationSearchWrapperEvents;
 import sessionbuddy.wrappers.jsonresponse.LocationSearchWrapperSessions;
-import sessionbuddy.wrappers.responsemetadata.ResponseHeadersLocation;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeadersWithLocation;
 import sessionbuddy.wrappers.resultsets.LocationResultEvents;
 import sessionbuddy.wrappers.resultsets.LocationResultSessions;
 import sessionbuddy.wrappers.resultsets.LocationResultTrips;
@@ -210,7 +210,7 @@ public class Nearby
     private static LocationResultSessions populateSessionsByLocationResult(LocationSearchWrapperSessions parsedResults)
     {
         // Capture the metadata for the search results
-        ResponseHeadersLocation headers = new ResponseHeadersLocation(parsedResults.latlon, parsedResults.radius, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersWithLocation headers = new ResponseHeadersWithLocation(parsedResults.latlon, parsedResults.radius, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Session> resultSet = new ArrayList<Session>();
@@ -265,7 +265,7 @@ public class Nearby
     private static LocationResultEvents populateEventsByLocationResult(LocationSearchWrapperEvents parsedResults)
     {
         // Capture the metadata for the search results
-        ResponseHeadersLocation headers = new ResponseHeadersLocation(parsedResults.latlon, parsedResults.radius, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersWithLocation headers = new ResponseHeadersWithLocation(parsedResults.latlon, parsedResults.radius, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Event> resultSet = new ArrayList<Event>();
@@ -326,7 +326,7 @@ public class Nearby
     private static LocationResultTrips populateTripsSearchResult(LatestWrapperTrips parsedResults)
     {        
         // Capture the metadata for the search results
-        ResponseHeadersLocation headers = new ResponseHeadersLocation(parsedResults.latlon, parsedResults.radius, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeadersWithLocation headers = new ResponseHeadersWithLocation(parsedResults.latlon, parsedResults.radius, parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Trip> resultSet = new ArrayList<Trip>();

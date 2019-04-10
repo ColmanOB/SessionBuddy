@@ -16,7 +16,7 @@ import sessionbuddy.wrappers.granularobjects.SetDetails;
 import sessionbuddy.wrappers.granularobjects.User;
 import sessionbuddy.wrappers.individualresults.Set;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperSets;
-import sessionbuddy.wrappers.responsemetadata.ResponseHeadersLatest;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeaders;
 import sessionbuddy.wrappers.resultsets.RecentResultSets;
 
 /**
@@ -75,7 +75,7 @@ public class Sets
     private static RecentResultSets populateSetSearchResult(LatestWrapperSets parsedResults)
     {
         // Capture the metadata for the search results
-        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeaders headers = new ResponseHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Set> resultSet = new ArrayList<Set>();

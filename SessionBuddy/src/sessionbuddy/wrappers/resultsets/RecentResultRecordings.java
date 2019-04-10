@@ -3,7 +3,7 @@ package sessionbuddy.wrappers.resultsets;
 import java.util.ArrayList;
 
 import sessionbuddy.wrappers.individualresults.Recording;
-import sessionbuddy.wrappers.responsemetadata.ResponseHeadersLatest;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeaders;
 
 /**
  * A structure to hold an individual recording listing from a set of search
@@ -17,11 +17,11 @@ import sessionbuddy.wrappers.responsemetadata.ResponseHeadersLatest;
  */
 public class RecentResultRecordings
 {
-    public ResponseHeadersLatest responseHeaders;
+    public ResponseHeaders responseHeaders;
     
     public ArrayList<Recording> searchResults;
     
-    public RecentResultRecordings(ResponseHeadersLatest responseHeaders, ArrayList<Recording> searchResults)
+    public RecentResultRecordings(ResponseHeaders responseHeaders, ArrayList<Recording> searchResults)
     {   
         this.responseHeaders = responseHeaders;
         this.searchResults = searchResults;

@@ -40,7 +40,7 @@ import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperRecordings;
 import sessionbuddy.wrappers.jsonresponse.KeywordSearchWrapperSessions;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperSets;
 import sessionbuddy.wrappers.jsonresponse.LatestWrapperTunes;
-import sessionbuddy.wrappers.responsemetadata.ResponseHeadersLatest;
+import sessionbuddy.wrappers.responsemetadata.ResponseHeaders;
 import sessionbuddy.wrappers.resultsets.RecentResultDiscussions;
 import sessionbuddy.wrappers.resultsets.RecentResultEvents;
 import sessionbuddy.wrappers.resultsets.RecentResultRecordings;
@@ -368,7 +368,7 @@ public class MemberContribution
     private static RecentResultTunes populateTunesSearchResult(LatestWrapperTunes parsedResults)
     {
         // Capture the metadata for the search results
-        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeaders headers = new ResponseHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<TuneLatest> resultSet = new ArrayList<TuneLatest>();
@@ -413,7 +413,7 @@ public class MemberContribution
     private static RecentResultRecordings populateRecordingsSearchResult(KeywordSearchWrapperRecordings parsedResults)
     {
         // Capture the metadata for the search results
-        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeaders headers = new ResponseHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Recording> resultSet = new ArrayList<Recording>();
@@ -459,7 +459,7 @@ public class MemberContribution
     private static RecentResultSessions populateSessionsSearchResult(KeywordSearchWrapperSessions parsedResults)
     {
         // Capture the metadata for the search results
-        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeaders headers = new ResponseHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Session> resultSet = new ArrayList<Session>();
@@ -521,7 +521,7 @@ public class MemberContribution
     private static RecentResultEvents populateEventsSearchResult(KeywordSearchWrapperEvents parsedResults)
     {
         // Capture the metadata for the search results
-        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeaders headers = new ResponseHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Event> resultSet = new ArrayList<Event>();
@@ -589,7 +589,7 @@ public class MemberContribution
     private static RecentResultDiscussions populateDiscussionsSearchResult(KeywordSearchWrapperDiscussions parsedResults)
     {
         // Capture the metadata for the search results
-        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeaders headers = new ResponseHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Discussion> resultSet = new ArrayList<Discussion>();
@@ -635,7 +635,7 @@ public class MemberContribution
         pageCount = Integer.parseInt(parsedResults.pages); */
 
         // Capture the metadata for the search results
-        ResponseHeadersLatest headers = new ResponseHeadersLatest(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
+        ResponseHeaders headers = new ResponseHeaders(parsedResults.perpage, parsedResults.format, parsedResults.pages, parsedResults.page, parsedResults.total);
         
         // This will hold the list of individual items in the result set
         ArrayList<Set> resultSet = new ArrayList<Set>();
