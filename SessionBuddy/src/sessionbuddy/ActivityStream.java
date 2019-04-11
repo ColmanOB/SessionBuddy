@@ -402,7 +402,10 @@ public class ActivityStream
     /**
      * A helper method used to put the URL together to query the API at thesession.org
      * for an activity stream, specifically one with no data category, i.e. for retrieving
-     * details of all recent activity across thesession.org
+     * details of all recent activity across thesession.org.
+     * 
+     * This is used when you do not want to specify either the number of results to be 
+     * returned per page, nor a specific page number within the response.
      * 
      * @return A URL specifying a particular resource from thesession.org API
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
@@ -426,7 +429,10 @@ public class ActivityStream
     /**
      * A helper method used to put the URL together to query the API at thesession.org
      * for an activity stream, specifically one with no data category, i.e. for retrieving
-     * details of all recent activity across thesession.org
+     * details of all recent activity across thesession.org.  
+     * 
+     * This is used when you want to specify the number of results to be returned per page, 
+     * but do not want to specify a particular page number.
      * 
      * @return A URL specifying a particular resource from thesession.org API
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
@@ -447,13 +453,11 @@ public class ActivityStream
                             .itemsPerPage(resultsPerPage)
                             .build();
         }
-        
         // If anything other than a positive integer was specified as the page number
         else
         {
             throw new IllegalArgumentException("Results per page number must be an integer value greater than zero");
         }
-        
         return requestURL;
     }
     
@@ -462,7 +466,9 @@ public class ActivityStream
      * for an activity stream, specifically one with no data category, i.e. for retrieving
      * details of all recent activity across thesession.org
      * 
-     * @return A URL specifying a particular resource from thesession.org API
+     * @param resultsPerPage The number of results to be returned per page in the JSON response from the API
+     * @param pageNumber An individual page number within the JSON response from the API
+     * @return A URL specifying the activity stream across all categories on thesession.org
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
      * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
      */
@@ -482,16 +488,25 @@ public class ActivityStream
                     .pageNumber(pageNumber)
                     .build();
         }
-
         // If anything other than a positive integer was specified as the page number
         else
         {
             throw new IllegalArgumentException("Page number must be an integer value greater than zero");
         }
-        
         return requestURL;
     }
         
+    /**
+     * A helper method used to put the URL together to query the API at thesession.org
+     * for an activity stream for a specific item, e.g. for retrieving details of all 
+     * recent activity relating to a particular tune or session etc.
+     * 
+     * @param dataCategory The category of data to be queried, e.g. tunes, discussions, events etc.
+     * @param itemID The numeric ID in thesession.org database of the item being queried
+     * @return A URL specifying the activity stream for a particular item on thesession.org
+     * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
+     * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
+     */
     private static URL composeURLSingleItem(DataCategory dataCategory, int itemID) throws MalformedURLException, URISyntaxException
     {
         // Build the URL with all necessary parameters to perform an API query
