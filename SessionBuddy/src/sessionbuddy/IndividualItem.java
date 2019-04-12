@@ -49,7 +49,7 @@ import sessionbuddy.wrappers.resultsets.ItemResultTune;
  * The item may be a tune, discussion, recording, session or event.
  * 
  * @author Colman
- * @since 2018-12-18
+ * @since 2019-04-12
  */
 public class IndividualItem
 {
@@ -68,12 +68,11 @@ public class IndividualItem
     {
         try
         {
+            // Query the API, parse the returned JSON into a wrapper, and return it
             DataCategory dataCategory = DataCategory.recordings;
-            // Query the API
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
-            // Parse the returned JSON into a wrapper
             ItemWrapperRecording parsedResults = JsonParser.parseResponse(response, ItemWrapperRecording.class);
-            // Return the data retrieved from the API
+
             return populateRecordingResult(parsedResults);
         } 
         catch (IOException | URISyntaxException ex)
@@ -96,12 +95,11 @@ public class IndividualItem
     {
         try
         {
+            // Query the API, parse the returned JSON into a wrapper, and return it
             DataCategory dataCategory = DataCategory.discussions;
-            // Query the API
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
-            // Parse the returned JSON into a wrapper
             ItemWrapperDiscussion parsedResults = JsonParser.parseResponse(response, ItemWrapperDiscussion.class);
-            // Return the data retrieved from the API
+
             return populateDiscussionResult(parsedResults);
         } 
         catch (IOException | URISyntaxException ex)
@@ -124,12 +122,11 @@ public class IndividualItem
     {
         try
         {
+            // Query the API, parse the returned JSON into a wrapper, and return it
             DataCategory dataCategory = DataCategory.tunes;
-            // Query the API
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
-            // Parse the returned JSON into a wrapper
             ItemWrapperTune parsedResults = JsonParser.parseResponse(response, ItemWrapperTune.class);
-            // Return the data retrieved from the API
+            
             return populateTuneResult(parsedResults);
         } 
         catch (IOException | URISyntaxException ex)
@@ -152,12 +149,11 @@ public class IndividualItem
     {
         try
         {
+            // Query the API, parse the returned JSON into a wrapper, and return it
             DataCategory dataCategory = DataCategory.sessions;
-            // Query the API
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
-            // Parse the returned JSON into a wrapper
             ItemWrapperSession parsedResults = JsonParser.parseResponse(response, ItemWrapperSession.class);
-            // Return the data retrieved from the API
+
             return populateSessionResult(parsedResults);
         } 
         catch (IOException | URISyntaxException ex)
@@ -180,12 +176,11 @@ public class IndividualItem
     {
         try
         {
+            // Query the API, parse the returned JSON into a wrapper, and return it
             DataCategory dataCategory = DataCategory.events;
-            // Query the API
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
-            // Parse the returned JSON into a wrapper
             ItemWrapperEvent parsedResults = JsonParser.parseResponse(response, ItemWrapperEvent.class);
-            // Return the data retrieved from the API
+
             return populateEventResult(parsedResults);
         } 
         catch (IOException | URISyntaxException ex)
@@ -208,12 +203,11 @@ public class IndividualItem
     {
         try
         {
+            // Query the API, parse the returned JSON into a wrapper, and return it
             DataCategory dataCategory = DataCategory.trips;
-            // Query the API
             String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
-            // Parse the returned JSON into a wrapper
             ItemWrapperTrip parsedResults = JsonParser.parseResponse(response, ItemWrapperTrip.class);
-            // Return the data retrieved from the API
+
             return populateTripResult(parsedResults);
         } 
         catch (IOException | URISyntaxException ex)
@@ -254,16 +248,17 @@ public class IndividualItem
         // Populate the track listing
         for (int i = 0; i < (parsedResults.tracks.length); i++)
         {
-            // For each individual track, create an ArrayList of TuneRecord objects
+            // For each individual track, create an ArrayList of TuneDetails objects
             ArrayList<TuneDetails> tunesOnTrack = new ArrayList<TuneDetails>();
             
-            // Populate the ArrayList of TuneRecord objects
+            // Populate the ArrayList of TuneDetails objects
             for (int j = 0; j < (parsedResults.tracks[i].tunes.length); j++)
             {
                 TuneDetails currentTune = new TuneDetails(
                         parsedResults.tracks[i].tunes[j].id,
                         StringCleaner.cleanString(parsedResults.tracks[i].tunes[j].name),
                         parsedResults.tracks[i].tunes[j].url);
+                
                 tunesOnTrack.add(currentTune);
             }
             
@@ -296,7 +291,7 @@ public class IndividualItem
             comments.add(currentComment);
         }
 
-        // Instantiate a RecordingByIDResult object & populate it with the details captured above
+        // Instantiate an object to the details captured above
         ItemResultRecording finalResult = new ItemResultRecording(recordingDetails, member, artist, tracks, comments);
         // Return the set of results that has been collected
         return finalResult;
