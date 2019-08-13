@@ -24,6 +24,12 @@ public class SearchResultTunes
      */
     public ArrayList<Tune> searchResults;
     
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of tunes returned from the API
+     */
     public SearchResultTunes(ResponseHeadersWithQueryText responseHeaders, ArrayList<Tune> searchResults)
     {   
         this.responseHeaders = responseHeaders;

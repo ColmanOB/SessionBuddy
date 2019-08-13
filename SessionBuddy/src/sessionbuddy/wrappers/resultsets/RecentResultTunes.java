@@ -24,6 +24,12 @@ public class RecentResultTunes
      */
     public ArrayList<TuneLatest> searchResults;
     
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of tunes returned from the API
+     */
     public RecentResultTunes(ResponseHeaders responseHeaders, ArrayList<TuneLatest> searchResults)
     {   
         this.responseHeaders = responseHeaders;

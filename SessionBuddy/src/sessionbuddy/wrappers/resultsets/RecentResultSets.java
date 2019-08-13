@@ -24,6 +24,12 @@ public class RecentResultSets
      */
     public ArrayList<Set> searchResults;
     
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of sets returned from the API
+     */
     public RecentResultSets(ResponseHeaders responseHeaders, ArrayList<Set> searchResults)
     {   
         this.responseHeaders = responseHeaders;

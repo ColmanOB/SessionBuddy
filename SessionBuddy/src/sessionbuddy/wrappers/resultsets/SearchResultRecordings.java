@@ -24,6 +24,12 @@ public class SearchResultRecordings
      */
     public ArrayList<Recording> searchResults;
     
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of recordings returned by the API
+     */
     public SearchResultRecordings(ResponseHeadersWithQueryText responseHeaders, ArrayList<Recording> searchResults)
     {   
         this.responseHeaders = responseHeaders;

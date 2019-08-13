@@ -25,6 +25,12 @@ public class LocationResultTrips
      */
     public ArrayList<Trip> results;
     
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of trips returned in the response from the API
+     */
     public LocationResultTrips(ResponseHeadersWithLocation responseHeaders, ArrayList<Trip> searchResults)
     {   
         this.headers = responseHeaders;

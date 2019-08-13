@@ -24,6 +24,12 @@ public class RecentResultRecordings
      */
     public ArrayList<Recording> searchResults;
     
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of recordings returned from the API
+     */
     public RecentResultRecordings(ResponseHeaders responseHeaders, ArrayList<Recording> searchResults)
     {   
         this.responseHeaders = responseHeaders;

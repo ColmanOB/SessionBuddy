@@ -36,8 +36,7 @@ public class Test_KeywordSearch_Discussions_with_Pagination
                 System.out.println("No results retrieved");
             }
 
-            // Loop through the results and print each attribute of each
-            // individual result in the set
+            // Loop through the results and print each attribute of each item in the result set
             for (int i = 0; i < resultSet.searchResults.size(); i++)
             {
                 System.out.println("Discussion ID: " + resultSet.searchResults.get(i).discussionDetails.discussionID);

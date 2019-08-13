@@ -25,6 +25,13 @@ public class RecentResultEvents
      */
     public ArrayList<Event> searchResults;
     
+    
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of events returned from the API
+     */
     public RecentResultEvents(ResponseHeaders responseHeaders, ArrayList<Event> searchResults)
     {   
         this.responseHeaders = responseHeaders;

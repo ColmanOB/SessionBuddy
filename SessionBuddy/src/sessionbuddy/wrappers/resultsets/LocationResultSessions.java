@@ -24,6 +24,12 @@ public class LocationResultSessions
      */
     public ArrayList<Session> results;
     
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of sessions returned in the response from the API
+     */
     public LocationResultSessions(ResponseHeadersWithLocation responseHeaders, ArrayList<Session> searchResults)
     {   
         this.headers = responseHeaders;

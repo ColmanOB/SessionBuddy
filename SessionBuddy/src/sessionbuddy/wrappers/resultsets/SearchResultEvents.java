@@ -24,6 +24,12 @@ public class SearchResultEvents
      */
     public ArrayList<Event> searchResults;
     
+    /**
+     * Constructor 
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of events returned from the API
+     */
     public SearchResultEvents(ResponseHeadersWithQueryText responseHeaders, ArrayList<Event> searchResults)
     {   
         this.responseHeaders = responseHeaders;

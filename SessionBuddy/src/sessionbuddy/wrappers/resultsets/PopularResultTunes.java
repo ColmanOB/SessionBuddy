@@ -24,6 +24,12 @@ public class PopularResultTunes
      */
     public ArrayList<TunePopular> searchResults;
     
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of tunes returned from the API
+     */
     public PopularResultTunes(ResponseHeaders responseHeaders, ArrayList<TunePopular> searchResults)
     {   
         this.responseHeaders = responseHeaders;

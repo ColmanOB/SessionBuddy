@@ -24,6 +24,12 @@ public class RecentResultTrips
      */
     public ArrayList<Trip> searchResults;
     
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of trips returned from the API
+     */
     public RecentResultTrips(ResponseHeaders responseHeaders, ArrayList<Trip> searchResults)
     {   
         this.responseHeaders = responseHeaders;

@@ -24,6 +24,12 @@ public class RecentResultSessions
      */
     public ArrayList<Session> searchResults;
     
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of sessions returned from the API
+     */
     public RecentResultSessions(ResponseHeaders responseHeaders, ArrayList<Session> searchResults)
     {   
         this.responseHeaders = responseHeaders;

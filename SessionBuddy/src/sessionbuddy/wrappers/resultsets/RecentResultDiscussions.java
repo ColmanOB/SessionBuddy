@@ -24,6 +24,12 @@ public class RecentResultDiscussions
      */
     public ArrayList<Discussion> searchResults;
     
+    /**
+     * Constructor
+     * 
+     * @param responseHeaders The headers returned in the JSON response from the API
+     * @param searchResults The list of discussions returned from the API
+     */
     public RecentResultDiscussions(ResponseHeaders responseHeaders, ArrayList<Discussion> searchResults)
     {   
         this.responseHeaders = responseHeaders;
