@@ -36,7 +36,7 @@ public class Test_KeywordSearch_Tune
                 System.out.println("Submitted by User ID: " + results.searchResults.get(i).user.userID);
                 System.out.println("Submitted by Username: " + results.searchResults.get(i).user.userName);
                 System.out.println("Submitter's Profile Page: " + results.searchResults.get(i).user.userURL);
-
+                
                 System.out.println("\n");
             }
         }

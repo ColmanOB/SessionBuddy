@@ -134,6 +134,47 @@ public class IndividualItem
             throw ex;
         }
     }
+    
+    
+    /**
+     * Gets all settings of a tune using its numeric ID in thesession.org,
+     * and returns them as a string formatted as an abc tunebook.
+     * 
+     * @param itemID the numeric ID of the resource to be retrieved from theession.org
+     * @return a String containing all settings of the tune, formatted as an abc tunebook
+     * @throws IOException if there is a problem with the HTTPS request to the API
+     * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
+     * @since 2019-09-03
+     */
+    public static String getTuneAsAbcTunebook(int itemID) throws IOException, URISyntaxException
+    {
+        try
+        {
+            ItemResultTune tune = getTune(itemID);
+            
+            StringBuilder sb = new StringBuilder();
+            
+            for (int i = 0; i < tune.settings.size(); i++)
+            {
+                // Set the information fields
+                // TODO: Add in a few other information fields such as 'L', 'M' etc.
+                sb.append("X:" + (i + 1) + "\n");
+                sb.append("T:" + tune.tuneDetails.basicTuneDetails.tuneName + "\n");
+                sb.append("R:" + tune.tuneDetails.tuneType + "\n");
+                sb.append("F:" + tune.settings.get(i).settingDetails.settingURL + "\n");
+                sb.append("K:" + tune.settings.get(i).settingDetails.key + "\n");
+                
+                // Format the tune body
+                sb.append(tune.settings.get(i).abc.replaceAll("! ", "\n") + "\n\n");
+            }
+            
+            return sb.toString();
+        } 
+        catch (IOException | URISyntaxException ex)
+        {
+            throw ex;
+        }
+    }
 
     /**
      * Gets the details of a session using its ID in thesession.org. 
