@@ -150,6 +150,7 @@ public class IndividualItem
     {
         try
         {
+            // Retrieve all of the tune's details from the API
             ItemResultTune tune = getTune(itemID);
             
             StringBuilder sb = new StringBuilder();
@@ -157,14 +158,16 @@ public class IndividualItem
             for (int i = 0; i < tune.settings.size(); i++)
             {
                 // Set the information fields
-                // TODO: Add in a few other information fields such as 'L', 'M' etc.
+                // TODO: Create a way to map tune type to tune meter and append it to the M: field
                 sb.append("X:" + (i + 1) + "\n");
                 sb.append("T:" + tune.tuneDetails.basicTuneDetails.tuneName + "\n");
                 sb.append("R:" + tune.tuneDetails.tuneType + "\n");
+                sb.append("M:" + "<<Add tune meter here>>" + "\n");
+                sb.append("L:" + "1/8" + "\n");
                 sb.append("F:" + tune.settings.get(i).settingDetails.settingURL + "\n");
                 sb.append("K:" + tune.settings.get(i).settingDetails.key + "\n");
                 
-                // Format the tune body
+                // Format the tune body, replacing the ! characters in the abc from the API with newlines
                 sb.append(tune.settings.get(i).abc.replaceAll("! ", "\n") + "\n\n");
             }
             
