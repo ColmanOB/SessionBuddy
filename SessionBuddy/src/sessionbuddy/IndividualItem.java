@@ -146,10 +146,11 @@ public class IndividualItem
      * @return a String containing all settings of the tune, formatted as an abc tunebook
      * @throws IOException if there is a problem with the HTTPS request to the API
      * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
-     * @since 2019-09-03
+     * @since 2019-09-04
      */
     public static String getTuneAsAbcTunebook(int itemID) throws IOException, URISyntaxException
     {
+        // TODO: split this method into smaller parts
         try
         {
             // Retrieve the tune, all of its settings, and details from the API
@@ -175,10 +176,10 @@ public class IndividualItem
                 tuneMeter.put("mazurka", "3/4");
                                 
                 // Set the information fields
-                // TODO: Create a way to map tune type to tune meter and append it to the M: field
                 sb.append("X:" + (i + 1) + "\n");
                 sb.append("T:" + tune.tuneDetails.basicTuneDetails.tuneName + "\n");
                 sb.append("R:" + tune.tuneDetails.tuneType + "\n");
+                // TODO: needs a safety mechanism in case an unknown tune type is returned
                 sb.append("M:" + tuneMeter.get(tune.tuneDetails.tuneType) + "\n");
                 sb.append("L:" + "1/8" + "\n");
                 sb.append("F:" + tune.settings.get(i).settingDetails.settingURL + "\n");
