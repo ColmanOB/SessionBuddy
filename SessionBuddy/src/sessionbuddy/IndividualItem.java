@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import sessionbuddy.utils.DataCategory;
 import sessionbuddy.utils.HttpRequestor;
@@ -150,19 +152,34 @@ public class IndividualItem
     {
         try
         {
-            // Retrieve all of the tune's details from the API
+            // Retrieve the tune, all of its settings, and details from the API
             ItemResultTune tune = getTune(itemID);
             
             StringBuilder sb = new StringBuilder();
             
             for (int i = 0; i < tune.settings.size(); i++)
             {
+                // Map each tune type to a particular meter
+                Map<String, String> tuneMeter = new HashMap<>();
+
+                tuneMeter.put("jig", "6/8");
+                tuneMeter.put("reel", "4/4");
+                tuneMeter.put("slip jig", "9/8");
+                tuneMeter.put("hornpipe", "4/4");
+                tuneMeter.put("polka", "2/4");
+                tuneMeter.put("slide", "12/8");
+                tuneMeter.put("waltz", "3/4");
+                tuneMeter.put("barndance", "4/4");
+                tuneMeter.put("strathspey", "4/4");
+                tuneMeter.put("three-two", "3/2");
+                tuneMeter.put("mazurka", "3/4");
+                                
                 // Set the information fields
                 // TODO: Create a way to map tune type to tune meter and append it to the M: field
                 sb.append("X:" + (i + 1) + "\n");
                 sb.append("T:" + tune.tuneDetails.basicTuneDetails.tuneName + "\n");
                 sb.append("R:" + tune.tuneDetails.tuneType + "\n");
-                sb.append("M:" + "<<Add tune meter here>>" + "\n");
+                sb.append("M:" + tuneMeter.get(tune.tuneDetails.tuneType) + "\n");
                 sb.append("L:" + "1/8" + "\n");
                 sb.append("F:" + tune.settings.get(i).settingDetails.settingURL + "\n");
                 sb.append("K:" + tune.settings.get(i).settingDetails.key + "\n");
