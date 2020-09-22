@@ -3,14 +3,12 @@ package sessionbuddy.utils;
 /**
  * An enumeration of different categories of request / search.
  * 
- * This is aimed at making it easier to construct the URL required 
- * to carry out any given operation, as the category of request / search 
- * is one of the key pieces of information that determines the URL to be used.
+ * Helps to construct the URL required to carry out any given operation, 
+ * as the category of request / search is one of the key pieces of information that determines the URL to be used.
  * 
  * @author Colman since 2018-12-12
  */
-public enum RequestType
-{
+public enum RequestType {
     SINGLE_ITEM, 
     SEARCH_BY_KEYWORD, 
     SEARCH_BY_LOCATION, 

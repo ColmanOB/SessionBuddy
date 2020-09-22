@@ -1,0 +1,10 @@
+sessionbuddy\MemberContributionTest.class
+sessionbuddy\RecentTest.class
+sessionbuddy\SetsTest.class
+utils\URLComposerTest.class
+sessionbuddy\KeywordSearchTest.class
+utils\HttpRequestorTest.class
+sessionbuddy\IndividualItemTest.class
+utils\StringCleanerTest.class
+sessionbuddy\PopularTest.class
+sessionbuddy\NearbyTest.class
