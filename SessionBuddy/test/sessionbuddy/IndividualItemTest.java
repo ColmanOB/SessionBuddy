@@ -39,6 +39,7 @@ public class IndividualItemTest
             ItemResultRecording resultSet = IndividualItem.getRecording(itemID);
 
             assertThat(resultSet.recordingDetails.recordingID, is(notNullValue()));
+            assertNotNull(resultSet.recordingDetails.recordingID);
             assertThat(resultSet.recordingDetails.recordingName, is(notNullValue()));
             assertThat(resultSet.recordingDetails.recordingURL, is(notNullValue()));
             assertThat(resultSet.recordingDetails.recordingDate, is(notNullValue()));
@@ -72,6 +73,7 @@ public class IndividualItemTest
             fail(e.getMessage());
         }
     }
+
 
     @Test
     public void testGetDiscussion()

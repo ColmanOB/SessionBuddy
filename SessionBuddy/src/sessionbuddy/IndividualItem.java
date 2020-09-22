@@ -47,41 +47,36 @@ import sessionbuddy.wrappers.resultsets.ItemResultTrip;
 import sessionbuddy.wrappers.resultsets.ItemResultTune;
 
 /**
- * Retrieves the data for a single item from the session.org. 
+ * Retrieve the data for a single item from the session.org. 
  * The item may be a tune, discussion, recording, session or event.
  * 
  * @author Colman
- * @since 2019-04-12
+ * @since 2020-09-22
  */
-public class IndividualItem
-{
-    /**
-     * Gets the details of a recording using its ID in thesession.org. 
-     * Details include track listing, the tunes on each track, 
-     * the comments on the recording's page on thesession.org, and more.
-     * 
-     * @param itemID the numeric ID of the resource to be retrieved from theession.org
-     * @return an ItemResultRecording object with the recording's details
-     * @throws IOException if there was a problem setting up the HTTP connection or reading from it
-     * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
-     * @since 2018-12-17
-     */
-    public static ItemResultRecording getRecording(int itemID) throws IOException, URISyntaxException
-    {
-        try
-        {
-            // Query the API, parse the returned JSON into a wrapper, and return it
-            DataCategory dataCategory = DataCategory.recordings;
-            String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
-            ItemWrapperRecording parsedResults = JsonParser.parseResponse(response, ItemWrapperRecording.class);
-
-            return populateRecordingResult(parsedResults);
-        } 
-        catch (IOException | URISyntaxException ex)
-        {
-            throw ex;
-        }
+public class IndividualItem {
+  /**
+   * Get a recording's details using its ID in thesession.org. Details include track listing, the
+   * tunes on each track, the comments on the recording's page on thesession.org, and more.
+   * 
+   * @param itemID the numeric ID of the resource to be retrieved from theession.org
+   * @return an ItemResultRecording object with the recording's details
+   * @throws IOException if there was a problem setting up the HTTP connection or reading from it
+   * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
+   * @since 2018-12-17
+   */
+  public static ItemResultRecording getRecording(int itemID)
+      throws IOException, URISyntaxException {
+    try {
+      // Query the API, parse the returned JSON into a wrapper, and return it
+      DataCategory dataCategory = DataCategory.recordings;
+      String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
+      ItemWrapperRecording parsedResults = JsonParser.parseResponse(response, ItemWrapperRecording.class);
+      return populateRecordingResult(parsedResults);
+    } 
+    catch (IOException | URISyntaxException ex) {
+      throw ex;
     }
+  }
 
     /**
      * Gets the details of a discussion using its ID in thesession.org. 
@@ -93,21 +88,18 @@ public class IndividualItem
      * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
      * @since 2018-12-17
      */
-    public static ItemResultDiscussion getDiscussion(int itemID) throws IOException, URISyntaxException
-    {
-        try
-        {
-            // Query the API, parse the returned JSON into a wrapper, and return it
-            DataCategory dataCategory = DataCategory.discussions;
-            String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
-            ItemWrapperDiscussion parsedResults = JsonParser.parseResponse(response, ItemWrapperDiscussion.class);
-
-            return populateDiscussionResult(parsedResults);
-        } 
-        catch (IOException | URISyntaxException ex)
-        {
-            throw ex;
-        }
+    public static ItemResultDiscussion getDiscussion(int itemID)
+        throws IOException, URISyntaxException {
+      try {
+        // Query the API, parse the returned JSON into a wrapper, and return it
+        DataCategory dataCategory = DataCategory.discussions;
+        String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
+        ItemWrapperDiscussion parsedResults = JsonParser.parseResponse(response, ItemWrapperDiscussion.class);
+        return populateDiscussionResult(parsedResults);
+      } 
+      catch (IOException | URISyntaxException ex) {
+        throw ex;
+      }
     }
 
     /**
