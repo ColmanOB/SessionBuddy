@@ -38,17 +38,16 @@ public class IndividualItemTest
         {
             ItemResultRecording resultSet = IndividualItem.getRecording(itemID);
 
-            assertThat(resultSet.recordingDetails.recordingID, is(notNullValue()));
             assertNotNull(resultSet.recordingDetails.recordingID);
-            assertThat(resultSet.recordingDetails.recordingName, is(notNullValue()));
-            assertThat(resultSet.recordingDetails.recordingURL, is(notNullValue()));
-            assertThat(resultSet.recordingDetails.recordingDate, is(notNullValue()));
-
-            assertThat(resultSet.user.userID, is(notNullValue()));
-            assertThat(resultSet.user.userName, is(notNullValue()));
-            assertThat(resultSet.user.userURL, is(notNullValue()));
-
-            assertThat(resultSet.artist.artistName, is(notNullValue()));
+            assertNotNull(resultSet.recordingDetails.recordingName);
+            assertNotNull(resultSet.recordingDetails.recordingURL);
+            assertNotNull(resultSet.recordingDetails.recordingDate);
+            
+            assertNotNull(resultSet.user.userID);
+            assertNotNull(resultSet.user.userName);
+            assertNotNull(resultSet.user.userURL);
+            
+            assertNotNull(resultSet.artist.artistName);
 
             assertTrue(resultSet.tracks.size() > 0);
 

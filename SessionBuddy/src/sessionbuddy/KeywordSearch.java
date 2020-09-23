@@ -600,8 +600,8 @@ public class KeywordSearch
             // Extract the required elements from each individual search result in the JSON response
             TripDetails details = new TripDetails(
                     parsedResults.trips[i].id, 
-                    parsedResults.trips[i].url,
                     parsedResults.trips[i].name,
+                    parsedResults.trips[i].url,
                     parsedResults.trips[i].date);
             
             Schedule tripSchedule = new Schedule(

@@ -721,17 +721,16 @@ public class IndividualItem {
      * @throws MalformedURLException if the UrlBuilder.buildURL static method throws a MalformedURLException
      * @throws URISyntaxException if the UrlBuilder.buildURL static method throws a URISyntaxException
      */
-    private static URL composeURL(DataCategory dataCategory, int itemID) throws MalformedURLException, URISyntaxException
-    {
-        // Build the URL with all necessary parameters to perform an API query
-        URL requestURL;
-        URLComposer builder = new URLComposer();
+    private static URL composeURL(DataCategory dataCategory, int itemID)
+        throws MalformedURLException, URISyntaxException {
+      URL requestURL;
+      URLComposer builder = new URLComposer();
 
-        requestURL = builder
-                .new Builder()
-                .requestType(RequestType.SINGLE_ITEM)
-                .path(dataCategory + "/" + itemID).build();
+      requestURL = builder.new Builder()
+          .requestType(RequestType.SINGLE_ITEM)
+          .path(dataCategory + "/" + itemID)
+          .build();
 
-        return requestURL;
+      return requestURL;
     }
 }
