@@ -26,52 +26,49 @@ import sessionbuddy.wrappers.resultsets.ItemResultTune;
  * @author Colman
  * @since 2019-02-13
  */
-public class IndividualItemTest
-{
+public class IndividualItemTest {
 
-    @Test
-    public void testRetrieveRecording()
-    {
-        int itemID = 666;
+  @Test
+  public void testRetrieveRecording() {
+    int itemID = 666;
 
-        try
-        {
-            ItemResultRecording resultSet = IndividualItem.getRecording(itemID);
+    try {
+      ItemResultRecording resultSet = IndividualItem.getRecording(itemID);
 
-            assertNotNull(resultSet.recordingDetails.recordingID);
-            assertNotNull(resultSet.recordingDetails.recordingName);
-            assertNotNull(resultSet.recordingDetails.recordingURL);
-            assertNotNull(resultSet.recordingDetails.recordingDate);
-            
-            assertNotNull(resultSet.user.userID);
-            assertNotNull(resultSet.user.userName);
-            assertNotNull(resultSet.user.userURL);
-            
-            assertNotNull(resultSet.artist.artistName);
+      assertNotNull(resultSet.recordingDetails.recordingID);
+      assertNotNull(resultSet.recordingDetails.recordingName);
+      assertNotNull(resultSet.recordingDetails.recordingURL);
+      assertNotNull(resultSet.recordingDetails.recordingDate);
 
-            assertTrue(resultSet.tracks.size() > 0);
+      assertNotNull(resultSet.user.userID);
+      assertNotNull(resultSet.user.userName);
+      assertNotNull(resultSet.user.userURL);
 
-            // Test that the first track on the recording has at least one tune
-            assertTrue(resultSet.tracks.get(0).tunes.size() > 0);
+      assertNotNull(resultSet.artist.artistName);
 
-            // We know this particular recording has at least one comment
-            assertTrue(resultSet.comments.size() > 0);
-            assertThat(resultSet.comments.get(0).id, is(notNullValue()));
-            assertThat(resultSet.comments.get(0).url, is(notNullValue()));
-            assertThat(resultSet.comments.get(0).date, is(notNullValue()));
+      assertTrue(resultSet.tracks.size() > 0);
 
-            assertThat(resultSet.comments.get(0).member.userID, is(notNullValue()));
-            assertThat(resultSet.comments.get(0).member.userName, is(notNullValue()));
-            assertThat(resultSet.comments.get(0).member.userURL, is(notNullValue()));
-            
-            assertThat(resultSet.comments.get(0).content, is(notNullValue()));
-        }
+      // Test that the first track on the recording has at least one tune
+      assertTrue(resultSet.tracks.get(0).tunes.size() > 0);
 
-        catch (IOException | IllegalStateException | URISyntaxException e)
-        {
-            fail(e.getMessage());
-        }
+      // We know this particular recording has at least one comment
+      assertTrue(resultSet.comments.size() > 0);
+
+      assertNotNull(resultSet.comments.get(0).id);
+      assertNotNull(resultSet.comments.get(0).url);
+      assertNotNull(resultSet.comments.get(0).date);
+
+      assertNotNull(resultSet.comments.get(0).member.userID);
+      assertNotNull(resultSet.comments.get(0).member.userName);
+      assertNotNull(resultSet.comments.get(0).member.userURL);
+
+      assertNotNull(resultSet.comments.get(0).content);
     }
+
+    catch (IOException | IllegalStateException | URISyntaxException e) {
+      fail(e.getMessage());
+    }
+  }
 
 
     @Test

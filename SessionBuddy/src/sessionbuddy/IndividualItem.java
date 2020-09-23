@@ -68,10 +68,10 @@ public class IndividualItem {
       throws IOException, URISyntaxException {
     try {
       // Query the API, parse the returned JSON into a wrapper, and return it
-      DataCategory dataCategory = DataCategory.recordings;
-      String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
-      ItemWrapperRecording parsedResults = JsonParser.parseResponse(response, ItemWrapperRecording.class);
-      return populateRecordingResult(parsedResults);
+      DataCategory category = DataCategory.recordings;
+      String response = HttpRequestor.submitRequest(composeURL(category, itemID));
+      ItemWrapperRecording parsedResponse = JsonParser.parseResponse(response, ItemWrapperRecording.class);
+      return populateRecordingResult(parsedResponse);
     } 
     catch (IOException | URISyntaxException ex) {
       throw ex;
@@ -92,10 +92,10 @@ public class IndividualItem {
         throws IOException, URISyntaxException {
       try {
         // Query the API, parse the returned JSON into a wrapper, and return it
-        DataCategory dataCategory = DataCategory.discussions;
-        String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
-        ItemWrapperDiscussion parsedResults = JsonParser.parseResponse(response, ItemWrapperDiscussion.class);
-        return populateDiscussionResult(parsedResults);
+        DataCategory category = DataCategory.discussions;
+        String response = HttpRequestor.submitRequest(composeURL(category, itemID));
+        ItemWrapperDiscussion parsedResponse = JsonParser.parseResponse(response, ItemWrapperDiscussion.class);
+        return populateDiscussionResult(parsedResponse);
       } 
       catch (IOException | URISyntaxException ex) {
         throw ex;
@@ -112,21 +112,17 @@ public class IndividualItem {
      * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
      * @since 2018-12-17
      */
-    public static ItemResultTune getTune(int itemID) throws IOException, URISyntaxException
-    {
-        try
-        {
-            // Query the API, parse the returned JSON into a wrapper, and return it
-            DataCategory dataCategory = DataCategory.tunes;
-            String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
-            ItemWrapperTune parsedResults = JsonParser.parseResponse(response, ItemWrapperTune.class);
-            
-            return populateTuneResult(parsedResults);
-        } 
-        catch (IOException | URISyntaxException ex)
-        {
-            throw ex;
-        }
+    public static ItemResultTune getTune(int itemID) throws IOException, URISyntaxException {
+      try {
+        // Query the API, parse the returned JSON into a wrapper, and return it
+        DataCategory dataCategory = DataCategory.tunes;
+        String response = HttpRequestor.submitRequest(composeURL(dataCategory, itemID));
+        ItemWrapperTune parsedResults = JsonParser.parseResponse(response, ItemWrapperTune.class);
+        return populateTuneResult(parsedResults);
+      } 
+      catch (IOException | URISyntaxException ex) {
+        throw ex;
+      }
     }
     
     
@@ -140,53 +136,52 @@ public class IndividualItem {
      * @throws URISyntaxException if the UrlBuilder class throws a URISyntaxException
      * @since 2019-09-04
      */
-    public static String getTuneAsAbcTunebook(int itemID) throws IOException, URISyntaxException
-    {
-        // TODO: split this method into smaller parts
-        try
-        {
-            // Retrieve the tune, all of its settings, and details from the API
-            ItemResultTune tune = getTune(itemID);
-            
-            StringBuilder sb = new StringBuilder();
-            
-            for (int i = 0; i < tune.settings.size(); i++)
-            {
-                // Map each tune type to a particular meter
-                Map<String, String> tuneMeter = new HashMap<>();
+    public static String getTuneAsAbcTunebook(int itemID) throws IOException, URISyntaxException {
+      // TODO: split this method into smaller parts
+      try {
+        // Retrieve the tune, all of its settings, and details from the API
+        ItemResultTune tune = getTune(itemID);
+        StringBuilder sb = new StringBuilder();
+        
+        // Map each tune type to a particular meter
+        Map<String, String> tuneMeter = new HashMap<>();
+        tuneMeter.put("jig", "6/8");
+        tuneMeter.put("reel", "4/4");
+        tuneMeter.put("slip jig", "9/8");
+        tuneMeter.put("hornpipe", "4/4");
+        tuneMeter.put("polka", "2/4");
+        tuneMeter.put("slide", "12/8");
+        tuneMeter.put("waltz", "3/4");
+        tuneMeter.put("barndance", "4/4");
+        tuneMeter.put("strathspey", "4/4");
+        tuneMeter.put("three-two", "3/2");
+        tuneMeter.put("mazurka", "3/4");
 
-                tuneMeter.put("jig", "6/8");
-                tuneMeter.put("reel", "4/4");
-                tuneMeter.put("slip jig", "9/8");
-                tuneMeter.put("hornpipe", "4/4");
-                tuneMeter.put("polka", "2/4");
-                tuneMeter.put("slide", "12/8");
-                tuneMeter.put("waltz", "3/4");
-                tuneMeter.put("barndance", "4/4");
-                tuneMeter.put("strathspey", "4/4");
-                tuneMeter.put("three-two", "3/2");
-                tuneMeter.put("mazurka", "3/4");
-                                
-                // Set the information fields
-                sb.append("X:" + (i + 1) + "\n");
-                sb.append("T:" + tune.tuneDetails.basicTuneDetails.tuneName + "\n");
-                sb.append("R:" + tune.tuneDetails.tuneType + "\n");
-                // TODO: needs a safety mechanism in case an unknown tune type is returned
-                sb.append("M:" + tuneMeter.get(tune.tuneDetails.tuneType) + "\n");
-                sb.append("L:" + "1/8" + "\n");
-                sb.append("F:" + tune.settings.get(i).settingDetails.settingURL + "\n");
-                sb.append("K:" + tune.settings.get(i).settingDetails.key + "\n");
-                
-                // Format the tune body, replacing the ! characters in the abc from the API with newlines
-                sb.append(tune.settings.get(i).abc.replaceAll("! ", "\n") + "\n\n");
-            }
-            
-            return sb.toString();
-        } 
-        catch (IOException | URISyntaxException ex)
-        {
-            throw ex;
+        for (int i = 0; i < tune.settings.size(); i++) {
+
+          // Set the information fields
+          sb.append("X:" + (i + 1) + "\n");
+          sb.append("T:" + tune.tuneDetails.basicTuneDetails.tuneName + "\n");
+          sb.append("R:" + tune.tuneDetails.tuneType + "\n");
+          // safety mechanism in case an unknown tune type is returned
+          if (tuneMeter.containsKey(tune.tuneDetails.tuneType)) {
+            sb.append("M:" + tuneMeter.get(tune.tuneDetails.tuneType) + "\n");
+          }
+          else {
+            throw new IllegalArgumentException("Unknown tune type: " + tune.tuneDetails.tuneType);
+          }
+          sb.append("L:" + "1/8" + "\n");
+          sb.append("F:" + tune.settings.get(i).settingDetails.settingURL + "\n");
+          sb.append("K:" + tune.settings.get(i).settingDetails.key + "\n");
+
+          // Format the tune body, replacing the ! characters in the abc from the API with newlines
+          sb.append(tune.settings.get(i).abc.replaceAll("! ", "\n") + "\n\n");
         }
+        return sb.toString();
+      } 
+      catch (IOException | URISyntaxException ex) {
+        throw ex;
+      }
     }
 
     /**
